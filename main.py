@@ -1,3 +1,5 @@
+#!/usr/bin/env -S python
+
 import subprocess
 import threading
 import time
