@@ -26,13 +26,13 @@ def button_handler(stream_key):
 
 def volume_up(encoder):
     global volume
-    volume = volume + 1
+    volume = volume + 5
     volume = max(0, min(volume, 100))
     stream_manager.set_volume(volume)
 
 def volume_down(encoder):
     global volume
-    volume = volume - 1
+    volume = volume - 5
     volume = max(0, min(volume, 100))
     stream_manager.set_volume(volume)
 
