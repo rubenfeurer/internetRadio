@@ -1,5 +1,7 @@
 import vlc
 import toml
+import time
+import threading
 
 class StreamManager:
     def __init__(self, volume):
@@ -38,3 +40,19 @@ class StreamManager:
             self.volume = volume
             print(f"Setting volume to: {self.volume}")
             self.player.audio_set_volume(self.volume)
+
+    def play_stream_radio(self, stream_url):
+        """Preview the radio stream """
+        if stream_url:
+            print(f"Starting stream: {stream_url}")
+            # Set the media to the player
+            media = vlc.Media(stream_url)
+            self.player.set_media(media)
+            self.player.play()
+            self.player.audio_set_volume(self.volume)
+            threading.Thread(target=self.stop_stream_after_delay, args=(15,)).start()
+
+    def stop_stream_after_delay(self, delay):
+        """Stop the stream after a specified delay."""
+        time.sleep(delay)  # Wait for the specified delay
+        self.player.stop()  # Stop the player

@@ -1,17 +1,19 @@
-#!/usr/bin/env -S python
-
 import subprocess
 import threading
 import time
+import os
 
-from gpiozero import Button, RotaryEncoder
+from gpiozero import Button, RotaryEncoder, LED
 from signal import pause
 
 from stream_manager import StreamManager
 from app import create_app
+from sounds import SoundManager
 
 volume = 50
+sound_folder = "/home/pi/pi_radio/sounds"
 stream_manager = None
+sound_manager = None
 
 def run_flask_app():
     app = create_app()
@@ -23,6 +25,10 @@ def button_handler(stream_key):
         stream_manager.stop_stream()
     else:
         stream_manager.play_stream(stream_key)
+
+def restart_pi():
+    print("Reboot Pi")
+    os.system("sudo reboot")
 
 def volume_up(encoder):
     global volume
@@ -58,33 +64,16 @@ def start_hotspot():
         subprocess.run(['sudo', 'nmcli', 'device', 'wifi', 'hotspot', 'ssid', 'radioDevice', 'password', 'letsgo', 'ifname', 'wlan0'], check=True)
         print("Hotspot started successfully. Visit http://192.168.50.1:8080 to configure Wi-Fi settings.")
     except subprocess.CalledProcessError as e:
-        print(f"Error starting hotspot: {e}")
-
-def initialize_radio_features():
-    global stream_manager
-    stream_manager = StreamManager(volume)
-    print(volume)
-
-    BUTTON1_PIN = 17
-    BUTTON2_PIN = 27
-    BUTTON3_PIN = 22
-
-    button1 = Button(BUTTON1_PIN, pull_up=True, bounce_time=0.2)
-    button2 = Button(BUTTON2_PIN, pull_up=True, bounce_time=0.2)
-    button3 = Button(BUTTON3_PIN, pull_up=True, bounce_time=0.2)
-
-    button1.when_pressed = lambda: button_handler('link1')
-    button2.when_pressed = lambda: button_handler('link2')
-    button3.when_pressed = lambda: button_handler('link3')
-
-    DT_PIN = 5
-    CLK_PIN = 6
-
-    encoder = RotaryEncoder(DT_PIN, CLK_PIN, bounce_time=0.1, max_steps=1, wrap=False, threshold_steps=(0, 100))
-    encoder.when_rotated_clockwise = lambda rotation: volume_down(rotation)
-    encoder.when_rotated_counter_clockwise = lambda rotation: volume_up(rotation)
+        print(f"Error starting hotspot: {e}") 
 
 if __name__ == "__main__":
+    sound_manager = SoundManager(sound_folder)
+    sound_manager.play_sound("boot.wav")
+
+    LED_PIN = 24
+    led = LED(LED_PIN)
+    led.on()
+    
     if not check_wifi():
         print("Starting Wi-Fi hotspot...")
         start_hotspot()  
@@ -93,23 +82,29 @@ if __name__ == "__main__":
     flask_thread.start()
 
     while not check_wifi():
+        led.blink(on_time=1, off_time=1)
         print("Waiting for Wi-Fi connection...")
         time.sleep(5) 
 
+    led.blink(on_time=3, off_time=3)
+    sound_manager.play_sound("wifi.wav")
     stream_manager = StreamManager(volume)
     print (volume)
 
     BUTTON1_PIN = 17  # GPIO pin for Button 1
     BUTTON2_PIN = 27  # GPIO pin for Button 2
     BUTTON3_PIN = 22  # GPIO pin for Button 3
+    ENCODER_BUTTON = 23 # GPIO pin for Encoder Button
 
     button1 = Button(BUTTON1_PIN, pull_up=True, bounce_time=0.2)
     button2 = Button(BUTTON2_PIN, pull_up=True, bounce_time=0.2)
     button3 = Button(BUTTON3_PIN, pull_up=True, bounce_time=0.2)
+    buttonEn = Button(ENCODER_BUTTON, pull_up=True, bounce_time=0.2, hold_time=2)
 
     button1.when_pressed = lambda: button_handler('link1')
     button2.when_pressed = lambda: button_handler('link2')
     button3.when_pressed = lambda: button_handler('link3')
+    buttonEn.when_held = lambda: restart_pi
 
     DT_PIN = 5  # GPIO pin for DT
     CLK_PIN = 6  # GPIO pin for CLK
@@ -117,6 +112,19 @@ if __name__ == "__main__":
     encoder = RotaryEncoder(DT_PIN, CLK_PIN, bounce_time=0.1, max_steps=1, wrap=False, threshold_steps=(0,100))
     encoder.when_rotated_clockwise = lambda rotation: volume_down(rotation)
     encoder.when_rotated_counter_clockwise = lambda rotation: volume_up(rotation)
+    
+    played = False
 
-
-    pause()
+    while True:
+        wifi_status = check_wifi()
+        if not wifi_status and not played:
+            print("WiFi connection lost")
+            sound_manager.play_sound("noWifi.wav")
+            led.blink(on_time=0.5, off_time=0.5)
+            played = True
+        elif wifi_status and played:
+            sound_manager.play_sound("wifi.wav")
+            led.blink(on_time=3, off_time=3)
+            played = False
+        
+        time.sleep(30)
