@@ -126,8 +126,8 @@
         <div class="wifi-status">
             <div class="status-text" id="wifi-ssid">WiFi</div>
             <div class="status-indicator">
-                <div class="indicator-circle" id="connection-status-circle"></div>
-                <div class="status-message" id="connection-status-message">Connected</div>
+                <div class="indicator-circle"></div>
+                <div>Connected</div>
             </div>
         </div>
         <div class="button-container">
@@ -138,7 +138,7 @@
             <div class="stream-url">Stream URL</div>
             <div class="input-row">
                 <input type="text" id="link1" name="link1" value="{{ link1 }}">
-                <button class="edit-button" onclick="toggleEdit('link1')">Change</button>
+                <button class="edit-button" onclick="toggleEdit('link1')">Save</button>
             </div>
         </div>
         <div class="input-group">
@@ -146,7 +146,7 @@
             <div class="stream-url">Stream URL</div>
             <div class="input-row">
                 <input type="text" id="link2" name="link2" value="{{ link2 }}">
-                <button class="edit-button" onclick="toggleEdit('link2')">Change</button>
+                <button class="edit-button" onclick="toggleEdit('link2')">Save</button>
             </div>
         </div>
         <div class="input-group">
@@ -154,20 +154,32 @@
             <div class="stream-url">Stream URL</div>
             <div class="input-row">
                 <input type="text" id="link3" name="link3" value="{{ link3 }}">
-                <button class="edit-button" onclick="toggleEdit('link3')">Change</button>
+                <button class="edit-button" onclick="toggleEdit('link3')">Save</button>
             </div>
         </div>
     </div>
     <script>
         function toggleEdit(id) {
-            window.location.href = `/stream-select?channel=${id}`;
+            var input = document.getElementById(id);
+            // Send the updated data to the server
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/update', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+                [id]: input.value
+            }));
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    location.reload();  // Reload page to reflect changes
+                }
+            };
         }
         function updateWifiStatus() {
             fetch('/get_wifi_ssid')
                 .then(response => response.json())
                 .then(data => {
                     if (data.ssid) {
-                        document.getElementById('wifi-ssid').textContent = `${data.ssid} WiFi`;
+                        document.getElementById('wifi-ssid').textContent = `WiFi Name: ${data.ssid}`;
                     } else if (data.error) {
                         // If no Wi-Fi is connected, redirect to the Wi-Fi settings page
                         window.location.href = '/wifi-setup';
@@ -175,30 +187,9 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
-        function updateInternetStatus() {
-            // Check internet connection by calling the server-side Flask route
-            fetch('/check_internet_connection')
-                .then(response => response.json())
-                .then(data => {
-                    if (data.connected) {
-                        document.getElementById('connection-status-circle').style.backgroundColor = 'green';
-                        document.getElementById('connection-status-message').textContent = 'Connected';
-                    } else {
-                        document.getElementById('connection-status-circle').style.backgroundColor = 'red';
-                        document.getElementById('connection-status-message').textContent = 'No Internet connection';
-                    }
-                })
-                .catch(error => {
-                    console.log(data)
-                    console.error('Error:', error);
-                    document.getElementById('connection-status-circle').style.backgroundColor = 'blue';
-                    document.getElementById('connection-status-message').textContent = 'No Internet connection';
-                });
-        }
-        window.onload = function() {
-            updateWifiStatus();
-            updateInternetStatus();
-        };
+
+        // Call the function on page load
+        window.onload = updateWifiStatus;
     </script>
 </body>
 </html>
