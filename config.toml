@@ -1,3 +1,27 @@
-link1 = "https://stream.srg-ssr.ch/m/rsj/aacp_96"
-link2 = "https://stream-relay-geo.ntslive.net/stream"
-link3 = "https://gdsfm.out.airtime.pro/gdsfm_a"
+link1 = "https://anyfm.stream.laut.fm/anyfm"
+link2 = "http://streams.90s90s.de/boygroup/mp3-192/streams.90s90s.de/"
+link3 = "https://stream.spreeradio.de/spree-chill/mp3-192/"
+[[links]]
+name = "BGM.Live"
+url = "https://anyfm.stream.laut.fm/anyfm"
+country = "USA"
+tags = [ "news", "live",]
+
+[[links]]
+name = "ECO"
+url = "http://streams.90s90s.de/boygroup/mp3-192/streams.90s90s.de/"
+country = "UK"
+tags = [ "music", "radio",]
+
+[[links]]
+name = "BNC"
+url = "https://stream.spreeradio.de/spree-chill/mp3-192/"
+country = "Canada"
+tags = [ "sports", "live", "commentary",]
+
+[[links]]
+name = "CND.Live"
+url = "https://stream.spreeradio.de/spree-chill/mp3-192/"
+country = "Pakistan"
+tags = [ "news", "community",]
+
