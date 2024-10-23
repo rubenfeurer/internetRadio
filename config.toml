@@ -2,16 +2,16 @@ link1 = "https://anyfm.stream.laut.fm/anyfm"
 link2 = "http://streams.90s90s.de/boygroup/mp3-192/streams.90s90s.de/"
 link3 = "https://stream.spreeradio.de/spree-chill/mp3-192/"
 [[links]]
-name = "BGM.Live"
-url = "https://anyfm.stream.laut.fm/anyfm"
-country = "USA"
-tags = [ "news", "live",]
+name = "Radio Swiss Jazz"
+url = "https://stream.srg-ssr.ch/m/rsj/aacp_96"
+country = "Switzerland"
+tags = [ "Jazz", "Chill",]
 
 [[links]]
-name = "ECO"
-url = "http://streams.90s90s.de/boygroup/mp3-192/streams.90s90s.de/"
+name = "NTS LIVE"
+url = "https://stream-relay-geo.ntslive.net/stream"
 country = "UK"
-tags = [ "music", "radio",]
+tags = [ "No Ads", "Experimental",]
 
 [[links]]
 name = "BNC"
@@ -20,8 +20,8 @@ country = "Canada"
 tags = [ "sports", "live", "commentary",]
 
 [[links]]
-name = "CND.Live"
-url = "https://stream.spreeradio.de/spree-chill/mp3-192/"
-country = "Pakistan"
-tags = [ "news", "community",]
+name = "GDS.FM"
+url = "https://gdsfm.out.airtime.pro/gdsfm_a"
+country = "Switzerland"
+tags = [ "No Ads", "Indie",]
 
