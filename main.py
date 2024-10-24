@@ -1,3 +1,5 @@
+#!/usr/bin/env -S python
+
 import subprocess
 import threading
 import time
@@ -11,7 +13,7 @@ from app import create_app
 from sounds import SoundManager
 
 volume = 50
-sound_folder = "/home/pi/pi_radio/sounds"
+sound_folder = "/home/rubenfeurer/internetRadio/sounds"
 stream_manager = None
 sound_manager = None
 
