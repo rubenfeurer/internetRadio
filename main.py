@@ -11,7 +11,7 @@ from app import create_app
 from sounds import SoundManager
 
 volume = 50
-sound_folder = "/home/pi/pi_radio/sounds"
+sound_folder = "/home/radio/internetRadio/sounds"
 stream_manager = None
 sound_manager = None
 
