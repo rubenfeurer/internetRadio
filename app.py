@@ -15,7 +15,18 @@ def create_app():
     def index():
         """Render the index page with configuration links."""
         config = toml.load('config.toml')
-        return render_template('index.html', link1=config.get('link1', ''), link2=config.get('link2', ''), link3=config.get('link3', ''))
+        links = config.get('links', [])
+        link1 = config.get('link1')
+        link2 = config.get('link2')
+        link3 = config.get('link3')
+
+        link_to_channel_mapping = {link['url']: link['name'] for link in links}
+    
+        channel1_name = link_to_channel_mapping.get(link1, "Unknown Channel")
+        channel2_name = link_to_channel_mapping.get(link2, "Unknown Channel")
+        channel3_name = link_to_channel_mapping.get(link3, "Unknown Channel")
+
+        return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
 
     @app.route('/wifi-setup')
     def wifi_settings():

@@ -70,16 +70,23 @@
         .input-group label {
             display: block; /* Ensure label is on its own line */
             font-weight: bold;
-            margin-bottom: 10px; /* Space between label and input/button */
-        }
-        .input-group .stream-url {
-            color: #666;
-            margin-top: 5%; /* Space between Stream URL text and input/button */
-            margin-bottom: 2%;
+            margin-bottom: 20px; /* Space between label and input/button */
         }
         .input-row {
             display: flex;
             align-items: center; /* Center items vertically */
+        }
+        span {
+            background-color: lightgray; 
+            flex: 2; 
+            padding: 10px;
+            border-radius: 4px; 
+            font-size: 1em; 
+            border: 1px solid #ccc; 
+            margin-right: 10px; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
         }
         input[type="text"] {
             background-color: lightgray;
@@ -135,25 +142,22 @@
         </div>
         <div class="input-group">
             <label for="link1">Channel 1:</label>
-            <div class="stream-url">Stream URL</div>
             <div class="input-row">
-                <input type="text" id="link1" name="link1" value="{{ link1 }}">
+                <span id="link1" name="link1">{{ link1 }}</span>
                 <button class="edit-button" onclick="toggleEdit('link1')">Change</button>
             </div>
         </div>
         <div class="input-group">
             <label for="link2">Channel 2:</label>
-            <div class="stream-url">Stream URL</div>
             <div class="input-row">
-                <input type="text" id="link2" name="link2" value="{{ link2 }}">
+                <span id="link2" name="link2">{{ link2 }}</span>
                 <button class="edit-button" onclick="toggleEdit('link2')">Change</button>
             </div>
         </div>
         <div class="input-group">
             <label for="link3">Channel 3:</label>
-            <div class="stream-url">Stream URL</div>
             <div class="input-row">
-                <input type="text" id="link3" name="link3" value="{{ link3 }}">
+                <span id="link3" name="link3">{{ link3 }}</span>
                 <button class="edit-button" onclick="toggleEdit('link3')">Change</button>
             </div>
         </div>

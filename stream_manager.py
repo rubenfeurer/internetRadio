@@ -8,12 +8,14 @@ class StreamManager:
         self.current_stream = None
         self.config = toml.load('config.toml')
         self.current_key = None  # Track the current playing stream key
+        self.last_played_url = None  # Track the current playing stream key from preview
         self.volume = volume
 
         # Create an instance of the VLC player
         self.player = vlc.MediaPlayer()
 
     def play_stream(self, stream_key):
+        self.config = toml.load('config.toml')
         """Play the radio stream associated with the given key."""
         stream_url = self.config.get(stream_key, '')
         if stream_url:
@@ -42,17 +44,26 @@ class StreamManager:
             self.player.audio_set_volume(self.volume)
 
     def play_stream_radio(self, stream_url):
-        """Preview the radio stream """
+        """Preview the radio stream."""
         if stream_url:
-            print(f"Starting stream: {stream_url}")
-            # Set the media to the player
-            media = vlc.Media(stream_url)
-            self.player.set_media(media)
-            self.player.play()
-            self.player.audio_set_volume(self.volume)
-            threading.Thread(target=self.stop_stream_after_delay, args=(15,)).start()
+            if self.last_played_url == stream_url:
+                self.player.stop() 
+                self.last_played_url = None  
+            else:
+                if self.player.is_playing():
+                    self.player.stop()  
+
+                print(f"Starting new stream: {stream_url}")
+                media = vlc.Media(stream_url)
+                self.player.set_media(media)
+                self.player.play()  
+                self.player.audio_set_volume(self.volume)
+                self.last_played_url = stream_url  
+
+                threading.Thread(target=self.stop_stream_after_delay, args=(30,)).start()
 
     def stop_stream_after_delay(self, delay):
         """Stop the stream after a specified delay."""
-        time.sleep(delay)  # Wait for the specified delay
-        self.player.stop()  # Stop the player
+        time.sleep(delay)  
+        self.player.stop()  
+        self.last_played_url = None  
