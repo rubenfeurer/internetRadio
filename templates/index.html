@@ -70,16 +70,23 @@
         .input-group label {
             display: block; /* Ensure label is on its own line */
             font-weight: bold;
-            margin-bottom: 10px; /* Space between label and input/button */
-        }
-        .input-group .stream-url {
-            color: #666;
-            margin-top: 5%; /* Space between Stream URL text and input/button */
-            margin-bottom: 2%;
+            margin-bottom: 20px; /* Space between label and input/button */
         }
         .input-row {
             display: flex;
             align-items: center; /* Center items vertically */
+        }
+        span {
+            background-color: lightgray; 
+            flex: 2; 
+            padding: 10px;
+            border-radius: 4px; 
+            font-size: 1em; 
+            border: 1px solid #ccc; 
+            margin-right: 10px; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
         }
         input[type="text"] {
             background-color: lightgray;
@@ -126,8 +133,8 @@
         <div class="wifi-status">
             <div class="status-text" id="wifi-ssid">WiFi</div>
             <div class="status-indicator">
-                <div class="indicator-circle"></div>
-                <div>Connected</div>
+                <div class="indicator-circle" id="connection-status-circle"></div>
+                <div class="status-message" id="connection-status-message">Connected</div>
             </div>
         </div>
         <div class="button-container">
@@ -135,51 +142,36 @@
         </div>
         <div class="input-group">
             <label for="link1">Channel 1:</label>
-            <div class="stream-url">Stream URL</div>
             <div class="input-row">
-                <input type="text" id="link1" name="link1" value="{{ link1 }}">
-                <button class="edit-button" onclick="toggleEdit('link1')">Save</button>
+                <span id="link1" name="link1">{{ link1 }}</span>
+                <button class="edit-button" onclick="toggleEdit('link1')">Change</button>
             </div>
         </div>
         <div class="input-group">
             <label for="link2">Channel 2:</label>
-            <div class="stream-url">Stream URL</div>
             <div class="input-row">
-                <input type="text" id="link2" name="link2" value="{{ link2 }}">
-                <button class="edit-button" onclick="toggleEdit('link2')">Save</button>
+                <span id="link2" name="link2">{{ link2 }}</span>
+                <button class="edit-button" onclick="toggleEdit('link2')">Change</button>
             </div>
         </div>
         <div class="input-group">
             <label for="link3">Channel 3:</label>
-            <div class="stream-url">Stream URL</div>
             <div class="input-row">
-                <input type="text" id="link3" name="link3" value="{{ link3 }}">
-                <button class="edit-button" onclick="toggleEdit('link3')">Save</button>
+                <span id="link3" name="link3">{{ link3 }}</span>
+                <button class="edit-button" onclick="toggleEdit('link3')">Change</button>
             </div>
         </div>
     </div>
     <script>
         function toggleEdit(id) {
-            var input = document.getElementById(id);
-            // Send the updated data to the server
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/update', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify({
-                [id]: input.value
-            }));
-            xhr.onload = function() {
-                if (xhr.status === 200) {
-                    location.reload();  // Reload page to reflect changes
-                }
-            };
+            window.location.href = `/stream-select?channel=${id}`;
         }
         function updateWifiStatus() {
             fetch('/get_wifi_ssid')
                 .then(response => response.json())
                 .then(data => {
                     if (data.ssid) {
-                        document.getElementById('wifi-ssid').textContent = `WiFi Name: ${data.ssid}`;
+                        document.getElementById('wifi-ssid').textContent = `${data.ssid} WiFi`;
                     } else if (data.error) {
                         // If no Wi-Fi is connected, redirect to the Wi-Fi settings page
                         window.location.href = '/wifi-setup';
@@ -187,9 +179,30 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
-
-        // Call the function on page load
-        window.onload = updateWifiStatus;
+        function updateInternetStatus() {
+            // Check internet connection by calling the server-side Flask route
+            fetch('/check_internet_connection')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.connected) {
+                        document.getElementById('connection-status-circle').style.backgroundColor = 'green';
+                        document.getElementById('connection-status-message').textContent = 'Connected';
+                    } else {
+                        document.getElementById('connection-status-circle').style.backgroundColor = 'red';
+                        document.getElementById('connection-status-message').textContent = 'No Internet connection';
+                    }
+                })
+                .catch(error => {
+                    console.log(data)
+                    console.error('Error:', error);
+                    document.getElementById('connection-status-circle').style.backgroundColor = 'blue';
+                    document.getElementById('connection-status-message').textContent = 'No Internet connection';
+                });
+        }
+        window.onload = function() {
+            updateWifiStatus();
+            updateInternetStatus();
+        };
     </script>
 </body>
 </html>

@@ -1,3 +1,27 @@
 link1 = "https://stream.srg-ssr.ch/m/rsj/aacp_96"
-link2 = "https://stream-relay-geo.ntslive.net/stream"
-link3 = "https://gdsfm.out.airtime.pro/gdsfm_a"
+link2 = "https://stream.spreeradio.de/spree-chill/mp3-192/"
+link3 = "https://stream-relay-geo.ntslive.net/stream"
+[[links]]
+name = "Radio Swiss Jazz"
+url = "https://stream.srg-ssr.ch/m/rsj/aacp_96"
+country = "Switzerland"
+tags = [ "Jazz", "Chill",]
+
+[[links]]
+name = "NTS LIVE"
+url = "https://stream-relay-geo.ntslive.net/stream"
+country = "UK"
+tags = [ "No Ads", "Experimental",]
+
+[[links]]
+name = "BNC"
+url = "https://stream.spreeradio.de/spree-chill/mp3-192/"
+country = "Canada"
+tags = [ "sports", "live", "commentary",]
+
+[[links]]
+name = "GDS.FM"
+url = "https://gdsfm.out.airtime.pro/gdsfm_a"
+country = "Switzerland"
+tags = [ "No Ads", "Indie",]
+
