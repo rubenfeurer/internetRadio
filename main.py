@@ -13,7 +13,7 @@ from app import create_app
 from sounds import SoundManager
 
 volume = 50
-sound_folder = "/home/rubenfeurer/internetRadio/sounds"
+sound_folder = "/home/radio/internetRadio/sounds"
 stream_manager = None
 sound_manager = None
 
