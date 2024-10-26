@@ -8,16 +8,16 @@ country = "Switzerland"
 tags = [ "Jazz", "Chill",]
 
 [[links]]
-name = "NTS LIVE"
+name = "NTS Radio 1"
 url = "https://stream-relay-geo.ntslive.net/stream"
 country = "UK"
 tags = [ "No Ads", "Experimental",]
 
 [[links]]
-name = "BNC"
-url = "https://stream.spreeradio.de/spree-chill/mp3-192/"
+name = "NTS Radio 1"
+url = "https://stream-relay-geo.ntslive.net/stream2"
 country = "Canada"
-tags = [ "sports", "live", "commentary",]
+tags = [ "No Ads", "Experimental",]
 
 [[links]]
 name = "GDS.FM"
