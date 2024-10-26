@@ -14,9 +14,9 @@ country = "UK"
 tags = [ "No Ads", "Experimental",]
 
 [[links]]
-name = "NTS Radio 1"
+name = "NTS Radio 2"
 url = "https://stream-relay-geo.ntslive.net/stream2"
-country = "Canada"
+country = "UK"
 tags = [ "No Ads", "Experimental",]
 
 [[links]]
