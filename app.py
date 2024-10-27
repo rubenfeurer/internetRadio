@@ -6,7 +6,7 @@ from stream_manager import StreamManager
 
 def create_app():
     """Create and configure the Flask app."""
-    app = Flask(__name__)
+    app = Flask(__name__, static_folder='templates/static')
     app.secret_key = 'your_secret_key_here'
 
     player = StreamManager(50)
