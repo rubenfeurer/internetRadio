@@ -1,6 +1,6 @@
 .DS_Store
 runApp.sh
-main.py
+# main.py
 update_repo.sh
 update_repo.log
 .venv/
