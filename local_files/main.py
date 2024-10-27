@@ -1,135 +1,133 @@
-from flask import Flask, render_template, session, redirect, url_for, jsonify, request
+#!/usr/bin/env -S python
+
 import subprocess
-import re
-import toml
+import threading
+import time
+import os
+
+from gpiozero import Button, RotaryEncoder, LED
+from signal import pause
+
 from stream_manager import StreamManager
+from app import create_app
+from sounds import SoundManager
 
-def create_app():
-    """Create and configure the Flask app."""
-    app = Flask(__name__)
-    app.secret_key = 'your_secret_key_here'
+volume = 50
+sound_folder = "/home/radio/internetRadio/sounds"
+stream_manager = None
+sound_manager = None
 
-    player = StreamManager(50)
+def run_flask_app():
+    app = create_app()
+    app.run(host='0.0.0.0', port=8080, debug=False)
 
-    @app.route('/')
-    def index():
-        """Render the index page with configuration links."""
-        config = toml.load('config.toml')
-        links = config.get('links', [])
-        link1 = config.get('link1')
-        link2 = config.get('link2')
-        link3 = config.get('link3')
+def button_handler(stream_key):
+    # print(f"Button pressed for {stream_key}")
+    if stream_manager.current_key == stream_key:
+        stream_manager.stop_stream()
+    else:
+        stream_manager.play_stream(stream_key)
 
-        link_to_channel_mapping = {link['url']: link['name'] for link in links}
+def restart_pi():
+    print("Reboot Pi")
+    os.system("sudo reboot")
+
+def volume_up(encoder):
+    global volume
+    volume = volume + 5
+    volume = max(0, min(volume, 100))
+    stream_manager.set_volume(volume)
+
+def volume_down(encoder):
+    global volume
+    volume = volume - 5
+    volume = max(0, min(volume, 100))
+    stream_manager.set_volume(volume)
+
+def check_wifi():
+    try:
+        # Check if connected to a Wi-Fi network (router)
+        result = subprocess.run(['iwgetid'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        if result.returncode == 0:  # Return code 0 means connected to a Wi-Fi network
+            network_name = result.stdout.decode().strip()
+            print(f"Connected to network: {network_name}")
+            return True
+        else:
+            print("Not connected to any Wi-Fi network.")
+            return False
+    except Exception as e:
+        print(f"Error checking Wi-Fi: {e}")
+        return False
+
+def start_hotspot():
+    try:
+        # Set up the hotspot using nmcli
+        print("Starting Wi-Fi hotspot...")
+        subprocess.run(['sudo', 'nmcli', 'device', 'wifi', 'hotspot', 'ssid', 'radioDevice', 'password', 'pair', 'ifname', 'wlan0'], check=True)
+        print("Hotspot started successfully. Visit http://192.168.50.1:8080 to configure Wi-Fi settings.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error starting hotspot: {e}") 
+
+if __name__ == "__main__":
+    sound_manager = SoundManager(sound_folder)
+    sound_manager.play_sound("boot.wav")
+
+    LED_PIN = 24
+    led = LED(LED_PIN)
+    led.on()
     
-        channel1_name = link_to_channel_mapping.get(link1, "Unknown Channel")
-        channel2_name = link_to_channel_mapping.get(link2, "Unknown Channel")
-        channel3_name = link_to_channel_mapping.get(link3, "Unknown Channel")
+    if not check_wifi():
+        print("Starting Wi-Fi hotspot...")
+        start_hotspot()  
 
-        return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+    flask_thread = threading.Thread(target=run_flask_app, daemon=True)
+    flask_thread.start()
 
-    @app.route('/wifi-setup')
-    def wifi_settings():
-        """Render the Wi-Fi setup page with a list of available SSIDs."""
-        ssids = scan_wifi()
-        return render_template('wifi_settings.html', ssids=ssids)
+    while not check_wifi():
+        led.blink(on_time=1, off_time=1)
+        print("Waiting for Wi-Fi connection...")
+        time.sleep(5) 
 
-    @app.route('/wifi-setup', methods=['POST'])
-    def wifi_setup():
-        ssid = request.form.get('ssid')
-        password = request.form.get('password')
-        if ssid and password:
-            # Try to connect to the Wi-Fi network
-            connect_to_wifi(ssid, password)
-            return redirect(url_for('index'))
-        return redirect(url_for('wifi_settings'))
+    led.blink(on_time=3, off_time=3)
+    sound_manager.play_sound("wifi.wav")
+    stream_manager = StreamManager(volume)
+    print (volume)
+
+    BUTTON1_PIN = 17  # GPIO pin for Button 1
+    BUTTON2_PIN = 27  # GPIO pin for Button 2
+    BUTTON3_PIN = 22  # GPIO pin for Button 3
+    ENCODER_BUTTON = 23 # GPIO pin for Encoder Button
+
+    button1 = Button(BUTTON1_PIN, pull_up=True, bounce_time=0.2)
+    button2 = Button(BUTTON2_PIN, pull_up=True, bounce_time=0.2)
+    button3 = Button(BUTTON3_PIN, pull_up=True, bounce_time=0.2)
+    buttonEn = Button(ENCODER_BUTTON, pull_up=True, bounce_time=0.2, hold_time=2)
+
+    button1.when_pressed = lambda: button_handler('link1')
+    button2.when_pressed = lambda: button_handler('link2')
+    button3.when_pressed = lambda: button_handler('link3')
+    buttonEn.when_pressed = lambda: print("Encoder Pressed")
+    buttonEn.when_held = lambda: restart_pi()
+
+    DT_PIN = 5  # GPIO pin for DT
+    CLK_PIN = 6  # GPIO pin for CLK
+
+    encoder = RotaryEncoder(DT_PIN, CLK_PIN, bounce_time=0.1, max_steps=1, wrap=False, threshold_steps=(0,100))
+    encoder.when_rotated_clockwise = lambda rotation: volume_down(rotation)
+    encoder.when_rotated_counter_clockwise = lambda rotation: volume_up(rotation)
     
-    @app.route('/stream-select', methods=['GET'])
-    def select_link():
-        channel = request.args.get('channel')  # Get channel (link1, link2, etc.) from the query params
-        # Load the config file
-        config_data = toml.load('config.toml')
+    played = False
 
-        # Extract active links
-        active_links = {
-            'link1': config_data['link1'],
-            'link2': config_data['link2'],
-            'link3': config_data['link3']
-        }
-
-        # Extract spare links
-        spare_links = config_data['links']
-
-        return render_template('stream_select.html', channel=channel, active_links=active_links, spare_links=spare_links)
-
-    @app.route('/update-stream', methods=['POST'])
-    def update_link():
-        channel = request.form['channel']  # e.g., link1, link2, link3
-        selected_link = request.form['selected_link']  # The new URL selected by the user
-
-        # Load the config file
-        config_data = toml.load('config.toml')
-
-        # Update the selected link
-        config_data[channel] = selected_link
-
-        # Write the changes back to config.toml
-        with open('config.toml', 'w') as configfile:
-            toml.dump(config_data, configfile)
-
-        print(f"Channel: {channel}, Selected Link: {selected_link}")
-        return jsonify({'success': True})  # Redirect back to the main page
-
-    @app.route('/play-stream', methods=['POST'])
-    def play_stream():
-        url_stream = request.form['url']  # Get the channel from the request
-        player.play_stream_radio(url_stream)  # Call the play_stream method
-        return jsonify({'success': True})  # Return a success response
-
-    def connect_to_wifi(ssid, password):
-        connection_command = ["nmcli", "--colors", "no", "device", "wifi", "connect", ssid, "ifname", "wlan0"]
-        if len(password) > 0:
-          connection_command.append("password")
-          connection_command.append(password)
-        result = subprocess.run(connection_command, capture_output=True)
-        if result.stderr:
-            return "Error: failed to connect to wifi network: <i>%s</i>" % result.stderr.decode()
-        elif result.stdout:
-            return "Success: <i>%s</i>" % result.stdout.decode()
-        return "Error: failed to connect."
-
-    def scan_wifi():
-        """Scan for available Wi-Fi networks and return a list of SSIDs."""
-        try:
-            result = subprocess.check_output(["sudo", "iwlist", "wlan0", "scan"], stderr=subprocess.STDOUT, text=True)
-            ssids = re.findall(r'ESSID:"(.*?)"', result)
-            return ssids
-        except subprocess.CalledProcessError as e:
-            print(f"Error scanning Wi-Fi: {e.output}")
-            return []
-
-    @app.route('/get_wifi_ssid')
-    def get_wifi_ssid():
-        try:
-            # Check the Wi-Fi connection by using iwgetid
-            result = subprocess.run(['iwgetid', '-r'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            ssid = result.stdout.decode().strip()
-            if ssid:
-                return jsonify({'ssid': ssid})
-            else:
-                return jsonify({'error': 'No Wi-Fi connected'})
-        except Exception as e:
-            return jsonify({'error': str(e)})
-    
-    @app.route('/check_internet_connection')
-    def check_internet_connection():
-        try:
-            result = subprocess.run(['ping', '-c', '1', '8.8.8.8'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            if result.returncode == 0:
-                return jsonify({'connected': True})
-            else:
-                return jsonify({'connected': False})
-        except Exception as e:
-            return jsonify({'connected': False, 'error': str(e)})
-
-    return app
+    while True:
+        wifi_status = check_wifi()
+        if not wifi_status and not played:
+            print("WiFi connection lost")
+            sound_manager.play_sound("noWifi.wav")
+            led.blink(on_time=0.5, off_time=0.5)
+            played = True
+        elif wifi_status and played:
+            sound_manager.play_sound("wifi.wav")
+            led.blink(on_time=3, off_time=3)
+            played = False
+        
+        time.sleep(30)
