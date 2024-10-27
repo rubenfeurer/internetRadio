@@ -1,6 +1,6 @@
 link1 = "https://stream.srg-ssr.ch/m/rsj/aacp_96"
-link2 = "https://stream.spreeradio.de/spree-chill/mp3-192/"
-link3 = "https://stream-relay-geo.ntslive.net/stream"
+link2 = "https://stream-relay-geo.ntslive.net/stream"
+link3 = "https://gdsfm.out.airtime.pro/gdsfm_a"
 [[links]]
 name = "Radio Swiss Jazz"
 url = "https://stream.srg-ssr.ch/m/rsj/aacp_96"
@@ -25,3 +25,26 @@ url = "https://gdsfm.out.airtime.pro/gdsfm_a"
 country = "Switzerland"
 tags = [ "No Ads", "Indie",]
 
+[[links]]
+name = "SRF 1"
+url = "https://stream.srg-ssr.ch/m/regi_bs_bl/mp3_128?.mp3"
+country = "Switzerland"
+tags = [ ]
+
+[[links]]
+name = "SRF 2"
+url = "https://stream.srg-ssr.ch/m/drs2/mp3_128?.mp3"
+country = "Switzerland"
+tags = [ ]
+
+[[links]]
+name = "SRF 3"
+url = "https://stream.srg-ssr.ch/m/drs3/mp3_128?.mp3"
+country = "Switzerland"
+tags = [ ]
+
+[[links]]
+name = "SRF Virus"
+url = "https://stream.srg-ssr.ch/m/drsvirus/mp3_128"
+country = "Switzerland"
+tags = [ ]
