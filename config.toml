@@ -48,3 +48,9 @@ name = "SRF Virus"
 url = "https://stream.srg-ssr.ch/m/drsvirus/mp3_128"
 country = "Switzerland"
 tags = [ ]
+
+[[links]]
+name = "Ambi Nature Radio"
+url = "https://nature-rex.radioca.st/stream"
+country = "Switzerland"
+tags = [ ]
