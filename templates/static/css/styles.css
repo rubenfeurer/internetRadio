@@ -104,7 +104,6 @@ button {
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
 }
-}
 
 button:hover {
     background-color: #333; /* Darker background on hover for buttons */
@@ -242,4 +241,24 @@ button:active {
    border-radius :50%;
    background-color :green;
    margin-right :10px; 
+}
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-family: var(--main-font-family);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #000;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
