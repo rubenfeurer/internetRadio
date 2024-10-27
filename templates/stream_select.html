@@ -4,30 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Stream</title>
-    <link rel="stylesheet" href="static/css/styles.css">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <div class="container">
+    <div class="container" 
+        x-data="{ 
+            searchQuery: '',
+            links: {{ spare_links|tojson }},
+            get filteredLinks() {
+                if (!this.searchQuery.trim()) return this.links;
+                return this.links.filter(link => 
+                    link.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                    link.country.toLowerCase().includes(this.searchQuery.toLowerCase())
+                );
+            }
+        }">
+        
         <h1>Select Stream</h1>
-
-        {% for link in spare_links %}
-        <div class="stream-card" onclick="updateStream('{{ channel }}', '{{ link.url }}')">
-            <div class="stream-details">
-                <h2>{{ link.name }}</h2>
-                <p>{{ link.country }}</p>
-                <!--  <div class="tags">
-                    {% for tag in link.tags %}
-                        <span class="tag">{{ tag }}</span>
-                    {% endfor %}
-                </div> -->
-            </div>
-
-            <div class="play-button" onclick="playStream(event, '{{ link.url }}')">
-                <div class="play-icon"></div>
-            </div>
+        
+        <div class="search-container">
+            <input 
+                type="text" 
+                x-model="searchQuery"
+                placeholder="Search by name or country..."
+                class="search-input"
+            >
         </div>
-        {% endfor %}
+
+        <template x-for="link in filteredLinks" :key="link.url">
+            <div class="stream-card" @click="updateStream('{{ channel }}', link.url)">
+                <div class="stream-details">
+                    <h2 x-text="link.name"></h2>
+                    <p x-text="link.country"></p>
+                </div>
+
+                <div class="play-button" @click.stop="playStream($event, link.url)">
+                    <div class="play-icon"></div>
+                </div>
+            </div>
+        </template>
     </div>
 
     <script>
@@ -39,29 +55,17 @@
                 },
                 body: new URLSearchParams({ channel: channel, selected_link: selectedLink })
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                if (data.success){
-                    window.location.href = '/'; // Redirect to home or the main page
-                } else {
-                    console.error('Update failed');
+                if (data.success) {
+                    window.location.href = '/';
                 }
             })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+            .catch(error => console.error('Error:', error));
         }
 
         function playStream(event, url) {
-            event.stopPropagation(); // Prevent the click from triggering the stream card's click event
-            event.preventDefault(); // Prevent the default action of the anchor tag
-            console.log("Playing stream for URL:", url); 
-
+            event.stopPropagation();
             fetch('/play-stream', {
                 method: 'POST',
                 headers: {
@@ -69,19 +73,9 @@
                 },
                 body: new URLSearchParams({ url: url })
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Success:', data);
-                // Optionally redirect or update the UI after successful update
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+            .then(response => response.json())
+            .then(data => console.log('Success:', data))
+            .catch(error => console.error('Error:', error));
         }
     </script>
 </body>
