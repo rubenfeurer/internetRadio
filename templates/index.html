@@ -24,15 +24,13 @@
         <div class="input-group">
             <!-- <label for="link1">Channel 1:</label> -->
             <div class="input-row">
-                <span id="link1" name="link1">{{ link1 }}</span>
-                <button class="edit-button" onclick="toggleEdit('link1')">Change</button>
+                <button class="edit-button" onclick="toggleEdit('link1')">{{ link1 }}</button>
             </div>
         </div>
         <div class="input-group">
             <!-- <label for="link2">Channel 2:</label> -->
             <div class="input-row">
-                <span id="link2" name="link2">{{ link2 }}</span>
-                <button class="edit-button" onclick="toggleEdit('link2')">Change</button>
+                <button class="edit-button" onclick="toggleEdit('link2')">{{ link2 }}</button>
             </div>
         </div>
         <div class="input-group">
@@ -48,6 +46,9 @@
                 <div class="status-message" id="connection-status-message">Connected to &nbsp;</div>
                 <div class="status-text" id="wifi-ssid">Salt_5GHz_D8261F WiFi</div>
             </div>
+        </div>
+        <div class="button-container">
+            <a href="{{ url_for('wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
         </div>
     </div>
     <script>

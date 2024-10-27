@@ -124,11 +124,27 @@ button:active {
     margin-bottom: 15px;
     color: var(--main-font-color);
     background-color: #fff;
-    padding: 15px;
+    padding: 25px 25px 25px 15px;
     border-radius: 8px;
     cursor: pointer;
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    text-align: left;
+    display: flex;  /* Add this */
+    justify-content: space-between;  /* Add this */
+    align-items: center;  /* Add this */
+}
+
+/* Add this new class for the arrow */
+.edit-button::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid #000;
+    border-right: 2px solid #000;
+    transform: rotate(45deg);
+    margin-left: 10px;
 }
 
 /* Stream Card Styles (for displaying streams) */
@@ -239,10 +255,12 @@ button:active {
    display:flex;
    justify-content :space-between;
    align-items:center; 
+   margin-top: 50px;;
 }
 
 .wifi-status .status-text {
    color:black; 
+   text-align: left;
 }
 .wifi-status .status-indicator {
    display:flex;
@@ -262,7 +280,7 @@ button:active {
 
 .search-input {
     width: 100%;
-    padding: 10px;
+    padding: 15px 40px 15px 15px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
