@@ -12,12 +12,15 @@
         <h1>Select Stream</h1>
         
         <div class="search-container">
-            <input 
-                type="text" 
-                id="searchInput"
-                placeholder="Search by name or country..."
-                class="search-input"
-            >
+            <div class="search-wrapper">
+                <input 
+                    type="text" 
+                    id="searchInput"
+                    placeholder="Search by name or country..."
+                    class="search-input"
+                >
+                <button id="clearSearch" class="clear-search" style="display: none;">×</button>
+            </div>
         </div>
 
         <div id="streamList">
@@ -38,8 +41,43 @@
     </div>
 
     <script>
+        const searchInput = document.getElementById('searchInput');
+        const clearButton = document.getElementById('clearSearch');
+        const streamList = document.getElementById('streamList');
         let currentlyPlaying = null;
         let streamCheckInterval = null;
+
+        // Show/hide clear button and handle search
+        searchInput.addEventListener('input', function() {
+            clearButton.style.display = this.value ? '' : 'none';
+            
+            const searchTerm = this.value.toLowerCase().trim();
+            const streamCards = streamList.getElementsByClassName('stream-card');
+
+            for (let card of streamCards) {
+                const name = card.querySelector('h2').textContent.toLowerCase();
+                const country = card.querySelector('p').textContent.toLowerCase();
+                
+                if (name.includes(searchTerm) || country.includes(searchTerm) || searchTerm === '') {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            }
+        });
+
+        // Clear search when button is clicked
+        clearButton.addEventListener('click', function() {
+            searchInput.value = '';
+            clearButton.style.display = 'none';
+            searchInput.focus();
+            
+            // Show all stream cards
+            const streamCards = streamList.getElementsByClassName('stream-card');
+            for (let card of streamCards) {
+                card.style.display = '';
+            }
+        });
 
         function updateStream(channel, selectedLink) {
             fetch('/update-stream', {
@@ -61,11 +99,10 @@
         function playStream(event, url, button) {
             event.stopPropagation();
             
-            // Reset previous playing button if exists
             if (currentlyPlaying && currentlyPlaying !== button) {
                 currentlyPlaying.querySelector('.play-icon').style.display = '';
                 currentlyPlaying.querySelector('.pause-icon').style.display = 'none';
-                currentlyPlaying.style.backgroundColor = '#353030';  // Reset color
+                currentlyPlaying.style.backgroundColor = '#353030';
                 clearInterval(streamCheckInterval);
             }
 
@@ -74,23 +111,20 @@
             const isPlaying = playIcon.style.display === 'none';
 
             if (isPlaying) {
-                // Switch to play icon
                 playIcon.style.display = '';
                 pauseIcon.style.display = 'none';
-                button.style.backgroundColor = '#353030';  // Reset color
+                button.style.backgroundColor = '#353030';
                 currentlyPlaying = null;
                 clearInterval(streamCheckInterval);
             } else {
-                // Switch to pause icon
                 playIcon.style.display = 'none';
                 pauseIcon.style.display = '';
-                button.style.backgroundColor = '#ff0000';  // Set to red
+                button.style.backgroundColor = '#ff0000';
                 currentlyPlaying = button;
 
-                // Start checking stream status
                 streamCheckInterval = setInterval(() => {
                     checkStreamStatus(button);
-                }, 1000); // Check every second
+                }, 1000);
             }
 
             fetch('/play-stream', {
@@ -110,37 +144,15 @@
             .then(response => response.json())
             .then(data => {
                 if (!data.is_running) {
-                    // Stream has stopped
                     button.querySelector('.play-icon').style.display = '';
                     button.querySelector('.pause-icon').style.display = 'none';
-                    button.style.backgroundColor = '#353030';  // Reset color
+                    button.style.backgroundColor = '#353030';
                     currentlyPlaying = null;
                     clearInterval(streamCheckInterval);
                 }
             })
             .catch(error => console.error('Error:', error));
         }
-
-        // Search functionality
-        const searchInput = document.getElementById('searchInput');
-        const streamList = document.getElementById('streamList');
-        const streams = {{ spare_links|tojson }};
-
-        searchInput.addEventListener('input', function(e) {
-            const searchTerm = e.target.value.toLowerCase().trim();
-            const streamCards = streamList.getElementsByClassName('stream-card');
-
-            for (let card of streamCards) {
-                const name = card.querySelector('h2').textContent.toLowerCase();
-                const country = card.querySelector('p').textContent.toLowerCase();
-                
-                if (name.includes(searchTerm) || country.includes(searchTerm) || searchTerm === '') {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            }
-        });
     </script>
 </body>
 </html>
