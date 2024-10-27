@@ -1,3 +1,5 @@
+#!/usr/bin/env -S python
+
 import subprocess
 import threading
 import time
@@ -11,7 +13,7 @@ from app import create_app
 from sounds import SoundManager
 
 volume = 50
-sound_folder = "/home/pi/pi_radio/sounds"
+sound_folder = "/home/rubenfeurer/internetRadio/sounds"
 stream_manager = None
 sound_manager = None
 
@@ -32,13 +34,13 @@ def restart_pi():
 
 def volume_up(encoder):
     global volume
-    volume = volume + 1
+    volume = volume + 5
     volume = max(0, min(volume, 100))
     stream_manager.set_volume(volume)
 
 def volume_down(encoder):
     global volume
-    volume = volume - 1
+    volume = volume - 5
     volume = max(0, min(volume, 100))
     stream_manager.set_volume(volume)
 
@@ -61,7 +63,7 @@ def start_hotspot():
     try:
         # Set up the hotspot using nmcli
         print("Starting Wi-Fi hotspot...")
-        subprocess.run(['sudo', 'nmcli', 'device', 'wifi', 'hotspot', 'ssid', 'radioDevice', 'password', 'Radio@1234', 'ifname', 'wlan0'], check=True)
+        subprocess.run(['sudo', 'nmcli', 'device', 'wifi', 'hotspot', 'ssid', 'radioDevice', 'password', 'pair', 'ifname', 'wlan0'], check=True)
         print("Hotspot started successfully. Visit http://192.168.50.1:8080 to configure Wi-Fi settings.")
     except subprocess.CalledProcessError as e:
         print(f"Error starting hotspot: {e}") 
