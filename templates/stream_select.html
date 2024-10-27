@@ -9,13 +9,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>Choose Radio Station</h1>
+        <h1>Select Stream</h1>
         
         <div class="search-container">
             <input 
                 type="text" 
                 id="searchInput"
-                placeholder="Search by Name or Country..."
+                placeholder="Search by name or country..."
                 class="search-input"
             >
         </div>
@@ -28,8 +28,9 @@
                     <p>{{ link.country }}</p>
                 </div>
 
-                <div class="play-button" onclick="playStream(event, '{{ link.url }}')">
+                <div class="play-button" onclick="playStream(event, '{{ link.url }}', this)">
                     <div class="play-icon"></div>
+                    <div class="pause-icon" style="display: none;"></div>
                 </div>
             </div>
             {% endfor %}
@@ -37,6 +38,90 @@
     </div>
 
     <script>
+        let currentlyPlaying = null;
+        let streamCheckInterval = null;
+
+        function updateStream(channel, selectedLink) {
+            fetch('/update-stream', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ channel: channel, selected_link: selectedLink })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = '/';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function playStream(event, url, button) {
+            event.stopPropagation();
+            
+            // Reset previous playing button if exists
+            if (currentlyPlaying && currentlyPlaying !== button) {
+                currentlyPlaying.querySelector('.play-icon').style.display = '';
+                currentlyPlaying.querySelector('.pause-icon').style.display = 'none';
+                currentlyPlaying.style.backgroundColor = '#353030';  // Reset color
+                clearInterval(streamCheckInterval);
+            }
+
+            const playIcon = button.querySelector('.play-icon');
+            const pauseIcon = button.querySelector('.pause-icon');
+            const isPlaying = playIcon.style.display === 'none';
+
+            if (isPlaying) {
+                // Switch to play icon
+                playIcon.style.display = '';
+                pauseIcon.style.display = 'none';
+                button.style.backgroundColor = '#353030';  // Reset color
+                currentlyPlaying = null;
+                clearInterval(streamCheckInterval);
+            } else {
+                // Switch to pause icon
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = '';
+                button.style.backgroundColor = '#ff0000';  // Set to red
+                currentlyPlaying = button;
+
+                // Start checking stream status
+                streamCheckInterval = setInterval(() => {
+                    checkStreamStatus(button);
+                }, 1000); // Check every second
+            }
+
+            fetch('/play-stream', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({ url: url })
+            })
+            .then(response => response.json())
+            .then(data => console.log('Success:', data))
+            .catch(error => console.error('Error:', error));
+        }
+
+        function checkStreamStatus(button) {
+            fetch('/stream-status')
+            .then(response => response.json())
+            .then(data => {
+                if (!data.is_running) {
+                    // Stream has stopped
+                    button.querySelector('.play-icon').style.display = '';
+                    button.querySelector('.pause-icon').style.display = 'none';
+                    button.style.backgroundColor = '#353030';  // Reset color
+                    currentlyPlaying = null;
+                    clearInterval(streamCheckInterval);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Search functionality
         const searchInput = document.getElementById('searchInput');
         const streamList = document.getElementById('streamList');
         const streams = {{ spare_links|tojson }};
@@ -56,37 +141,6 @@
                 }
             }
         });
-
-        function updateStream(channel, selectedLink) {
-            fetch('/update-stream', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams({ channel: channel, selected_link: selectedLink })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    window.location.href = '/';
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
-
-        function playStream(event, url) {
-            event.stopPropagation();
-            fetch('/play-stream', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: new URLSearchParams({ url: url })
-            })
-            .then(response => response.json())
-            .then(data => console.log('Success:', data))
-            .catch(error => console.error('Error:', error));
-        }
     </script>
 </body>
 </html>
