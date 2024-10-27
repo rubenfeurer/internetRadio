@@ -10,13 +10,13 @@ tags = [ "Jazz", "Chill",]
 [[links]]
 name = "NTS Radio 1"
 url = "https://stream-relay-geo.ntslive.net/stream"
-country = "UK"
+country = "United Kingdom"
 tags = [ "No Ads", "Experimental",]
 
 [[links]]
 name = "NTS Radio 2"
 url = "https://stream-relay-geo.ntslive.net/stream2"
-country = "UK"
+country = "United Kingdom"
 tags = [ "No Ads", "Experimental",]
 
 [[links]]
