@@ -1,0 +1,220 @@
+/* Root Variables */
+:root {
+    --page-background: #f8f8f8;
+    --main-font-color: #000;
+    --main-font-family: San Francisco, Helvetica, Arial, sans-serif;
+    --main-font-weight: Normal;
+    --title-font-weight: Normal;
+}
+
+/* Body Styles */
+body {
+    font-family: var(--main-font-family);
+    background-color: var(--page-background);
+    color: var(--main-font-color);
+    font-weight: var(--main-font-weight);
+    margin: 0;
+    padding: 20px;
+}
+
+/* Link Styles */
+a {
+    text-decoration: none;
+}
+
+/* Container Styles */
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Heading Styles */
+h1 {
+    margin-top: 5px;
+    margin-bottom: 40px;
+    font-size: 24px;
+    font-weight: var(--title-font-weight);
+}
+
+h2 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: var(--title-font-weight);
+}
+
+/* Paragraph Styles */
+p {
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+/* Label Styles */
+label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Input and Select Styles */
+select, input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Button Styles (General) */
+button, .wifi-settings-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #333; /* Darker background on hover for buttons */
+}
+
+button:active {
+    transform: scale(0.98); /* Slight scale down on active state (click) */
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2); /* Inset shadow effect on active state (click) */
+}
+
+/* Button Container Styles */
+.button-container {
+    margin-bottom: 20px; /* Margin below button containers to separate them from other elements */
+}
+
+/* Stream Card Styles (for displaying streams) */
+.stream-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stream-card:hover {
+   box-shadow :0px -2px -5px rgba(255,255,255,.3), 
+               inset -2px -2px -4px rgba(255,255,255,.3);
+}
+
+.stream-card:hover .play-button { 
+   background-color : grey; 
+}
+
+.stream-card:hover .play-icon { 
+   border-left :12px solid grey; 
+}
+
+.stream-card:hover .stream-details h2 { 
+   color :grey; 
+}
+
+.stream-card:hover .stream-details p { 
+   color :grey; 
+}
+
+.stream-card:hover .tags { 
+   background-color : grey; 
+}
+
+/* Stream Details Styles within Stream Cards */
+.stream-details {
+   flex :1; 
+   text-align :left; 
+}
+
+.stream-details h2 {
+   font-size :20px; 
+   margin :0 0 10px; 
+}
+
+.stream-details p {
+   margin :5px 0; 
+}
+
+/* Tag Styles within Stream Cards */
+.tags {
+   display :flex; 
+   gap :10px; 
+   flex-wrap :wrap; 
+   margin-top :5px; 
+}
+
+.tag {
+   background-color :white; 
+   border-radius :5px; 
+   padding :5px 10px; 
+   font-size :12px; 
+   font-weight :bold; 
+   color :black; 
+   text-transform :uppercase; 
+}
+
+/* Play Button Styles within Stream Cards */
+.play-button {
+   margin-left :20px; 
+   background-color :#353030; 
+   color :#000; 
+   padding :14px; 
+   text-align :center; 
+   border-radius :100px; 
+   text-decoration :none; 
+   display :inline-block; 
+   cursor:pointer; 
+   flex-shrink :0; 
+}
+
+.play-button:hover {
+   background-color :grey; 
+}
+
+/* Play Icon Styles within Play Button */
+.play-icon {
+   margin-left :3px;;
+
+   width :0;
+   height :0;
+   border-left :12px solid white;
+   border-top :7px solid transparent;
+   border-bottom :7px solid transparent;
+}
+
+/* WiFi Status Styles */
+.wifi-status {
+   display:flex;
+   justify-content :space-between;
+   align-items:center; 
+}
+
+.wifi-status .status-text {
+   color:black; 
+}
+.wifi-status .status-indicator {
+   display:flex;
+   align-items:center; 
+}
+.status-indicator .indicator-circle {
+   width :16px;
+   height :16px;
+   border-radius :50%;
+   background-color :green;
+   margin-right :10px; 
+}
