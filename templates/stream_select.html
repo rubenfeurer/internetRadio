@@ -4,49 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select Stream</title>
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <div class="container" 
-        x-data="{ 
-            searchQuery: '',
-            links: {{ spare_links|tojson }},
-            get filteredLinks() {
-                if (!this.searchQuery.trim()) return this.links;
-                return this.links.filter(link => 
-                    link.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                    link.country.toLowerCase().includes(this.searchQuery.toLowerCase())
-                );
-            }
-        }">
-        
-        <h1>Select Stream</h1>
+    <div class="container">
+        <h1>Choose Radio Station</h1>
         
         <div class="search-container">
             <input 
                 type="text" 
-                x-model="searchQuery"
-                placeholder="Search by name or country..."
+                id="searchInput"
+                placeholder="Search by Name or Country..."
                 class="search-input"
             >
         </div>
 
-        <template x-for="link in filteredLinks" :key="link.url">
-            <div class="stream-card" @click="updateStream('{{ channel }}', link.url)">
+        <div id="streamList">
+            {% for link in spare_links %}
+            <div class="stream-card" onclick="updateStream('{{ channel }}', '{{ link.url }}')">
                 <div class="stream-details">
-                    <h2 x-text="link.name"></h2>
-                    <p x-text="link.country"></p>
+                    <h2>{{ link.name }}</h2>
+                    <p>{{ link.country }}</p>
                 </div>
 
-                <div class="play-button" @click.stop="playStream($event, link.url)">
+                <div class="play-button" onclick="playStream(event, '{{ link.url }}')">
                     <div class="play-icon"></div>
                 </div>
             </div>
-        </template>
+            {% endfor %}
+        </div>
     </div>
 
     <script>
+        const searchInput = document.getElementById('searchInput');
+        const streamList = document.getElementById('streamList');
+        const streams = {{ spare_links|tojson }};
+
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            const streamCards = streamList.getElementsByClassName('stream-card');
+
+            for (let card of streamCards) {
+                const name = card.querySelector('h2').textContent.toLowerCase();
+                const country = card.querySelector('p').textContent.toLowerCase();
+                
+                if (name.includes(searchTerm) || country.includes(searchTerm) || searchTerm === '') {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            }
+        });
+
         function updateStream(channel, selectedLink) {
             fetch('/update-stream', {
                 method: 'POST',
