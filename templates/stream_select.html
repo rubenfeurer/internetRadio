@@ -24,7 +24,7 @@
         </div>
 
         <div id="streamList">
-            {% for link in spare_links %}
+            {% for link in spare_links|sort(attribute='name') %}
             <div class="stream-card" onclick="updateStream('{{ channel }}', '{{ link.url }}')">
                 <div class="stream-details">
                     <h2>{{ link.name }}</h2>
