@@ -30,6 +30,8 @@ def button_handler(stream_key):
 
 def restart_pi():
     print("Reboot Pi")
+    sound_manager.play_sound("boot.wav")  # Add this line
+    time.sleep(2)  # Add a small delay to ensure the sound plays
     os.system("sudo reboot")
 
 def volume_up(encoder):
