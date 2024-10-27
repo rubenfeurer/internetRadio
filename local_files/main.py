@@ -1,3 +1,5 @@
+#!/usr/bin/env -S python
+
 import subprocess
 import threading
 import time
@@ -11,7 +13,7 @@ from app import create_app
 from sounds import SoundManager
 
 volume = 50
-sound_folder = "/home/pi/pi_radio/sounds"
+sound_folder = "/home/pi/internetRadio/sounds"
 stream_manager = None
 sound_manager = None
 
@@ -104,7 +106,8 @@ if __name__ == "__main__":
     button1.when_pressed = lambda: button_handler('link1')
     button2.when_pressed = lambda: button_handler('link2')
     button3.when_pressed = lambda: button_handler('link3')
-    buttonEn.when_held = lambda: restart_pi
+    buttonEn.when_pressed = lambda: print("Encoder Pressed")
+    buttonEn.when_held = lambda: restart_pi()
 
     DT_PIN = 5  # GPIO pin for DT
     CLK_PIN = 6  # GPIO pin for CLK
