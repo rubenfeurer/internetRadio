@@ -1,1 +1,7 @@
 .DS_Store
+runApp.sh
+main.py
+update_repo.sh
+update_repo.log
+.venv/
+__pycache__/
