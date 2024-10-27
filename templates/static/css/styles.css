@@ -53,7 +53,7 @@ p {
 label {
     font-size: 14px;
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 /* Input and Select Styles */
@@ -67,8 +67,16 @@ select, input[type="password"] {
     box-sizing: border-box;
 }
 
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-row {
+    font-size: 20px;
+}
+
 /* Button Styles (General) */
-button, .wifi-settings-button {
+button {
     width: 100%;
     padding: 15px;
     font-size: 16px;
@@ -80,6 +88,22 @@ button, .wifi-settings-button {
 
     transition: transform 0.1s ease, box-shadow 0.1s ease;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.wifi-settings-button {
+    display: block;
+    padding: 15px;
+    font-size: 16px;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+}
 }
 
 button:hover {
@@ -94,6 +118,7 @@ button:active {
 /* Button Container Styles */
 .button-container {
     margin-bottom: 20px; /* Margin below button containers to separate them from other elements */
+    margin-top: 20px;
 }
 
 /* Stream Card Styles (for displaying streams) */
