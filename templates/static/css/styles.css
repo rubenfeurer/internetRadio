@@ -1,3 +1,10 @@
+/* Fonts */
+@font-face {
+    font-family: 'SF Mono';
+    src: url('https://sf.abarba.me/SFMono-Regular.otf') format('opentype');
+    font-weight: 400;
+}
+
 /* Root Variables */
 :root {
     --page-background: #f8f8f8;
@@ -255,12 +262,18 @@ button:active {
    display:flex;
    justify-content :space-between;
    align-items:center; 
-   margin-top: 50px;;
+   margin-top: 50px;
+   font-family: 'SF Mono';
+   text-transform: uppercase;
+   font-size: 12px;
 }
 
 .wifi-status .status-text {
    color:black; 
    text-align: left;
+   font-family: 'SF Mono';
+   text-transform: uppercase;
+   font-size: 12px;
 }
 .wifi-status .status-indicator {
    display:flex;
