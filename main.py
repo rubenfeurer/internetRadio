@@ -61,12 +61,25 @@ def check_wifi():
         print(f"Error checking Wi-Fi: {e}")
         return False
 
+def get_ip_address(interface='wlan0'):
+    try:
+        result = subprocess.check_output(['ip', 'addr', 'show', interface]).decode()
+        for line in result.splitlines():
+            if 'inet ' in line:
+                ip_address = line.strip().split()[1].split('/')[0]
+                return ip_address
+    except (subprocess.CalledProcessError, IndexError):
+        return None
+
 def start_hotspot():
     try:
-        # Set up the hotspot using nmcli
         print("Starting Wi-Fi hotspot...")
         subprocess.run(['sudo', 'nmcli', 'device', 'wifi', 'hotspot', 'ssid', 'Radio', 'password', 'Radio@1234', 'ifname', 'wlan0'], check=True)
-        print("Hotspot started successfully. Visit http://192.168.50.1:8080 to configure Wi-Fi settings.")
+        ip_address = get_ip_address('wlan0')
+        if ip_address:
+            print(f"Hotspot started successfully. Visit http://{ip_address}:8080 to configure Wi-Fi settings.")
+        else:
+            print("Hotspot started, but IP address could not be determined.")
     except subprocess.CalledProcessError as e:
         print(f"Error starting hotspot: {e}") 
 
