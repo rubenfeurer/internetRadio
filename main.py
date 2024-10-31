@@ -83,6 +83,47 @@ def start_hotspot():
     except subprocess.CalledProcessError as e:
         print(f"Error starting hotspot: {e}") 
 
+def fade_volume_down():
+    # Fade out from current volume to 0%
+    for vol in range(100, -1, -10):
+        subprocess.run(['amixer', 'set', 'PCM', f'{vol}%'], capture_output=True)
+        time.sleep(0.05)
+
+def fade_volume_up():
+    # Fade in from 0% to 100%
+    subprocess.run(['amixer', 'set', 'PCM', '0%'], capture_output=True)
+    time.sleep(0.1)  # Small delay before starting playback
+    for vol in range(0, 101, 10):
+        subprocess.run(['amixer', 'set', 'PCM', f'{vol}%'], capture_output=True)
+        time.sleep(0.05)
+
+# Use before shutdown/reboot
+def safe_shutdown():
+    fade_volume_down()
+    time.sleep(0.2)  # Small delay before actual shutdown
+    subprocess.run(['sudo', 'shutdown', '-h', 'now'])
+
+# Use before reboot
+def safe_reboot():
+    fade_volume_down()
+    time.sleep(0.2)  # Small delay before actual reboot
+    subprocess.run(['sudo', 'reboot'])
+
+def shutdown_sequence():
+    # Set volume to 0 before shutdown
+    subprocess.run(['amixer', 'set', 'PCM', '0%'], capture_output=True)
+    time.sleep(0.2)  # Wait for audio to settle
+    subprocess.run(['sudo', 'shutdown', '-h', 'now'])
+
+def startup_sequence():
+    # Start with volume at 0
+    subprocess.run(['amixer', 'set', 'PCM', '0%'], capture_output=True)
+    time.sleep(0.2)  # Wait for system to settle
+    # Then gradually increase
+    for vol in range(0, 101, 10):
+        subprocess.run(['amixer', 'set', 'PCM', f'{vol}%'], capture_output=True)
+        time.sleep(0.05)
+
 if __name__ == "__main__":
     sound_manager = SoundManager(sound_folder)
     sound_manager.play_sound("boot.wav")
