@@ -21,6 +21,7 @@ RESET_OUTPUT=$(git reset --hard origin/develop 2>&1)
 echo "$(date '+%Y-%m-%d %H:%M:%S'): Fetch Output: $FETCH_OUTPUT" >> /home/radio/internetRadio/update_repo.log
 echo "$(date '+%Y-%m-%d %H:%M:%S'): Pull Output: $RESET_OUTPUT" >> /home/radio/internetRadio/update_repo.log
 
+sleep 5
 
 chmod +x main.py
 chmod +x stream_manager.py
