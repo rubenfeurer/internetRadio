@@ -67,3 +67,12 @@ class StreamManager:
         time.sleep(delay)  
         self.player.stop()  
         self.last_played_url = None  
+
+    def fade_out(self):
+        if self.current_process:
+            # Gradually decrease volume
+            current_vol = self.volume
+            for vol in range(current_vol, 0, -10):
+                self.set_volume(vol)
+                time.sleep(0.05)
+            self.stop_stream()
