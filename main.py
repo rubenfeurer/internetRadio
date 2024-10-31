@@ -30,9 +30,8 @@ def button_handler(stream_key):
 
 def restart_pi():
     print("Reboot Pi")
-    stream_manager.fade_out()
-    sound_manager.play_sound("boot.wav", fade=True)
-    time.sleep(2)
+    sound_manager.play_sound("boot.wav")  # Add this line
+    time.sleep(2)  # Add a small delay to ensure the sound plays
     os.system("sudo reboot")
 
 def volume_up(encoder):
@@ -86,7 +85,7 @@ def start_hotspot():
 
 if __name__ == "__main__":
     sound_manager = SoundManager(sound_folder)
-    sound_manager.play_sound("boot.wav", fade=True)
+    sound_manager.play_sound("boot.wav")
 
     LED_PIN = 24
     ENCODER_BUTTON = 23 # GPIO pin for Encoder Button
@@ -111,7 +110,7 @@ if __name__ == "__main__":
         time.sleep(5) 
 
     led.blink(on_time=3, off_time=3)
-    sound_manager.play_sound("wifi.wav", fade=True)
+    sound_manager.play_sound("wifi.wav")
     stream_manager = StreamManager(volume)
     print (volume)
 
@@ -140,11 +139,11 @@ if __name__ == "__main__":
         wifi_status = check_wifi()
         if not wifi_status and not played:
             print("WiFi connection lost")
-            sound_manager.play_sound("noWifi.wav", fade=True)
+            sound_manager.play_sound("noWifi.wav")
             led.blink(on_time=0.5, off_time=0.5)
             played = True
         elif wifi_status and played:
-            sound_manager.play_sound("wifi.wav", fade=True)
+            sound_manager.play_sound("wifi.wav")
             led.blink(on_time=3, off_time=3)
             played = False
         
