@@ -26,3 +26,4 @@ chmod +x main.py
 chmod +x stream_manager.py
 chmod +x app.py
 chmod +x sounds.py
+chmod +x update_repo.sh
