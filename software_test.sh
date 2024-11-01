@@ -1,7 +1,7 @@
 #!/bin/bash
 
-LOG_FILE="/home/radio/radio_diagnostics.log"
-RADIO_DIR="/home/radio/internetRadio"
+LOG_FILE="/home/internetRadio/radio/radio_diagnostics.log"
+RADIO_DIR="/home/internetRadio/radio/internetRadio"
 VENV_PATH="$RADIO_DIR/.venv"
 
 #Instructions:
