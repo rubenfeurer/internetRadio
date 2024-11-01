@@ -29,3 +29,5 @@ chmod +x app.py
 chmod +x sounds.py
 chmod +x update_repo.sh
 chmod +x install_dependencies.sh
+chmod +x runApp.sh
+chmod +x software_test.sh
