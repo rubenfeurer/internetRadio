@@ -61,9 +61,30 @@ sudo systemctl stop pigpiod
 sudo systemctl enable pigpiod
 sudo systemctl start pigpiod
 
-# Add pigpiod to rc.local for backup startup
-if ! grep -q "pigpiod" /etc/rc.local; then
-    sudo sed -i '/^exit 0/i /usr/bin/pigpiod' /etc/rc.local
+# Create systemd service for the application
+log_message "Creating systemd service for the application..."
+SERVICE_FILE="/etc/systemd/system/internetRadio.service"
+if [ ! -f "$SERVICE_FILE" ]; then
+    sudo bash -c "cat > $SERVICE_FILE" <<EOL
+[Unit]
+Description=Internet Radio Service
+After=network.target pigpiod.service
+
+[Service]
+Type=simple
+User=radio
+WorkingDirectory=/home/radio/internetRadio
+ExecStart=/home/radio/internetRadio/runApp.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOL
+    sudo systemctl daemon-reload
+    sudo systemctl enable internetRadio.service
+    log_message "Service created and enabled"
+else
+    log_message "Service already exists"
 fi
 
 # Set permissions
@@ -119,4 +140,22 @@ else
     echo "1. Try running these commands manually:" | tee -a "$ERROR_LOG"
     echo "   source /home/radio/internetRadio/.venv/bin/activate" | tee -a "$ERROR_LOG"
     echo "   pip install flask flask-cors" | tee -a "$ERROR_LOG"
-fi 
+    echo "   sudo systemctl restart pigpiod" | tee -a "$ERROR_LOG"
+    echo "2. If still failing, try:" | tee -a "$ERROR_LOG"
+    echo "   sudo apt-get update && sudo apt-get upgrade" | tee -a "$ERROR_LOG"
+    echo "   sudo reboot" | tee -a "$ERROR_LOG"
+fi
+
+echo -e "\nLog files:"
+echo "- Full installation log: $LOG_FILE"
+echo "- Error log: $ERROR_LOG"
+
+if [ "$SUCCESS" = true ]; then
+    echo -e "\nReboot recommended. Reboot now? (y/n)"
+    read -r response
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+        sudo reboot
+    fi
+else
+    echo -e "\nPlease fix errors before rebooting."
+fi
