@@ -40,6 +40,7 @@ source .venv/bin/activate
 # Install Python packages with retry mechanism
 log_message "Installing Python packages..."
 for i in {1..3}; do
+    pip install --upgrade pip
     if pip install flask flask-cors gpiozero python-vlc pigpio toml; then
         log_message "Python packages installed successfully"
         break
@@ -52,7 +53,12 @@ done
 # Verify Flask installation
 if ! pip list | grep -q "^Flask "; then
     log_error "Flask not installed. Trying alternative installation..."
-    pip install --no-cache-dir flask flask-cors
+    pip install --no-cache-dir flask
+fi
+
+if ! pip list | grep -q "^Flask-Cors "; then
+    log_error "Flask-Cors not installed. Trying alternative installation..."
+    pip install --no-cache-dir flask-cors
 fi
 
 # Setup pigpiod
@@ -90,6 +96,11 @@ fi
 # Set permissions
 log_message "Setting permissions..."
 sudo usermod -a -G gpio,dialout,video,audio radio
+
+# Delay before chmod commands
+log_message "Waiting for 3 seconds before setting permissions..."
+sleep 3
+
 sudo chown root:gpio /dev/gpiomem
 sudo chmod g+rw /dev/gpiomem
 sudo chown -R radio:radio "$RADIO_DIR"
