@@ -55,7 +55,30 @@ fi
 
 # Check Python dependencies
 log_message "Checking Python packages..."
-source "$VENV_PATH/bin/activate" 2>/dev/null
+VENV_PYTHON="/home/radio/internetRadio/.venv/bin/python3"
+
+check_package() {
+    local package=$1
+    local import_name=${package//-/_}  # Replace hyphens with underscores
+    if $VENV_PYTHON -c "import ${import_name}" 2>/dev/null; then
+        log_message "Python package '$package' is installed"
+        return 0
+    else
+        log_message "ERROR: Required Python package '$package' is not installed"
+        return 1
+    fi
+}
+
+# Activate virtual environment
+source /home/radio/internetRadio/.venv/bin/activate
+
+# Check each package
+check_package "flask"
+check_package "flask_cors"
+check_package "gpiozero"
+check_package "vlc"
+check_package "pigpio"
+check_package "toml"source "$VENV_PATH/bin/activate" 2>/dev/null
 if [ $? -ne 0 ]; then
     log_message "ERROR: Failed to activate virtual environment"
 else
