@@ -37,18 +37,37 @@ log_message "Setting up virtual environment..."
 python3 -m venv .venv
 source .venv/bin/activate
 
+# Activate virtual environment
+source /home/radio/internetRadio/.venv/bin/activate
+
 # Install Python packages with retry mechanism
 log_message "Installing Python packages..."
-for i in {1..3}; do
-    pip install --upgrade pip
-    if pip install flask flask-cors gpiozero python-vlc pigpio toml; then
-        log_message "Python packages installed successfully"
-        break
-    else
-        log_error "Attempt $i: Failed to install Python packages. Retrying..."
-        sleep 2
+pip install --upgrade pip
+
+# Install each package individually to better track errors
+packages=(
+    "gpiozero"
+    "python-vlc"  # Note: the import name is 'vlc' but package name is 'python-vlc'
+    "pigpio"
+    "toml"        # Note: it's 'toml' not 'tomlsource'
+    "flask"
+    "flask-cors"
+)
+
+for package in "${packages[@]}"; do
+    log_message "Installing $package..."
+    pip install "$package"
+done
+
+# Verify installations
+for package in "${packages[@]}"; do
+    if ! pip list | grep -q "^$package "; then
+        log_error "Package $package failed to install"
     fi
 done
+
+# Add explicit version check
+pip list | grep -E "^(flask|flask-cors|gpiozero|python-vlc|pigpio|toml|werkzeug) "
 
 # Verify Flask installation
 if ! pip list | grep -q "^Flask "; then

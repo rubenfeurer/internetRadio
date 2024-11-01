@@ -59,7 +59,7 @@ VENV_PYTHON="/home/radio/internetRadio/.venv/bin/python3"
 
 check_package() {
     local package=$1
-    local import_name=${package//-/_}  # Replace hyphens with underscores
+    local import_name=$2
     if $VENV_PYTHON -c "import ${import_name}" 2>/dev/null; then
         log_message "Python package '$package' is installed"
         return 0
@@ -72,25 +72,13 @@ check_package() {
 # Activate virtual environment
 source /home/radio/internetRadio/.venv/bin/activate
 
-# Check each package
-check_package "flask"
-check_package "flask_cors"
-check_package "gpiozero"
-check_package "vlc"
-check_package "pigpio"
-check_package "toml"source "$VENV_PATH/bin/activate" 2>/dev/null
-if [ $? -ne 0 ]; then
-    log_message "ERROR: Failed to activate virtual environment"
-else
-    required_packages=("flask" "flask-cors" "gpiozero" "python-vlc" "pigpio" "toml")
-    for package in "${required_packages[@]}"; do
-        if ! pip list | grep -q "^$package "; then
-            log_message "ERROR: Required Python package '$package' is not installed"
-        else
-            log_message "Python package '$package' is installed"
-        fi
-    done
-fi
+# Check each package with correct import names
+check_package "flask" "flask"
+check_package "flask-cors" "flask_cors"
+check_package "gpiozero" "gpiozero"
+check_package "python-vlc" "vlc"
+check_package "pigpio" "pigpio"
+check_package "toml" "toml"
 
 # Check file permissions
 files_to_check=(
