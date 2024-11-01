@@ -1,7 +1,7 @@
 #!/bin/bash
 
-LOG_FILE="/home/radio/internetRadio/installation.log"
-ERROR_LOG="/home/radio/internetRadio/installation_errors.log"
+LOG_FILE="/home/radio/internetRadio/scripts/logs/installation.log"
+ERROR_LOG="/home/radio/internetRadio/scripts/logs/installation_errors.log"
 SUCCESS=true
 
 # Function to log messages
