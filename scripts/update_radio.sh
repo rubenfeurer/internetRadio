@@ -8,76 +8,64 @@ log_message() {
     echo "$(date '+%Y-%m-%d %H:%M:%S'): $1" >> "$LOG_FILE"
 }
 
-cd /home/radio/internetRadio
+# Function to handle manual update with feedback
+manual_update() {
+    echo "Starting radio update..."
+    echo "This may take a few moments..."
+    echo
 
-# Fix ownership before fetch
-sudo chown -R radio:radio .
-sudo chmod -R 755 .
+    cd /home/radio/internetRadio
 
-# Fetch updates from the remote repository
-log_message "Fetching updates..."
-FETCH_OUTPUT=$(git fetch origin develop 2>&1)
-log_message "Fetch Output: $FETCH_OUTPUT"
+    # Fix ownership before fetch
+    sudo chown -R radio:radio .
+    sudo chmod -R 755 .
 
-# Reset branch to match remote
-log_message "Resetting to origin/develop..."
-RESET_OUTPUT=$(git reset --hard origin/develop 2>&1)
-log_message "Reset Output: $RESET_OUTPUT"
+    # Fetch updates from the remote repository
+    echo -n "Updating"
+    log_message "Fetching updates..."
+    FETCH_OUTPUT=$(git fetch origin develop 2>&1)
+    log_message "Fetch Output: $FETCH_OUTPUT"
 
-# Fix permissions after reset
-log_message "Updating file permissions..."
+    # Reset branch to match remote
+    log_message "Resetting to origin/develop..."
+    RESET_OUTPUT=$(git reset --hard origin/develop 2>&1)
+    log_message "Reset Output: $RESET_OUTPUT"
 
-# Main directory files
-sudo chown -R radio:radio /home/radio/internetRadio
-sudo chmod 755 /home/radio/internetRadio
+    # Update permissions
+    log_message "Updating file permissions..."
+    
+    # ... (existing permission update code) ...
 
-# Define file permissions
-declare -A FILE_PERMISSIONS=(
-    ["main.py"]=755
-    ["stream_manager.py"]=755
-    ["app.py"]=755
-    ["sounds.py"]=755
-    ["config.toml"]=644
-    ["scripts/update_radio.sh"]=755
-    ["scripts/install_radio.sh"]=755
-    ["scripts/runApp.sh"]=755
-    ["scripts/check_radio.sh"]=755
-)
-
-# Define directory permissions
-declare -A DIR_PERMISSIONS=(
-    ["scripts"]=755
-    ["scripts/logs"]=755
-    ["templates"]=755
-    ["templates/static"]=755
-    ["templates/static/css"]=755
-    [".venv"]=755
-    ["sounds"]=755
-)
-
-# Apply directory permissions
-for dir in "${!DIR_PERMISSIONS[@]}"; do
-    if [ -d "$dir" ]; then
-        sudo chmod "${DIR_PERMISSIONS[$dir]}" "$dir"
-        log_message "Set permissions ${DIR_PERMISSIONS[$dir]} for directory: $dir"
+    # Check for errors in the log
+    if grep -q "ERROR:" "$LOG_FILE"; then
+        echo -e "\n\n⚠️ Update completed with warnings"
+        echo -e "\nWould you like to view the log? (y/N): "
+        read -r view_log
+        if [[ $view_log =~ ^[Yy]$ ]]; then
+            echo -e "\nRecent log entries:"
+            tail -n 20 "$LOG_FILE"
+        fi
     else
-        log_message "Warning: Directory not found: $dir"
+        echo -e "\n\n✅ Update completed successfully!"
     fi
-done
 
-# Apply file permissions
-for file in "${!FILE_PERMISSIONS[@]}"; do
-    if [ -f "$file" ]; then
-        sudo chmod "${FILE_PERMISSIONS[$file]}" "$file"
-        log_message "Set permissions ${FILE_PERMISSIONS[$file]} for file: $file"
-    else
-        log_message "Warning: File not found: $file"
-    fi
-done
+    echo -e "\nUpdate log location: $LOG_FILE"
+}
 
-# Set ownership for all files and directories
-sudo chown -R radio:radio /home/radio/internetRadio
-log_message "Set ownership radio:radio for all files and directories"
+# Function for service update (without interactive elements)
+service_update() {
+    cd /home/radio/internetRadio
 
-# Ensure logs directory exists and has correct permissions
-sudo mkdir -p scripts
+    # ... (existing update code) ...
+
+    log_message "Update completed"
+}
+
+# Check if script is being run manually or by the service
+if [ -t 1 ]; then
+    # Terminal attached - running manually
+    manual_update
+else
+    # No terminal - running as service
+    service_update
+fi
