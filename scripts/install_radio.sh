@@ -342,13 +342,19 @@ User=radio
 Group=radio
 WorkingDirectory=/home/radio/internetRadio
 Environment=HOME=/home/radio
-ExecStart=/bin/bash /home/radio/internetRadio/scripts/update_radio.sh
+ExecStart=/home/radio/internetRadio/scripts/update_radio.sh
 StandardOutput=append:/home/radio/internetRadio/scripts/logs/update_radio.log
 StandardError=append:/home/radio/internetRadio/scripts/logs/update_radio.log
 
 [Install]
 WantedBy=multi-user.target
 EOL
+
+# Make the update script executable
+sudo chmod +x /home/radio/internetRadio/scripts/update_radio.sh
+
+# Set proper ownership
+sudo chown radio:radio /home/radio/internetRadio/scripts/update_radio.sh
 
 # Reload systemd
 sudo systemctl daemon-reload
