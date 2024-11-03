@@ -49,7 +49,7 @@ packages=(
     "gpiozero"
     "python-vlc"  # Note: the import name is 'vlc' but package name is 'python-vlc'
     "pigpio"
-    "toml"        # Note: it's 'toml' not 'tomlsource'
+    "toml"
     "flask"
     "flask-cors"
 )
