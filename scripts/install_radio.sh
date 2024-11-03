@@ -694,36 +694,50 @@ setup_gpio() {
     fi
 }
 
-# Simplified verification that only checks if service is running
+# Simplified verification that only checks if Python can import the packages
 verify_installations() {
     log_message "Verifying installation..."
     
-    # Check if service is running and web server is responding
-    if systemctl is-active --quiet internetradio && \
-       curl -s --connect-timeout 2 http://localhost:8080 >/dev/null 2>&1; then
-        log_message "✓ Service and web server verified successfully"
+    # Create a temporary Python script to test imports
+    cat > /tmp/verify_imports.py <<EOF
+import sys
+try:
+    import flask
+    import flask_cors
+    import gpiozero
+    import vlc
+    import pigpio
+    import toml
+    print("SUCCESS")
+    sys.exit(0)
+except ImportError as e:
+    print(f"FAILED: {str(e)}")
+    sys.exit(1)
+EOF
+
+    # Run verification in virtual environment
+    if source .venv/bin/activate && \
+       python3 /tmp/verify_imports.py >/dev/null 2>&1; then
+        log_message "✓ All packages verified successfully"
+        deactivate
+        rm -f /tmp/verify_imports.py
         return 0
     else
-        log_message "! Service verification failed"
+        log_message "! Package verification failed"
+        deactivate
+        rm -f /tmp/verify_imports.py
         return 1
     fi
 }
 
-# Simplified package installation without verification
+# Simplified package installation
 install_packages() {
-    local packages=(
-        "gpiozero"
-        "python-vlc"
-        "pigpio"
-        "toml"
-        "flask"
-        "flask-cors"
-    )
+    log_message "Installing Python packages..."
+    source .venv/bin/activate
     
-    for package in "${packages[@]}"; do
-        log_message "Installing ${package}..."
-        pip install "${package}" >/dev/null 2>&1 || true
-    done
+    pip install --quiet gpiozero python-vlc pigpio toml flask flask-cors
+    
+    deactivate
 }
 
 # Main installation function
@@ -737,9 +751,11 @@ main() {
     # Install packages without verification
     install_packages
 
-    # Only verify service is running
-    if ! verify_installations; then
-        log_message "WARNING: Service verification failed"
+    # Skip verification if service is already running
+    if systemctl is-active --quiet internetradio; then
+        log_message "Service already running - skipping verification"
+    else
+        verify_installations
     fi
 
     # Final service restart
