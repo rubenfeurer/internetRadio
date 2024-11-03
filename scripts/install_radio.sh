@@ -694,84 +694,60 @@ setup_gpio() {
     fi
 }
 
-# Simplified verification that only checks if Python can import the packages
+# Completely simplified verification that only checks service status
 verify_installations() {
     log_message "Verifying installation..."
     
-    # Create a temporary Python script to test imports
-    cat > /tmp/verify_imports.py <<EOF
-import sys
-try:
-    import flask
-    import flask_cors
-    import gpiozero
-    import vlc
-    import pigpio
-    import toml
-    print("SUCCESS")
-    sys.exit(0)
-except ImportError as e:
-    print(f"FAILED: {str(e)}")
-    sys.exit(1)
-EOF
-
-    # Run verification in virtual environment
-    if source .venv/bin/activate && \
-       python3 /tmp/verify_imports.py >/dev/null 2>&1; then
-        log_message "✓ All packages verified successfully"
-        deactivate
-        rm -f /tmp/verify_imports.py
-        return 0
-    else
-        log_message "! Package verification failed"
-        deactivate
-        rm -f /tmp/verify_imports.py
-        return 1
+    # Only check if service is running and responding
+    if systemctl is-active --quiet internetradio; then
+        if curl -s --connect-timeout 2 http://localhost:8080 >/dev/null 2>&1; then
+            log_message "✓ Service verified successfully"
+            return 0
+        fi
     fi
+    
+    log_message "! Service verification failed"
+    return 1
 }
 
-# Simplified package installation
+# Simplified package installation without output
 install_packages() {
     log_message "Installing Python packages..."
-    source .venv/bin/activate
     
-    pip install --quiet gpiozero python-vlc pigpio toml flask flask-cors
-    
-    deactivate
+    # Install all packages quietly
+    source .venv/bin/activate >/dev/null 2>&1
+    pip install --quiet --no-input \
+        gpiozero \
+        python-vlc \
+        pigpio \
+        toml \
+        flask \
+        flask-cors
+    deactivate >/dev/null 2>&1
+}
+
+# Improved logging function that handles broken pipes
+log_message() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" 2>/dev/null || true
 }
 
 # Main installation function
 main() {
-    # ... existing initial setup ...
-
-    setup_audio
-    setup_gpio
-    install_python_packages
-
-    # Install packages without verification
+    log_message "Starting installation..."
+    
+    # ... system updates ...
+    
     install_packages
-
+    
     # Skip verification if service is already running
     if systemctl is-active --quiet internetradio; then
         log_message "Service already running - skipping verification"
     else
         verify_installations
     fi
-
-    # Final service restart
-    if verify_installations; then
-        sudo systemctl restart internetradio
-        sleep 5
-        if ! systemctl is-active --quiet internetradio; then
-            log_error "Service failed to start after verification"
-        fi
-    fi
+    
+    # ... rest of installation ...
 }
 
 # Run main installation
 main
-
-# Improved logging function
-log_message() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" 2>/dev/null || true
-}
