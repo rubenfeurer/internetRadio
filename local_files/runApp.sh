@@ -5,8 +5,10 @@ export DISPLAY=:0
 export XAUTHORITY=/home/radio/.Xauthority
 export HOME=/home/radio
 
-# Create logs directory
-mkdir -p /home/radio/internetRadio/scripts/logs
+# Set up audio environment
+export XDG_RUNTIME_DIR=/run/user/$(id -u radio)
+amixer sset 'Master' 100% unmute
+amixer sset 'PCM' 100% unmute
 
 # Function to check if X server is ready
 wait_for_x() {
@@ -22,8 +24,11 @@ wait_for_x() {
 # Wait for X server
 wait_for_x
 
+# Start pulseaudio if not running
+pulseaudio --start
+
 # Start the application
 cd /home/radio/internetRadio
 . /home/radio/internetRadio/.venv/bin/activate
 sudo pigpiod
-lxterminal -e python /home/radio/internetRadio/main.py
+lxterminal -e python /home/radio/internetRadio/main.py 
