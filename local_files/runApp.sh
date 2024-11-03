@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set up logging
+exec 1> >(logger -s -t $(basename $0)) 2>&1
+
 # Set display for GUI applications
 export DISPLAY=:0
 export XAUTHORITY=/home/radio/.Xauthority
@@ -7,28 +10,23 @@ export HOME=/home/radio
 
 # Set up audio environment
 export XDG_RUNTIME_DIR=/run/user/$(id -u radio)
-amixer sset 'Master' 100% unmute
-amixer sset 'PCM' 100% unmute
+mkdir -p $XDG_RUNTIME_DIR
+chmod 700 $XDG_RUNTIME_DIR
 
-# Function to check if X server is ready
-wait_for_x() {
-    for i in {1..30}; do
-        if xset q &>/dev/null; then
-            return 0
-        fi
-        sleep 1
-    done
-    return 1
-}
-
-# Wait for X server
-wait_for_x
+# Create logs directory
+mkdir -p /home/radio/internetRadio/scripts/logs
 
 # Start pulseaudio if not running
-pulseaudio --start
+/usr/bin/pulseaudio --start
+
+# Set audio
+/usr/bin/amixer -c 0 sset 'Headphone' 100% unmute || true
+/usr/bin/amixer -c 0 sset 'Speaker' 100% unmute || true
 
 # Start the application
 cd /home/radio/internetRadio
-. /home/radio/internetRadio/.venv/bin/activate
-sudo pigpiod
-lxterminal -e python /home/radio/internetRadio/main.py 
+source /home/radio/internetRadio/.venv/bin/activate
+/usr/bin/sudo /usr/bin/pigpiod
+
+# Start the Python application
+/home/radio/internetRadio/.venv/bin/python /home/radio/internetRadio/main.py
