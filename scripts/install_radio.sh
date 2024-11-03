@@ -38,43 +38,46 @@ log_message "Setting up virtual environment..."
 python3 -m venv .venv || log_error "Failed to create virtual environment"
 source .venv/bin/activate || log_error "Failed to activate virtual environment"
 
-# Install Python packages with retry mechanism and error handling
-log_message "Installing Python packages..."
-
-# Upgrade pip first
-log_message "Upgrading pip..."
-python3 -m pip install --upgrade pip || log_error "Failed to upgrade pip"
-
-# Function to install package with retry
-install_package() {
-    local package=$1
-    local max_attempts=3
-    local attempt=1
-
-    while [ $attempt -le $max_attempts ]; do
-        log_message "Installing $package (attempt $attempt of $max_attempts)..."
-        
-        # Try different installation methods
-        if pip install "$package" --no-cache-dir; then
-            log_message "Successfully installed $package"
-            return 0
-        elif pip install "$package" --user; then
-            log_message "Successfully installed $package (user installation)"
-            return 0
-        elif pip install "$package" --ignore-installed; then
-            log_message "Successfully installed $package (ignored existing)"
-            return 0
+# Improve Python package installation
+install_python_packages() {
+    log_message "Installing Python packages..."
+    
+    # Upgrade pip first with retry
+    for i in {1..3}; do
+        if python3 -m pip install --upgrade pip; then
+            break
         fi
-
-        attempt=$((attempt + 1))
-        if [ $attempt -le $max_attempts ]; then
-            log_message "Retrying $package installation..."
-            sleep 2
-        fi
+        sleep 2
     done
 
-    log_error "Failed to install $package after $max_attempts attempts"
-    return 1
+    # Install Flask and dependencies with specific versions
+    PACKAGES=(
+        "flask==2.0.1"
+        "flask-cors==3.0.10"
+        "Werkzeug==2.0.1"
+        "click==8.0.1"
+        "itsdangerous==2.0.1"
+        "Jinja2==3.0.1"
+        "MarkupSafe==2.0.1"
+    )
+
+    for package in "${PACKAGES[@]}"; do
+        log_message "Installing $package..."
+        for i in {1..3}; do
+            if pip install "$package" --no-cache-dir; then
+                log_message "Successfully installed $package"
+                break
+            fi
+            log_message "Retry $i for $package..."
+            sleep 2
+        done
+    done
+
+    # Verify installations
+    python3 -c "import flask; import flask_cors" || {
+        log_error "Flask verification failed. Trying system packages..."
+        sudo apt-get install -y python3-flask python3-flask-cors
+    }
 }
 
 # Install required packages
@@ -614,3 +617,104 @@ if [ "$SUCCESS" = true ]; then
 else
     log_message "Installation completed with errors"
 fi
+
+# Improve audio setup
+setup_audio() {
+    log_message "Setting up audio..."
+    
+    # Stop any running pulseaudio
+    pulseaudio --kill || true
+    sleep 2
+    
+    # Clean up old files
+    rm -rf /home/radio/.config/pulse
+    rm -rf /run/user/1000/pulse
+    
+    # Create fresh pulse config
+    mkdir -p /home/radio/.config/pulse
+    
+    # Configure pulseaudio
+    cat > /home/radio/.config/pulse/client.conf <<EOF
+autospawn = no
+daemon-binary = /usr/bin/pulseaudio
+EOF
+
+    # Set permissions
+    chown -R radio:radio /home/radio/.config/pulse
+    
+    # Update service file to handle audio better
+    sudo sed -i 's/ExecStartPre=\/usr\/bin\/pulseaudio --start/ExecStartPre=\/usr\/bin\/pulseaudio --start --exit-idle-time=-1/' /etc/systemd/system/internetradio.service
+}
+
+# Improve GPIO setup
+setup_gpio() {
+    log_message "Setting up GPIO..."
+    
+    # Stop existing pigpiod
+    sudo systemctl stop pigpiod || true
+    
+    # Clean up any existing files
+    sudo rm -f /var/run/pigpio.pid
+    
+    # Install GPIO packages
+    sudo apt-get install -y python3-pigpio python3-rpi.gpio
+    
+    # Configure pigpiod service
+    sudo systemctl enable pigpiod
+    sudo systemctl start pigpiod
+    
+    # Wait for service
+    sleep 2
+    
+    # Verify GPIO
+    if ! pigs help >/dev/null 2>&1; then
+        log_error "pigpiod verification failed"
+        # Try to fix
+        sudo killall pigpiod
+        sleep 1
+        sudo pigpiod
+    fi
+}
+
+# Main installation flow
+main() {
+    # ... existing initial setup ...
+
+    setup_audio
+    setup_gpio
+    install_python_packages
+
+    # Verify all components
+    verify_installation() {
+        local success=true
+        
+        # Check Flask
+        python3 -c "import flask" || success=false
+        
+        # Check Audio
+        pulseaudio --check || success=false
+        
+        # Check GPIO
+        pigs help >/dev/null 2>&1 || success=false
+        
+        if [ "$success" = true ]; then
+            log_message "All components verified successfully"
+        else
+            log_error "Some components failed verification"
+        fi
+        
+        return $success
+    }
+
+    # Final service restart
+    if verify_installation; then
+        sudo systemctl restart internetradio
+        sleep 5
+        if ! systemctl is-active --quiet internetradio; then
+            log_error "Service failed to start after verification"
+        fi
+    fi
+}
+
+# Run main installation
+main
