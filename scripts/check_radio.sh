@@ -8,7 +8,7 @@ VENV_PATH="$RADIO_DIR/.venv"
 #1. Run this script with sudo
 #2. If any errors are reported, fix them and run the script again
 #3. Once all errors are resolved, run install_radio.sh to set up the system
-#4. Updates can be manually triggered with: sudo ./scripts/update_radio.sh
+#4. The application can be manually started with: sudo ./scripts/runApp.sh
 
 # Function to log messages with timestamps
 log_message() {

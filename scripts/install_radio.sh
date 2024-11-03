@@ -186,7 +186,7 @@ ExecStartPre=/usr/bin/pulseaudio --start
 ExecStartPre=/bin/sleep 5
 
 # Start the main application
-ExecStart=/home/radio/internetRadio/.venv/bin/python /home/radio/internetRadio/main.py
+ExecStart=/home/radio/internetRadio/scripts/runApp.sh
 
 # Restart settings
 Restart=always

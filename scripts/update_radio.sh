@@ -31,41 +31,53 @@ log_message "Updating file permissions..."
 sudo chown -R radio:radio /home/radio/internetRadio
 sudo chmod 755 /home/radio/internetRadio
 
-# Make Python files executable
-FILES_TO_MAKE_EXECUTABLE=(
-    "main.py"
-    "stream_manager.py"
-    "app.py"
-    "sounds.py"
-    "scripts/update_radio.sh"
-    "scripts/install_radio.sh"
-    "scripts/runApp.sh"
-    "scripts/check_radio.sh"
+# Define file permissions
+declare -A FILE_PERMISSIONS=(
+    ["main.py"]=755
+    ["stream_manager.py"]=755
+    ["app.py"]=755
+    ["sounds.py"]=755
+    ["config.toml"]=644
+    ["scripts/update_radio.sh"]=755
+    ["scripts/install_radio.sh"]=755
+    ["scripts/runApp.sh"]=755
+    ["scripts/check_radio.sh"]=755
 )
 
-for file in "${FILES_TO_MAKE_EXECUTABLE[@]}"; do
+# Define directory permissions
+declare -A DIR_PERMISSIONS=(
+    ["scripts"]=755
+    ["scripts/logs"]=755
+    ["templates"]=755
+    ["templates/static"]=755
+    ["templates/static/css"]=755
+    [".venv"]=755
+    ["sounds"]=755
+)
+
+# Apply directory permissions
+for dir in "${!DIR_PERMISSIONS[@]}"; do
+    if [ -d "$dir" ]; then
+        sudo chmod "${DIR_PERMISSIONS[$dir]}" "$dir"
+        log_message "Set permissions ${DIR_PERMISSIONS[$dir]} for directory: $dir"
+    else
+        log_message "Warning: Directory not found: $dir"
+    fi
+done
+
+# Apply file permissions
+for file in "${!FILE_PERMISSIONS[@]}"; do
     if [ -f "$file" ]; then
-        sudo chmod +x "$file"
-        log_message "Made executable: $file"
+        sudo chmod "${FILE_PERMISSIONS[$file]}" "$file"
+        log_message "Set permissions ${FILE_PERMISSIONS[$file]} for file: $file"
     else
         log_message "Warning: File not found: $file"
     fi
 done
 
-# Set proper permissions for directories
-sudo find . -type d -exec chmod 755 {} \;
-sudo find . -type f -exec chmod 644 {} \;
-
-# Re-apply executable permissions after the blanket file permission set
-for file in "${FILES_TO_MAKE_EXECUTABLE[@]}"; do
-    if [ -f "$file" ]; then
-        sudo chmod +x "$file"
-    fi
-done
+# Set ownership for all files and directories
+sudo chown -R radio:radio /home/radio/internetRadio
+log_message "Set ownership radio:radio for all files and directories"
 
 # Ensure logs directory exists and has correct permissions
-sudo mkdir -p scripts/logs
-sudo chown -R radio:radio scripts/logs
-sudo chmod 755 scripts/logs
-
-log_message "Permission update completed"
+sudo mkdir -p scripts
