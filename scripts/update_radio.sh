@@ -12,23 +12,47 @@ log_message() {
 fix_permissions() {
     log_message "Fixing script permissions..."
     
-    # Make scripts directory if it doesn't exist
-    sudo mkdir -p /home/radio/internetRadio/scripts
+    # List of scripts to fix
+    SCRIPTS=(
+        "runApp.sh"
+        "update_radio.sh"
+        "check_radio.sh"
+        "uninstall_radio.sh"
+        "install_radio.sh"
+    )
     
-    # Make ALL shell scripts executable
-    find /home/radio/internetRadio/scripts -name "*.sh" -type f -exec sudo chmod +x {} \;
-    find /home/radio/internetRadio/scripts -name "*.sh" -type f -exec sudo chown radio:radio {} \;
-    
-    # Verify permissions
-    for script in /home/radio/internetRadio/scripts/*.sh; do
-        if [ -f "$script" ]; then
-            permissions=$(stat -c %a "$script")
-            if [ "$permissions" != "755" ]; then
-                log_message "Fixing permissions for $script"
-                sudo chmod 755 "$script"
+    # Fix each script explicitly
+    for script in "${SCRIPTS[@]}"; do
+        SCRIPT_PATH="/home/radio/internetRadio/scripts/$script"
+        if [ -f "$SCRIPT_PATH" ]; then
+            log_message "Setting permissions for $script"
+            # First remove all execute permissions
+            sudo chmod 644 "$SCRIPT_PATH"
+            # Then add execute permission
+            sudo chmod +x "$SCRIPT_PATH"
+            # Set ownership
+            sudo chown radio:radio "$SCRIPT_PATH"
+            
+            # Verify permissions
+            PERMS=$(stat -c %a "$SCRIPT_PATH")
+            if [ "$PERMS" != "755" ]; then
+                log_message "ERROR: Failed to set permissions for $script"
+                sudo chmod 755 "$SCRIPT_PATH"
             fi
+            
+            # Double check
+            if [ ! -x "$SCRIPT_PATH" ]; then
+                log_message "ERROR: $script is still not executable"
+                sudo chmod +x "$SCRIPT_PATH"
+            fi
+        else
+            log_message "WARNING: $script not found"
         fi
     done
+    
+    # Verify all permissions one final time
+    echo "Final permission check:"
+    ls -la /home/radio/internetRadio/scripts/*.sh
 }
 
 # Function for both manual and service updates
@@ -58,8 +82,14 @@ perform_update() {
     fi
     log_message "Reset Output: $RESET_OUTPUT"
 
-    # Fix permissions after update
+    # Fix permissions explicitly after update
     fix_permissions
+    
+    # Verify one last time
+    if [ ! -x "/home/radio/internetRadio/scripts/install_radio.sh" ]; then
+        log_message "CRITICAL: install_radio.sh is still not executable"
+        sudo chmod +x /home/radio/internetRadio/scripts/install_radio.sh
+    fi
 
     return 0
 }
