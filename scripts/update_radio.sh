@@ -12,13 +12,19 @@ log_message() {
 fix_permissions() {
     log_message "Fixing script permissions..."
     
+    # Use absolute paths
+    RADIO_DIR="/home/radio/internetRadio"
+    
+    # Make scripts directory if it doesn't exist
+    mkdir -p "$RADIO_DIR/scripts"
+    
     # Make all scripts executable
     SCRIPTS=(
-        "scripts/runApp.sh"
-        "scripts/update_radio.sh"
-        "scripts/check_radio.sh"
-        "scripts/uninstall_radio.sh"
-        "scripts/install_radio.sh"
+        "$RADIO_DIR/scripts/runApp.sh"
+        "$RADIO_DIR/scripts/update_radio.sh"
+        "$RADIO_DIR/scripts/check_radio.sh"
+        "$RADIO_DIR/scripts/uninstall_radio.sh"
+        "$RADIO_DIR/scripts/install_radio.sh"
     )
     
     for script in "${SCRIPTS[@]}"; do
@@ -26,8 +32,14 @@ fix_permissions() {
             log_message "Making $script executable..."
             sudo chmod +x "$script"
             sudo chown radio:radio "$script"
+        else
+            log_message "Warning: Script not found: $script"
         fi
     done
+
+    # Set directory permissions
+    sudo chown -R radio:radio "$RADIO_DIR"
+    sudo chmod -R 755 "$RADIO_DIR"
 }
 
 # Function for both manual and service updates
