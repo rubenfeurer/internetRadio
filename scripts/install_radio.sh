@@ -38,6 +38,39 @@ log_message "Setting up virtual environment..."
 python3 -m venv .venv || log_error "Failed to create virtual environment"
 source .venv/bin/activate || log_error "Failed to activate virtual environment"
 
+# Add missing install_package function
+install_package() {
+    local package=$1
+    log_message "Installing $package..."
+    if ! pip install "$package"; then
+        log_error "Failed to install $package"
+        return 1
+    fi
+    return 0
+}
+
+# Improve PulseAudio setup
+setup_audio() {
+    log_message "Setting up audio system..."
+    
+    # Stop all pulseaudio instances
+    systemctl --user stop pulseaudio.socket pulseaudio.service || true
+    killall -9 pulseaudio || true
+    
+    # Clean up
+    rm -rf /home/radio/.config/pulse/*
+    rm -rf /run/user/1000/pulse/*
+    
+    # Wait for cleanup
+    sleep 2
+    
+    # Start fresh
+    systemctl --user start pulseaudio.socket pulseaudio.service
+    
+    # Wait for startup
+    sleep 2
+}
+
 # Improve Python package installation
 install_python_packages() {
     log_message "Installing Python packages..."
@@ -45,44 +78,22 @@ install_python_packages() {
     # Activate virtual environment
     source .venv/bin/activate
     
-    # Upgrade pip first
+    # Update pip
     python3 -m pip install --upgrade pip
     
-    # Install packages with specific versions and error handling
+    # Install packages
     PACKAGES=(
         "flask==2.0.1"
         "flask-cors==3.0.10"
-        "gpiozero"
-        "python-vlc"
-        "pigpio"
-        "toml"
+        "gpiozero==2.0"
+        "python-vlc==3.0.18"
+        "pigpio==1.78"
+        "toml==0.10.2"
     )
     
     for package in "${PACKAGES[@]}"; do
-        log_message "Installing $package..."
-        # Try up to 3 times to install each package
-        for i in {1..3}; do
-            if pip install "$package"; then
-                log_message "Successfully installed $package"
-                break
-            else
-                log_message "Attempt $i failed for $package"
-                if [ $i -eq 3 ]; then
-                    log_error "Failed to install $package after 3 attempts"
-                    # Try system packages as fallback
-                    if [[ $package == flask* ]]; then
-                        log_message "Trying system package for $package..."
-                        sudo apt-get install -y python3-${package%%=*}
-                    fi
-                fi
-                sleep 2
-            fi
-        done
+        install_package "$package"
     done
-    
-    # Verify installations
-    python3 -c "import flask" || log_error "Flask verification failed"
-    python3 -c "import flask_cors" || log_error "Flask-CORS verification failed"
     
     deactivate
 }
