@@ -737,105 +737,43 @@ main() {
 # Run main installation
 main
 
-# Improved package verification function
-verify_python_package() {
-    local package=$1
-    local import_name=$2
+# Simplified verification function
+verify_installations() {
+    log_message "Verifying Python packages..."
     
-    # Create a temporary Python script to test import
-    cat > /tmp/test_import.py <<EOF
+    # Test the actual application import requirements
+    cat > /tmp/verify_imports.py <<EOF
 try:
-    import $import_name
-    print("SUCCESS")
+    import flask
+    import flask_cors
+    import gpiozero
+    import vlc
+    import pigpio
+    import toml
+    print("SUCCESS: All packages verified")
+    exit(0)
 except ImportError as e:
-    print("FAILED")
+    print(f"FAILED: {str(e)}")
+    exit(1)
 EOF
-    
-    # Run the test script in the virtual environment
+
+    # Run verification in virtual environment
     if source .venv/bin/activate && \
-       python3 /tmp/test_import.py 2>/dev/null | grep -q "SUCCESS"; then
-        log_message "✓ Verified $package"
-        rm -f /tmp/test_import.py
+       python3 /tmp/verify_imports.py > /tmp/verify_result 2>&1; then
+        log_message "✓ All packages verified successfully"
+        rm -f /tmp/verify_imports.py /tmp/verify_result
         deactivate
         return 0
     else
-        log_message "✗ Failed to verify $package"
-        rm -f /tmp/test_import.py
+        log_message "✗ Package verification failed"
+        cat /tmp/verify_result
+        rm -f /tmp/verify_imports.py /tmp/verify_result
         deactivate
         return 1
     fi
 }
 
-# Main verification function
-verify_installations() {
-    log_message "Verifying Python packages..."
-    
-    # Package to import name mapping
-    declare -A PACKAGES=(
-        ["Flask"]="flask"
-        ["Flask-Cors"]="flask_cors"
-        ["gpiozero"]="gpiozero"
-        ["python-vlc"]="vlc"
-        ["pigpio"]="pigpio"
-        ["toml"]="toml"
-    )
-    
-    local failed=0
-    
-    for package in "${!PACKAGES[@]}"; do
-        if ! verify_python_package "$package" "${PACKAGES[$package]}"; then
-            failed=1
-            log_message "Attempting to reinstall $package..."
-            source .venv/bin/activate
-            pip install --force-reinstall "$package"
-            deactivate
-        fi
-    done
-    
-    if [ $failed -eq 0 ]; then
-        log_message "All packages verified successfully"
-    else
-        log_message "Some package verifications failed"
-    fi
-    
-    return $failed
-}
-
-# Improved logging to handle pipe errors
+# Improved logging function
 log_message() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" 2>/dev/null || true
-}
-
-# Main installation function
-main() {
-    # ... existing code ...
-    
-    # Verify installations with better error handling
-    if ! verify_installations; then
-        log_message "WARNING: Some package verifications failed, but continuing..."
-    fi
-    
-    # ... rest of the installation ...
-}
-
-# Run main installation
-main
-
-# Fix broken pipe handling
-exec_with_retry() {
-    local cmd="$1"
-    local max_attempts=3
-    local attempt=1
-    
-    while [ $attempt -le $max_attempts ]; do
-        if eval "$cmd" 2>&1 | tee /dev/null; then
-            return 0
-        fi
-        log_message "Attempt $attempt failed, retrying..."
-        ((attempt++))
-        sleep 1
-    done
-    
-    log_message "Failed after $max_attempts attempts"
-    return 1
 }
