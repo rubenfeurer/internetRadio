@@ -740,18 +740,27 @@ main
 # Improved package verification function
 verify_python_package() {
     local package=$1
-    local module=$2
+    local import_name=$2
     
-    # Ensure we're in the virtual environment
-    source .venv/bin/activate
+    # Create a temporary Python script to test import
+    cat > /tmp/test_import.py <<EOF
+try:
+    import $import_name
+    print("SUCCESS")
+except ImportError as e:
+    print("FAILED")
+EOF
     
-    # Try to import the module
-    if python3 -c "import $module" > /dev/null 2>&1; then
+    # Run the test script in the virtual environment
+    if source .venv/bin/activate && \
+       python3 /tmp/test_import.py 2>/dev/null | grep -q "SUCCESS"; then
         log_message "✓ Verified $package"
+        rm -f /tmp/test_import.py
         deactivate
         return 0
     else
         log_message "✗ Failed to verify $package"
+        rm -f /tmp/test_import.py
         deactivate
         return 1
     fi
@@ -761,10 +770,10 @@ verify_python_package() {
 verify_installations() {
     log_message "Verifying Python packages..."
     
-    # Define package-to-module mappings
-    declare -A packages=(
-        ["flask"]="flask"
-        ["flask-cors"]="flask_cors"
+    # Package to import name mapping
+    declare -A PACKAGES=(
+        ["Flask"]="flask"
+        ["Flask-Cors"]="flask_cors"
         ["gpiozero"]="gpiozero"
         ["python-vlc"]="vlc"
         ["pigpio"]="pigpio"
@@ -773,10 +782,9 @@ verify_installations() {
     
     local failed=0
     
-    for package in "${!packages[@]}"; do
-        if ! verify_python_package "$package" "${packages[$package]}"; then
+    for package in "${!PACKAGES[@]}"; do
+        if ! verify_python_package "$package" "${PACKAGES[$package]}"; then
             failed=1
-            # Try reinstalling if verification fails
             log_message "Attempting to reinstall $package..."
             source .venv/bin/activate
             pip install --force-reinstall "$package"
@@ -784,10 +792,16 @@ verify_installations() {
         fi
     done
     
+    if [ $failed -eq 0 ]; then
+        log_message "All packages verified successfully"
+    else
+        log_message "Some package verifications failed"
+    fi
+    
     return $failed
 }
 
-# Improved logging function
+# Improved logging to handle pipe errors
 log_message() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" 2>/dev/null || true
 }
