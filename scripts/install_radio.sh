@@ -1,19 +1,10 @@
 #!/bin/bash
 
 LOG_FILE="/home/radio/internetRadio/scripts/logs/installation.log"
-SUCCESS=true
 
-# Function to log messages
+# Simple logging function
 log_message() {
-    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-    echo "[$timestamp] $1" | tee -a "$LOG_FILE"
-}
-
-# Function to log errors
-log_error() {
-    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-    echo "[$timestamp] ERROR: $1" | tee -a "$LOG_FILE"
-    SUCCESS=false
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" 2>/dev/null || true
 }
 
 # Clear log
@@ -31,19 +22,19 @@ sudo apt-get install -y python3-pip python3-dev vlc pigpio
 log_message "Setting up directories..."
 RADIO_DIR="/home/radio/internetRadio"
 mkdir -p "$RADIO_DIR"
-cd "$RADIO_DIR" || log_error "Failed to change to $RADIO_DIR"
+cd "$RADIO_DIR" || log_message "Failed to change to $RADIO_DIR"
 
 # Setup virtual environment
 log_message "Setting up virtual environment..."
-python3 -m venv .venv || log_error "Failed to create virtual environment"
-source .venv/bin/activate || log_error "Failed to activate virtual environment"
+python3 -m venv .venv || log_message "Failed to create virtual environment"
+source .venv/bin/activate || log_message "Failed to activate virtual environment"
 
 # Add missing install_package function
 install_package() {
     local package=$1
     log_message "Installing $package..."
     if ! pip install "$package"; then
-        log_error "Failed to install $package"
+        log_message "Failed to install $package"
         return 1
     fi
     return 0
@@ -119,14 +110,14 @@ done
 log_message "Verifying package installations..."
 for package in "${packages[@]}"; do
     if ! pip list | grep -q "^$package "; then
-        log_error "Package $package is not installed"
+        log_message "Package $package is not installed"
         log_message "Attempting to fix $package installation..."
         
         # Try alternative installation methods
         if [[ $package == "flask" ]]; then
-            pip install Flask --no-cache-dir || log_error "Alternative Flask installation failed"
+            pip install Flask --no-cache-dir || log_message "Alternative Flask installation failed"
         elif [[ $package == "flask-cors" ]]; then
-            pip install Flask-Cors --no-cache-dir || log_error "Alternative Flask-Cors installation failed"
+            pip install Flask-Cors --no-cache-dir || log_message "Alternative Flask-Cors installation failed"
         fi
     else
         log_message "Verified installation of $package"
@@ -135,26 +126,26 @@ done
 
 # Verify Flask specifically
 if ! python3 -c "import flask" 2>/dev/null; then
-    log_error "Flask import failed, attempting system-wide installation"
-    sudo apt-get install -y python3-flask || log_error "System Flask installation failed"
+    log_message "Flask import failed, attempting system-wide installation"
+    sudo apt-get install -y python3-flask || log_message "System Flask installation failed"
 fi
 
 # Verify Flask-CORS specifically
 if ! python3 -c "import flask_cors" 2>/dev/null; then
-    log_error "Flask-CORS import failed, attempting system-wide installation"
-    sudo apt-get install -y python3-flask-cors || log_error "System Flask-CORS installation failed"
+    log_message "Flask-CORS import failed, attempting system-wide installation"
+    sudo apt-get install -y python3-flask-cors || log_message "System Flask-CORS installation failed"
 fi
 
 # Start and verify the service
 log_message "Starting internetradio service..."
-sudo systemctl start internetradio || log_error "Failed to start internetradio service"
+sudo systemctl start internetradio || log_message "Failed to start internetradio service"
 
 # Wait for service to start
 sleep 5
 
 # Check service status
 if ! systemctl is-active --quiet internetradio; then
-    log_error "internetradio service is not running"
+    log_message "internetradio service is not running"
     log_message "Checking service logs..."
     journalctl -u internetradio -n 50 >> "$LOG_FILE"
 fi
@@ -167,7 +158,7 @@ log_message "Verifying and fixing script permissions..."
 # Install dos2unix if needed
 if ! command -v dos2unix &> /dev/null; then
     log_message "Installing dos2unix..."
-    sudo apt-get install -y dos2unix || log_error "Failed to install dos2unix"
+    sudo apt-get install -y dos2unix || log_message "Failed to install dos2unix"
 fi
 
 # Fix script files
@@ -183,7 +174,7 @@ for script in "${SCRIPT_FILES[@]}"; do
         log_message "Fixing $script..."
         
         # Convert line endings
-        sudo dos2unix "$script" || log_error "Failed to convert line endings for $script"
+        sudo dos2unix "$script" || log_message "Failed to convert line endings for $script"
         
         # Ensure correct shebang
         if ! head -n1 "$script" | grep -q "^#!/bin/bash"; then
@@ -192,12 +183,12 @@ for script in "${SCRIPT_FILES[@]}"; do
         fi
         
         # Set permissions
-        sudo chmod +x "$script" || log_error "Failed to make $script executable"
-        sudo chown radio:radio "$script" || log_error "Failed to set ownership for $script"
+        sudo chmod +x "$script" || log_message "Failed to make $script executable"
+        sudo chown radio:radio "$script" || log_message "Failed to set ownership for $script"
         
         log_message "Verified $script"
     else
-        log_error "Script file not found: $script"
+        log_message "Script file not found: $script"
     fi
 done
 
@@ -208,21 +199,21 @@ if [ -f "scripts/runApp.sh" ]; then
     # Check permissions
     if [ ! -x "scripts/runApp.sh" ]; then
         log_message "Fixing runApp.sh permissions..."
-        sudo chmod +x "scripts/runApp.sh" || log_error "Failed to make runApp.sh executable"
+        sudo chmod +x "scripts/runApp.sh" || log_message "Failed to make runApp.sh executable"
     fi
     
     # Check ownership
     if [ "$(stat -c '%U:%G' scripts/runApp.sh)" != "radio:radio" ]; then
         log_message "Fixing runApp.sh ownership..."
-        sudo chown radio:radio "scripts/runApp.sh" || log_error "Failed to set runApp.sh ownership"
+        sudo chown radio:radio "scripts/runApp.sh" || log_message "Failed to set runApp.sh ownership"
     fi
     
     # Verify content
     if ! grep -q "^#!/bin/bash" "scripts/runApp.sh"; then
-        log_error "runApp.sh is missing shebang line"
+        log_message "runApp.sh is missing shebang line"
     fi
 else
-    log_error "Critical error: runApp.sh not found"
+    log_message "Critical error: runApp.sh not found"
     exit 1
 fi
 
@@ -277,21 +268,21 @@ log_message "Verifying installations..."
 
 # Verify virtual environment
 if [ ! -f ".venv/bin/activate" ]; then
-    log_error "Virtual environment not properly created"
+    log_message "Virtual environment not properly created"
 fi
 
 # Verify Python packages
 source .venv/bin/activate
 for package in flask flask-cors gpiozero python-vlc pigpio toml; do
     if ! pip list | grep -q "^$package "; then
-        log_error "Package $package is not installed"
+        log_message "Package $package is not installed"
         pip install --no-cache-dir "$package"
     fi
 done
 
 # Verify pigpiod
 if ! systemctl is-active --quiet pigpiod; then
-    log_error "pigpiod is not running, attempting to start..."
+    log_message "pigpiod is not running, attempting to start..."
     sudo systemctl start pigpiod
     sleep 2
     if ! systemctl is-active --quiet pigpiod; then
@@ -302,9 +293,9 @@ fi
 # Final verification
 log_message "Running final verification..."
 source .venv/bin/activate
-python3 -c "import flask; import flask_cors" 2>/dev/null || log_error "Flask verification failed"
+python3 -c "import flask; import flask_cors" 2>/dev/null || log_message "Flask verification failed"
 if ! pgrep pigpiod > /dev/null; then
-    log_error "pigpiod verification failed"
+    log_message "pigpiod verification failed"
 fi
 
 # Setup autostart
@@ -364,21 +355,21 @@ log_message "Enabling and starting services..."
 # Enable and start pigpiod
 sudo systemctl enable pigpiod
 if ! sudo systemctl start pigpiod; then
-    log_error "Failed to start pigpiod service"
+    log_message "Failed to start pigpiod service"
 fi
 
 # Enable and start radio service
 sudo systemctl daemon-reload
 if ! sudo systemctl enable internetradio.service; then
-    log_error "Failed to enable internetradio service"
+    log_message "Failed to enable internetradio service"
 fi
 if ! sudo systemctl start internetradio.service; then
-    log_error "Failed to start internetradio service"
+    log_message "Failed to start internetradio service"
 fi
 
 # Verify service status
 if ! systemctl is-active --quiet internetradio.service; then
-    log_error "internetradio service is not running"
+    log_message "internetradio service is not running"
 else
     log_message "internetradio service is running successfully"
 fi
@@ -441,15 +432,15 @@ EOL
 log_message "Enabling and starting update timer..."
 sudo systemctl daemon-reload
 if ! sudo systemctl enable radio-update.timer; then
-    log_error "Failed to enable update timer"
+    log_message "Failed to enable update timer"
 fi
 if ! sudo systemctl start radio-update.timer; then
-    log_error "Failed to start update timer"
+    log_message "Failed to start update timer"
 fi
 
 # Verify timer status
 if ! systemctl is-active --quiet radio-update.timer; then
-    log_error "Update timer is not running"
+    log_message "Update timer is not running"
 else
     log_message "Update timer is running successfully"
 fi
@@ -459,31 +450,18 @@ TIMER_STATUS=$(systemctl status radio-update.timer)
 log_message "Timer status: $TIMER_STATUS"
 
 # Final status
-    log_message "Installation completed with errors"
-    echo
-    echo "Would you like to view the installation log? (y/N): "
-    read -r view_log
-    if [[ $view_log =~ ^[Yy]$ ]]; then
-        if command -v less >/dev/null 2>&1; then
-            less "$LOG_FILE"
-        else
-            cat "$LOG_FILE"
-        fi
-        echo
-        echo "The full log is available at: $LOG_FILE"
-    else
-        echo "You can view the log later with: cat $LOG_FILE"
-    fi
+if systemctl is-active --quiet internetradio && \
+   systemctl is-active --quiet radio-update.timer; then
+    log_message "Installation completed successfully"
+    log_message "Service is running at http://$(hostname -I | cut -d' ' -f1):8080"
     
-    echo
-    echo "Would you like to run the diagnostic script to check for issues? (y/N): "
-    read -r run_diagnostic
-    if [[ $run_diagnostic =~ ^[Yy]$ ]]; then
-        ./scripts/check_radio.sh
-    fi
+    # Optional: Show service status
+    log_message "Service status: $(systemctl status internetradio | head -n3)"
+    log_message "Timer status: $(systemctl status radio-update.timer | head -n3)"
+else
+    log_message "Installation completed with errors - service not running"
+    log_message "Check logs with: journalctl -u internetradio -n 50"
 fi
-
-echo "=== Installation Finished $(date '+%Y-%m-%d %H:%M:%S') ===" >> "$LOG_FILE" 
 
 # Install audio and GPIO dependencies
 log_message "Installing audio and GPIO dependencies..."
@@ -686,7 +664,7 @@ setup_gpio() {
     
     # Verify GPIO
     if ! pigs help >/dev/null 2>&1; then
-        log_error "pigpiod verification failed"
+        log_message "pigpiod verification failed"
         # Try to fix
         sudo killall pigpiod
         sleep 1
