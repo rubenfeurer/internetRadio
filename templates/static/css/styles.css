@@ -107,9 +107,6 @@ button {
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-button:hover {
-}
-
 button:active {
     transform: scale(0.98); /* Slight scale down on active state (click) */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Inset shadow effect on active state (click) */
@@ -213,9 +210,6 @@ button:active {
    display :inline-block; 
    cursor:pointer; 
    flex-shrink :0; 
-}
-
-.play-button:hover {
 }
 
 /* Play Icon Styles within Play Button */
