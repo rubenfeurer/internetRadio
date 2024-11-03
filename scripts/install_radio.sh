@@ -330,7 +330,7 @@ log_message "Service status: $SERVICE_STATUS"
 # Add daily update service
 log_message "Setting up daily update service..."
 
-# Create the update timer service
+# Create the update service
 sudo bash -c "cat > /etc/systemd/system/radio-update.service" <<EOL
 [Unit]
 Description=Daily Radio Update Service
@@ -341,11 +341,20 @@ Type=oneshot
 User=radio
 Group=radio
 WorkingDirectory=/home/radio/internetRadio
-ExecStart=/home/radio/internetRadio/scripts/update_radio.sh
+Environment=HOME=/home/radio
+ExecStart=/bin/bash /home/radio/internetRadio/scripts/update_radio.sh
+StandardOutput=append:/home/radio/internetRadio/scripts/logs/update_radio.log
+StandardError=append:/home/radio/internetRadio/scripts/logs/update_radio.log
 
 [Install]
 WantedBy=multi-user.target
 EOL
+
+# Reload systemd
+sudo systemctl daemon-reload
+
+# Enable the service
+sudo systemctl enable radio-update.service
 
 # Create the timer
 sudo bash -c "cat > /etc/systemd/system/radio-update.timer" <<EOL
