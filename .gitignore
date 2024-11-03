@@ -1,5 +1,4 @@
 .DS_Store
-runApp.sh
 scripts/logs/*
 .venv/
 __pycache__/

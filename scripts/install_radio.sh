@@ -49,7 +49,7 @@ packages=(
     "gpiozero"
     "python-vlc"  # Note: the import name is 'vlc' but package name is 'python-vlc'
     "pigpio"
-    "toml"        # Note: it's 'toml' not 'tomlsource'
+    "toml"
     "flask"
     "flask-cors"
 )
@@ -158,6 +158,152 @@ source .venv/bin/activate
 python3 -c "import flask; import flask_cors" 2>/dev/null || log_error "Flask verification failed"
 if ! pgrep pigpiod > /dev/null; then
     log_error "pigpiod verification failed"
+fi
+
+# Setup autostart
+log_message "Setting up autostart service..."
+
+# Create systemd service file
+sudo bash -c "cat > /etc/systemd/system/internetradio.service" <<EOL
+[Unit]
+Description=Internet Radio Service
+After=network.target pigpiod.service pulseaudio.service
+Requires=pigpiod.service
+
+[Service]
+Type=simple
+User=radio
+Group=radio
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/radio/.Xauthority
+Environment=HOME=/home/radio
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+WorkingDirectory=/home/radio/internetRadio
+
+# Setup audio and required services
+ExecStartPre=/bin/bash -c 'mkdir -p /run/user/1000 && chmod 700 /run/user/1000'
+ExecStartPre=/usr/bin/pulseaudio --start
+ExecStartPre=/bin/sleep 5
+
+# Start the main application
+ExecStart=/home/radio/internetRadio/scripts/runApp.sh
+
+# Restart settings
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+# Set up permissions and groups
+log_message "Setting up permissions and groups..."
+
+# Add radio user to required groups
+sudo usermod -a -G audio,video,gpio,pulse,pulse-access radio
+
+# Set up runtime directory
+sudo mkdir -p /run/user/1000
+sudo chown radio:radio /run/user/1000
+sudo chmod 700 /run/user/1000
+
+# Set application permissions
+sudo chown -R radio:radio /home/radio/internetRadio
+sudo chmod -R 755 /home/radio/internetRadio
+
+# Enable and start services
+log_message "Enabling and starting services..."
+
+# Enable and start pigpiod
+sudo systemctl enable pigpiod
+if ! sudo systemctl start pigpiod; then
+    log_error "Failed to start pigpiod service"
+fi
+
+# Enable and start radio service
+sudo systemctl daemon-reload
+if ! sudo systemctl enable internetradio.service; then
+    log_error "Failed to enable internetradio service"
+fi
+if ! sudo systemctl start internetradio.service; then
+    log_error "Failed to start internetradio service"
+fi
+
+# Verify service status
+if ! systemctl is-active --quiet internetradio.service; then
+    log_error "internetradio service is not running"
+else
+    log_message "internetradio service is running successfully"
+fi
+
+# Add service status check
+log_message "Checking service status..."
+SERVICE_STATUS=$(systemctl status internetradio.service)
+log_message "Service status: $SERVICE_STATUS"
+
+# Add daily update service
+log_message "Setting up daily update service..."
+
+# Create the update timer service
+sudo bash -c "cat > /etc/systemd/system/radio-update.service" <<EOL
+[Unit]
+Description=Daily Radio Update Service
+After=network.target
+
+[Service]
+Type=oneshot
+User=radio
+Group=radio
+WorkingDirectory=/home/radio/internetRadio
+ExecStart=/home/radio/internetRadio/scripts/update_radio.sh
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+# Create the timer
+sudo bash -c "cat > /etc/systemd/system/radio-update.timer" <<EOL
+[Unit]
+Description=Daily Radio Update Timer
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=24h
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOL
+
+# Enable and start the timer
+log_message "Enabling and starting update timer..."
+sudo systemctl daemon-reload
+if ! sudo systemctl enable radio-update.timer; then
+    log_error "Failed to enable update timer"
+fi
+if ! sudo systemctl start radio-update.timer; then
+    log_error "Failed to start update timer"
+fi
+
+# Verify timer status
+if ! systemctl is-active --quiet radio-update.timer; then
+    log_error "Update timer is not running"
+else
+    log_message "Update timer is running successfully"
+fi
+
+# Add timer status check
+TIMER_STATUS=$(systemctl status radio-update.timer)
+log_message "Timer status: $TIMER_STATUS"
+
+# Final status
+if [ "$SUCCESS" = true ]; then
+    log_message "Installation completed successfully"
+    log_message "The radio will start automatically on next boot"
+    log_message "To check status: sudo systemctl status internetradio"
+    log_message "To view logs: journalctl -u internetradio -f"
+else
+    log_message "Installation completed with errors. Check $ERROR_LOG for details"
 fi
 
 # Generate summary
