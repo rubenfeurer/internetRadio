@@ -241,6 +241,61 @@ log_message "Checking service status..."
 SERVICE_STATUS=$(systemctl status internetradio.service)
 log_message "Service status: $SERVICE_STATUS"
 
+# Add daily update service
+log_message "Setting up daily update service..."
+
+# Create the update timer service
+sudo bash -c "cat > /etc/systemd/system/radio-update.service" <<EOL
+[Unit]
+Description=Daily Radio Update Service
+After=network.target
+
+[Service]
+Type=oneshot
+User=radio
+Group=radio
+WorkingDirectory=/home/radio/internetRadio
+ExecStart=/home/radio/internetRadio/scripts/update_radio.sh
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+# Create the timer
+sudo bash -c "cat > /etc/systemd/system/radio-update.timer" <<EOL
+[Unit]
+Description=Daily Radio Update Timer
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=24h
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOL
+
+# Enable and start the timer
+log_message "Enabling and starting update timer..."
+sudo systemctl daemon-reload
+if ! sudo systemctl enable radio-update.timer; then
+    log_error "Failed to enable update timer"
+fi
+if ! sudo systemctl start radio-update.timer; then
+    log_error "Failed to start update timer"
+fi
+
+# Verify timer status
+if ! systemctl is-active --quiet radio-update.timer; then
+    log_error "Update timer is not running"
+else
+    log_message "Update timer is running successfully"
+fi
+
+# Add timer status check
+TIMER_STATUS=$(systemctl status radio-update.timer)
+log_message "Timer status: $TIMER_STATUS"
+
 # Final status
 if [ "$SUCCESS" = true ]; then
     log_message "Installation completed successfully"

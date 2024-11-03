@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set up logging
-LOG_FILE="/home/radio/internetRadio/scripts/logs/update_repo.log"
+LOG_FILE="/home/radio/internetRadio/scripts/logs/update_radio.log"
 mkdir -p "$(dirname "$LOG_FILE")"
 
 log_message() {
@@ -37,8 +37,8 @@ FILES_TO_MAKE_EXECUTABLE=(
     "stream_manager.py"
     "app.py"
     "sounds.py"
-    "scripts/update_repo.sh"
-    "scripts/install_dependencies.sh"
+    "scripts/update_radio.sh"
+    "scripts/install_radio.sh"
     "scripts/runApp.sh"
     "scripts/check_radio.sh"
 )
