@@ -736,3 +736,62 @@ main() {
 
 # Run main installation
 main
+
+# Improve package verification
+verify_package() {
+    local package=$1
+    local module_name=$2  # Sometimes different from package name
+    
+    log_message "Verifying $package..."
+    if source .venv/bin/activate && python3 -c "import $module_name" 2>/dev/null; then
+        log_message "Verified installation of $package"
+        deactivate
+        return 0
+    else
+        log_message "ERROR: Package $package verification failed"
+        deactivate
+        return 1
+    fi
+}
+
+verify_installations() {
+    log_message "Verifying installations..."
+    
+    # Map of package names to their import names
+    declare -A PACKAGES=(
+        ["gpiozero"]="gpiozero"
+        ["python-vlc"]="vlc"
+        ["pigpio"]="pigpio"
+        ["toml"]="toml"
+        ["flask"]="flask"
+        ["flask-cors"]="flask_cors"
+    )
+    
+    local failed=0
+    for package in "${!PACKAGES[@]}"; do
+        if ! verify_package "$package" "${PACKAGES[$package]}"; then
+            failed=1
+        fi
+    done
+    
+    return $failed
+}
+
+# Fix broken pipe handling
+exec_with_retry() {
+    local cmd="$1"
+    local max_attempts=3
+    local attempt=1
+    
+    while [ $attempt -le $max_attempts ]; do
+        if eval "$cmd" 2>&1 | tee /dev/null; then
+            return 0
+        fi
+        log_message "Attempt $attempt failed, retrying..."
+        ((attempt++))
+        sleep 1
+    done
+    
+    log_message "Failed after $max_attempts attempts"
+    return 1
+}
