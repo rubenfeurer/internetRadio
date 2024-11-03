@@ -70,7 +70,7 @@ done
 
 # ... (rest of installation code) ...
 
-# Final status
+# Final status and log viewing
 if [ "$SUCCESS" = true ]; then
     log_message "Installation completed successfully"
     log_message "The radio will start automatically on next boot"
@@ -78,6 +78,27 @@ if [ "$SUCCESS" = true ]; then
     log_message "To view logs: journalctl -u internetradio -f"
 else
     log_message "Installation completed with errors"
+    echo
+    echo "Would you like to view the installation log? (y/N): "
+    read -r view_log
+    if [[ $view_log =~ ^[Yy]$ ]]; then
+        if command -v less >/dev/null 2>&1; then
+            less "$LOG_FILE"
+        else
+            cat "$LOG_FILE"
+        fi
+        echo
+        echo "The full log is available at: $LOG_FILE"
+    else
+        echo "You can view the log later with: cat $LOG_FILE"
+    fi
+    
+    echo
+    echo "Would you like to run the diagnostic script to check for issues? (y/N): "
+    read -r run_diagnostic
+    if [[ $run_diagnostic =~ ^[Yy]$ ]]; then
+        ./scripts/check_radio.sh
+    fi
 fi
 
 echo "=== Installation Finished $(date '+%Y-%m-%d %H:%M:%S') ===" >> "$LOG_FILE" 

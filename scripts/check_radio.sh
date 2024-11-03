@@ -118,3 +118,36 @@ else
 fi
 
 log_message "Diagnostic check complete. Check $LOG_FILE for details."
+
+# Check if there were any errors in the log
+if grep -q "ERROR:" "$LOG_FILE"; then
+    echo
+    echo "Errors were found during diagnostics."
+    echo "Would you like to view the diagnostic log? (y/N): "
+    read -r view_log
+    if [[ $view_log =~ ^[Yy]$ ]]; then
+        if command -v less >/dev/null 2>&1; then
+            less "$LOG_FILE"
+        else
+            cat "$LOG_FILE"
+        fi
+        echo
+        echo "The full diagnostic log is available at: $LOG_FILE"
+    else
+        echo "You can view the log later with: cat $LOG_FILE"
+    fi
+else
+    echo "No errors found during diagnostics."
+    echo "Would you like to view the full diagnostic log anyway? (y/N): "
+    read -r view_log
+    if [[ $view_log =~ ^[Yy]$ ]]; then
+        if command -v less >/dev/null 2>&1; then
+            less "$LOG_FILE"
+        else
+            cat "$LOG_FILE"
+        fi
+    fi
+fi
+
+echo
+echo "Diagnostic log location: $LOG_FILE"
