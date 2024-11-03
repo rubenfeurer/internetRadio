@@ -160,6 +160,97 @@ if ! pgrep pigpiod > /dev/null; then
     log_error "pigpiod verification failed"
 fi
 
+# Setup autostart
+log_message "Setting up autostart service..."
+
+# Create systemd service file
+sudo bash -c "cat > /etc/systemd/system/internetradio.service" <<EOL
+[Unit]
+Description=Internet Radio Service
+After=network.target pigpiod.service pulseaudio.service
+Requires=pigpiod.service
+
+[Service]
+Type=simple
+User=radio
+Group=radio
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/radio/.Xauthority
+Environment=HOME=/home/radio
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+WorkingDirectory=/home/radio/internetRadio
+
+# Setup audio and required services
+ExecStartPre=/bin/bash -c 'mkdir -p /run/user/1000 && chmod 700 /run/user/1000'
+ExecStartPre=/usr/bin/pulseaudio --start
+ExecStartPre=/bin/sleep 5
+
+# Start the main application
+ExecStart=/home/radio/internetRadio/.venv/bin/python /home/radio/internetRadio/main.py
+
+# Restart settings
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+# Set up permissions and groups
+log_message "Setting up permissions and groups..."
+
+# Add radio user to required groups
+sudo usermod -a -G audio,video,gpio,pulse,pulse-access radio
+
+# Set up runtime directory
+sudo mkdir -p /run/user/1000
+sudo chown radio:radio /run/user/1000
+sudo chmod 700 /run/user/1000
+
+# Set application permissions
+sudo chown -R radio:radio /home/radio/internetRadio
+sudo chmod -R 755 /home/radio/internetRadio
+
+# Enable and start services
+log_message "Enabling and starting services..."
+
+# Enable and start pigpiod
+sudo systemctl enable pigpiod
+if ! sudo systemctl start pigpiod; then
+    log_error "Failed to start pigpiod service"
+fi
+
+# Enable and start radio service
+sudo systemctl daemon-reload
+if ! sudo systemctl enable internetradio.service; then
+    log_error "Failed to enable internetradio service"
+fi
+if ! sudo systemctl start internetradio.service; then
+    log_error "Failed to start internetradio service"
+fi
+
+# Verify service status
+if ! systemctl is-active --quiet internetradio.service; then
+    log_error "internetradio service is not running"
+else
+    log_message "internetradio service is running successfully"
+fi
+
+# Add service status check
+log_message "Checking service status..."
+SERVICE_STATUS=$(systemctl status internetradio.service)
+log_message "Service status: $SERVICE_STATUS"
+
+# Final status
+if [ "$SUCCESS" = true ]; then
+    log_message "Installation completed successfully"
+    log_message "The radio will start automatically on next boot"
+    log_message "To check status: sudo systemctl status internetradio"
+    log_message "To view logs: journalctl -u internetradio -f"
+else
+    log_message "Installation completed with errors. Check $ERROR_LOG for details"
+fi
+
 # Generate summary
 echo -e "\n=== Installation Summary ===" | tee -a "$LOG_FILE"
 if [ "$SUCCESS" = true ]; then
