@@ -713,9 +713,9 @@ verify_installations() {
 # Simplified package installation without output
 install_packages() {
     log_message "Installing Python packages..."
-    
-    # Install all packages quietly
     source .venv/bin/activate >/dev/null 2>&1
+    
+    # Install all packages at once, quietly
     pip install --quiet --no-input \
         gpiozero \
         python-vlc \
@@ -723,6 +723,7 @@ install_packages() {
         toml \
         flask \
         flask-cors
+        
     deactivate >/dev/null 2>&1
 }
 
@@ -735,16 +736,14 @@ log_message() {
 main() {
     log_message "Starting installation..."
     
-    # ... system updates ...
-    
-    install_packages
-    
-    # Skip verification if service is already running
+    # Check if service is already running
     if systemctl is-active --quiet internetradio; then
-        log_message "Service already running - skipping verification"
-    else
-        verify_installations
+        log_message "Service already running - skipping package verification"
+        return 0
     fi
+    
+    # Only continue with installation if service isn't running
+    install_packages
     
     # ... rest of installation ...
 }
