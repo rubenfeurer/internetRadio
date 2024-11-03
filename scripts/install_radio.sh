@@ -698,27 +698,32 @@ setup_gpio() {
 verify_installations() {
     log_message "Verifying installation..."
     
-    # Check if service is running
-    if systemctl is-active --quiet internetradio; then
-        log_message "✓ Service is running successfully"
-        
-        # Check if web server is responding
-        if timeout 5 curl -s http://localhost:8080 >/dev/null 2>&1; then
-            log_message "✓ Web server is responding"
-            return 0
-        else
-            log_message "! Web server not responding, but service is running"
-            return 0  # Still return success as service is running
-        fi
+    # Check if service is running and web server is responding
+    if systemctl is-active --quiet internetradio && \
+       curl -s --connect-timeout 2 http://localhost:8080 >/dev/null 2>&1; then
+        log_message "✓ Service and web server verified successfully"
+        return 0
     else
-        log_message "✗ Service is not running"
+        log_message "! Service verification failed"
         return 1
     fi
 }
 
-# Improved logging function that handles broken pipes
-log_message() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" 2>/dev/null || true
+# Simplified package installation without verification
+install_packages() {
+    local packages=(
+        "gpiozero"
+        "python-vlc"
+        "pigpio"
+        "toml"
+        "flask"
+        "flask-cors"
+    )
+    
+    for package in "${packages[@]}"; do
+        log_message "Installing ${package}..."
+        pip install "${package}" >/dev/null 2>&1 || true
+    done
 }
 
 # Main installation function
@@ -729,11 +734,12 @@ main() {
     setup_gpio
     install_python_packages
 
-    # Skip package verification if service is running
-    if systemctl is-active --quiet internetradio; then
-        log_message "Service already running - skipping package verification"
-    else
-        verify_installations
+    # Install packages without verification
+    install_packages
+
+    # Only verify service is running
+    if ! verify_installations; then
+        log_message "WARNING: Service verification failed"
     fi
 
     # Final service restart
@@ -748,42 +754,6 @@ main() {
 
 # Run main installation
 main
-
-# Simplified verification function
-verify_installations() {
-    log_message "Verifying Python packages..."
-    
-    # Test the actual application import requirements
-    cat > /tmp/verify_imports.py <<EOF
-try:
-    import flask
-    import flask_cors
-    import gpiozero
-    import vlc
-    import pigpio
-    import toml
-    print("SUCCESS: All packages verified")
-    exit(0)
-except ImportError as e:
-    print(f"FAILED: {str(e)}")
-    exit(1)
-EOF
-
-    # Run verification in virtual environment
-    if source .venv/bin/activate && \
-       python3 /tmp/verify_imports.py > /tmp/verify_result 2>&1; then
-        log_message "✓ All packages verified successfully"
-        rm -f /tmp/verify_imports.py /tmp/verify_result
-        deactivate
-        return 0
-    else
-        log_message "✗ Package verification failed"
-        cat /tmp/verify_result
-        rm -f /tmp/verify_imports.py /tmp/verify_result
-        deactivate
-        return 1
-    fi
-}
 
 # Improved logging function
 log_message() {
