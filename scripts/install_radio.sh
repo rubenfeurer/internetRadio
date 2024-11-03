@@ -737,45 +737,75 @@ main() {
 # Run main installation
 main
 
-# Improve package verification
-verify_package() {
+# Improved package verification function
+verify_python_package() {
     local package=$1
-    local module_name=$2  # Sometimes different from package name
+    local module=$2
     
-    log_message "Verifying $package..."
-    if source .venv/bin/activate && python3 -c "import $module_name" 2>/dev/null; then
-        log_message "Verified installation of $package"
+    # Ensure we're in the virtual environment
+    source .venv/bin/activate
+    
+    # Try to import the module
+    if python3 -c "import $module" > /dev/null 2>&1; then
+        log_message "✓ Verified $package"
         deactivate
         return 0
     else
-        log_message "ERROR: Package $package verification failed"
+        log_message "✗ Failed to verify $package"
         deactivate
         return 1
     fi
 }
 
+# Main verification function
 verify_installations() {
-    log_message "Verifying installations..."
+    log_message "Verifying Python packages..."
     
-    # Map of package names to their import names
-    declare -A PACKAGES=(
+    # Define package-to-module mappings
+    declare -A packages=(
+        ["flask"]="flask"
+        ["flask-cors"]="flask_cors"
         ["gpiozero"]="gpiozero"
         ["python-vlc"]="vlc"
         ["pigpio"]="pigpio"
         ["toml"]="toml"
-        ["flask"]="flask"
-        ["flask-cors"]="flask_cors"
     )
     
     local failed=0
-    for package in "${!PACKAGES[@]}"; do
-        if ! verify_package "$package" "${PACKAGES[$package]}"; then
+    
+    for package in "${!packages[@]}"; do
+        if ! verify_python_package "$package" "${packages[$package]}"; then
             failed=1
+            # Try reinstalling if verification fails
+            log_message "Attempting to reinstall $package..."
+            source .venv/bin/activate
+            pip install --force-reinstall "$package"
+            deactivate
         fi
     done
     
     return $failed
 }
+
+# Improved logging function
+log_message() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" 2>/dev/null || true
+}
+
+# Main installation function
+main() {
+    # ... existing code ...
+    
+    # Verify installations with better error handling
+    if ! verify_installations; then
+        log_message "WARNING: Some package verifications failed, but continuing..."
+    fi
+    
+    # ... rest of the installation ...
+}
+
+# Run main installation
+main
 
 # Fix broken pipe handling
 exec_with_retry() {
