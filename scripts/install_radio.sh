@@ -449,265 +449,19 @@ fi
 TIMER_STATUS=$(systemctl status radio-update.timer)
 log_message "Timer status: $TIMER_STATUS"
 
-# Final status
-if systemctl is-active --quiet internetradio && \
-   systemctl is-active --quiet radio-update.timer; then
-    log_message "Installation completed successfully"
-    log_message "Service is running at http://$(hostname -I | cut -d' ' -f1):8080"
-    
-    # Optional: Show service status
-    log_message "Service status: $(systemctl status internetradio | head -n3)"
-    log_message "Timer status: $(systemctl status radio-update.timer | head -n3)"
-else
-    log_message "Installation completed with errors - service not running"
-    log_message "Check logs with: journalctl -u internetradio -n 50"
-fi
-
-# Install audio and GPIO dependencies
-log_message "Installing audio and GPIO dependencies..."
-sudo apt-get install -y alsa-utils python3-pigpio python3-rpi.gpio
-
-# Install additional Python packages
-source .venv/bin/activate
-pip install RPi.GPIO lgpio
-
-# Enable and start pigpiod
-sudo systemctl enable pigpiod
-sudo systemctl start pigpiod
-
-# Set up audio
-log_message "Setting up audio..."
-# Get available audio controls
-AUDIO_CONTROLS=$(amixer scontrols)
-log_message "Available audio controls: $AUDIO_CONTROLS"
-
-# Function to check GPIO connections
-check_hardware() {
-    log_message "Checking hardware connections..."
-    
-    # GPIO Pin definitions
-    declare -A PINS=(
-        ["ROTARY_CLK"]=11    # GPIO11
-        ["ROTARY_DT"]=9      # GPIO9
-        ["ROTARY_SW"]=10     # GPIO10
-        ["BUTTON_1"]=17      # GPIO17
-        ["BUTTON_2"]=27      # GPIO27
-        ["BUTTON_3"]=22      # GPIO22
-        ["LED"]=4            # GPIO4
-    )
-    
-    # Array to store results
-    declare -A RESULTS=()
-    
-    # Test each pin
-    for pin in "${!PINS[@]}"; do
-        if python3 - <<END
-import RPi.GPIO as GPIO
-import time
-
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
-
-pin = ${PINS[$pin]}
-
-# Setup pin
-GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-# Read initial state
-state = GPIO.input(pin)
-
-# For LED, try to output
-if pin == 4:  # LED pin
-    GPIO.setup(pin, GPIO.OUT)
-    GPIO.output(pin, GPIO.HIGH)
-    time.sleep(0.1)
-    GPIO.output(pin, GPIO.LOW)
-
-GPIO.cleanup()
-END
-        then
-            RESULTS[$pin]="✓"
-        else
-            RESULTS[$pin]="✗"
-        fi
-    done
-    
-    # Print results in a nice format
-    echo
-    echo "Hardware Connection Check Results:"
-    echo "================================="
-    echo "Rotary Encoder:"
-    echo "  CLK (GPIO11): ${RESULTS[ROTARY_CLK]}"
-    echo "  DT  (GPIO9):  ${RESULTS[ROTARY_DT]}"
-    echo "  SW  (GPIO10): ${RESULTS[ROTARY_SW]}"
-    echo
-    echo "Buttons:"
-    echo "  Button 1 (GPIO17): ${RESULTS[BUTTON_1]}"
-    echo "  Button 2 (GPIO27): ${RESULTS[BUTTON_2y
-    ]}"
-    echo "  Button 3 (GPIO22): ${RESULTS[BUTTON_3]}"
-    echo
-    echo "LED:"
-    echo "  LED with 220Ω resistor (GPIO4): ${RESULTS[LED]}"
-    echo
-    echo "Note: ✓ = Pin accessible, ✗ = Pin not accessible or in use"
-    echo "This is just a basic connectivity test and doesn't guarantee correct wiring."
-    echo "Refer to the wiring diagram for correct connections:"
-    echo
-    echo "Wiring Instructions:"
-    echo "-------------------"
-    echo "Rotary Encoder:"
-    echo "  - GND → Pin 6 (Ground)"
-    echo "  - VCC → Pin 1 (3.3V)"
-    echo "  - SW  → Pin 19 (GPIO10)"
-    echo "  - DT  → Pin 21 (GPIO9)"
-    echo "  - CLK → Pin 23 (GPIO11)"
-    echo
-    echo "Buttons:"
-    echo "  - Button 1 → GPIO17 (Pin 11)"
-    echo "  - Button 2 → GPIO27 (Pin 13)"
-    echo "  - Button 3 → GPIO22 (Pin 15)"
-    echo "  - All buttons also connect to Ground"
-    echo
-    echo "LED:"
-    echo "  - LED positive → 220Ω resistor → GPIO4 (Pin 7)"
-    echo "  - LED negative → Ground"
-    echo
-}
-
-# At the end of successful installation
-if [ "$SUCCESS" = true ]; then
-    log_message "Installation completed successfully"
-    log_message "The radio will start automatically on next boot"
-    log_message "To check status: sudo systemctl status internetradio"
-    log_message "To view logs: journalctl -u internetradio -f"
-    
-    echo
-    echo "Would you like to check the hardware connections? (y/N): "
-    read -r check_hw
-    if [[ $check_hw =~ ^[Yy]$ ]]; then
-        check_hardware
+# Final status check - only care about service running
+check_installation_status() {
+    if systemctl is-active --quiet internetradio && \
+       systemctl is-active --quiet radio-update.timer; then
+        log_message "Installation completed successfully"
+        log_message "Service is running at http://$(hostname -I | cut -d' ' -f1):8080"
+        log_message "Service status: $(systemctl status internetradio | head -n3)"
+        log_message "Timer status: $(systemctl status radio-update.timer | head -n3)"
+        return 0
     else
-        echo
-        echo "You can check hardware connections later by running:"
-        echo "sudo ./scripts/check_radio.sh"
+        log_message "Installation completed with errors - service not running"
+        return 1
     fi
-    
-    echo
-    echo "Installation Summary:"
-    echo "-------------------"
-    echo "✓ Software installation complete"
-    echo "✓ Services configured"
-    echo "✓ Permissions set"
-    echo "✓ Auto-update configured"
-    echo
-    echo "Next Steps:"
-    echo "1. Verify hardware connections if not done"
-    echo "2. Reboot the system"
-    echo "3. The radio will start automatically"
-    echo
-    read -p "Would you like to reboot now? (y/N): " reboot
-    if [[ $reboot == [yY] ]]; then
-        sudo reboot
-    fi
-else
-    log_message "Installation completed with errors"
-fi
-
-# Improve audio setup
-setup_audio() {
-    log_message "Setting up audio..."
-    
-    # Stop any running pulseaudio
-    pulseaudio --kill || true
-    sleep 2
-    
-    # Clean up old files
-    rm -rf /home/radio/.config/pulse
-    rm -rf /run/user/1000/pulse
-    
-    # Create fresh pulse config
-    mkdir -p /home/radio/.config/pulse
-    
-    # Configure pulseaudio
-    cat > /home/radio/.config/pulse/client.conf <<EOF
-autospawn = no
-daemon-binary = /usr/bin/pulseaudio
-EOF
-
-    # Set permissions
-    chown -R radio:radio /home/radio/.config/pulse
-    
-    # Update service file to handle audio better
-    sudo sed -i 's/ExecStartPre=\/usr\/bin\/pulseaudio --start/ExecStartPre=\/usr\/bin\/pulseaudio --start --exit-idle-time=-1/' /etc/systemd/system/internetradio.service
-}
-
-# Improve GPIO setup
-setup_gpio() {
-    log_message "Setting up GPIO..."
-    
-    # Stop existing pigpiod
-    sudo systemctl stop pigpiod || true
-    
-    # Clean up any existing files
-    sudo rm -f /var/run/pigpio.pid
-    
-    # Install GPIO packages
-    sudo apt-get install -y python3-pigpio python3-rpi.gpio
-    
-    # Configure pigpiod service
-    sudo systemctl enable pigpiod
-    sudo systemctl start pigpiod
-    
-    # Wait for service
-    sleep 2
-    
-    # Verify GPIO
-    if ! pigs help >/dev/null 2>&1; then
-        log_message "pigpiod verification failed"
-        # Try to fix
-        sudo killall pigpiod
-        sleep 1
-        sudo pigpiod
-    fi
-}
-
-# Completely simplified verification that only checks service status
-verify_installations() {
-    log_message "Verifying installation..."
-    
-    # Only check if service is running and responding
-    if systemctl is-active --quiet internetradio; then
-        if curl -s --connect-timeout 2 http://localhost:8080 >/dev/null 2>&1; then
-            log_message "✓ Service verified successfully"
-            return 0
-        fi
-    fi
-    
-    log_message "! Service verification failed"
-    return 1
-}
-
-# Simplified package installation without output
-install_packages() {
-    log_message "Installing Python packages..."
-    source .venv/bin/activate >/dev/null 2>&1
-    
-    # Install all packages quietly
-    pip install --quiet --no-input \
-        gpiozero \
-        python-vlc \
-        pigpio \
-        toml \
-        flask \
-        flask-cors
-        
-    deactivate >/dev/null 2>&1
-}
-
-# Improved logging function that handles broken pipes
-log_message() {
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" 2>/dev/null || true
 }
 
 # Main installation function
@@ -716,7 +470,7 @@ main() {
     
     # Check if service is already running
     if systemctl is-active --quiet internetradio; then
-        log_message "Service already running - skipping package verification"
+        log_message "Service already running - installation successful"
         return 0
     fi
     
@@ -725,16 +479,8 @@ main() {
     
     # ... rest of installation ...
     
-    # Final check - only verify service is running
-    if systemctl is-active --quiet internetradio; then
-        log_message "Installation completed successfully"
-        log_message "Service status: $(systemctl status internetradio | head -n3)"
-        return 0
-    else
-        log_message "Installation completed with errors"
-        log_message "Service failed to start"
-        return 1
-    fi
+    # Final check
+    check_installation_status
 }
 
 # Run main installation
