@@ -715,7 +715,7 @@ install_packages() {
     log_message "Installing Python packages..."
     source .venv/bin/activate >/dev/null 2>&1
     
-    # Install all packages at once, quietly
+    # Install all packages quietly
     pip install --quiet --no-input \
         gpiozero \
         python-vlc \
@@ -746,6 +746,17 @@ main() {
     install_packages
     
     # ... rest of installation ...
+    
+    # Final check - only verify service is running
+    if systemctl is-active --quiet internetradio; then
+        log_message "Installation completed successfully"
+        log_message "Service status: $(systemctl status internetradio | head -n3)"
+        return 0
+    else
+        log_message "Installation completed with errors"
+        log_message "Service failed to start"
+        return 1
+    fi
 }
 
 # Run main installation
