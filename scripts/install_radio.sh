@@ -42,42 +42,49 @@ source .venv/bin/activate || log_error "Failed to activate virtual environment"
 install_python_packages() {
     log_message "Installing Python packages..."
     
-    # Upgrade pip first with retry
-    for i in {1..3}; do
-        if python3 -m pip install --upgrade pip; then
-            break
-        fi
-        sleep 2
-    done
-
-    # Install Flask and dependencies with specific versions
+    # Activate virtual environment
+    source .venv/bin/activate
+    
+    # Upgrade pip first
+    python3 -m pip install --upgrade pip
+    
+    # Install packages with specific versions and error handling
     PACKAGES=(
         "flask==2.0.1"
         "flask-cors==3.0.10"
-        "Werkzeug==2.0.1"
-        "click==8.0.1"
-        "itsdangerous==2.0.1"
-        "Jinja2==3.0.1"
-        "MarkupSafe==2.0.1"
+        "gpiozero"
+        "python-vlc"
+        "pigpio"
+        "toml"
     )
-
+    
     for package in "${PACKAGES[@]}"; do
         log_message "Installing $package..."
+        # Try up to 3 times to install each package
         for i in {1..3}; do
-            if pip install "$package" --no-cache-dir; then
+            if pip install "$package"; then
                 log_message "Successfully installed $package"
                 break
+            else
+                log_message "Attempt $i failed for $package"
+                if [ $i -eq 3 ]; then
+                    log_error "Failed to install $package after 3 attempts"
+                    # Try system packages as fallback
+                    if [[ $package == flask* ]]; then
+                        log_message "Trying system package for $package..."
+                        sudo apt-get install -y python3-${package%%=*}
+                    fi
+                fi
+                sleep 2
             fi
-            log_message "Retry $i for $package..."
-            sleep 2
         done
     done
-
+    
     # Verify installations
-    python3 -c "import flask; import flask_cors" || {
-        log_error "Flask verification failed. Trying system packages..."
-        sudo apt-get install -y python3-flask python3-flask-cors
-    }
+    python3 -c "import flask" || log_error "Flask verification failed"
+    python3 -c "import flask_cors" || log_error "Flask-CORS verification failed"
+    
+    deactivate
 }
 
 # Install required packages
