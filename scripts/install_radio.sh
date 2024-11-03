@@ -139,64 +139,104 @@ if ! systemctl is-active --quiet internetradio; then
 fi
 
 # Final status and log viewing
-=======
-for package in "${packages[@]}"; do
-    log_message "Installing $package..."
-    pip install "$package"
-done
 
-# Verify installations
-for package in "${packages[@]}"; do
-    if ! pip list | grep -q "^$package "; then
-        log_error "Package $package failed to install"
+# Add script verification and fixes section
+log_message "Verifying and fixing script permissions..."
+
+# Install dos2unix if needed
+if ! command -v dos2unix &> /dev/null; then
+    log_message "Installing dos2unix..."
+    sudo apt-get install -y dos2unix || log_error "Failed to install dos2unix"
+fi
+
+# Fix script files
+SCRIPT_FILES=(
+    "scripts/runApp.sh"
+    "scripts/update_radio.sh"
+    "scripts/check_radio.sh"
+    "scripts/uninstall_radio.sh"
+)
+
+for script in "${SCRIPT_FILES[@]}"; do
+    if [ -f "$script" ]; then
+        log_message "Fixing $script..."
+        
+        # Convert line endings
+        sudo dos2unix "$script" || log_error "Failed to convert line endings for $script"
+        
+        # Ensure correct shebang
+        if ! head -n1 "$script" | grep -q "^#!/bin/bash"; then
+            sudo sed -i '1i#!/bin/bash' "$script"
+            log_message "Added shebang to $script"
+        fi
+        
+        # Set permissions
+        sudo chmod +x "$script" || log_error "Failed to make $script executable"
+        sudo chown radio:radio "$script" || log_error "Failed to set ownership for $script"
+        
+        log_message "Verified $script"
+    else
+        log_error "Script file not found: $script"
     fi
 done
 
-# Add explicit version check
-pip list | grep -E "^(flask|flask-cors|gpiozero|python-vlc|pigpio|toml|werkzeug) "
-
-# Verify Flask installation
-if ! pip list | grep -q "^Flask "; then
-    log_error "Flask not installed. Trying alternative installation..."
-    pip install --no-cache-dir flask
+# Verify runApp.sh specifically (as it's critical)
+if [ -f "scripts/runApp.sh" ]; then
+    log_message "Verifying runApp.sh..."
+    
+    # Check permissions
+    if [ ! -x "scripts/runApp.sh" ]; then
+        log_message "Fixing runApp.sh permissions..."
+        sudo chmod +x "scripts/runApp.sh" || log_error "Failed to make runApp.sh executable"
+    fi
+    
+    # Check ownership
+    if [ "$(stat -c '%U:%G' scripts/runApp.sh)" != "radio:radio" ]; then
+        log_message "Fixing runApp.sh ownership..."
+        sudo chown radio:radio "scripts/runApp.sh" || log_error "Failed to set runApp.sh ownership"
+    fi
+    
+    # Verify content
+    if ! grep -q "^#!/bin/bash" "scripts/runApp.sh"; then
+        log_error "runApp.sh is missing shebang line"
+    fi
+else
+    log_error "Critical error: runApp.sh not found"
+    exit 1
 fi
 
-if ! pip list | grep -q "^Flask-Cors "; then
-    log_error "Flask-Cors not installed. Trying alternative installation..."
-    pip install --no-cache-dir flask-cors
-fi
-
-# Setup pigpiod
-log_message "Setting up pigpiod..."
-sudo systemctl stop pigpiod
-sudo systemctl enable pigpiod
-sudo systemctl start pigpiod
-
-# Create systemd service for the application
-log_message "Creating systemd service for the application..."
-SERVICE_FILE="/etc/systemd/system/internetRadio.service"
-if [ ! -f "$SERVICE_FILE" ]; then
-    sudo bash -c "cat > $SERVICE_FILE" <<EOL
+# Create the radio service with verified paths
+sudo bash -c "cat > /etc/systemd/system/internetradio.service" <<EOL
 [Unit]
 Description=Internet Radio Service
-After=network.target pigpiod.service
+After=network.target pigpiod.service pulseaudio.service
+Requires=pigpiod.service
 
 [Service]
 Type=simple
 User=radio
+Group=radio
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/radio/.Xauthority
+Environment=HOME=/home/radio
+Environment=XDG_RUNTIME_DIR=/run/user/1000
 WorkingDirectory=/home/radio/internetRadio
-ExecStart=/home/radio/internetRadio/runApp.sh
-Restart=on-failure
+
+# Setup audio and required services
+ExecStartPre=/bin/bash -c 'mkdir -p /run/user/1000 && chmod 700 /run/user/1000'
+ExecStartPre=/usr/bin/pulseaudio --start
+ExecStartPre=/bin/sleep 5
+
+# Start the main application with explicit bash
+ExecStart=/bin/bash /home/radio/internetRadio/scripts/runApp.sh
+
+# Restart settings
+Restart=always
+RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
 EOL
-    sudo systemctl daemon-reload
-    sudo systemctl enable internetRadio.service
-    log_message "Service created and enabled"
-else
-    log_message "Service already exists"
-fi
 
 # Set permissions
 log_message "Setting permissions..."
