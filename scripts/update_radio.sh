@@ -8,6 +8,28 @@ log_message() {
     echo "$(date '+%Y-%m-%d %H:%M:%S'): $1" | tee -a "$LOG_FILE"
 }
 
+# Function to fix permissions after update
+fix_permissions() {
+    log_message "Fixing script permissions..."
+    
+    # Make all scripts executable
+    SCRIPTS=(
+        "scripts/runApp.sh"
+        "scripts/update_radio.sh"
+        "scripts/check_radio.sh"
+        "scripts/uninstall_radio.sh"
+        "scripts/install_radio.sh"
+    )
+    
+    for script in "${SCRIPTS[@]}"; do
+        if [ -f "$script" ]; then
+            log_message "Making $script executable..."
+            sudo chmod +x "$script"
+            sudo chown radio:radio "$script"
+        fi
+    done
+}
+
 # Function for both manual and service updates
 perform_update() {
     cd /home/radio/internetRadio || {
@@ -35,10 +57,8 @@ perform_update() {
     fi
     log_message "Reset Output: $RESET_OUTPUT"
 
-    # Update permissions
-    log_message "Updating file permissions..."
-    
-    # ... (rest of permission update code) ...
+    # Fix permissions after update
+    fix_permissions
 
     return 0
 }
@@ -51,7 +71,8 @@ if [ -t 1 ]; then
     echo
 
     if perform_update; then
-        echo -e "\n✅ Update completed successfully!"
+        echo -e "\n✓ Update completed successfully!"
+        echo "All scripts are now executable"
     else
         echo -e "\n❌ Update failed!"
         echo "Check the log for details: $LOG_FILE"
