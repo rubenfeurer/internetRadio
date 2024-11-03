@@ -35,16 +35,18 @@ def restart_pi():
     os.system("sudo reboot")
 
 def volume_up(encoder):
-    global volume
-    volume = volume + 5
-    volume = max(0, min(volume, 100))
-    stream_manager.set_volume(volume)
+    global volume, stream_manager
+    if stream_manager:
+        volume = min(100, volume + 5)  # Increase by 5, max 100
+        print(f"Volume Up: {volume}")
+        stream_manager.set_volume(volume)
 
 def volume_down(encoder):
-    global volume
-    volume = volume - 5
-    volume = max(0, min(volume, 100))
-    stream_manager.set_volume(volume)
+    global volume, stream_manager
+    if stream_manager:
+        volume = max(0, volume - 5)  # Decrease by 5, min 0
+        print(f"Volume Down: {volume}")
+        stream_manager.set_volume(volume)
 
 def check_wifi():
     try:
@@ -129,7 +131,7 @@ if __name__ == "__main__":
     sound_manager.play_sound("boot.wav")
 
     LED_PIN = 24
-    ENCODER_BUTTON = 23 # GPIO pin for Encoder Button
+    ENCODER_BUTTON = 10  # GPIO pin for Button Encoder Button
 
     led = LED(LED_PIN)
     led.on()
@@ -156,8 +158,8 @@ if __name__ == "__main__":
     print (volume)
 
     BUTTON1_PIN = 17  # GPIO pin for Button 1
-    BUTTON2_PIN = 27  # GPIO pin for Button 2
-    BUTTON3_PIN = 22  # GPIO pin for Button 3
+    BUTTON2_PIN = 16  # GPIO pin for Button 2
+    BUTTON3_PIN = 26  # GPIO pin for Button 3
 
     button1 = Button(BUTTON1_PIN, pull_up=True, bounce_time=0.2)
     button2 = Button(BUTTON2_PIN, pull_up=True, bounce_time=0.2)
@@ -167,12 +169,19 @@ if __name__ == "__main__":
     button2.when_pressed = lambda: button_handler('link2')
     button3.when_pressed = lambda: button_handler('link3')
 
-    DT_PIN = 5  # GPIO pin for DT
-    CLK_PIN = 6  # GPIO pin for CLK
+    DT_PIN = 9    # Changed from 5 to 9 (GPIO9)
+    CLK_PIN = 11  # Changed from 6 to 11 (GPIO11)
 
-    encoder = RotaryEncoder(DT_PIN, CLK_PIN, bounce_time=0.1, max_steps=1, wrap=False, threshold_steps=(0,100))
-    encoder.when_rotated_clockwise = lambda rotation: volume_down(rotation)
-    encoder.when_rotated_counter_clockwise = lambda rotation: volume_up(rotation)
+    encoder = RotaryEncoder(
+        DT_PIN, 
+        CLK_PIN, 
+        bounce_time=0.1, 
+        max_steps=1, 
+        wrap=False, 
+        threshold_steps=(0,100)
+    )
+    encoder.when_rotated_clockwise = lambda rotation: volume_up(rotation)
+    encoder.when_rotated_counter_clockwise = lambda rotation: volume_down(rotation)
     
     played = False
 
