@@ -19,6 +19,7 @@ fix_permissions() {
         "check_radio.sh"
         "uninstall_radio.sh"
         "install_radio.sh"
+        "detect_audio.sh"
     )
     
     # Fix each script explicitly
@@ -26,33 +27,41 @@ fix_permissions() {
         SCRIPT_PATH="/home/radio/internetRadio/scripts/$script"
         if [ -f "$SCRIPT_PATH" ]; then
             log_message "Setting permissions for $script"
-            # First remove all execute permissions
-            sudo chmod 644 "$SCRIPT_PATH"
-            # Then add execute permission
-            sudo chmod +x "$SCRIPT_PATH"
-            # Set ownership
+            sudo chmod 755 "$SCRIPT_PATH"
             sudo chown radio:radio "$SCRIPT_PATH"
-            
-            # Verify permissions
-            PERMS=$(stat -c %a "$SCRIPT_PATH")
-            if [ "$PERMS" != "755" ]; then
-                log_message "ERROR: Failed to set permissions for $script"
-                sudo chmod 755 "$SCRIPT_PATH"
-            fi
-            
-            # Double check
-            if [ ! -x "$SCRIPT_PATH" ]; then
-                log_message "ERROR: $script is still not executable"
-                sudo chmod +x "$SCRIPT_PATH"
-            fi
         else
             log_message "WARNING: $script not found"
         fi
     done
+
+    # Fix detect_audio.sh in system location
+    if [ -f "/usr/local/bin/detect_audio.sh" ]; then
+        log_message "Setting permissions for system detect_audio.sh"
+        sudo chmod 755 "/usr/local/bin/detect_audio.sh"
+        sudo chown radio:radio "/usr/local/bin/detect_audio.sh"
+    fi
     
-    # Verify all permissions one final time
-    echo "Final permission check:"
+    # Fix audio-related directories and files
+    log_message "Fixing audio-related permissions..."
+    
+    # PulseAudio directory
+    sudo mkdir -p /home/radio/.config/pulse
+    sudo chown -R radio:radio /home/radio/.config/pulse
+    sudo chmod -R 755 /home/radio/.config/pulse
+    
+    # Runtime directory
+    sudo mkdir -p /run/user/1000
+    sudo chown radio:radio /run/user/1000
+    sudo chmod 700 /run/user/1000
+    
+    # Main application directory
+    sudo chown -R radio:radio /home/radio/internetRadio
+    sudo chmod -R 755 /home/radio/internetRadio
+    
+    # Verify all permissions
+    log_message "Final permission check:"
     ls -la /home/radio/internetRadio/scripts/*.sh
+    ls -la /home/radio/internetRadio/audio-related
 }
 
 # Function for both manual and service updates
