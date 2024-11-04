@@ -142,4 +142,14 @@ echo "Please reboot the system to complete the cleanup."
 read -p "Would you like to reboot now? (y/N): " reboot
 if [[ $reboot == [yY] ]]; then
     sudo reboot
-fi 
+fi
+
+# Add process cleanup section
+log_message "Cleaning up running processes..."
+sudo pkill -f pulseaudio || true
+sudo pkill -f python || true
+sudo pkill -f vlc || true
+
+# Add runtime directory cleanup
+log_message "Cleaning runtime directories..."
+sudo rm -rf /run/user/1000/* || true 
