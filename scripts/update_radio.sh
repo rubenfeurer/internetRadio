@@ -6,41 +6,13 @@ mkdir -p "$(dirname "$LOG_FILE")"
 
 log_message() {
     local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
-    echo -e "[$timestamp] $1"
+    echo "[$timestamp] $1"
     echo "[$timestamp] $1" >> "$LOG_FILE"
 }
 
-# Function to fix permissions
-fix_permissions() {
-    log_message "🔒 Fixing script permissions..."
-    
-    # List of scripts to fix
-    SCRIPTS=(
-        "runApp.sh"
-        "update_radio.sh"
-        "check_radio.sh"
-        "uninstall_radio.sh"
-        "install_radio.sh"
-        "detect_audio.sh"
-        "monitor_radio.sh"
-        "hardware_test.sh"
-    )
-    
-    # Fix each script explicitly
-    for script in "${SCRIPTS[@]}"; do
-        SCRIPT_PATH="/home/radio/internetRadio/scripts/$script"
-        if [ -f "$SCRIPT_PATH" ]; then
-            log_message "   Setting permissions for $script"
-            chmod 755 "$SCRIPT_PATH"
-            chown radio:radio "$SCRIPT_PATH"
-        fi
-    done
-
-    # Fix audio-related permissions
-    log_message "🔊 Fixing audio-related permissions..."
-    chmod -R 755 /home/radio/internetRadio/sounds
-    chown -R radio:radio /home/radio/internetRadio/sounds
-}
+# Add initial message
+echo "Starting radio update..."
+log_message "Starting update process..."
 
 # Function for both manual and service updates
 perform_update() {
@@ -50,33 +22,33 @@ perform_update() {
     }
     log_message "📂 Changed to directory: $(pwd)"
 
-    # Fetch updates
-    log_message "📡 Fetching updates..."
+    # Fetch updates with verbose output
+    echo "📡 Fetching updates..."
     if ! git fetch origin develop; then
         log_message "❌ ERROR: Git fetch failed"
         return 1
     fi
-    log_message "✓ Fetch successful"
+    log_message "✓ Fetch completed"
 
-    # Reset to latest version
-    log_message "🔄 Resetting to latest version..."
+    # Reset branch with verbose output
+    echo "🔄 Resetting to latest version..."
     if ! git reset --hard origin/develop; then
         log_message "❌ ERROR: Git reset failed"
         return 1
     fi
-    log_message "✓ Reset successful"
+    log_message "✓ Reset completed"
 
     # Fix permissions
+    echo "🔒 Updating permissions..."
     fix_permissions
 
-    log_message "✅ Update completed successfully!"
+    echo -e "\n✅ Update completed successfully!"
     return 0
 }
 
-# Main execution
-echo -e "\n📻 Starting radio update..."
+# Run update
 if perform_update; then
-    echo -e "\n✅ Update completed successfully!"
+    log_message "Update completed successfully!"
 else
     echo -e "\n❌ Update failed! Check the log for details: $LOG_FILE"
     exit 1
