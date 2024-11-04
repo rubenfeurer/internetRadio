@@ -731,3 +731,49 @@ setup_python_env() {
     
     return 0
 }
+
+setup_service() {
+    log_message "Setting up systemd service..."
+    
+    # Create service file
+    cat > /etc/systemd/system/internetradio.service << 'EOL'
+[Unit]
+Description=Internet Radio Service
+After=network.target pigpiod.service pulseaudio.service
+Requires=pigpiod.service
+Wants=pulseaudio.service
+
+[Service]
+Type=simple
+User=radio
+Group=radio
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/radio/.Xauthority
+Environment=HOME=/home/radio
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+WorkingDirectory=/home/radio/internetRadio
+
+# Setup runtime directory
+ExecStartPre=/bin/bash -c 'mkdir -p /run/user/1000 && chmod 700 /run/user/1000'
+ExecStartPre=/bin/sleep 2
+
+# Start the main application
+ExecStart=/bin/bash /home/radio/internetRadio/scripts/runApp.sh
+
+# Restart settings
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+    # Set proper permissions
+    chmod 644 /etc/systemd/system/internetradio.service
+    
+    # Reload systemd and enable service
+    systemctl daemon-reload
+    systemctl enable internetradio.service
+    
+    log_message "Service setup complete"
+}
