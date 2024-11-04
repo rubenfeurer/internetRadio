@@ -510,6 +510,18 @@ main() {
     # Check if service is already running
     if systemctl is-active --quiet internetradio; then
         log_message "Service already running - installation successful"
+        
+        # Ask to run hardware test after successful installation
+        echo
+        read -p "Would you like to run the hardware test? (Y/n): " run_test
+        if [[ ! $run_test =~ ^[Nn]$ ]]; then
+            log_message "Starting hardware test..."
+            bash /home/radio/internetRadio/scripts/hardware_test.sh
+        else
+            echo "You can run the hardware test later with:"
+            echo "sudo bash /home/radio/internetRadio/scripts/hardware_test.sh"
+        fi
+        
         return 0
     fi
     
@@ -520,7 +532,32 @@ main() {
     install_packages
     setup_services
     # ... etc
+    
+    # Final status check
+    if systemctl is-active --quiet internetradio && \
+       systemctl is-active --quiet radio-update.timer; then
+        log_message "Installation completed successfully"
+        log_message "Service is running at http://$(hostname -I | cut -d' ' -f1):8080"
+        log_message "Service status: $(systemctl status internetradio | head -n3)"
+        log_message "Timer status: $(systemctl status radio-update.timer | head -n3)"
+        
+        # Ask to run hardware test after successful installation
+        echo
+        read -p "Would you like to run the hardware test? (Y/n): " run_test
+        if [[ ! $run_test =~ ^[Nn]$ ]]; then
+            log_message "Starting hardware test..."
+            bash /home/radio/internetRadio/scripts/hardware_test.sh
+        else
+            echo "You can run the hardware test later with:"
+            echo "sudo bash /home/radio/internetRadio/scripts/hardware_test.sh"
+        fi
+        
+        return 0
+    else
+        log_message "Installation completed with errors - service not running"
+        return 1
+    fi
 }
 
-# Run main installation
+# Run main function
 main
