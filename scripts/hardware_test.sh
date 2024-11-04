@@ -24,9 +24,11 @@ log() {
 test_pin() {
     local pin=$1
     local name=$2
+    local test_passed=false
     
-    # Create Python script for testing
-    cat > /tmp/test_pin.py <<EOF
+    while [ "$test_passed" = false ]; do
+        # Create Python script for testing
+        cat > /tmp/test_pin.py <<EOF
 import RPi.GPIO as GPIO
 import time
 
@@ -48,27 +50,40 @@ except Exception as e:
     GPIO.cleanup()
 EOF
 
-    echo -e "\nTesting ${BOLD}$name (GPIO$pin)${NC}"
-    echo "Please press/turn the $name within 10 seconds..."
-    
-    result=$(python3 /tmp/test_pin.py)
-    
-    if [ "$result" = "SUCCESS" ]; then
-        echo -e "${GREEN}✓ $name is working${NC}"
-        return 0
-    elif [ "$result" = "TIMEOUT" ]; then
-        echo -e "${RED}✗ No input detected from $name${NC}"
-        return 1
-    else
-        echo -e "${RED}✗ Error testing $name: $result${NC}"
-        return 1
-    fi
+        echo -e "\nTesting ${BOLD}$name (GPIO$pin)${NC}"
+        echo "Please press/turn the $name within 10 seconds..."
+        
+        result=$(python3 /tmp/test_pin.py)
+        
+        if [ "$result" = "SUCCESS" ]; then
+            echo -e "${GREEN}✓ $name is working${NC}"
+            test_passed=true
+            return 0
+        else
+            if [ "$result" = "TIMEOUT" ]; then
+                echo -e "${RED}✗ No input detected from $name${NC}"
+            else
+                echo -e "${RED}✗ Error testing $name: $result${NC}"
+            fi
+            
+            # Ask if user wants to retry this specific test
+            echo
+            read -p "Would you like to test $name again? (Y/n): " retry
+            if [[ $retry =~ ^[Nn]$ ]]; then
+                return 1
+            fi
+            echo -e "\nRetrying $name test..."
+        fi
+    done
 }
 
-# Test LED
+# Test LED with retry
 test_led() {
-    # Create Python script for LED test
-    cat > /tmp/test_led.py <<EOF
+    local test_passed=false
+    
+    while [ "$test_passed" = false ]; do
+        # Create Python script for LED test
+        cat > /tmp/test_led.py <<EOF
 import RPi.GPIO as GPIO
 import time
 
@@ -88,18 +103,27 @@ finally:
     GPIO.cleanup()
 EOF
 
-    echo -e "\nTesting ${BOLD}LED (GPIO$LED)${NC}"
-    echo "The LED should blink 3 times..."
-    
-    result=$(python3 /tmp/test_led.py)
-    
-    if [ "$result" = "SUCCESS" ]; then
-        echo -e "${GREEN}✓ LED test completed${NC}"
-        return 0
-    else
-        echo -e "${RED}✗ Error testing LED: $result${NC}"
-        return 1
-    fi
+        echo -e "\nTesting ${BOLD}LED (GPIO$LED)${NC}"
+        echo "The LED should blink 3 times..."
+        
+        result=$(python3 /tmp/test_led.py)
+        
+        if [ "$result" = "SUCCESS" ]; then
+            echo -e "${GREEN}✓ LED test completed${NC}"
+            test_passed=true
+            return 0
+        else
+            echo -e "${RED}✗ Error testing LED: $result${NC}"
+            
+            # Ask if user wants to retry LED test
+            echo
+            read -p "Would you like to test the LED again? (Y/n): " retry
+            if [[ $retry =~ ^[Nn]$ ]]; then
+                return 1
+            fi
+            echo -e "\nRetrying LED test..."
+        fi
+    done
 }
 
 # Main test function
