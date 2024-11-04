@@ -19,7 +19,7 @@ sound_manager = None
 
 def run_flask_app():
     app = create_app()
-    app.run(host='0.0.0.0', port=8080, debug=False)
+    app.run(host='0.0.0.0', port=5000, debug=False)
 
 def button_handler(stream_key):
     # print(f"Button pressed for {stream_key}")
@@ -79,7 +79,7 @@ def start_hotspot():
         subprocess.run(['sudo', 'nmcli', 'device', 'wifi', 'hotspot', 'ssid', 'Radio', 'password', 'Radio@1234', 'ifname', 'wlan0'], check=True)
         ip_address = get_ip_address('wlan0')
         if ip_address:
-            print(f"Hotspot started successfully. Visit http://{ip_address}:8080 to configure Wi-Fi settings.")
+            print(f"Hotspot started successfully. Visit http://{ip_address}:5000 to configure Wi-Fi settings.")
         else:
             print("Hotspot started, but IP address could not be determined.")
     except subprocess.CalledProcessError as e:
