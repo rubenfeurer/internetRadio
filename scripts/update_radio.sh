@@ -1,115 +1,34 @@
 #!/bin/bash
 
 # Set up logging
-LOG_FILE="/home/radio/internetRadio/scripts/logs/update_radio.log"
-mkdir -p "$(dirname "$LOG_FILE")"
+exec 1> >(logger -s -t $(basename $0)) 2>&1
 
-log_message() {
-    echo "$(date '+%Y-%m-%d %H:%M:%S'): $1" | tee -a "$LOG_FILE"
-}
+# Configuration
+REPO_URL="https://github.com/Suppi123/internetRadio.git"
+RADIO_DIR="/home/radio/internetRadio"
+BRANCH="main"
 
-# Function to fix permissions after update
-fix_permissions() {
-    log_message "Fixing script permissions..."
-    
-    # List of scripts to fix
-    SCRIPTS=(
-        "runApp.sh"
-        "update_radio.sh"
-        "check_radio.sh"
-        "uninstall_radio.sh"
-        "install_radio.sh"
-    )
-    
-    # Fix each script explicitly
-    for script in "${SCRIPTS[@]}"; do
-        SCRIPT_PATH="/home/radio/internetRadio/scripts/$script"
-        if [ -f "$SCRIPT_PATH" ]; then
-            log_message "Setting permissions for $script"
-            # First remove all execute permissions
-            sudo chmod 644 "$SCRIPT_PATH"
-            # Then add execute permission
-            sudo chmod +x "$SCRIPT_PATH"
-            # Set ownership
-            sudo chown radio:radio "$SCRIPT_PATH"
-            
-            # Verify permissions
-            PERMS=$(stat -c %a "$SCRIPT_PATH")
-            if [ "$PERMS" != "755" ]; then
-                log_message "ERROR: Failed to set permissions for $script"
-                sudo chmod 755 "$SCRIPT_PATH"
-            fi
-            
-            # Double check
-            if [ ! -x "$SCRIPT_PATH" ]; then
-                log_message "ERROR: $script is still not executable"
-                sudo chmod +x "$SCRIPT_PATH"
-            fi
-        else
-            log_message "WARNING: $script not found"
-        fi
-    done
-    
-    # Verify all permissions one final time
-    echo "Final permission check:"
-    ls -la /home/radio/internetRadio/scripts/*.sh
-}
+# Ensure we're in the correct directory
+cd $RADIO_DIR || exit 1
 
-# Function for both manual and service updates
-perform_update() {
-    cd /home/radio/internetRadio || {
-        log_message "ERROR: Failed to change to /home/radio/internetRadio"
-        return 1
-    }
+# Backup current config
+cp config.toml config.toml.bak
 
-    # Fix ownership before fetch
-    sudo chown -R radio:radio .
-    sudo chmod -R 755 .
+# Pull latest changes
+git fetch origin $BRANCH
+git reset --hard origin/$BRANCH
 
-    # Fetch updates
-    log_message "Fetching updates..."
-    if ! FETCH_OUTPUT=$(git fetch origin fix/general 2>&1); then
-        log_message "ERROR: Git fetch failed: $FETCH_OUTPUT"
-        return 1
-    fi
-    log_message "Fetch Output: $FETCH_OUTPUT"
+# Restore config
+mv config.toml.bak config.toml
 
-    # Reset branch
-    log_message "Resetting to origin/fix/general..."
-    if ! RESET_OUTPUT=$(git reset --hard origin/fix/general 2>&1); then
-        log_message "ERROR: Git reset failed: $RESET_OUTPUT"
-        return 1
-    fi
-    log_message "Reset Output: $RESET_OUTPUT"
+# Fix permissions after update
+chown -R radio:radio $RADIO_DIR
+chmod -R 755 $RADIO_DIR/scripts/*.sh
 
-    # Fix permissions explicitly after update
-    fix_permissions
-    
-    # Verify one last time
-    if [ ! -x "/home/radio/internetRadio/scripts/install_radio.sh" ]; then
-        log_message "CRITICAL: install_radio.sh is still not executable"
-        sudo chmod +x /home/radio/internetRadio/scripts/install_radio.sh
-    fi
+# Remove any duplicate logs directory if it exists
+rm -rf "$RADIO_DIR/scripts/logs"$'\r'
 
-    return 0
-}
+# Restart service
+systemctl restart internetradio
 
-# Check if running interactively
-if [ -t 1 ]; then
-    # Interactive mode
-    echo "Starting radio update..."
-    echo "This may take a few moments..."
-    echo
-
-    if perform_update; then
-        echo -e "\n✓ Update completed successfully!"
-        echo "All scripts are now executable"
-    else
-        echo -e "\n❌ Update failed!"
-        echo "Check the log for details: $LOG_FILE"
-        exit 1
-    fi
-else
-    # Service mode
-    perform_update
-fi
+echo "✓ Update completed successfully!"
