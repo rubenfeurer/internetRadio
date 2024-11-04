@@ -84,6 +84,29 @@ cleanup_system() {
     chown radio:radio /run/user/1000
 }
 
+fix_line_endings() {
+    log_message "Fixing line endings in script files..."
+    
+    # List of files to fix
+    FILES=(
+        "/home/radio/internetRadio/scripts/runApp.sh"
+        "/home/radio/internetRadio/scripts/update_radio.sh"
+        "/home/radio/internetRadio/scripts/install_radio.sh"
+        "/home/radio/internetRadio/scripts/check_radio.sh"
+        "/home/radio/internetRadio/scripts/monitor_radio.sh"
+        "/home/radio/internetRadio/scripts/hardware_test.sh"
+        "/home/radio/internetRadio/scripts/uninstall_radio.sh"
+    )
+    
+    for file in "${FILES[@]}"; do
+        if [ -f "$file" ]; then
+            # Remove carriage returns
+            sed -i 's/\r$//' "$file"
+            log_message "Fixed line endings in $file"
+        fi
+    done
+}
+
 setup_python_env() {
     log_message "Setting up Python environment..."
     
@@ -254,6 +277,11 @@ main() {
         exit 1
     }
     
+    fix_line_endings || {
+        log_message "Line ending fixes failed"
+        exit 1
+    }
+    
     setup_python_env || {
         log_message "Python environment setup failed"
         exit 1
@@ -277,7 +305,7 @@ main() {
     # Final status check
     if systemctl is-active --quiet internetradio; then
         log_message "Installation completed successfully"
-        log_message "Service is running at http://$(hostname -I | cut -d' ' -f1):8080"
+        log_message "Service is running at http://$(hostname -I | cut -d' ' -f1):5000"
         return 0
     else
         log_message "Installation completed with errors - service not running"

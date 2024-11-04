@@ -26,7 +26,7 @@ chown -R radio:radio $RADIO_DIR
 chmod -R 755 $RADIO_DIR/scripts/*.sh
 
 # Remove any duplicate logs directory if it exists
-rm -rf "$RADIO_DIR/scripts/logs"$'\r'
+rm -rf "$RADIO_DIR/scripts/logs"
 
 # Restart service
 systemctl restart internetradio
