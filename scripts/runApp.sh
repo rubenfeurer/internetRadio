@@ -16,8 +16,10 @@ chmod 700 $XDG_RUNTIME_DIR
 # Create logs directory
 mkdir -p /home/radio/internetRadio/scripts/logs
 
-# Start pulseaudio if not running
-/usr/bin/pulseaudio --start
+# Kill any existing PulseAudio processes and start fresh
+pulseaudio -k || true
+sleep 2
+pulseaudio --start
 
 # Set audio
 /usr/bin/amixer -c 0 sset 'Headphone' 100% unmute || true
