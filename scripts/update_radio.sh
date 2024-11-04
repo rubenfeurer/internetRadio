@@ -4,9 +4,9 @@
 exec 1> >(logger -s -t $(basename $0)) 2>&1
 
 # Configuration
-REPO_URL="https://github.com/Suppi123/internetRadio.git"
+REPO_URL="https://github.com/rubenfeurer/internetRadio.git"
 RADIO_DIR="/home/radio/internetRadio"
-BRANCH="main"
+BRANCH="fix/general"
 
 # Ensure we're in the correct directory
 cd $RADIO_DIR || exit 1
@@ -16,7 +16,7 @@ cp config.toml config.toml.bak
 
 # Pull latest changes
 git fetch origin $BRANCH
-git reset --hard origin/$BRANCH
+git reset --hard FETCH_HEAD
 
 # Restore config
 mv config.toml.bak config.toml
