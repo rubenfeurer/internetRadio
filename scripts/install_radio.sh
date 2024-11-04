@@ -566,5 +566,40 @@ main() {
     fi
 }
 
-# Run main function
+# Run main installation
 main
+
+# Add this function to install_radio.sh, after the other service setups
+
+setup_monitor_service() {
+    log_message "Setting up monitor service..."
+    
+    # Create monitor service
+    cat > /etc/systemd/system/radio-monitor.service <<EOL
+[Unit]
+Description=Internet Radio Monitor
+After=internetradio.service
+BindsTo=internetradio.service
+
+[Service]
+Type=simple
+User=radio
+Group=radio
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/radio/.Xauthority
+
+ExecStart=/usr/bin/xterm -T "Internet Radio Monitor" -geometry 100x30 -e "/home/radio/internetRadio/scripts/monitor_radio.sh"
+ExecStop=/usr/bin/pkill -f "monitor_radio.sh"
+
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+    # Enable and start monitor service
+    systemctl daemon-reload
+    systemctl enable radio-monitor.service
+    systemctl start radio-monitor.service
+}
