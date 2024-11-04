@@ -218,10 +218,11 @@ else
 fi
 
 # Create the radio service with verified paths
+log_message "Creating service file..."
 sudo bash -c "cat > /etc/systemd/system/internetradio.service" <<EOL
 [Unit]
 Description=Internet Radio Service
-After=network.target pigpiod.service pulseaudio.service
+After=network.target pigpiod.service
 Requires=pigpiod.service
 
 [Service]
@@ -234,15 +235,21 @@ Environment=HOME=/home/radio
 Environment=XDG_RUNTIME_DIR=/run/user/1000
 WorkingDirectory=/home/radio/internetRadio
 
-# Setup audio and required services
-ExecStartPre=/bin/bash -c 'mkdir -p /run/user/1000 && chmod 700 /run/user/1000'
-ExecStartPre=/usr/bin/pulseaudio --start
-ExecStartPre=/bin/sleep 5
+# Kill any existing pulseaudio
+ExecStartPre=-/usr/bin/killall pulseaudio
+ExecStartPre=/bin/sleep 2
 
-# Start the main application with explicit bash
-ExecStart=/bin/bash /home/radio/internetRadio/scripts/runApp.sh
+# Start pulseaudio properly
+ExecStartPre=/bin/bash -c 'mkdir -p /run/user/1000 && chown radio:radio /run/user/1000 && chmod 700 /run/user/1000'
+ExecStartPre=/usr/bin/pulseaudio --start --exit-idle-time=-1
 
-# Restart settings
+# Start both the main application and monitor
+ExecStart=/bin/bash -c '/usr/bin/lxterminal -e "python3 /home/radio/internetRadio/scripts/monitor_radio.py" & /home/radio/internetRadio/scripts/runApp.sh'
+
+# Cleanup
+ExecStopPost=-/usr/bin/killall pulseaudio
+ExecStopPost=-/usr/bin/killall lxterminal
+
 Restart=always
 RestartSec=10
 
@@ -305,7 +312,7 @@ log_message "Setting up autostart service..."
 sudo bash -c "cat > /etc/systemd/system/internetradio.service" <<EOL
 [Unit]
 Description=Internet Radio Service
-After=network.target pigpiod.service pulseaudio.service
+After=network.target pigpiod.service
 Requires=pigpiod.service
 
 [Service]
