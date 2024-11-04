@@ -14,12 +14,6 @@ mkdir -p $XDG_RUNTIME_DIR
 chmod 700 $XDG_RUNTIME_DIR
 chown radio:radio $XDG_RUNTIME_DIR
 
-# Kill any existing PulseAudio processes and start fresh
-pulseaudio -k || true
-sleep 2
-pulseaudio --start
-sleep 2
-
 # Create logs directory if it doesn't exist
 mkdir -p /home/radio/internetRadio/scripts/logs
 
