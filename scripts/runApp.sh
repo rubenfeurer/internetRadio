@@ -18,7 +18,7 @@ chown radio:radio $XDG_RUNTIME_DIR
 pulseaudio -k || true
 sleep 2
 pulseaudio --start
-sleep 2  # Give PulseAudio time to initialize
+sleep 2
 
 # Create logs directory if it doesn't exist
 mkdir -p /home/radio/internetRadio/scripts/logs
