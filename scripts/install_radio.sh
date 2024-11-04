@@ -186,6 +186,9 @@ for script in "${SCRIPT_FILES[@]}"; do
         sudo chmod +x "$script" || log_message "Failed to make $script executable"
         sudo chown radio:radio "$script" || log_message "Failed to set ownership for $script"
         
+        # Remove Windows line endings without needing dos2unix
+        sed -i 's/\r$//' "$script"
+        
         log_message "Verified $script"
     else
         log_message "Script file not found: $script"
@@ -221,7 +224,7 @@ fi
 sudo bash -c "cat > /etc/systemd/system/internetradio.service" <<EOL
 [Unit]
 Description=Internet Radio Service
-After=network.target pigpiod.service pulseaudio.service
+After=network.target pigpiod.service
 Requires=pigpiod.service
 
 [Service]
@@ -234,12 +237,11 @@ Environment=HOME=/home/radio
 Environment=XDG_RUNTIME_DIR=/run/user/1000
 WorkingDirectory=/home/radio/internetRadio
 
-# Setup audio and required services
+# Setup runtime directory
 ExecStartPre=/bin/bash -c 'mkdir -p /run/user/1000 && chmod 700 /run/user/1000'
-ExecStartPre=/usr/bin/pulseaudio --start
-ExecStartPre=/bin/sleep 5
+ExecStartPre=/bin/sleep 2
 
-# Start the main application with explicit bash
+# Start the main application
 ExecStart=/bin/bash /home/radio/internetRadio/scripts/runApp.sh
 
 # Restart settings
@@ -305,7 +307,7 @@ log_message "Setting up autostart service..."
 sudo bash -c "cat > /etc/systemd/system/internetradio.service" <<EOL
 [Unit]
 Description=Internet Radio Service
-After=network.target pigpiod.service pulseaudio.service
+After=network.target pigpiod.service
 Requires=pigpiod.service
 
 [Service]
@@ -318,13 +320,12 @@ Environment=HOME=/home/radio
 Environment=XDG_RUNTIME_DIR=/run/user/1000
 WorkingDirectory=/home/radio/internetRadio
 
-# Setup audio and required services
+# Setup runtime directory
 ExecStartPre=/bin/bash -c 'mkdir -p /run/user/1000 && chmod 700 /run/user/1000'
-ExecStartPre=/usr/bin/pulseaudio --start
-ExecStartPre=/bin/sleep 5
+ExecStartPre=/bin/sleep 2
 
 # Start the main application
-ExecStart=/home/radio/internetRadio/scripts/runApp.sh
+ExecStart=/bin/bash /home/radio/internetRadio/scripts/runApp.sh
 
 # Restart settings
 Restart=always
@@ -471,58 +472,14 @@ main() {
     # Check if service is already running
     if systemctl is-active --quiet internetradio; then
         log_message "Service already running - installation successful"
-<<<<<<< HEAD
-        
-        # Ask to run hardware test after successful installation
-        echo
-        read -p "Would you like to run the hardware test? (Y/n): " run_test
-        if [[ ! $run_test =~ ^[Nn]$ ]]; then
-            log_message "Starting hardware test..."
-            bash /home/radio/internetRadio/scripts/hardware_test.sh
-        else
-            echo "You can run the hardware test later with:"
-            echo "sudo bash /home/radio/internetRadio/scripts/hardware_test.sh"
-        fi
-        
-=======
->>>>>>> parent of 8ed6cc5 (Merge branch 'develop' into feat/monitor-radio)
         return 0
     fi
     
     # Only continue with installation if service isn't running
     install_packages
     
-<<<<<<< HEAD
     # Final status check
-    if systemctl is-active --quiet internetradio && \
-       systemctl is-active --quiet radio-update.timer; then
-        log_message "Installation completed successfully"
-        log_message "Service is running at http://$(hostname -I | cut -d' ' -f1):8080"
-        log_message "Service status: $(systemctl status internetradio | head -n3)"
-        log_message "Timer status: $(systemctl status radio-update.timer | head -n3)"
-        
-        # Ask to run hardware test after successful installation
-        echo
-        read -p "Would you like to run the hardware test? (Y/n): " run_test
-        if [[ ! $run_test =~ ^[Nn]$ ]]; then
-            log_message "Starting hardware test..."
-            bash /home/radio/internetRadio/scripts/hardware_test.sh
-        else
-            echo "You can run the hardware test later with:"
-            echo "sudo bash /home/radio/internetRadio/scripts/hardware_test.sh"
-        fi
-        
-        return 0
-    else
-        log_message "Installation completed with errors - service not running"
-        return 1
-    fi
-=======
-    # ... rest of installation ...
-    
-    # Final check
     check_installation_status
->>>>>>> parent of 8ed6cc5 (Merge branch 'develop' into feat/monitor-radio)
 }
 
 # Run main installation
@@ -565,3 +522,179 @@ EOL
 
 # Add this line in the main installation section, after internetradio.service setup
 setup_monitor_service
+
+# Add before service setup
+log_message "Setting up required directories..."
+mkdir -p /run/user/1000
+chmod 700 /run/user/1000
+chown radio:radio /run/user/1000
+
+# Verify PulseAudio setup
+log_message "Setting up PulseAudio..."
+mkdir -p /home/radio/.config/pulse
+chown -R radio:radio /home/radio/.config/pulse
+
+check_prerequisites() {
+    log_message "Checking prerequisites..."
+    
+    # Check Python version (3.7 or higher)
+    python3 -c "import sys; assert sys.version_info >= (3,7)" || {
+        log_message "ERROR: Python 3.7 or higher is required"
+        exit 1
+    }
+    
+    # Check required packages
+    REQUIRED_PACKAGES=(
+        "python3-venv"
+        "python3-pip"
+        "vlc"
+        "pulseaudio"
+        "pigpiod"
+        "git"
+    )
+    
+    for package in "${REQUIRED_PACKAGES[@]}"; do
+        dpkg -l | grep -q "^ii  $package" || {
+            log_message "Installing $package..."
+            sudo apt-get install -y "$package"
+        }
+    done
+}
+
+cleanup_system() {
+    log_message "Cleaning up system..."
+    
+    # Stop any existing services
+    systemctl stop internetradio || true
+    systemctl stop pigpiod || true
+    
+    # Kill any existing processes
+    pkill -f "python.*main.py" || true
+    pkill -f "pulseaudio" || true
+    
+    # Clean up runtime directories
+    rm -rf /run/user/1000/pulse
+    rm -rf /run/user/1000/radio
+    
+    # Recreate necessary directories
+    mkdir -p /run/user/1000
+    chmod 700 /run/user/1000
+    chown radio:radio /run/user/1000
+}
+
+verify_installation() {
+    log_message "Verifying installation..."
+    
+    # Check service status
+    systemctl is-active --quiet internetradio || {
+        log_message "ERROR: Radio service not running"
+        journalctl -u internetradio -n 50 >> "$LOG_FILE"
+        return 1
+    }
+    
+    # Check Python environment
+    [ -f "/home/radio/internetRadio/.venv/bin/python" ] || {
+        log_message "ERROR: Python virtual environment not found"
+        return 1
+    }
+    
+    # Check audio setup
+    sudo -u radio pulseaudio --check || {
+        log_message "ERROR: PulseAudio not running properly"
+        return 1
+    }
+    
+    # Check GPIO access
+    [ -w "/dev/gpiomem" ] || {
+        log_message "ERROR: GPIO access not configured properly"
+        return 1
+    }
+    
+    return 0
+}
+
+setup_network() {
+    log_message "Setting up network..."
+    
+    # Ensure wlan0 is up
+    ip link set wlan0 up || {
+        log_message "ERROR: Could not activate wlan0"
+        return 1
+    }
+    
+    # Wait for network interface
+    for i in {1..30}; do
+        if ip addr show wlan0 | grep -q "state UP"; then
+            break
+        fi
+        sleep 1
+    done
+    
+    # Configure network manager
+    cat > /etc/NetworkManager/conf.d/wifi-hotspot.conf <<EOF
+[device]
+wifi.scan-rand-mac-address=no
+EOF
+    
+    systemctl restart NetworkManager
+}
+
+verify_permissions() {
+    log_message "Verifying permissions..."
+    
+    # List of critical directories and files
+    PATHS=(
+        "/home/radio/internetRadio"
+        "/home/radio/internetRadio/scripts"
+        "/home/radio/internetRadio/sounds"
+        "/run/user/1000"
+        "/dev/gpiomem"
+    )
+    
+    for path in "${PATHS[@]}"; do
+        if [ -e "$path" ]; then
+            # Fix ownership
+            chown -R radio:radio "$path" 2>/dev/null || log_message "WARNING: Could not set ownership for $path"
+            
+            # Fix permissions
+            if [ -d "$path" ]; then
+                chmod 755 "$path" 2>/dev/null || log_message "WARNING: Could not set permissions for $path"
+            elif [ -f "$path" ]; then
+                chmod 644 "$path" 2>/dev/null || log_message "WARNING: Could not set permissions for $path"
+            fi
+        fi
+    done
+    
+    # Make scripts executable
+    chmod +x /home/radio/internetRadio/scripts/*.sh 2>/dev/null || log_message "WARNING: Could not make scripts executable"
+}
+
+setup_python_env() {
+    log_message "Setting up Python environment..."
+    
+    # Remove existing venv if it exists
+    rm -rf /home/radio/internetRadio/.venv
+    
+    # Create fresh venv
+    python3 -m venv /home/radio/internetRadio/.venv
+    
+    # Activate venv and install requirements
+    source /home/radio/internetRadio/.venv/bin/activate
+    
+    # Upgrade pip first
+    pip install --upgrade pip
+    
+    # Install requirements with error handling
+    if ! pip install -r /home/radio/internetRadio/requirements.txt; then
+        log_message "ERROR: Failed to install Python requirements"
+        return 1
+    fi
+    
+    # Verify installation
+    if ! /home/radio/internetRadio/.venv/bin/python -c "import vlc; import toml; import flask"; then
+        log_message "ERROR: Required Python packages not properly installed"
+        return 1
+    fi
+    
+    return 0
+}
