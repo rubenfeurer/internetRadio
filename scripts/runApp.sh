@@ -8,23 +8,24 @@ export DISPLAY=:0
 export XAUTHORITY=/home/radio/.Xauthority
 export HOME=/home/radio
 
+# Set up audio environment
+export XDG_RUNTIME_DIR=/run/user/$(id -u radio)
+mkdir -p $XDG_RUNTIME_DIR
+chmod 700 $XDG_RUNTIME_DIR
+chown radio:radio $XDG_RUNTIME_DIR
+
 # Kill any existing PulseAudio processes and start fresh
 pulseaudio -k || true
 sleep 2
 pulseaudio --start
 sleep 2  # Give PulseAudio time to initialize
 
-# Set up audio environment
-export XDG_RUNTIME_DIR=/run/user/$(id -u radio)
-mkdir -p $XDG_RUNTIME_DIR
-chmod 700 $XDG_RUNTIME_DIR
-
 # Create logs directory if it doesn't exist
 mkdir -p /home/radio/internetRadio/scripts/logs
 
 # Set audio
-/usr/bin/amixer -c 0 sset 'Headphone' 100% unmute || true
-/usr/bin/amixer -c 0 sset 'Speaker' 100% unmute || true
+export PULSE_SERVER=unix:/run/user/$(id -u radio)/pulse/native
+/usr/bin/amixer -D pulse sset Master 100% unmute || true
 
 # Start the application
 cd /home/radio/internetRadio
