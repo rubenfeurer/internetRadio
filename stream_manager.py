@@ -2,11 +2,13 @@ import vlc
 import toml
 import time
 import threading
+import os
 
 class StreamManager:
     def __init__(self, volume):
         self.current_stream = None
-        self.config = toml.load('config.toml')
+        self.config_path = '/home/radio/internetRadio/config.toml'
+        self.config = toml.load(self.config_path)
         self.current_key = None  # Track the current playing stream key
         self.last_played_url = None  # Track the current playing stream key from preview
         self.volume = volume
@@ -15,7 +17,7 @@ class StreamManager:
         self.player = vlc.MediaPlayer()
 
     def play_stream(self, stream_key):
-        self.config = toml.load('config.toml')
+        self.config = toml.load(self.config_path)
         """Play the radio stream associated with the given key."""
         stream_url = self.config.get(stream_key, '')
         if stream_url:
