@@ -68,15 +68,15 @@ perform_update() {
 
     # Fetch updates
     log_message "Fetching updates..."
-    if ! FETCH_OUTPUT=$(git fetch origin develop 2>&1); then
+    if ! FETCH_OUTPUT=$(git fetch origin fix/general 2>&1); then
         log_message "ERROR: Git fetch failed: $FETCH_OUTPUT"
         return 1
     fi
     log_message "Fetch Output: $FETCH_OUTPUT"
 
     # Reset branch
-    log_message "Resetting to origin/develop..."
-    if ! RESET_OUTPUT=$(git reset --hard origin/develop 2>&1); then
+    log_message "Resetting to origin/fix/general..."
+    if ! RESET_OUTPUT=$(git reset --hard origin/fix/general 2>&1); then
         log_message "ERROR: Git reset failed: $RESET_OUTPUT"
         return 1
     fi
