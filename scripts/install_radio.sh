@@ -166,9 +166,8 @@ setup_service() {
     cat > /etc/systemd/system/internetradio.service << 'EOL'
 [Unit]
 Description=Internet Radio Service
-After=network.target pigpiod.service pulseaudio.service
+After=network.target pigpiod.service
 Requires=pigpiod.service
-Wants=pulseaudio.service
 
 [Service]
 Type=simple
@@ -183,6 +182,8 @@ WorkingDirectory=/home/radio/internetRadio
 # Setup runtime directory
 ExecStartPre=/bin/bash -c 'mkdir -p /run/user/1000 && chmod 700 /run/user/1000'
 ExecStartPre=/bin/bash -c 'chown radio:radio /run/user/1000'
+ExecStartPre=/bin/sleep 2
+ExecStartPre=/usr/bin/sudo -u radio pulseaudio --start
 ExecStartPre=/bin/sleep 2
 ExecStartPre=/usr/bin/sudo /usr/bin/pigpiod
 
