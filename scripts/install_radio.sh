@@ -219,10 +219,10 @@ fi
 
 # Create the radio service with verified paths
 log_message "Creating service file..."
-sudo bash -c 'cat > /etc/systemd/system/internetradio.service << EOL
+sudo bash -c "cat > /etc/systemd/system/internetradio.service" <<EOL
 [Unit]
 Description=Internet Radio Service
-After=network.target pigpiod.service sound.target
+After=network.target pigpiod.service
 Requires=pigpiod.service
 
 [Service]
@@ -235,28 +235,27 @@ Environment=HOME=/home/radio
 Environment=XDG_RUNTIME_DIR=/run/user/1000
 WorkingDirectory=/home/radio/internetRadio
 
-# Clean up and setup
-ExecStartPre=/bin/bash -c "killall pulseaudio || true"
+# Kill any existing pulseaudio
+ExecStartPre=-/usr/bin/killall pulseaudio
 ExecStartPre=/bin/sleep 2
-ExecStartPre=/bin/bash -c "mkdir -p /run/user/1000 && chmod 700 /run/user/1000"
 
-# Start PulseAudio with auto-detection
+# Start pulseaudio properly
+ExecStartPre=/bin/bash -c 'mkdir -p /run/user/1000 && chown radio:radio /run/user/1000 && chmod 700 /run/user/1000'
 ExecStartPre=/usr/bin/pulseaudio --start --exit-idle-time=-1
-ExecStartPre=/bin/sleep 2
 
-# Start the main application
-ExecStart=/home/radio/internetRadio/scripts/runApp.sh
+# Start both the main application and monitor
+ExecStart=/bin/bash -c '/usr/bin/lxterminal -e "python3 /home/radio/internetRadio/scripts/monitor_radio.py" & /home/radio/internetRadio/scripts/runApp.sh'
 
-# Cleanup on stop
-ExecStopPost=/bin/bash -c "killall pulseaudio || true"
+# Cleanup
+ExecStopPost=-/usr/bin/killall pulseaudio
+ExecStopPost=-/usr/bin/killall lxterminal
 
-# Restart settings
 Restart=always
 RestartSec=10
 
 [Install]
 WantedBy=multi-user.target
-EOL'
+EOL
 
 # Set permissions
 log_message "Setting permissions..."
@@ -604,70 +603,3 @@ EOL
     systemctl enable radio-monitor.service
     systemctl start radio-monitor.service
 }
-
-# Install required packages for audio detection
-log_message "Installing audio detection tools..."
-PACKAGES+=(
-    "raspi-gpio"
-    "libraspberrypi-bin"
-)
-
-# Copy audio detection script
-sudo cp scripts/detect_audio.sh /usr/local/bin/
-sudo chmod +x /usr/local/bin/detect_audio.sh
-
-# Create dynamic ALSA configuration
-log_message "Configuring ALSA..."
-sudo bash -c 'cat > /etc/asound.conf << EOL
-pcm.!default {
-    type hw
-    card 0
-    device 0
-}
-
-ctl.!default {
-    type hw
-    card 0
-}
-
-# Dynamic audio routing
-pcm.dynamic {
-    type plug
-    slave.pcm {
-        type hw
-        card 0
-        device 0
-    }
-    hint {
-        show on
-        description "Dynamic Audio Output"
-    }
-}
-EOL'
-
-# Configure PulseAudio
-log_message "Configuring PulseAudio..."
-sudo -u radio mkdir -p /home/radio/.config/pulse
-sudo bash -c 'cat > /home/radio/.config/pulse/default.pa << EOL
-#!/usr/bin/pulseaudio -nF
-.fail
-
-# Auto-detect and load appropriate sink
-.ifexists module-switch-on-port-available.so
-load-module module-switch-on-port-available
-.endif
-
-# Load hardware detection
-.ifexists module-udev-detect.so
-load-module module-udev-detect
-.endif
-
-# Load ALSA sink
-load-module module-alsa-sink device=dynamic
-load-module module-native-protocol-unix
-load-module module-native-protocol-tcp auth-anonymous=1
-load-module module-always-sink
-
-# Enable automatic switching
-load-module module-switch-on-connect
-EOL'
