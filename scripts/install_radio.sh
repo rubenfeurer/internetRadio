@@ -53,6 +53,7 @@ check_prerequisites() {
         "pigpiod"
         "git"
         "unattended-upgrades"
+        "dos2unix"
     )
     
     for package in "${REQUIRED_PACKAGES[@]}"; do
@@ -259,6 +260,24 @@ verify_installation() {
     return 0
 }
 
+setup_radio_files() {
+    log_message "Setting up radio files..."
+    
+    # Fix permissions
+    log_message "Setting correct permissions..."
+    chown -R radio:radio "/home/radio/internetRadio"
+    chmod -R 755 "/home/radio/internetRadio/scripts/"*.sh
+
+    # Handle config file
+    log_message "Setting up configuration..."
+    if [ ! -f "/home/radio/internetRadio/config.toml" ]; then
+        cp "/home/radio/internetRadio/config.toml.example" "/home/radio/internetRadio/config.toml"
+        chown radio:radio "/home/radio/internetRadio/config.toml"
+    fi
+
+    return 0
+}
+
 # Main installation function
 main() {
     log_message "Starting installation..."
@@ -271,6 +290,11 @@ main() {
     
     cleanup_system || {
         log_message "System cleanup failed"
+        exit 1
+    }
+    
+    setup_radio_files || {
+        log_message "Radio files setup failed"
         exit 1
     }
     
