@@ -5,8 +5,8 @@ ROTARY_CLK=11  # GPIO11
 ROTARY_DT=9    # GPIO9
 ROTARY_SW=10   # GPIO10
 BUTTON_1=17    # GPIO17
-BUTTON_2=27    # GPIO27
-BUTTON_3=22    # GPIO22
+BUTTON_2=16    # GPIO16
+BUTTON_3=26    # GPIO26
 LED=4          # GPIO4
 
 # Colors for output
@@ -147,9 +147,9 @@ main() {
     echo "  - CLK → Pin 23 (GPIO11)"
     echo
     echo "Buttons:"
-    echo "  - Button 1 → GPIO17 (Pin 11) + Ground"
-    echo "  - Button 2 → GPIO27 (Pin 13) + Ground"
-    echo "  - Button 3 → GPIO22 (Pin 15) + Ground"
+    echo "  - Button 1 → Pin 11 (GPIO17) + Ground"
+    echo "  - Button 2 → Pin 36 (GPIO16) + Ground"
+    echo "  - Button 3 → Pin 37 (GPIO26) + Ground"
     echo
     echo "LED:"
     echo "  - LED positive → 220Ω resistor → GPIO4 (Pin 7)"

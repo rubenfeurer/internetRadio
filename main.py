@@ -131,7 +131,7 @@ if __name__ == "__main__":
     sound_manager.play_sound("boot.wav")
 
     LED_PIN = 24
-    ENCODER_BUTTON = 10  # GPIO pin for Button Encoder Button
+    ENCODER_BUTTON = 10  # Pin 19 (GPIO10)
 
     led = LED(LED_PIN)
     led.on()
@@ -157,9 +157,9 @@ if __name__ == "__main__":
     stream_manager = StreamManager(volume)
     print (volume)
 
-    BUTTON1_PIN = 17  # GPIO pin for Button 1
-    BUTTON2_PIN = 16  # GPIO pin for Button 2
-    BUTTON3_PIN = 26  # GPIO pin for Button 3
+    BUTTON1_PIN = 17  # Pin 11 (GPIO17)
+    BUTTON2_PIN = 16  # Pin 36 (GPIO16)
+    BUTTON3_PIN = 26  # Pin 37 (GPIO26)
 
     button1 = Button(BUTTON1_PIN, pull_up=True, bounce_time=0.2)
     button2 = Button(BUTTON2_PIN, pull_up=True, bounce_time=0.2)
