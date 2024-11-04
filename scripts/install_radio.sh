@@ -102,6 +102,7 @@ setup_python_env() {
     # Install required packages
     PACKAGES=(
         "flask==2.0.1"
+        "werkzeug==2.0.3"
         "flask-cors==3.0.10"
         "gpiozero==2.0"
         "python-vlc==3.0.21203"
