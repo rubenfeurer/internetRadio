@@ -13,8 +13,9 @@ class StreamManager:
         self.last_played_url = None  # Track the current playing stream key from preview
         self.volume = volume
 
-        # Create an instance of the VLC player
-        self.player = vlc.MediaPlayer()
+        # Create VLC instance with explicit audio output and device
+        instance = vlc.Instance('--aout=alsa', '--alsa-audio-device=hw:2,0')  # Use Headphones device
+        self.player = instance.media_player_new()
 
     def play_stream(self, stream_key):
         self.config = toml.load(self.config_path)
