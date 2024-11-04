@@ -52,6 +52,7 @@ check_prerequisites() {
         "pulseaudio"
         "pigpiod"
         "git"
+        "unattended-upgrades"
     )
     
     for package in "${REQUIRED_PACKAGES[@]}"; do
@@ -103,7 +104,7 @@ setup_python_env() {
         "flask==2.0.1"
         "flask-cors==3.0.10"
         "gpiozero==2.0"
-        "python-vlc==3.0.18"
+        "python-vlc==3.0.21203"
         "pigpio==1.78"
         "toml==0.10.2"
     )

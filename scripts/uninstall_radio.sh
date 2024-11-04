@@ -61,9 +61,10 @@ if [ -d "/home/radio/internetRadio/.venv" ]; then
     log_message "Removing Python virtual environment..."
     if [ -f "/home/radio/internetRadio/.venv/bin/activate" ]; then
         source /home/radio/internetRadio/.venv/bin/activate
-        pip freeze | xargs pip uninstall -y
+        pip freeze | xargs pip uninstall -y 2>/dev/null || true
         deactivate
     fi
+    sudo rm -rf "/home/radio/internetRadio/.venv"
 fi
 
 # Clean up system packages
