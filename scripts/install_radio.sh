@@ -457,6 +457,18 @@ check_installation_status() {
         log_message "Service is running at http://$(hostname -I | cut -d' ' -f1):8080"
         log_message "Service status: $(systemctl status internetradio | head -n3)"
         log_message "Timer status: $(systemctl status radio-update.timer | head -n3)"
+        
+        # Ask to run hardware test
+        echo
+        read -p "Would you like to run the hardware test? (Y/n): " run_test
+        if [[ ! $run_test =~ ^[Nn]$ ]]; then
+            log_message "Starting hardware test..."
+            bash /home/radio/internetRadio/scripts/hardware_test.sh
+        else
+            echo "You can run the hardware test later with:"
+            echo "sudo bash /home/radio/internetRadio/scripts/hardware_test.sh"
+        fi
+        
         return 0
     else
         log_message "Installation completed with errors - service not running"
@@ -464,23 +476,94 @@ check_installation_status() {
     fi
 }
 
-# Main installation function
+# Add this function after the other functions
+
+run_hardware_test() {
+    log_message "Running hardware test..."
+    
+    # Run the hardware test
+    if ! bash /home/radio/internetRadio/scripts/hardware_test.sh; then
+        echo
+        read -p "Hardware test failed. Would you like to run the test again? (y/N): " retry
+        while [[ $retry =~ ^[Yy]$ ]]; do
+            echo
+            log_message "Rerunning hardware test..."
+            bash /home/radio/internetRadio/scripts/hardware_test.sh
+            echo
+            read -p "Hardware test failed. Would you like to run the test again? (y/N): " retry
+        done
+        
+        # Ask if they want to continue despite errors
+        echo
+        read -p "Continue with installation despite hardware errors? (y/N): " continue
+        if [[ ! $continue =~ ^[Yy]$ ]]; then
+            log_message "Installation aborted due to hardware errors"
+            exit 1
+        fi
+    fi
+}
+
+# Modify the main installation section to include hardware test
 main() {
     log_message "Starting installation..."
     
     # Check if service is already running
     if systemctl is-active --quiet internetradio; then
         log_message "Service already running - installation successful"
+        
+        # Ask to run hardware test after successful installation
+        echo
+        echo -e "\nWould you like to run the hardware test? (Y/n): "
+        read -r run_test
+        if [[ ! $run_test =~ ^[Nn]$ ]]; then
+            log_message "Starting hardware test..."
+            # Run hardware test with explicit sudo
+            sudo -u radio bash /home/radio/internetRadio/scripts/hardware_test.sh
+        else
+            echo
+            echo "You can run the hardware test later with:"
+            echo "sudo bash /home/radio/internetRadio/scripts/hardware_test.sh"
+        fi
+        
         return 0
     fi
     
-    # Only continue with installation if service isn't running
+    # Run hardware test first
+    run_hardware_test
+    
+    # Continue with rest of installation...
     install_packages
+    setup_services
+    # ... etc
     
-    # ... rest of installation ...
-    
-    # Final check
-    check_installation_status
+    # Final status check
+    if systemctl is-active --quiet internetradio && \
+       systemctl is-active --quiet radio-update.timer; then
+        log_message "Installation completed successfully"
+        log_message "Service is running at http://$(hostname -I | cut -d' ' -f1):8080"
+        
+        # Add a small delay to ensure all messages are displayed
+        sleep 2
+        
+        # Ask to run hardware test after successful installation
+        echo
+        echo -e "\nWould you like to run the hardware test? (Y/n): "
+        read -r run_test
+        if [[ ! $run_test =~ ^[Nn]$ ]]; then
+            log_message "Starting hardware test..."
+            # Run hardware test with explicit sudo
+            sudo -u radio bash /home/radio/internetRadio/scripts/hardware_test.sh
+        else
+            echo
+            echo "You can run the hardware test later with:"
+            echo "sudo bash /home/radio/internetRadio/scripts/hardware_test.sh"
+        fi
+        
+        return 0
+    else
+        log_message "Installation completed with errors - service not running"
+        return 1
+    fi
 }
 
 # Run main installation
@@ -520,6 +603,3 @@ EOL
     systemctl enable radio-monitor.service
     systemctl start radio-monitor.service
 }
-
-# Add this line in the main installation section, after internetradio.service setup
-setup_monitor_service
