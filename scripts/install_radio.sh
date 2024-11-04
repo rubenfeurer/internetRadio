@@ -235,25 +235,20 @@ Environment=HOME=/home/radio
 Environment=XDG_RUNTIME_DIR=/run/user/1000
 WorkingDirectory=/home/radio/internetRadio
 
-# Clean up existing pulseaudio
-ExecStartPre=/bin/bash -c "/usr/bin/killall -9 pulseaudio || true"
+# Clean up and setup
+ExecStartPre=/bin/bash -c "killall pulseaudio || true"
+ExecStartPre=/bin/sleep 2
+ExecStartPre=/bin/bash -c "mkdir -p /run/user/1000 && chmod 700 /run/user/1000"
+
+# Start PulseAudio with auto-detection
+ExecStartPre=/usr/bin/pulseaudio --start --exit-idle-time=-1
 ExecStartPre=/bin/sleep 2
 
-# Setup runtime directory
-ExecStartPre=/bin/bash -c "mkdir -p /run/user/1000 && chown radio:radio /run/user/1000 && chmod 700 /run/user/1000"
+# Start the main application
+ExecStart=/home/radio/internetRadio/scripts/runApp.sh
 
-# Start pulseaudio properly
-ExecStartPre=/bin/bash -c "su radio -c \'/usr/bin/pulseaudio --start --exit-idle-time=-1\'"
-ExecStartPre=/bin/sleep 2
-
-# Configure audio
-ExecStartPre=/bin/bash -c "su radio -c \'/usr/bin/amixer -c 0 sset Master 100% unmute || true\'"
-
-# Start the application with explicit permissions
-ExecStart=/bin/bash -c "su radio -c \'/home/radio/internetRadio/scripts/runApp.sh\'"
-
-# Cleanup
-ExecStopPost=/bin/bash -c "/usr/bin/killall -9 pulseaudio || true"
+# Cleanup on stop
+ExecStopPost=/bin/bash -c "killall pulseaudio || true"
 
 # Restart settings
 Restart=always
@@ -676,34 +671,3 @@ load-module module-always-sink
 # Enable automatic switching
 load-module module-switch-on-connect
 EOL'
-
-# Add these packages to your installation
-log_message "Installing additional required packages..."
-PACKAGES+=(
-    "raspi-gpio"
-    "libraspberrypi-bin"  # Provides tvservice
-    "pulseaudio"
-    "alsa-utils"
-)
-
-for package in "${PACKAGES[@]}"; do
-    sudo apt-get install -y "$package" || log_message "Failed to install $package"
-done
-
-# Fix permissions section (add this where appropriate)
-log_message "Setting up permissions..."
-sudo chown -R radio:radio /home/radio/internetRadio
-sudo chmod -R 755 /home/radio/internetRadio
-sudo chmod +x /home/radio/internetRadio/scripts/*.sh
-sudo chown radio:radio /usr/local/bin/detect_audio.sh
-sudo chmod +x /usr/local/bin/detect_audio.sh
-
-# Create required directories with correct permissions
-sudo mkdir -p /run/user/1000
-sudo chown radio:radio /run/user/1000
-sudo chmod 700 /run/user/1000
-
-# Fix PulseAudio permissions
-sudo mkdir -p /home/radio/.config/pulse
-sudo chown -R radio:radio /home/radio/.config/pulse
-sudo chmod -R 755 /home/radio/.config/pulse
