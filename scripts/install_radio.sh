@@ -513,11 +513,14 @@ main() {
         
         # Ask to run hardware test after successful installation
         echo
-        read -p "Would you like to run the hardware test? (Y/n): " run_test
+        echo -e "\nWould you like to run the hardware test? (Y/n): "
+        read -r run_test
         if [[ ! $run_test =~ ^[Nn]$ ]]; then
             log_message "Starting hardware test..."
-            bash /home/radio/internetRadio/scripts/hardware_test.sh
+            # Run hardware test with explicit sudo
+            sudo -u radio bash /home/radio/internetRadio/scripts/hardware_test.sh
         else
+            echo
             echo "You can run the hardware test later with:"
             echo "sudo bash /home/radio/internetRadio/scripts/hardware_test.sh"
         fi
@@ -538,16 +541,20 @@ main() {
        systemctl is-active --quiet radio-update.timer; then
         log_message "Installation completed successfully"
         log_message "Service is running at http://$(hostname -I | cut -d' ' -f1):8080"
-        log_message "Service status: $(systemctl status internetradio | head -n3)"
-        log_message "Timer status: $(systemctl status radio-update.timer | head -n3)"
+        
+        # Add a small delay to ensure all messages are displayed
+        sleep 2
         
         # Ask to run hardware test after successful installation
         echo
-        read -p "Would you like to run the hardware test? (Y/n): " run_test
+        echo -e "\nWould you like to run the hardware test? (Y/n): "
+        read -r run_test
         if [[ ! $run_test =~ ^[Nn]$ ]]; then
             log_message "Starting hardware test..."
-            bash /home/radio/internetRadio/scripts/hardware_test.sh
+            # Run hardware test with explicit sudo
+            sudo -u radio bash /home/radio/internetRadio/scripts/hardware_test.sh
         else
+            echo
             echo "You can run the hardware test later with:"
             echo "sudo bash /home/radio/internetRadio/scripts/hardware_test.sh"
         fi
