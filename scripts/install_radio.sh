@@ -464,7 +464,34 @@ check_installation_status() {
     fi
 }
 
-# Main installation function
+# Add this function after the other functions
+
+run_hardware_test() {
+    log_message "Running hardware test..."
+    
+    # Run the hardware test
+    if ! bash /home/radio/internetRadio/scripts/hardware_test.sh; then
+        echo
+        read -p "Hardware test failed. Would you like to run the test again? (y/N): " retry
+        while [[ $retry =~ ^[Yy]$ ]]; do
+            echo
+            log_message "Rerunning hardware test..."
+            bash /home/radio/internetRadio/scripts/hardware_test.sh
+            echo
+            read -p "Hardware test failed. Would you like to run the test again? (y/N): " retry
+        done
+        
+        # Ask if they want to continue despite errors
+        echo
+        read -p "Continue with installation despite hardware errors? (y/N): " continue
+        if [[ ! $continue =~ ^[Yy]$ ]]; then
+            log_message "Installation aborted due to hardware errors"
+            exit 1
+        fi
+    fi
+}
+
+# Modify the main installation section to include hardware test
 main() {
     log_message "Starting installation..."
     
@@ -474,13 +501,13 @@ main() {
         return 0
     fi
     
-    # Only continue with installation if service isn't running
+    # Run hardware test first
+    run_hardware_test
+    
+    # Continue with rest of installation...
     install_packages
-    
-    # ... rest of installation ...
-    
-    # Final check
-    check_installation_status
+    setup_services
+    # ... etc
 }
 
 # Run main installation

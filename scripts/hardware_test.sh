@@ -35,7 +35,7 @@ GPIO.setup($pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 try:
     start_time = time.time()
-    while time.time() - start_time < 5:
+    while time.time() - start_time < 10:
         if GPIO.input($pin) == 0:  # Button pressed
             print("SUCCESS")
             GPIO.cleanup()
@@ -49,7 +49,7 @@ except Exception as e:
 EOF
 
     echo -e "\nTesting ${BOLD}$name (GPIO$pin)${NC}"
-    echo "Please press/turn the $name within 5 seconds..."
+    echo "Please press/turn the $name within 10 seconds..."
     
     result=$(python3 /tmp/test_pin.py)
     
