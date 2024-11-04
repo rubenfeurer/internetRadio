@@ -147,9 +147,9 @@ main() {
     echo "  - CLK → Pin 23 (GPIO11)"
     echo
     echo "Buttons:"
-    echo "  - Button 1 → Pin 11 (GPIO17) + Pin 9 (GND)"
-    echo "  - Button 2 → Pin 36 (GPIO16) + Pin 34 (GND)"
-    echo "  - Button 3 → Pin 37 (GPIO26) + Pin 39 (GND)"
+    echo "  - Button 1 → Pin 11 (GPIO17) + Ground"
+    echo "  - Button 2 → Pin 36 (GPIO16) + Ground"
+    echo "  - Button 3 → Pin 37 (GPIO26) + Ground"
     echo
     echo "LED:"
     echo "  - LED positive → 220Ω resistor → GPIO4 (Pin 7)"
