@@ -157,9 +157,9 @@ if __name__ == "__main__":
     stream_manager = StreamManager(volume)
     print (volume)
 
-    BUTTON1_PIN = 17  # Pin 11 (GPIO17)
-    BUTTON2_PIN = 16  # Pin 36 (GPIO16)
-    BUTTON3_PIN = 26  # Pin 37 (GPIO26)
+    BUTTON1_PIN = 17  # Pin 11 (GPIO17) with GND on Pin 9
+    BUTTON2_PIN = 16  # Pin 36 (GPIO16) with GND on Pin 34
+    BUTTON3_PIN = 26  # Pin 37 (GPIO26) with GND on Pin 39
 
     button1 = Button(BUTTON1_PIN, pull_up=True, bounce_time=0.2)
     button2 = Button(BUTTON2_PIN, pull_up=True, bounce_time=0.2)
