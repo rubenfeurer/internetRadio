@@ -535,7 +535,40 @@ mkdir -p /home/radio/.config/pulse
 chown -R radio:radio /home/radio/.config/pulse
 
 check_prerequisites() {
-    log_message "Checking prerequisites..."
+    log_message "Checking system..."
+    
+    # Ask user about system updates
+    echo "Would you like to check for system updates? (This might affect compatibility)"
+    echo "1) No updates (recommended for stable operation)"
+    echo "2) Security updates only"
+    echo "3) Full system update (might affect compatibility)"
+    read -p "Choose an option [1-3] (default: 1): " update_choice
+
+    case $update_choice in
+        2)
+            log_message "Installing security updates only..."
+            if ! sudo unattended-upgrade --dry-run; then
+                log_message "WARNING: Security updates check failed"
+            else
+                sudo unattended-upgrade
+            fi
+            ;;
+        3)
+            log_message "Performing full system update..."
+            if ! sudo apt-get update; then
+                log_message "WARNING: Failed to update package lists"
+            fi
+            if ! sudo apt-get upgrade -y; then
+                log_message "WARNING: Failed to upgrade packages"
+            fi
+            ;;
+        *)
+            log_message "Skipping system updates..."
+            ;;
+    esac
+
+    # Rest of prerequisites check...
+    log_message "Checking required packages..."
     
     # Check Python version (3.7 or higher)
     python3 -c "import sys; assert sys.version_info >= (3,7)" || {
