@@ -54,6 +54,7 @@ check_prerequisites() {
         "git"
         "unattended-upgrades"
         "dos2unix"
+        "wireless-tools"
     )
     
     for package in "${REQUIRED_PACKAGES[@]}"; do
@@ -256,19 +257,24 @@ verify_installation() {
 setup_radio_files() {
     log_message "Setting up radio files..."
     
+    # Create required directories
+    mkdir -p "/home/radio/internetRadio"
+    
+    # Copy all files
+    cp -r ./* "/home/radio/internetRadio/"
+    
     # Fix permissions
-    log_message "Setting correct permissions..."
     chown -R radio:radio "/home/radio/internetRadio"
     chmod -R 755 "/home/radio/internetRadio/scripts/"*.sh
+    
+    # Allow radio user to run iwlist with sudo without password
+    echo "radio ALL=(ALL) NOPASSWD: /sbin/iwlist" > /etc/sudoers.d/radio-wifi
+    chmod 440 /etc/sudoers.d/radio-wifi
 
-    # Handle config file
-    log_message "Setting up configuration..."
-    if [ ! -f "/home/radio/internetRadio/config.toml" ]; then
-        cp "/home/radio/internetRadio/config.toml.example" "/home/radio/internetRadio/config.toml"
-        chown radio:radio "/home/radio/internetRadio/config.toml"
+    # Ensure wireless-tools is installed
+    if ! dpkg -l | grep -q wireless-tools; then
+        apt-get install -y wireless-tools
     fi
-
-    return 0
 }
 
 # Main installation function
