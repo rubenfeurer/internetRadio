@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WiFi Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .debug-section {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .debug-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .network-info {
+            margin-left: 20px;
+        }
+        .signal-strong {
+            color: green;
+        }
+        .signal-medium {
+            color: orange;
+        }
+        .signal-weak {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>WiFi Debug Information</h1>
+    
+    <div class="debug-section">
+        <div class="debug-title">Current Connection:</div>
+        <div class="network-info">
+            <p>SSID: {{ current.ESSID }}</p>
+            <p>Frequency: {{ current.Frequency }} GHz</p>
+            <p>Signal Strength: {{ current.Signal }} dBm</p>
+        </div>
+    </div>
+
+    <div class="debug-section">
+        <div class="debug-title">Network Devices:</div>
+        <div class="network-info">
+            {% for device in devices %}
+            <p>{{ device.device }} ({{ device.type }}): {{ device.state }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html> 

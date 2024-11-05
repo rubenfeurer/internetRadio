@@ -3,6 +3,7 @@ import subprocess
 import re
 import toml
 from stream_manager import StreamManager
+import json
 
 def create_app():
     """Create and configure the Flask app."""
@@ -99,13 +100,36 @@ def create_app():
         return "Error: failed to connect."
 
     def scan_wifi():
-        """Scan for available Wi-Fi networks and return a list of SSIDs."""
+        """Scan for available Wi-Fi networks using nmcli."""
         try:
-            result = subprocess.check_output(["sudo", "iwlist", "wlan0", "scan"], stderr=subprocess.STDOUT, text=True)
-            ssids = re.findall(r'ESSID:"(.*?)"', result)
-            return ssids
+            # Force a rescan on both bands
+            result = subprocess.check_output(
+                ["nmcli", "device", "wifi", "rescan"],
+                stderr=subprocess.PIPE,
+                text=True
+            )
+            
+            # Get all networks, including 5GHz
+            result = subprocess.check_output(
+                ["nmcli", "-f", "SSID,FREQ", "device", "wifi", "list"],
+                text=True
+            )
+            
+            # Process and print debug info
+            networks = []
+            for line in result.split('\n')[1:]:  # Skip header
+                if line.strip():
+                    parts = line.split()
+                    if len(parts) >= 1:
+                        ssid = parts[0]
+                        freq = parts[1] if len(parts) > 1 else "unknown"
+                        networks.append(ssid)
+                        print(f"Found network: {ssid} on {freq}")  # Debug info
+            
+            return list(dict.fromkeys(networks))  # Remove duplicates while preserving order
+            
         except subprocess.CalledProcessError as e:
-            print(f"Error scanning Wi-Fi: {e.output}")
+            print(f"Error scanning WiFi: {str(e)}")
             return []
 
     @app.route('/get_wifi_ssid')
@@ -131,5 +155,54 @@ def create_app():
                 return jsonify({'connected': False})
         except Exception as e:
             return jsonify({'connected': False, 'error': str(e)})
+
+    @app.route('/wifi-debug')
+    def wifi_debug():
+        try:
+            # Get current connection info
+            iw_info = subprocess.check_output(["iwconfig", "wlan0"], text=True)
+            nm_status = subprocess.check_output(["nmcli", "device", "status"], text=True)
+            
+            # Parse current connection
+            current = {}
+            for line in iw_info.splitlines():
+                if "ESSID" in line:
+                    current["ESSID"] = line.split('ESSID:')[1].strip('"')
+                if "Frequency" in line:
+                    current["Frequency"] = line.split('Frequency:')[1].split()[0]
+                if "Signal level" in line:
+                    current["Signal"] = line.split('Signal level=')[1].split()[0]
+
+            # Parse network devices
+            devices = []
+            for line in nm_status.splitlines()[1:]:  # Skip header
+                if line:
+                    parts = line.split()
+                    devices.append({
+                        "device": parts[0],
+                        "type": parts[1],
+                        "state": parts[2]
+                    })
+
+            # Return the template with our parsed data
+            return render_template('wifi_debug.html', 
+                                current=current,
+                                devices=devices,
+                                networks=[])  # We'll add network scanning later
+
+        except Exception as e:
+            return f"Error: {str(e)}"
+
+    def check_radio_status():
+        try:
+            result = subprocess.run(['systemctl', 'is-active', 'radio'], 
+                                  capture_output=True, 
+                                  text=True)
+            if result.stdout.strip() == 'active':
+                return True, "Radio service is running"
+            else:
+                return False, f"Radio service is not active: {result.stdout.strip()}"
+        except Exception as e:
+            return False, f"Error checking radio status: {str(e)}"
 
     return app
