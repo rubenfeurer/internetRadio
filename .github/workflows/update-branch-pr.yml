@@ -1,42 +1,47 @@
-name: Update Branch Name on PR
+name: Update Branch Name
 
 on:
-  pull_request:
-    types: [opened, synchronize]
-    paths-ignore:
-      - 'scripts/update_radio.sh'
   push:
     branches:
-      - 'main'
-      - 'develop'
+      - '*'
     paths-ignore:
       - 'scripts/update_radio.sh'
+  create:
+    branches:
+      - '*'
 
 jobs:
   update-branch:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
-    
+      
     steps:
       - uses: actions/checkout@v3
         with:
+          fetch-depth: 0
           ref: ${{ github.ref }}
           
       - name: Update branch name in update_radio.sh
         run: |
-          BRANCH_NAME=${GITHUB_REF#refs/heads/}
-          echo "Updating to branch: $BRANCH_NAME"
-          sed -i "s/BRANCH=\".*\"/BRANCH=\"$BRANCH_NAME\"/" scripts/update_radio.sh
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          echo "Current branch: $CURRENT_BRANCH"
+          sed -i "s/BRANCH=\".*\"/BRANCH=\"$CURRENT_BRANCH\"/" scripts/update_radio.sh
+          
+      - name: Check if file changed
+        id: changes
+        run: |
+          if [[ -n "$(git status --porcelain scripts/update_radio.sh)" ]]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
           
       - name: Commit and push if changed
+        if: steps.changes.outputs.changed == 'true'
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git add scripts/update_radio.sh
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Update branch name to $BRANCH_NAME"
-            git push 
+          git commit -m "Update branch name in update_radio.sh [skip ci]"
+          git push 
