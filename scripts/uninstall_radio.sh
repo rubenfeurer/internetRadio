@@ -153,4 +153,14 @@ sudo pkill -f vlc || true
 
 # Add runtime directory cleanup
 log_message "Cleaning runtime directories..."
-sudo rm -rf /run/user/1000/* || true 
+sudo rm -rf /run/user/1000/* || true
+
+# Stop and remove service
+if systemctl is-active --quiet internetradio; then
+    systemctl stop internetradio
+fi
+if systemctl is-enabled --quiet internetradio; then
+    systemctl disable internetradio
+fi
+rm -f /etc/systemd/system/internetradio.service
+systemctl daemon-reload
