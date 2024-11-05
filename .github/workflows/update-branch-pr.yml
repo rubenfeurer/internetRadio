@@ -1,0 +1,42 @@
+name: Update Branch Name on PR
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths-ignore:
+      - 'scripts/update_radio.sh'
+  push:
+    branches:
+      - 'main'
+      - 'develop'
+    paths-ignore:
+      - 'scripts/update_radio.sh'
+
+jobs:
+  update-branch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+          
+      - name: Update branch name in update_radio.sh
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          echo "Updating to branch: $BRANCH_NAME"
+          sed -i "s/BRANCH=\".*\"/BRANCH=\"$BRANCH_NAME\"/" scripts/update_radio.sh
+          
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add scripts/update_radio.sh
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update branch name to $BRANCH_NAME"
+            git push 
