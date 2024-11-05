@@ -6,6 +6,33 @@
     <title>Wi-Fi Setup</title>
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .scan-status {
+            display: none;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -17,10 +44,12 @@
             <label for="ssid">WiFi</label>
             <select id="ssid" name="ssid" required>
                 <option value="" disabled selected>Please select</option>
-                {% for ssid in ssids %}
-                    <option value="{{ ssid }}">{{ ssid }}</option>
-                {% endfor %}
             </select>
+
+            <div id="scanStatus" class="scan-status">
+                <div class="spinner"></div>
+                <span>Scanning for networks...</span>
+            </div>
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Password" required>
@@ -28,5 +57,59 @@
             <button type="submit">Connect</button>
         </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const status = document.getElementById('scanStatus');
+            const select = document.getElementById('ssid');
+            
+            // Show scanning status
+            status.style.display = 'block';
+            
+            // Function to update the network list
+            function updateNetworks() {
+                fetch('/wifi-scan')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'complete') {
+                            // Clear existing options (except the first one)
+                            while (select.options.length > 1) {
+                                select.remove(1);
+                            }
+                            
+                            // Add new options
+                            data.networks.forEach(network => {
+                                const option = new Option(network, network);
+                                select.add(option);
+                            });
+                            
+                            // Hide status indicator
+                            status.style.display = 'none';
+                        } else if (data.status === 'error') {
+                            status.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+                        }
+                    })
+                    .catch(error => {
+                        status.innerHTML = `<p style="color: red;">Error scanning networks: ${error}</p>`;
+                    });
+            }
+            
+            // Initial scan
+            updateNetworks();
+            
+            // Add refresh button after the select element
+            const refreshButton = document.createElement('button');
+            refreshButton.type = 'button';
+            refreshButton.textContent = 'Refresh Networks';
+            refreshButton.style.marginBottom = '15px';
+            refreshButton.style.display = 'block';  // Make it a block element
+            refreshButton.onclick = function() {
+                status.style.display = 'block';
+                status.innerHTML = '<div class="spinner"></div><span>Scanning for networks...</span>';
+                updateNetworks();
+            };
+            select.parentNode.insertBefore(refreshButton, select.nextSibling);
+        });
+    </script>
 </body>
 </html>
