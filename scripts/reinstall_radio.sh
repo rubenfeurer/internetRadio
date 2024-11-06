@@ -42,16 +42,18 @@ check_web() {
 }
 
 get_current_branch() {
+    current_dir=$(pwd)
     cd /home/radio/internetRadio
     BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    echo $BRANCH
+    cd "$current_dir"
+    echo "$BRANCH"
 }
 
 main() {
     if [ "$EUID" -ne 0 ]; then
         log_message "Please run as root"
         exit 1
-    }
+    fi
 
     # Store current branch
     CURRENT_BRANCH=$(get_current_branch)
@@ -84,7 +86,7 @@ main() {
     
     # Checkout correct branch
     cd /home/radio/internetRadio
-    if ! git checkout $CURRENT_BRANCH; then
+    if ! git checkout "$CURRENT_BRANCH"; then
         log_message "Failed to checkout branch $CURRENT_BRANCH"
         exit 1
     fi
@@ -127,4 +129,4 @@ main() {
     fi
 }
 
-main "$@" 
+main "$@"
