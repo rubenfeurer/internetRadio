@@ -6,7 +6,7 @@ exec 1> >(logger -s -t $(basename $0)) 2>&1
 # Configuration
 REPO_URL="https://github.com/rubenfeurer/internetRadio.git"
 RADIO_DIR="/home/radio/internetRadio"
-BRANCH="92-apmode"
+BRANCH="92-apmode-2"
 
 # Ensure we're in the correct directory
 cd $RADIO_DIR || exit 1
