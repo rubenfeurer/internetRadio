@@ -277,6 +277,35 @@ setup_radio_files() {
     fi
 }
 
+install_audio() {
+    log_message "Setting up audio..."
+    
+    # Install ALSA utilities
+    apt-get install -y alsa-utils
+    
+    # Create ALSA config
+    cat > /etc/asound.conf << 'EOF'
+pcm.!default {
+    type hw
+    card 2
+}
+
+ctl.!default {
+    type hw
+    card 2
+}
+EOF
+    
+    # Set permissions
+    chown root:root /etc/asound.conf
+    chmod 644 /etc/asound.conf
+    
+    # Verify audio device exists
+    if ! aplay -l | grep -q "card 2: Headphones"; then
+        log_message "Warning: Default audio device not found. Check audio configuration."
+    fi
+}
+
 # Main installation function
 main() {
     log_message "Starting installation..."
@@ -309,6 +338,11 @@ main() {
     
     verify_permissions || {
         log_message "Permission verification failed"
+        exit 1
+    }
+    
+    install_audio || {
+        log_message "Audio setup failed"
         exit 1
     }
     

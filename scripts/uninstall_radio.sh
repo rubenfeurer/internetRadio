@@ -164,3 +164,44 @@ if systemctl is-enabled --quiet internetradio; then
 fi
 rm -f /etc/systemd/system/internetradio.service
 systemctl daemon-reload
+
+# Add repository handling
+log_message "Checking for repository..."
+if [ -d "/home/radio/internetRadio/.git" ]; then
+    read -p "Repository clone found. Do you want to remove it? (y/N): " remove_repo
+    if [[ $remove_repo == [yY] ]]; then
+        log_message "Removing repository..."
+        sudo rm -rf /home/radio/internetRadio
+    else
+        log_message "Keeping repository but cleaning build artifacts..."
+        # Clean but keep repo
+        if [ -d "/home/radio/internetRadio/.venv" ]; then
+            sudo rm -rf /home/radio/internetRadio/.venv
+        fi
+        sudo rm -f /home/radio/internetRadio/logs/*
+    fi
+fi
+
+# Add ALSA configuration cleanup
+cleanup_audio() {
+    log_message "Cleaning up audio configuration..."
+    rm -f /etc/asound.conf
+}
+
+main() {
+    # ... existing checks ...
+
+    # Stop and disable services
+    cleanup_services
+
+    # Remove audio config
+    cleanup_audio
+
+    # Remove Python packages and venv
+    cleanup_python_env
+
+    # Remove logs
+    cleanup_logs
+
+    log_message "Uninstallation completed successfully"
+}
