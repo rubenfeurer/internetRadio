@@ -65,12 +65,9 @@ main() {
         cp /home/radio/internetRadio/config.toml /tmp/config.toml.backup
     fi
     
-    # Uninstall
+    # Uninstall with automatic yes
     log_message "Starting uninstallation..."
-    if ! bash /home/radio/internetRadio/scripts/uninstall_radio.sh; then
-        log_message "Uninstallation failed"
-        exit 1
-    fi
+    echo "y" | bash /home/radio/internetRadio/scripts/uninstall_radio.sh
     
     # Remove old directory
     log_message "Removing old installation..."
@@ -98,12 +95,10 @@ main() {
         rm /tmp/config.toml.backup
     fi
     
-    # Install
+    # Install with automatic answers
     log_message "Starting installation..."
-    if ! bash /home/radio/internetRadio/scripts/install_radio.sh; then
-        log_message "Installation failed"
-        exit 1
-    fi
+    # Answer "3" for full system updates and "y" to any other prompts
+    { echo "3"; echo "y"; } | bash /home/radio/internetRadio/scripts/install_radio.sh
     
     # Wait for services to start
     log_message "Waiting for services to start..."
