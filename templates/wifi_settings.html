@@ -6,6 +6,67 @@
     <title>Wi-Fi Setup</title>
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .scan-status {
+            display: none;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .connection-status {
+            display: none;
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            text-align: center;
+        }
+        
+        .connecting-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .status-message {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .error-message {
+            color: #dc3545;
+        }
+
+        .success-message {
+            color: #28a745;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -13,20 +74,179 @@
         <h2>WiFi Settings</h2>
         <p>Select the local WiFi to which you want to connect your radio.</p>
 
-        <form action="/wifi-setup" method="POST">
+        <form method="POST" action="{{ url_for('wifi.wifi_settings') }}" id="wifi-form">
             <label for="ssid">WiFi</label>
             <select id="ssid" name="ssid" required>
                 <option value="" disabled selected>Please select</option>
-                {% for ssid in ssids %}
-                    <option value="{{ ssid }}">{{ ssid }}</option>
-                {% endfor %}
             </select>
+
+            <div id="scanStatus" class="scan-status">
+                <div class="spinner"></div>
+                <span>Scanning for networks...</span>
+            </div>
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Password" required>
 
+            <div id="connectionStatus" class="connection-status">
+                <div class="connecting-spinner"></div>
+                <div class="status-message" id="statusMessage">Initializing connection...</div>
+                <div id="connectionDetails" style="margin-top: 10px; font-size: 0.9em;"></div>
+            </div>
+
             <button type="submit">Connect</button>
         </form>
     </div>
+
+    <script>
+        document.getElementById('wifi-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const connectionStatus = document.getElementById('connectionStatus');
+            const statusMessage = document.getElementById('statusMessage');
+            const connectionDetails = document.getElementById('connectionDetails');
+            const submitButton = this.querySelector('button[type="submit"]');
+            const ssid = formData.get('ssid');
+            
+            // Reset and show connection status
+            connectionStatus.style.display = 'block';
+            submitButton.disabled = true;
+            submitButton.textContent = 'Connecting...';
+            
+            function updateStatus(message, isError = false) {
+                statusMessage.textContent = message;
+                statusMessage.className = 'status-message ' + (isError ? 'error-message' : '');
+            }
+
+            updateStatus('Initiating connection...');
+
+            fetch(this.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    updateStatus(`Successfully connected to ${ssid}! Reconnecting to radio...`, false);
+                    connectionDetails.textContent = 'Please wait while your device reconnects...';
+                    
+                    // Start checking for connection
+                    let attempts = 0;
+                    const maxAttempts = 30; // 30 seconds
+                    const checkConnection = setInterval(() => {
+                        attempts++;
+                        if (attempts > maxAttempts) {
+                            clearInterval(checkConnection);
+                            updateStatus('Connection timeout. Please refresh the page manually.', true);
+                            submitButton.disabled = false;
+                            submitButton.textContent = 'Connect';
+                            return;
+                        }
+
+                        fetch('/ping')
+                            .then(response => {
+                                if (response.ok) {
+                                    clearInterval(checkConnection);
+                                    window.location.href = data.redirect;
+                                }
+                            })
+                            .catch(() => {
+                                // Still waiting for connection
+                                connectionDetails.textContent = `Waiting for connection... (${attempts}/${maxAttempts})`;
+                            });
+                    }, 1000);
+                } else {
+                    updateStatus(data.message || 'Failed to connect. Please check your password.', true);
+                    connectionDetails.textContent = 'Please try again or select a different network.';
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Connect';
+                }
+            })
+            .catch(error => {
+                // If we lose connection during network switch, show waiting message
+                updateStatus('Switching networks...', false);
+                connectionDetails.textContent = 'Please wait while your device reconnects...';
+                
+                // Start checking for connection
+                let attempts = 0;
+                const maxAttempts = 30; // 30 seconds
+                const checkConnection = setInterval(() => {
+                    attempts++;
+                    if (attempts > maxAttempts) {
+                        clearInterval(checkConnection);
+                        updateStatus('Connection timeout. Please refresh the page manually.', true);
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Connect';
+                        return;
+                    }
+
+                    fetch('/ping')
+                        .then(response => {
+                            if (response.ok) {
+                                clearInterval(checkConnection);
+                                window.location.reload();
+                            }
+                        })
+                        .catch(() => {
+                            // Still waiting for connection
+                            connectionDetails.textContent = `Waiting for connection... (${attempts}/${maxAttempts})`;
+                        });
+                }, 1000);
+            });
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const status = document.getElementById('scanStatus');
+            const select = document.getElementById('ssid');
+            
+            // Show scanning status
+            status.style.display = 'block';
+            
+            // Function to update the network list
+            function updateNetworks() {
+                fetch('/wifi-scan')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'complete') {
+                            // Clear existing options (except the first one)
+                            while (select.options.length > 1) {
+                                select.remove(1);
+                            }
+                            
+                            // Add new options
+                            data.networks.forEach(network => {
+                                const option = new Option(network, network);
+                                select.add(option);
+                            });
+                            
+                            // Hide status indicator
+                            status.style.display = 'none';
+                        } else if (data.status === 'error') {
+                            status.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
+                        }
+                    })
+                    .catch(error => {
+                        status.innerHTML = `<p style="color: red;">Error scanning networks: ${error}</p>`;
+                    });
+            }
+            
+            // Initial scan
+            updateNetworks();
+            
+            // Add refresh button after the select element
+            const refreshButton = document.createElement('button');
+            refreshButton.type = 'button';
+            refreshButton.textContent = 'Refresh Networks';
+            refreshButton.style.marginBottom = '15px';
+            refreshButton.style.display = 'block';  // Make it a block element
+            refreshButton.onclick = function() {
+                status.style.display = 'block';
+                status.innerHTML = '<div class="spinner"></div><span>Scanning for networks...</span>';
+                updateNetworks();
+            };
+            select.parentNode.insertBefore(refreshButton, select.nextSibling);
+        });
+    </script>
 </body>
 </html>

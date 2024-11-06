@@ -1,0 +1,1098 @@
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 137, in <module>
+    @app.route('/wifi-scan')
+     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/scaffold.py", line 435, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/scaffold.py", line 56, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1092, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: wifi_scan
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 137, in <module>
+    @app.route('/wifi-scan')
+     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/scaffold.py", line 435, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/scaffold.py", line 56, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1092, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: wifi_scan
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 137, in <module>
+    @app.route('/wifi-scan')
+     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/scaffold.py", line 435, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/scaffold.py", line 56, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1092, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: wifi_scan
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 137, in <module>
+    @app.route('/wifi-scan')
+     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/scaffold.py", line 435, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/scaffold.py", line 56, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1092, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: wifi_scan
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 137, in <module>
+    @app.route('/wifi-scan')
+     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/scaffold.py", line 435, in decorator
+    self.add_url_rule(rule, endpoint, f, **options)
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/scaffold.py", line 56, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1092, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: wifi_scan
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+  warnings.warn(
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+  warnings.warn(
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://192.168.1.13:5000/ (Press CTRL+C to quit)
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+  warnings.warn(
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+  warnings.warn(
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://192.168.1.13:5000/ (Press CTRL+C to quit)
+[2024-11-06 15:17:50,668] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi_manager.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi_manager.wifi_settings'. Did you mean 'wifi_settings' instead?
+192.168.1.7 - - [06/Nov/2024 15:17:50] "[35m[1mGET / HTTP/1.1[0m" 500 -
+192.168.1.7 - - [06/Nov/2024 15:17:50] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2024-11-06 15:17:52,849] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi_manager.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi_manager.wifi_settings'. Did you mean 'wifi_settings' instead?
+192.168.1.7 - - [06/Nov/2024 15:17:52] "[35m[1mGET / HTTP/1.1[0m" 500 -
+[2024-11-06 15:18:07,822] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi_manager.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi_manager.wifi_settings'. Did you mean 'wifi_settings' instead?
+192.168.1.7 - - [06/Nov/2024 15:18:07] "[35m[1mGET / HTTP/1.1[0m" 500 -
+192.168.1.7 - - [06/Nov/2024 15:18:07] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+192.168.1.7 - - [06/Nov/2024 15:18:16] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+192.168.1.7 - - [06/Nov/2024 15:18:18] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+192.168.1.7 - - [06/Nov/2024 15:18:18] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 22, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 14, in __init__
+    self.init_app(app)
+  File "/home/radio/internetRadio/wifi_manager.py", line 19, in init_app
+    self.register_routes()
+  File "/home/radio/internetRadio/wifi_manager.py", line 41, in register_routes
+    self.app.add_url_rule('/wifi-scan', 'wifi_scan', self.handle_wifi_scan)
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/scaffold.py", line 56, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1092, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: wifi_scan
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 22, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 14, in __init__
+    self.init_app(app)
+  File "/home/radio/internetRadio/wifi_manager.py", line 19, in init_app
+    self.register_routes()
+  File "/home/radio/internetRadio/wifi_manager.py", line 41, in register_routes
+    self.app.add_url_rule('/wifi-scan', 'wifi_scan', self.handle_wifi_scan)
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/scaffold.py", line 56, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1092, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: wifi_scan
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 22, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 14, in __init__
+    self.init_app(app)
+  File "/home/radio/internetRadio/wifi_manager.py", line 19, in init_app
+    self.register_routes()
+  File "/home/radio/internetRadio/wifi_manager.py", line 41, in register_routes
+    self.app.add_url_rule('/wifi-scan', 'wifi_scan', self.handle_wifi_scan)
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/scaffold.py", line 56, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1092, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: wifi_scan
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 22, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 14, in __init__
+    self.init_app(app)
+  File "/home/radio/internetRadio/wifi_manager.py", line 19, in init_app
+    self.register_routes()
+  File "/home/radio/internetRadio/wifi_manager.py", line 41, in register_routes
+    self.app.add_url_rule('/wifi-scan', 'wifi_scan', self.handle_wifi_scan)
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/scaffold.py", line 56, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1092, in add_url_rule
+    raise AssertionError(
+AssertionError: View function mapping is overwriting an existing endpoint function: wifi_scan
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+  warnings.warn(
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+  warnings.warn(
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://192.168.1.13:5000/ (Press CTRL+C to quit)
+[2024-11-06 15:21:12,892] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi_manager.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi_manager.wifi_settings'. Did you mean 'wifi_settings' instead?
+192.168.1.7 - - [06/Nov/2024 15:21:12] "[35m[1mGET / HTTP/1.1[0m" 500 -
+192.168.1.7 - - [06/Nov/2024 15:21:15] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+  warnings.warn(
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+  warnings.warn(
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://192.168.1.13:5000/ (Press CTRL+C to quit)
+[2024-11-06 15:22:11,219] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi_manager.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi_manager.wifi_settings'. Did you mean 'wifi.wifi_settings' instead?
+192.168.1.7 - - [06/Nov/2024 15:22:11] "[35m[1mGET / HTTP/1.1[0m" 500 -
+[2024-11-06 15:22:32,186] ERROR in app: Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi_manager.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi_manager.wifi_settings'. Did you mean 'wifi.wifi_settings' instead?
+192.168.1.7 - - [06/Nov/2024 15:22:32] "[35m[1mGET / HTTP/1.1[0m" 500 -
+192.168.1.7 - - [06/Nov/2024 15:22:49] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+  warnings.warn(
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+  warnings.warn(
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://192.168.1.13:5000/ (Press CTRL+C to quit)
+192.168.1.7 - - [06/Nov/2024 15:24:40] "GET / HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:24:40] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:24:40] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:24:40] "GET /check_internet_connection HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:25:21] "GET /wifi-settings HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:25:21] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:25:33] "GET /wifi-scan HTTP/1.1" 200 -
+[0000007f6837d3a0] mpeg4audio demux packetizer: AAC channels: 2 samplerate: 24000
+192.168.1.7 - - [06/Nov/2024 15:34:39] "POST /wifi-settings HTTP/1.1" 200 -
+[0000007f5c001380] main input error: ES_OUT_SET_(GROUP_)PCR  is called too late (pts_delay increased to 1000 ms)
+192.168.1.7 - - [06/Nov/2024 15:34:53] "GET /ping HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:34:54] "GET / HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:34:54] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:34:54] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:34:54] "GET /check_internet_connection HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:35:51] "GET / HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:35:51] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:35:51] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:35:51] "GET /check_internet_connection HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:35:52] "GET / HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:35:52] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:35:52] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:35:52] "GET /check_internet_connection HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:35:52] "GET / HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:35:52] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:35:52] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:35:52] "GET /check_internet_connection HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:35:53] "GET / HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:35:53] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:35:53] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:35:53] "GET /check_internet_connection HTTP/1.1" 200 -
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Playing sound: /home/radio/internetRadio/sounds/wifi.wav
+50
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+WiFi settings route called with method: GET
+Starting WiFi scan with multiple attempts...
+Scan attempt 1/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: visitor-81759
+Found network: Surfs_up_2
+Found network: pab-81759
+Scan attempt 2/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: visitor-81759
+Found network: Surfs_up_2
+Found network: pab-81759
+Found network: Skynet2.4G
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Scan attempt 3/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: visitor-81759
+Found network: Surfs_up_2
+Found network: pab-81759
+Found network: Skynet2.4G
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: UETLIBERG
+Final network list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Skynet2.4G', 'Surfs_up_2', 'UETLIBERG', '\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 'pab-81759', 'visitor-81759']
+Starting WiFi scan with multiple attempts...
+Scan attempt 1/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: visitor-81759
+Found network: Surfs_up_2
+Found network: pab-81759
+Found network: Skynet2.4G
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: UETLIBERG
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: Skynet5G
+Found network: DIRECT-2E-HP OfficeJet 4650
+Scan attempt 2/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: visitor-81759
+Found network: Surfs_up_2
+Found network: pab-81759
+Found network: Skynet2.4G
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: UETLIBERG
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: Skynet5G
+Found network: DIRECT-2E-HP OfficeJet 4650
+Found network: UPC87914725GHz
+Found network: Aenexi
+Found network: Aenima
+Scan attempt 3/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: visitor-81759
+Found network: Surfs_up_2
+Found network: pab-81759
+Found network: Skynet2.4G
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: UETLIBERG
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: Skynet5G
+Found network: DIRECT-2E-HP OfficeJet 4650
+Found network: UPC87914725GHz
+Found network: Aenexi
+Found network: Aenima
+Final network list: ['Aenexi', 'Aenima', 'DIRECT-2E-HP OfficeJet 4650', 'Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Skynet2.4G', 'Skynet5G', 'Surfs_up_2', 'UETLIBERG', 'UPC87914725GHz', '\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 'pab-81759', 'visitor-81759']
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Starting stream: https://stream.srg-ssr.ch/m/rsj/aacp_96
+Volume Up: 55
+Setting volume to: 55
+Volume Up: 60
+Setting volume to: 60
+Volume Up: 65
+Setting volume to: 65
+Volume Up: 70
+Setting volume to: 70
+Volume Up: 75
+Setting volume to: 75
+Volume Down: 70
+Setting volume to: 70
+Volume Down: 65
+Setting volume to: 65
+Volume Down: 60
+Setting volume to: 60
+Volume Down: 55
+Setting volume to: 55
+Volume Down: 50
+Setting volume to: 50
+Volume Down: 45
+Setting volume to: 45
+Volume Down: 40
+Setting volume to: 40
+Volume Down: 35
+Setting volume to: 35
+Volume Down: 30
+Setting volume to: 30
+Volume Up: 35
+Setting volume to: 35
+Volume Up: 40
+Setting volume to: 40
+Volume Up: 45
+Setting volume to: 45
+Volume Up: 50
+Setting volume to: 50
+Volume Up: 55
+Setting volume to: 55
+Volume Up: 60
+Setting volume to: 60
+Volume Up: 65
+Setting volume to: 65
+Volume Up: 70
+Setting volume to: 70
+Volume Up: 75
+Setting volume to: 75
+Volume Up: 80
+Setting volume to: 80
+Volume Up: 85
+Setting volume to: 85
+Volume Up: 90
+Setting volume to: 90
+Volume Up: 95
+Setting volume to: 95
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Volume Up: 100
+Setting volume to: 100
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+WiFi settings route called with method: POST
+Received connection request for network: Salt_2GHz_D8261F
+Password length: 18 characters
+Attempting to connect to Salt_2GHz_D8261F
+Currently connected to: Salt_5GHz_D8261F
+Writing wpa_supplicant configuration...
+Moving configuration file...
+Restarting networking services...
+Not connected to any Wi-Fi network.
+WiFi connection lost
+Playing sound: /home/radio/internetRadio/sounds/noWifi.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Playing sound: /home/radio/internetRadio/sounds/wifi.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+WiFi settings route called with method: GET
+Starting WiFi scan with multiple attempts...
+Scan attempt 1/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: Skynet5G
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Scan attempt 2/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+192.168.1.7 - - [06/Nov/2024 15:36:27] "GET /wifi-settings HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:36:27] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:36:39] "GET /wifi-scan HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:37:40] "POST /wifi-settings HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:37:56] "GET /ping HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:37:56] "GET / HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:37:56] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:37:56] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:37:56] "GET /check_internet_connection HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:38:07] "GET / HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:38:07] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:38:07] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:38:07] "GET /check_internet_connection HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:38:08] "GET / HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:38:08] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:38:08] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:38:08] "GET /check_internet_connection HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:38:09] "GET / HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:38:09] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:38:09] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:38:09] "GET /check_internet_connection HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:38:40] "GET / HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:38:40] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:38:40] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:38:40] "GET /check_internet_connection HTTP/1.1" 200 -
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+  warnings.warn(
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+  warnings.warn(
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://192.168.1.13:5000/ (Press CTRL+C to quit)
+192.168.1.7 - - [06/Nov/2024 15:39:57] "GET /wifi-settings HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:39:57] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:40:08] "GET /wifi-scan HTTP/1.1" 200 -
+Selected interface 'wlan0'
+OK
+192.168.1.7 - - [06/Nov/2024 15:40:22] "[31m[1mPOST /wifi-settings HTTP/1.1[0m" 400 -
+[0000007f84001200] main input error: ES_OUT_SET_(GROUP_)PCR  is called too late (pts_delay increased to 1000 ms)
+[0000007f68002620] gnutls tls client error: Error decoding the received TLS packet.
+[0000007f68002620] gnutls tls client error: The specified session has been invalidated for some reason.
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+  warnings.warn(
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+  warnings.warn(
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://192.168.1.13:5000/ (Press CTRL+C to quit)
+192.168.1.7 - - [06/Nov/2024 15:41:56] "GET /wifi-settings HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:41:56] "GET /static/css/styles.css HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:41:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+192.168.1.7 - - [06/Nov/2024 15:41:56] "GET /wifi-scan HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:42:00] "GET /wifi-scan HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:42:03] "GET /wifi-settings HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:42:14] "GET /wifi-scan HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:42:39] "POST /wifi-settings HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:42:41] "GET /ping HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:42:41] "GET / HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:42:41] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:42:42] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:42:42] "GET /check_internet_connection HTTP/1.1" 200 -
+[0000007f6c06b530] mpeg4audio demux packetizer: AAC channels: 2 samplerate: 24000
+192.168.1.7 - - [06/Nov/2024 15:43:08] "GET /wifi-settings HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:43:08] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Playing sound: /home/radio/internetRadio/sounds/wifi.wav
+50
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+WiFi settings route called with method: GET
+Starting WiFi scan with multiple attempts...
+Scan attempt 1/3
+Running command: sudo /sbin/iwlist wlan0 scan
+WiFi settings route called with method: GET
+Starting WiFi scan with multiple attempts...
+Scan attempt 1/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Error scanning WiFi: Command '['sudo', '/sbin/iwlist', 'wlan0', 'scan']' returned non-zero exit status 255.
+Starting WiFi scan with multiple attempts...
+Scan attempt 1/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Error scanning WiFi: Command '['sudo', '/sbin/iwlist', 'wlan0', 'scan']' returned non-zero exit status 255.
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Skynet2.4G
+Found network: DIRECT-2E-HP OfficeJet 4650
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Scan attempt 2/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Starting WiFi scan with multiple attempts...
+Scan attempt 1/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Error scanning WiFi: Command '['sudo', '/sbin/iwlist', 'wlan0', 'scan']' returned non-zero exit status 255.
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Skynet2.4G
+Found network: DIRECT-2E-HP OfficeJet 4650
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: pab-81759
+Found network: visitor-81759
+Found network: Surfs_up_2
+Starting WiFi scan with multiple attempts...
+Scan attempt 1/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Scan attempt 3/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Error scanning WiFi: Command '['sudo', '/sbin/iwlist', 'wlan0', 'scan']' returned non-zero exit status 255.
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Skynet2.4G
+Found network: DIRECT-2E-HP OfficeJet 4650
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: pab-81759
+Found network: visitor-81759
+Found network: Surfs_up_2
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: Skynet5G
+Found network: UPC87914725GHz
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Scan attempt 2/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Skynet2.4G
+Found network: DIRECT-2E-HP OfficeJet 4650
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: pab-81759
+Found network: visitor-81759
+Found network: Surfs_up_2
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: Skynet5G
+Found network: UPC87914725GHz
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Scan attempt 3/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Skynet2.4G
+Found network: DIRECT-2E-HP OfficeJet 4650
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: pab-81759
+Found network: visitor-81759
+Found network: Surfs_up_2
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: Skynet5G
+Found network: UPC87914725GHz
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: KerichtHome
+Found network: Aenima
+Found network: Aenexi
+Final network list: ['Aenexi', 'Aenima', 'DIRECT-2E-HP OfficeJet 4650', 'KerichtHome', 'Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Skynet2.4G', 'Skynet5G', 'Surfs_up_2', 'UETLIBERG', 'UPC87914725GHz', '\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 'pab-81759', 'visitor-81759']
+WiFi settings route called with method: POST
+Received connection request for network: Salt_2GHz_D8261F
+Password length: 18 characters
+Attempting to connect to Salt_2GHz_D8261F
+Currently connected to: Salt_5GHz_D8261F
+Connecting to Salt_2GHz_D8261F...
+Not connected to any Wi-Fi network.
+WiFi connection lost
+Playing sound: /home/radio/internetRadio/sounds/noWifi.wav
+Connected to network: wlan0     ESSID:"Salt_2GHz_D8261F"
+Playing sound: /home/radio/internetRadio/sounds/wifi.wav
+Starting stream: https://stream.srg-ssr.ch/m/rsj/aacp_96
+WiFi settings route called with method: GET
+Starting WiFi scan with multiple attempts...
+Scan attempt 1/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Skynet2.4G
+Found network: DIRECT-2E-HP OfficeJet 4650
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: Skynet5G
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: UPC8791472
+Found network: mzv-46205
+Scan attempt 2/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Skynet2.4G
+Found network: DIRECT-2E-HP OfficeJet 4650
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: Skynet5G
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: UPC8791472
+Found network: mzv-46205
+Found network: Surfs_up_2
+Found network: pab-81759
+Scan attempt 3/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Skynet2.4G
+Found network: DIRECT-2E-HP OfficeJet 4650
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: Skynet5G
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: UPC8791472
+Found network: mzv-46205
+Found network: Surfs_up_2
+Found network: pab-81759
+Found network: visitor-81759
+Final network list: ['DIRECT-2E-HP OfficeJet 4650', 'Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Skynet2.4G', 'Skynet5G', 'Surfs_up_2', 'UETLIBERG', 'UPC8791472', '\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 'mzv-46205', 'pab-81759', 'visitor-81759']
+Starting WiFi scan with multiple attempts...
+Scan attempt 1/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Skynet2.4G
+Found network: DIRECT-2E-HP OfficeJet 4650
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: Skynet5G
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: UPC8791472
+Found network: mzv-46205
+Found network: Surfs_up_2
+Found network: pab-81759
+Found network: visitor-81759
+Scan attempt 2/3
+Running command: sudo /sbin/iwlist wlan0 scan
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Salt_2GHz_D8261F
+Found network: Salt_5GHz_D8261F
+Found network: UETLIBERG
+Found network: UETLIBERG
+Found network: Skynet2.4G
+Found network: DIRECT-2E-HP OfficeJet 4650
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: Skynet5G
+Found network: \x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00
+Found network: UPC8791472
+Found network: mzv-46205
+Found network: Surfs_up_2
+Found network: pab-81759
+Found network: visitor-81759
+Scan attempt 3/3
+Running command: sudo /sbin/iwlist wlan0 scan
+192.168.1.7 - - [06/Nov/2024 15:43:21] "GET /wifi-scan HTTP/1.1" 200 -
+[0000007f60001240] main input error: ES_OUT_SET_(GROUP_)PCR  is called too late (pts_delay increased to 1000 ms)
+192.168.1.7 - - [06/Nov/2024 15:43:48] "POST /wifi-settings HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:43:49] "GET /ping HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:43:50] "GET / HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:43:50] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.7 - - [06/Nov/2024 15:43:50] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.7 - - [06/Nov/2024 15:43:50] "GET /check_internet_connection HTTP/1.1" 200 -
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+  warnings.warn(
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+  warnings.warn(
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://192.168.1.12:5000/ (Press CTRL+C to quit)
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+  warnings.warn(
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+  warnings.warn(
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://192.168.1.12:5000/ (Press CTRL+C to quit)
+[0000007f6c055390] mpeg4audio demux packetizer: AAC channels: 2 samplerate: 24000
+192.168.1.11 - - [06/Nov/2024 23:48:58] "GET / HTTP/1.1" 200 -
+192.168.1.11 - - [06/Nov/2024 23:48:58] "GET /static/css/styles.css HTTP/1.1" 200 -
+192.168.1.11 - - [06/Nov/2024 23:48:58] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.11 - - [06/Nov/2024 23:48:58] "GET /check_internet_connection HTTP/1.1" 200 -
+192.168.1.11 - - [06/Nov/2024 23:48:59] "GET /stream-select?channel=link1 HTTP/1.1" 200 -
+192.168.1.11 - - [06/Nov/2024 23:48:59] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.11 - - [06/Nov/2024 23:49:01] "POST /play-stream HTTP/1.1" 200 -
+192.168.1.11 - - [06/Nov/2024 23:49:02] "[33mGET /stream-status HTTP/1.1[0m" 404 -
+192.168.1.11 - - [06/Nov/2024 23:49:03] "[33mGET /stream-status HTTP/1.1[0m" 404 -
+192.168.1.11 - - [06/Nov/2024 23:49:04] "[33mGET /stream-status HTTP/1.1[0m" 404 -
+192.168.1.11 - - [06/Nov/2024 23:49:05] "[33mGET /stream-status HTTP/1.1[0m" 404 -
+192.168.1.11 - - [06/Nov/2024 23:49:06] "[33mGET /stream-status HTTP/1.1[0m" 404 -
+192.168.1.11 - - [06/Nov/2024 23:49:07] "[33mGET /stream-status HTTP/1.1[0m" 404 -
+192.168.1.11 - - [06/Nov/2024 23:49:08] "[33mGET /stream-status HTTP/1.1[0m" 404 -
+192.168.1.11 - - [06/Nov/2024 23:49:09] "[33mGET /stream-status HTTP/1.1[0m" 404 -
+192.168.1.11 - - [06/Nov/2024 23:49:10] "[33mGET /stream-status HTTP/1.1[0m" 404 -
+192.168.1.11 - - [06/Nov/2024 23:49:11] "POST /update-stream HTTP/1.1" 200 -
+192.168.1.11 - - [06/Nov/2024 23:49:11] "GET / HTTP/1.1" 200 -
+192.168.1.11 - - [06/Nov/2024 23:49:11] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.11 - - [06/Nov/2024 23:49:11] "GET /get_wifi_ssid HTTP/1.1" 200 -
+192.168.1.11 - - [06/Nov/2024 23:49:11] "GET /check_internet_connection HTTP/1.1" 200 -
+192.168.1.11 - - [06/Nov/2024 23:49:47] "GET /wifi-settings HTTP/1.1" 200 -
+192.168.1.11 - - [06/Nov/2024 23:49:47] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.11 - - [06/Nov/2024 23:49:59] "GET /wifi-scan HTTP/1.1" 200 -
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+  warnings.warn(
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+  warnings.warn(
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://192.168.1.12:5000/ (Press CTRL+C to quit)
+[0000007f680154c0] mjpeg demux error: cannot peek
+192.168.1.11 - - [06/Nov/2024 23:55:25] "GET /wifi-settings HTTP/1.1" 200 -
+192.168.1.11 - - [06/Nov/2024 23:55:25] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+192.168.1.11 - - [06/Nov/2024 23:55:37] "GET /wifi-scan HTTP/1.1" 200 -

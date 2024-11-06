@@ -3,6 +3,8 @@ import subprocess
 import re
 import toml
 from stream_manager import StreamManager
+import json
+import time
 
 def create_app():
     """Create and configure the Flask app."""
@@ -11,6 +13,11 @@ def create_app():
 
     player = StreamManager(50)
 
+    register_core_routes(app, player)
+
+    return app
+
+def register_core_routes(app, player):
     @app.route('/')
     def index():
         """Render the index page with configuration links."""
@@ -28,22 +35,6 @@ def create_app():
 
         return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
 
-    @app.route('/wifi-setup')
-    def wifi_settings():
-        """Render the Wi-Fi setup page with a list of available SSIDs."""
-        ssids = scan_wifi()
-        return render_template('wifi_settings.html', ssids=ssids)
-
-    @app.route('/wifi-setup', methods=['POST'])
-    def wifi_setup():
-        ssid = request.form.get('ssid')
-        password = request.form.get('password')
-        if ssid and password:
-            # Try to connect to the Wi-Fi network
-            connect_to_wifi(ssid, password)
-            return redirect(url_for('index'))
-        return redirect(url_for('wifi_settings'))
-    
     @app.route('/stream-select', methods=['GET'])
     def select_link():
         channel = request.args.get('channel')  # Get channel (link1, link2, etc.) from the query params
@@ -98,16 +89,6 @@ def create_app():
             return "Success: <i>%s</i>" % result.stdout.decode()
         return "Error: failed to connect."
 
-    def scan_wifi():
-        """Scan for available Wi-Fi networks and return a list of SSIDs."""
-        try:
-            result = subprocess.check_output(["sudo", "iwlist", "wlan0", "scan"], stderr=subprocess.STDOUT, text=True)
-            ssids = re.findall(r'ESSID:"(.*?)"', result)
-            return ssids
-        except subprocess.CalledProcessError as e:
-            print(f"Error scanning Wi-Fi: {e.output}")
-            return []
-
     @app.route('/get_wifi_ssid')
     def get_wifi_ssid():
         try:
@@ -132,4 +113,59 @@ def create_app():
         except Exception as e:
             return jsonify({'connected': False, 'error': str(e)})
 
-    return app
+    @app.route('/wifi-debug')
+    def wifi_debug():
+        try:
+            # Get current connection info
+            iw_info = subprocess.check_output(["iwconfig", "wlan0"], text=True)
+            nm_status = subprocess.check_output(["nmcli", "device", "status"], text=True)
+            
+            # Parse current connection
+            current = {}
+            for line in iw_info.splitlines():
+                if "ESSID" in line:
+                    current["ESSID"] = line.split('ESSID:')[1].strip('"')
+                if "Frequency" in line:
+                    current["Frequency"] = line.split('Frequency:')[1].split()[0]
+                if "Signal level" in line:
+                    current["Signal"] = line.split('Signal level=')[1].split()[0]
+
+            # Parse network devices
+            devices = []
+            for line in nm_status.splitlines()[1:]:  # Skip header
+                if line:
+                    parts = line.split()
+                    devices.append({
+                        "device": parts[0],
+                        "type": parts[1],
+                        "state": parts[2]
+                    })
+
+            # Scan for available networks
+            networks = scan_wifi()
+
+            print("Debug - Current connection:", current)
+            print("Debug - Devices:", devices)
+            print("Debug - Networks:", networks)
+            
+            # Return the template with our parsed data
+            return render_template('wifi_debug.html', 
+                                current=current,
+                                devices=devices,
+                                networks=networks)
+
+        except Exception as e:
+            print("Debug - Error:", str(e))
+            return f"Error: {str(e)}"
+
+    def check_radio_status():
+        try:
+            result = subprocess.run(['systemctl', 'is-active', 'radio'], 
+                                  capture_output=True, 
+                                  text=True)
+            if result.stdout.strip() == 'active':
+                return True, "Radio service is running"
+            else:
+                return False, f"Radio service is not active: {result.stdout.strip()}"
+        except Exception as e:
+            return False, f"Error checking radio status: {str(e)}"

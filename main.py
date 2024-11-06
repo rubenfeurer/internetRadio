@@ -11,6 +11,15 @@ from signal import pause
 from stream_manager import StreamManager
 from app import create_app
 from sounds import SoundManager
+from wifi_manager import WiFiManager
+
+from flask import Flask, Blueprint
+
+# Create the Flask app
+app = create_app()
+
+# Initialize managers with the app instance
+wifi_manager = WiFiManager(app)
 
 volume = 50
 sound_folder = "/home/radio/internetRadio/sounds"
@@ -18,7 +27,6 @@ stream_manager = None
 sound_manager = None
 
 def run_flask_app():
-    app = create_app()
     app.run(host='0.0.0.0', port=5000, debug=False)
 
 def button_handler(stream_key):
