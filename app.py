@@ -13,6 +13,11 @@ def create_app():
 
     player = StreamManager(50)
 
+    register_core_routes(app, player)
+
+    return app
+
+def register_core_routes(app, player):
     @app.route('/')
     def index():
         """Render the index page with configuration links."""
@@ -29,41 +34,6 @@ def create_app():
         channel3_name = link_to_channel_mapping.get(link3, "Unknown Channel")
 
         return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
-
-    @app.route('/wifi-setup')
-    def wifi_setup():
-        try:
-            print("Starting WiFi setup route")  # Debug print
-            
-            # Show initial page with loading status
-            if request.headers.get('HX-Request'):  # If it's an AJAX request
-                networks = scan_wifi()
-                return jsonify({
-                    'status': 'complete',
-                    'networks': networks
-                })
-            else:
-                # Initial page load
-                return render_template('wifi_settings.html', ssids=[])
-                
-        except Exception as e:
-            print(f"Error in wifi setup: {str(e)}")  # Debug print
-            return jsonify({'error': str(e)}), 500
-
-    @app.route('/wifi-scan')
-    def wifi_scan():
-        """Endpoint for getting scan results via AJAX."""
-        try:
-            networks = scan_wifi()
-            return jsonify({
-                'status': 'complete',
-                'networks': networks
-            })
-        except Exception as e:
-            return jsonify({
-                'status': 'error',
-                'error': str(e)
-            }), 500
 
     @app.route('/stream-select', methods=['GET'])
     def select_link():
@@ -118,45 +88,6 @@ def create_app():
         elif result.stdout:
             return "Success: <i>%s</i>" % result.stdout.decode()
         return "Error: failed to connect."
-
-    def scan_wifi():
-        """Scan for available Wi-Fi networks using iwlist with multiple attempts."""
-        try:
-            print("Starting WiFi scan with multiple attempts...")
-            all_networks = set()  # Use a set to collect unique SSIDs
-            
-            # Try scanning 3 times with short delays
-            for attempt in range(3):
-                print(f"Scan attempt {attempt + 1}/3")
-                
-                # Run the scan
-                result = subprocess.check_output(
-                    ['sudo', '/tmp/wifi_scan.sh'],
-                    stderr=subprocess.PIPE,
-                    text=True
-                )
-                
-                # Process this scan's results
-                for line in result.splitlines():
-                    line = line.strip()
-                    if "ESSID:" in line:
-                        ssid = line.split('ESSID:"')[1].strip('"')
-                        if ssid and not ssid.startswith('\x00'):
-                            all_networks.add(ssid)
-                            print(f"Found network: {ssid}")
-                
-                # Wait a bit before next scan (if not last attempt)
-                if attempt < 2:
-                    time.sleep(1)  # 1 second delay between scans
-            
-            # Convert set back to list and sort
-            networks = sorted(list(all_networks))
-            print(f"Final combined network list: {networks}")
-            return networks
-            
-        except Exception as e:
-            print(f"Error scanning WiFi: {str(e)}")
-            return []
 
     @app.route('/get_wifi_ssid')
     def get_wifi_ssid():
@@ -238,16 +169,3 @@ def create_app():
                 return False, f"Radio service is not active: {result.stdout.strip()}"
         except Exception as e:
             return False, f"Error checking radio status: {str(e)}"
-
-    @app.route('/wifi-rescan')
-    def wifi_rescan():
-        try:
-            print("Starting wifi-rescan route")  # Debug print
-            networks = scan_wifi()
-            print("Networks found:", networks)  # Debug print
-            return jsonify({'networks': networks})
-        except Exception as e:
-            print("Error in wifi-rescan:", str(e))  # Debug print
-            return jsonify({'error': str(e)}), 500
-
-    return app

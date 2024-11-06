@@ -13,11 +13,12 @@ from app import create_app
 from sounds import SoundManager
 from wifi_manager import WiFiManager
 
-from flask import Flask
+from flask import Flask, Blueprint
 
-app = Flask(__name__)
+# Create the Flask app
+app = create_app()
 
-# Initialize managers
+# Initialize managers with the app instance
 wifi_manager = WiFiManager(app)
 
 volume = 50
@@ -26,7 +27,6 @@ stream_manager = None
 sound_manager = None
 
 def run_flask_app():
-    app = create_app()
     app.run(host='0.0.0.0', port=5000, debug=False)
 
 def button_handler(stream_key):
@@ -133,14 +133,6 @@ def startup_sequence():
     for vol in range(0, 101, 10):
         subprocess.run(['amixer', 'set', 'PCM', f'{vol}%'], capture_output=True)
         time.sleep(0.05)
-
-@app.route('/wifi-scan')
-def wifi_scan():
-    return wifi_manager.handle_wifi_scan()
-
-@app.route('/wifi-setup')
-def wifi_setup():
-    return wifi_manager.handle_wifi_setup()
 
 if __name__ == "__main__":
     sound_manager = SoundManager(sound_folder)
