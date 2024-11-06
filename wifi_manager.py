@@ -86,7 +86,7 @@ class WiFiManager:
             }), 500
 
     def connect_to_wifi(self, ssid, password):
-        """Attempt to connect to a WiFi network."""
+        """Attempt to connect to a WiFi network using nmcli."""
         try:
             print(f"Attempting to connect to {ssid}")
             
@@ -95,40 +95,32 @@ class WiFiManager:
             current_ssid = current.stdout.strip()
             print(f"Currently connected to: {current_ssid}")
             
-            # Create wpa_supplicant entry
-            wpa_config = f'''ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
-country=GB
-
-network={{
-    ssid="{ssid}"
-    psk="{password}"
-    key_mgmt=WPA-PSK
-    scan_ssid=1
-    priority=1
-}}'''
+            # First, forget the current connection if it exists
+            subprocess.run(['sudo', 'nmcli', 'connection', 'delete', ssid], 
+                          capture_output=True, check=False)  # Ignore errors if connection doesn't exist
             
-            print("Writing wpa_supplicant configuration...")
-            with open('/tmp/wpa_supplicant.conf', 'w') as f:
-                f.write(wpa_config)
+            # Connect to the new network
+            print(f"Connecting to {ssid}...")
+            result = subprocess.run([
+                'sudo', 'nmcli', 'device', 'wifi', 'connect', ssid,
+                'password', password, 'ifname', 'wlan0'
+            ], capture_output=True, text=True)
             
-            print("Moving configuration file...")
-            subprocess.run(['sudo', 'mv', '/tmp/wpa_supplicant.conf', '/etc/wpa_supplicant/wpa_supplicant.conf'], check=True)
+            if result.returncode != 0:
+                print(f"Error output: {result.stderr}")
+                return False, f"Failed to connect: {result.stderr}"
             
-            # Run reconnection script in background
-            subprocess.Popen(['sudo', './reconnect_wifi.sh'], 
-                            stdout=subprocess.PIPE, 
-                            stderr=subprocess.PIPE)
-            
-            # Restart networking
-            print("Restarting networking services...")
-            subprocess.run(['sudo', 'systemctl', 'restart', 'networking'], check=True)
-            subprocess.run(['sudo', 'systemctl', 'restart', 'wpa_supplicant'], check=True)
-            
-            # Give some time for initial connection
+            # Wait for connection
             time.sleep(5)
             
-            return True, f"Attempting to connect to {ssid}. Please wait for reconnection..."
+            # Verify new connection
+            new_connection = subprocess.run(['iwgetid', '-r'], capture_output=True, text=True)
+            new_ssid = new_connection.stdout.strip()
+            
+            if new_ssid == ssid:
+                return True, f"Successfully connected to {ssid}"
+            else:
+                return False, f"Failed to connect to {ssid}. Connected to {new_ssid} instead."
                 
         except Exception as e:
             print(f"Error in connect_to_wifi: {str(e)}")
