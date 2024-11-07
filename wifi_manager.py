@@ -388,8 +388,62 @@ class WiFiManager:
         @self.blueprint.route('/reboot', methods=['POST'])
         def reboot():
             return self.handle_reboot()
+            
+        @self.blueprint.route('/start-ap-test', methods=['POST'])
+        def start_ap_test():
+            return jsonify({'success': self.start_ap_test_mode()})
 
     def init_app(self, app):
         """Initialize the application."""
         self.app = app
         app.register_blueprint(self.blueprint)
+
+    def start_ap_test_mode(self):
+        """Start AP test mode with connection removal"""
+        try:
+            # Create backup directory with timestamp
+            backup_dir = f"/home/radio/internetRadio/connection_backup_{int(time.time())}"
+            os.makedirs(backup_dir)
+            
+            # Backup current connections
+            subprocess.run(f"sudo cp -r /etc/NetworkManager/system-connections/* {backup_dir}/", shell=True)
+            
+            # Store test mode info
+            with open('/home/radio/internetRadio/ap_test_mode', 'w') as f:
+                end_time = time.time() + 300  # 5 minutes
+                f.write(f"{end_time}\n{backup_dir}")
+                
+            # Remove all connections
+            subprocess.run("sudo rm /etc/NetworkManager/system-connections/*", shell=True)
+            
+            logging.info(f"Starting AP test mode. Connections backed up to {backup_dir}")
+            
+            # Reboot to trigger AP mode
+            subprocess.run("sudo reboot", shell=True)
+            
+        except Exception as e:
+            logging.error(f"Error starting AP test mode: {e}")
+            return False
+        return True
+
+    def check_and_handle_test_mode(self):
+        """Check if we're in test mode and handle accordingly"""
+        try:
+            if os.path.exists('/home/radio/internetRadio/ap_test_mode'):
+                with open('/home/radio/internetRadio/ap_test_mode', 'r') as f:
+                    lines = f.readlines()
+                    end_time = float(lines[0].strip())
+                    backup_dir = lines[1].strip()
+                    
+                if time.time() > end_time:
+                    # Test mode expired, restore connections
+                    logging.info("AP test mode expired, restoring connections")
+                    subprocess.run(f"sudo cp -r {backup_dir}/* /etc/NetworkManager/system-connections/", shell=True)
+                    os.remove('/home/radio/internetRadio/ap_test_mode')
+                    subprocess.run("sudo reboot", shell=True)
+                    return False
+                return True
+        except Exception as e:
+            logging.error(f"Error checking test mode: {e}")
+            return False
+        return False

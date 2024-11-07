@@ -523,3 +523,33 @@ werkzeug.routing.BuildError: Could not build url for endpoint 'wifi.wifi_setting
 2024-11-07 14:06:03,372 - INFO - 192.168.1.5 - - [07/Nov/2024 14:06:03] "POST /wifi-settings HTTP/1.1" 200 -
 2024-11-07 14:08:10,838 - INFO - 192.168.1.5 - - [07/Nov/2024 14:08:10] "[33mPOST /wifi/reboot HTTP/1.1[0m" 404 -
 2024-11-07 14:08:30,211 - INFO - 192.168.1.5 - - [07/Nov/2024 14:08:30] "POST /wifi-settings HTTP/1.1" 200 -
+2024-11-07 14:20:25,679 - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2024-11-07 14:20:25,680 - INFO -  * Running on http://192.168.1.12:5000/ (Press CTRL+C to quit)
+2024-11-07 14:21:10,503 - INFO - Starting AP test mode. Connections backed up to /home/radio/internetRadio/connection_backup_1730985670
+2024-11-07 14:21:10,642 - INFO - 127.0.0.1 - - [07/Nov/2024 14:21:10] "POST /start-ap-test HTTP/1.1" 200 -
+2024-11-07 14:24:25,015 - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2024-11-07 14:24:25,026 - INFO -  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+2024-11-07 14:25:29,531 - INFO - Found networks: ['FRITZ!Box 5530_2.4', 'FotokiteFactory', 'FotokiteTech', 'Salt_2GHz_49332D', 'Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Skynet2.4G', 'Skynet5G', 'Surfs_up_1', 'Surfs_up_2', 'UETLIBERG', 'WiFi Reception ', '\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00']
+2024-11-07 14:25:29,566 - INFO - 10.42.0.48 - - [07/Nov/2024 14:25:29] "GET /wifi-settings HTTP/1.1" 200 -
+2024-11-07 14:25:29,737 - INFO - 10.42.0.48 - - [07/Nov/2024 14:25:29] "GET /static/css/styles.css HTTP/1.1" 200 -
+2024-11-07 14:25:36,429 - INFO - Found networks: ['FRITZ!Box 5530_2.4', 'FotokiteFactory', 'FotokiteTech', 'Salt_2GHz_49332D', 'Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Skynet2.4G', 'Skynet5G', 'Surfs_up_1', 'Surfs_up_2', 'UETLIBERG', 'WiFi Reception ', '\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00']
+2024-11-07 14:25:36,431 - INFO - 10.42.0.48 - - [07/Nov/2024 14:25:36] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-07 14:26:18,443 - INFO - 192.168.1.11 - - [07/Nov/2024 14:26:18] "GET /ping HTTP/1.1" 200 -
+2024-11-07 14:26:18,450 - INFO - 192.168.1.11 - - [07/Nov/2024 14:26:18] "GET /ping HTTP/1.1" 200 -
+2024-11-07 14:26:18,458 - INFO - 192.168.1.11 - - [07/Nov/2024 14:26:18] "GET /ping HTTP/1.1" 200 -
+2024-11-07 14:26:18,465 - INFO - 192.168.1.11 - - [07/Nov/2024 14:26:18] "GET /ping HTTP/1.1" 200 -
+2024-11-07 14:26:18,472 - INFO - 192.168.1.11 - - [07/Nov/2024 14:26:18] "GET /ping HTTP/1.1" 200 -
+2024-11-07 14:26:18,478 - INFO - 192.168.1.11 - - [07/Nov/2024 14:26:18] "GET /ping HTTP/1.1" 200 -
+2024-11-07 14:26:21,931 - INFO - Found networks: ['FRITZ!Box 5530_2.4', 'FotokiteFactory', 'FotokiteTech', 'KerichtHome', 'Salt_2GHz_49332D', 'Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Skynet2.4G', 'Skynet5G', 'Surfs_up_1', 'Surfs_up_2', 'TomManiac', 'UETLIBERG', 'WN-AB7C60', 'WiFi Reception ', '\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 'netzwlan6']
+2024-11-07 14:26:21,934 - INFO - 192.168.1.11 - - [07/Nov/2024 14:26:21] "GET /wifi-settings HTTP/1.1" 200 -
+2024-11-07 14:26:21,974 - INFO - 10.42.0.48 - - [07/Nov/2024 14:26:21] "POST /wifi-settings HTTP/1.1" 200 -
+2024-11-07 14:26:22,386 - INFO - 192.168.1.11 - - [07/Nov/2024 14:26:22] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-07 14:26:26,026 - INFO - Found networks: ['FRITZ!Box 5530_2.4', 'FotokiteFactory', 'FotokiteTech', 'KerichtHome', 'Salt_2GHz_49332D', 'Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Skynet2.4G', 'Skynet5G', 'Surfs_up_1', 'Surfs_up_2', 'TomManiac', 'UETLIBERG', 'WN-AB7C60', 'WiFi Reception ', '\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 'netzwlan6']
+2024-11-07 14:26:26,028 - INFO - 192.168.1.11 - - [07/Nov/2024 14:26:26] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-07 14:26:45,397 - INFO - Found networks: ['FRITZ!Box 5530_2.4', 'FotokiteFactory', 'FotokiteTech', 'KerichtHome', 'Salt_2GHz_49332D', 'Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Skynet2.4G', 'Skynet5G', 'Surfs_up_1', 'Surfs_up_2', 'UETLIBERG', 'WN-AB7C60', 'WiFi Reception ', '\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 'netzwlan6']
+2024-11-07 14:26:45,400 - INFO - 192.168.1.5 - - [07/Nov/2024 14:26:45] "GET /wifi-settings HTTP/1.1" 200 -
+2024-11-07 14:26:45,909 - INFO - 192.168.1.5 - - [07/Nov/2024 14:26:45] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-07 14:27:11,519 - INFO - Found networks: ['FRITZ!Box 5530_2.4', 'FotokiteFactory', 'FotokiteTech', 'KerichtHome', 'Salt_2GHz_49332D', 'Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Skynet2.4G', 'Skynet5G', 'Surfs_up_1', 'Surfs_up_2', 'UETLIBERG', 'WN-AB7C60', 'WiFi Reception ', '\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 'netzwlan5', 'netzwlan6']
+2024-11-07 14:27:11,521 - INFO - 192.168.1.5 - - [07/Nov/2024 14:27:11] "GET /wifi-scan HTTP/1.1" 200 -

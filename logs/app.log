@@ -1333,3 +1333,30 @@ Connected to network: wlan0     ESSID:"Salt_2GHz_D8261F"
 Connected to network: wlan0     ESSID:"Salt_2GHz_D8261F"
 Connected to network: wlan0     ESSID:"Salt_2GHz_D8261F"
 Connected to network: wlan0     ESSID:"Salt_2GHz_D8261F"
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+  warnings.warn(
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+  warnings.warn(
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_2GHz_D8261F"
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+  warnings.warn(
+/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+  warnings.warn(
+[2KDevice 'wlan0' successfully activated with 'cad4973e-10ef-44b0-9554-b7e4ff5d7ea8'.
+Hint: "nmcli dev wifi show-password" shows the Wi-Fi name and password.
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Not connected to any Wi-Fi network.
+Starting Wi-Fi hotspot...
+Starting Wi-Fi hotspot...
+Hotspot started successfully. Visit http://10.42.0.1:5000 to configure Wi-Fi settings.
+ * Serving Flask app 'app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
