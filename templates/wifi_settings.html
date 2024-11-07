@@ -98,6 +98,13 @@
         </form>
     </div>
 
+    <div class="ap-mode-notice" style="display: none;">
+        <p><strong>Device is in Access Point Mode</strong></p>
+        <p>SSID: InternetRadio</p>
+        <p>Password: radiopassword</p>
+        <p>Please connect to a network below to exit AP mode.</p>
+    </div>
+
     <script>
         document.getElementById('wifi-form').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -128,34 +135,27 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    updateStatus(`Successfully connected to ${ssid}! Reconnecting to radio...`, false);
-                    connectionDetails.textContent = 'Please wait while your device reconnects...';
+                    updateStatus(`Successfully connected to ${ssid}! Device needs to be rebooted.`, false);
+                    connectionDetails.textContent = 'Click the button below to reboot and apply changes.';
                     
-                    // Start checking for connection
-                    let attempts = 0;
-                    const maxAttempts = 30; // 30 seconds
-                    const checkConnection = setInterval(() => {
-                        attempts++;
-                        if (attempts > maxAttempts) {
-                            clearInterval(checkConnection);
-                            updateStatus('Connection timeout. Please refresh the page manually.', true);
-                            submitButton.disabled = false;
-                            submitButton.textContent = 'Connect';
-                            return;
-                        }
-
-                        fetch('/ping')
-                            .then(response => {
-                                if (response.ok) {
-                                    clearInterval(checkConnection);
-                                    window.location.href = data.redirect;
-                                }
+                    // Add reboot button
+                    const rebootButton = document.createElement('button');
+                    rebootButton.textContent = 'Reboot Device';
+                    rebootButton.style.marginTop = '15px';
+                    rebootButton.onclick = function() {
+                        if (confirm('Are you sure you want to reboot the device?')) {
+                            updateStatus('Initiating reboot...', false);
+                            fetch('/wifi/reboot', { method: 'POST' })
+                            .then(() => {
+                                updateStatus('Device is rebooting. Please wait 1 minute before reconnecting.', false);
                             })
                             .catch(() => {
-                                // Still waiting for connection
-                                connectionDetails.textContent = `Waiting for connection... (${attempts}/${maxAttempts})`;
+                                // Even if we get an error, the device might still be rebooting
+                                updateStatus('Device is rebooting. Please wait 1 minute before reconnecting.', false);
                             });
-                    }, 1000);
+                        }
+                    };
+                    connectionDetails.appendChild(rebootButton);
                 } else {
                     updateStatus(data.message || 'Failed to connect. Please check your password.', true);
                     connectionDetails.textContent = 'Please try again or select a different network.';
@@ -216,12 +216,22 @@
                             
                             // Add new options
                             data.networks.forEach(network => {
-                                const option = new Option(network, network);
-                                select.add(option);
+                                if (network !== 'InternetRadio') {  // Don't show our own AP
+                                    const option = new Option(network, network);
+                                    select.add(option);
+                                }
                             });
                             
                             // Hide status indicator
                             status.style.display = 'none';
+                            
+                            // Show/hide AP mode notice
+                            const apModeNotice = document.querySelector('.ap-mode-notice');
+                            if (data.ap_mode) {
+                                apModeNotice.style.display = 'block';
+                            } else {
+                                apModeNotice.style.display = 'none';
+                            }
                         } else if (data.status === 'error') {
                             status.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
                         }
