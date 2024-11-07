@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# run installation to setup radio
+
 LOG_FILE="/home/radio/internetRadio/scripts/logs/installation.log"
 
 # Simple logging function
