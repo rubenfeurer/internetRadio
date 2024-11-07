@@ -55,6 +55,7 @@ check_prerequisites() {
         "unattended-upgrades"
         "dos2unix"
         "wireless-tools"
+        "network-manager"
     )
     
     for package in "${REQUIRED_PACKAGES[@]}"; do
@@ -191,7 +192,7 @@ setup_service() {
     cat > /etc/systemd/system/internetradio.service << 'EOL'
 [Unit]
 Description=Internet Radio Service
-After=network.target pigpiod.service
+After=network.target network-manager.service pigpiod.service
 Requires=pigpiod.service
 
 [Service]
