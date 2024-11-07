@@ -77,6 +77,7 @@ if [[ $remove_packages == [yY] ]]; then
         "vlc"
         "pigpio"
         "dos2unix"
+        "network-manager"
     )
     
     for package in "${PACKAGES[@]}"; do
@@ -123,6 +124,10 @@ done
 log_message "Cleaning up runtime directories..."
 sudo rm -rf /run/user/1000/pulse
 sudo rm -rf /run/user/1000/radio
+
+# Remove sudoers file
+log_message "Removing sudoers file for radio user..."
+sudo rm -f /etc/sudoers.d/radio-wifi
 
 # Final cleanup
 log_message "Performing final cleanup..."
