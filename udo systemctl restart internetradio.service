@@ -1,0 +1,50 @@
+Nov 07 13:08:26 radio004 systemd[1]: [0;1;39m[0;1;31m[0;1;39minternetradio.service: Killing process 11648 (python) with signal SIGKILL.[0m
+Nov 07 13:08:26 radio004 systemd[1]: internetradio.service: Deactivated successfully.
+Nov 07 13:08:26 radio004 systemd[1]: Stopped internetradio.service - Internet Radio Service.
+Nov 07 13:08:26 radio004 systemd[1]: internetradio.service: Consumed 4.244s CPU time.
+Nov 07 13:08:26 radio004 systemd[1]: Starting internetradio.service - Internet Radio Service...
+Nov 07 13:08:26 radio004 systemd[1]: Started internetradio.service - Internet Radio Service.
+Nov 07 13:08:26 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39mSimple mixer control 'Master',0[0m
+Nov 07 13:08:26 radio004 runApp.sh[11705]: <13>Nov  7 13:08:26 runApp.sh: Simple mixer control 'Master',0
+Nov 07 13:08:26 radio004 runApp.sh[11705]: <13>Nov  7 13:08:26 runApp.sh:   Capabilities: pvolume pswitch pswitch-joined
+Nov 07 13:08:26 radio004 runApp.sh[11705]: <13>Nov  7 13:08:26 runApp.sh:   Playback channels: Front Left - Front Right
+Nov 07 13:08:26 radio004 runApp.sh[11705]: <13>Nov  7 13:08:26 runApp.sh:   Limits: Playback 0 - 65536
+Nov 07 13:08:26 radio004 runApp.sh[11705]: <13>Nov  7 13:08:26 runApp.sh:   Mono:
+Nov 07 13:08:26 radio004 runApp.sh[11705]: <13>Nov  7 13:08:26 runApp.sh:   Front Left: Playback 65536 [100%] [on]
+Nov 07 13:08:26 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m  Capabilities: pvolume pswitch pswitch-joined[0m
+Nov 07 13:08:26 radio004 runApp.sh[11705]: <13>Nov  7 13:08:26 runApp.sh:   Front Right: Playback 65536 [100%] [on]
+Nov 07 13:08:26 radio004 runApp.sh[11705]: <13>Nov  7 13:08:26 runApp.sh: Activating virtual environment...
+Nov 07 13:08:26 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m  Playback channels: Front Left - Front Right[0m
+Nov 07 13:08:26 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m  Limits: Playback 0 - 65536[0m
+Nov 07 13:08:26 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m  Mono:[0m
+Nov 07 13:08:26 radio004 runApp.sh[11705]: <13>Nov  7 13:08:26 runApp.sh: Waiting for pigpiod...
+Nov 07 13:08:26 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m  Front Left: Playback 65536 [100%] [on][0m
+Nov 07 13:08:26 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m  Front Right: Playback 65536 [100%] [on][0m
+Nov 07 13:08:26 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39mActivating virtual environment...[0m
+Nov 07 13:08:26 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39mWaiting for pigpiod...[0m
+Nov 07 13:08:26 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39mpigpiod is running[0m
+Nov 07 13:08:26 radio004 runApp.sh[11705]: <13>Nov  7 13:08:26 runApp.sh: pigpiod is running
+Nov 07 13:08:28 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39mStarting Python application...[0m
+Nov 07 13:08:28 radio004 runApp.sh[11705]: <13>Nov  7 13:08:28 runApp.sh: Starting Python application...
+Nov 07 13:08:30 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'[0m
+Nov 07 13:08:30 radio004 runApp.sh[11705]: <13>Nov  7 13:08:30 runApp.sh: /home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from lgpio: No module named 'lgpio'
+Nov 07 13:08:30 radio004 runApp.sh[11705]: <13>Nov  7 13:08:30 runApp.sh:   warnings.warn(
+Nov 07 13:08:30 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m  warnings.warn([0m
+Nov 07 13:08:30 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m/home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'[0m
+Nov 07 13:08:30 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m  warnings.warn([0m
+Nov 07 13:08:30 radio004 runApp.sh[11705]: <13>Nov  7 13:08:30 runApp.sh: /home/radio/internetRadio/.venv/lib/python3.11/site-packages/gpiozero/devices.py:295: PinFactoryFallback: Falling back from rpigpio: No module named 'RPi'
+Nov 07 13:08:30 radio004 runApp.sh[11705]: <13>Nov  7 13:08:30 runApp.sh:   warnings.warn(
+Nov 07 13:08:30 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39mPlaying sound: /home/radio/internetRadio/sounds/boot.wav[0m
+Nov 07 13:08:30 radio004 runApp.sh[11705]: <13>Nov  7 13:08:30 runApp.sh: Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Nov 07 13:08:30 radio004 runApp.sh[11705]: <13>Nov  7 13:08:30 runApp.sh: Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Nov 07 13:08:30 radio004 runApp.sh[11705]: <13>Nov  7 13:08:30 runApp.sh:  * Serving Flask app 'app' (lazy loading)
+Nov 07 13:08:30 radio004 runApp.sh[11705]: <13>Nov  7 13:08:30 runApp.sh:  * Environment: production
+Nov 07 13:08:30 radio004 runApp.sh[11705]: <13>Nov  7 13:08:30 runApp.sh:    WARNING: This is a development server. Do not use it in a production deployment.
+Nov 07 13:08:30 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39mConnected to network: wlan0     ESSID:"Salt_5GHz_D8261F"[0m
+Nov 07 13:08:30 radio004 runApp.sh[11705]: <13>Nov  7 13:08:30 runApp.sh:    Use a production WSGI server instead.
+Nov 07 13:08:30 radio004 runApp.sh[11705]: <13>Nov  7 13:08:30 runApp.sh:  * Debug mode: off
+Nov 07 13:08:30 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m * Serving Flask app 'app' (lazy loading)[0m
+Nov 07 13:08:30 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m * Environment: production[0m
+Nov 07 13:08:30 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m   WARNING: This is a development server. Do not use it in a production deployment.[0m
+Nov 07 13:08:30 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m   Use a production WSGI server instead.[0m
+Nov 07 13:08:30 radio004 runApp.sh[11705]: [0;1;39m[0;1;31m[0;1;39m * Debug mode: off[0m

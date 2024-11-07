@@ -1,0 +1,476 @@
+2024-11-07 13:07:19,083 - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2024-11-07 13:07:19,090 - INFO -  * Running on http://192.168.1.12:5000/ (Press CTRL+C to quit)
+2024-11-07 13:07:59,071 - INFO - 192.168.1.5 - - [07/Nov/2024 13:07:59] "[33mGET /wifi/status HTTP/1.1[0m" 404 -
+2024-11-07 13:08:30,614 - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2024-11-07 13:08:30,616 - INFO -  * Running on http://192.168.1.12:5000/ (Press CTRL+C to quit)
+2024-11-07 13:08:58,342 - INFO - 192.168.1.5 - - [07/Nov/2024 13:08:58] "[33mGET /wifi/status HTTP/1.1[0m" 404 -
+2024-11-07 13:09:45,530 - INFO - 192.168.1.5 - - [07/Nov/2024 13:09:45] "[33mGET /wifi/status HTTP/1.1[0m" 404 -
+2024-11-07 13:09:48,233 - INFO - 192.168.1.5 - - [07/Nov/2024 13:09:48] "[33mGET /wifi-settings HTTP/1.1[0m" 404 -
+2024-11-07 13:09:49,789 - INFO - 192.168.1.5 - - [07/Nov/2024 13:09:49] "[33mGET /wifi-settings HTTP/1.1[0m" 404 -
+2024-11-07 13:09:50,320 - INFO - 192.168.1.5 - - [07/Nov/2024 13:09:50] "[33mGET /wifi-settings HTTP/1.1[0m" 404 -
+2024-11-07 13:09:50,606 - INFO - 192.168.1.5 - - [07/Nov/2024 13:09:50] "[33mGET /wifi-settings HTTP/1.1[0m" 404 -
+2024-11-07 13:09:50,776 - INFO - 192.168.1.5 - - [07/Nov/2024 13:09:50] "[33mGET /wifi-settings HTTP/1.1[0m" 404 -
+2024-11-07 13:09:51,232 - INFO - 192.168.1.5 - - [07/Nov/2024 13:09:51] "[33mGET /wifi-settings HTTP/1.1[0m" 404 -
+2024-11-07 13:09:56,460 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi.handle_wifi_settings' instead?
+2024-11-07 13:09:56,488 - INFO - 192.168.1.5 - - [07/Nov/2024 13:09:56] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-07 13:09:58,840 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi.handle_wifi_settings' instead?
+2024-11-07 13:09:58,851 - INFO - 192.168.1.5 - - [07/Nov/2024 13:09:58] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-07 13:09:59,280 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi.handle_wifi_settings' instead?
+2024-11-07 13:09:59,292 - INFO - 192.168.1.5 - - [07/Nov/2024 13:09:59] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-07 13:09:59,440 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi.handle_wifi_settings' instead?
+2024-11-07 13:09:59,454 - INFO - 192.168.1.5 - - [07/Nov/2024 13:09:59] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-07 13:09:59,598 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi.handle_wifi_settings' instead?
+2024-11-07 13:09:59,610 - INFO - 192.168.1.5 - - [07/Nov/2024 13:09:59] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-07 13:10:03,289 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi.handle_wifi_settings' instead?
+2024-11-07 13:10:03,301 - INFO - 192.168.1.5 - - [07/Nov/2024 13:10:03] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-07 13:10:30,332 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi.handle_wifi_settings' instead?
+2024-11-07 13:10:30,344 - INFO - 192.168.1.5 - - [07/Nov/2024 13:10:30] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-07 13:10:30,565 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi.handle_wifi_settings' instead?
+2024-11-07 13:10:30,578 - INFO - 192.168.1.5 - - [07/Nov/2024 13:10:30] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-07 13:10:45,578 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi.handle_wifi_settings' instead?
+2024-11-07 13:10:45,589 - INFO - 192.168.1.5 - - [07/Nov/2024 13:10:45] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-07 13:10:48,782 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi.handle_wifi_settings' instead?
+2024-11-07 13:10:48,793 - INFO - 192.168.1.5 - - [07/Nov/2024 13:10:48] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-07 13:10:48,850 - INFO - 192.168.1.5 - - [07/Nov/2024 13:10:48] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-11-07 13:11:54,036 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 2070, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1515, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1513, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/app.py", line 1499, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/app.py", line 36, in index
+    return render_template('index.html', link1=channel1_name, link2=channel2_name, link3=channel3_name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 147, in render_template
+    return _render(
+           ^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/templating.py", line 128, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
+    self.environment.handle_exception()
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 338, in url_for
+    return appctx.app.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/flask/helpers.py", line 325, in url_for
+    rv = url_adapter.build(
+         ^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/.venv/lib/python3.11/site-packages/werkzeug/routing.py", line 2315, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.BuildError: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi.handle_wifi_settings' instead?
+2024-11-07 13:11:54,047 - INFO - 192.168.1.5 - - [07/Nov/2024 13:11:54] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-07 13:12:05,410 - INFO - 192.168.1.5 - - [07/Nov/2024 13:12:05] "[33mGET /wifi-settings HTTP/1.1[0m" 404 -
+2024-11-07 13:13:15,844 - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2024-11-07 13:13:15,846 - INFO -  * Running on http://192.168.1.12:5000/ (Press CTRL+C to quit)
+2024-11-07 13:13:21,919 - INFO - 192.168.1.5 - - [07/Nov/2024 13:13:21] "[33mGET /wifi-settings HTTP/1.1[0m" 404 -
+2024-11-07 13:13:24,111 - INFO - 192.168.1.5 - - [07/Nov/2024 13:13:24] "[33mGET /wifi-settings HTTP/1.1[0m" 404 -
+2024-11-07 13:13:24,678 - INFO - 192.168.1.5 - - [07/Nov/2024 13:13:24] "[33mGET /wifi-settings HTTP/1.1[0m" 404 -
+2024-11-07 13:13:26,652 - INFO - 192.168.1.5 - - [07/Nov/2024 13:13:26] "[33mGET /wifi-settings HTTP/1.1[0m" 404 -
+2024-11-07 13:17:56,929 - WARNING -  * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2024-11-07 13:17:56,932 - INFO -  * Running on http://192.168.1.12:5000/ (Press CTRL+C to quit)
+2024-11-07 13:18:02,124 - INFO - 192.168.1.5 - - [07/Nov/2024 13:18:02] "GET / HTTP/1.1" 200 -
+2024-11-07 13:18:02,233 - INFO - 192.168.1.5 - - [07/Nov/2024 13:18:02] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-07 13:18:02,313 - INFO - 192.168.1.5 - - [07/Nov/2024 13:18:02] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-07 13:18:02,320 - INFO - 192.168.1.5 - - [07/Nov/2024 13:18:02] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-07 13:18:09,248 - INFO - Found networks: ['Salt_2GHz_49332D', 'Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Skynet2.4G', 'Skynet5G', 'Surfs_up_1', 'Surfs_up_2', 'UETLIBERG', 'WiFi Reception ', '\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00']
+2024-11-07 13:18:09,271 - INFO - 192.168.1.5 - - [07/Nov/2024 13:18:09] "GET /wifi-settings HTTP/1.1" 200 -
+2024-11-07 13:18:09,339 - INFO - 192.168.1.5 - - [07/Nov/2024 13:18:09] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-07 13:18:12,663 - INFO - Found networks: ['Salt_2GHz_49332D', 'Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Skynet2.4G', 'Skynet5G', 'Surfs_up_1', 'Surfs_up_2', 'UETLIBERG', 'WiFi Reception ', '\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00', 'pab-81759']
+2024-11-07 13:18:12,666 - INFO - 192.168.1.5 - - [07/Nov/2024 13:18:12] "GET /wifi-scan HTTP/1.1" 200 -

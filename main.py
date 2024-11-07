@@ -206,3 +206,6 @@ if __name__ == "__main__":
             played = False
         
         time.sleep(30)
+
+    app.debug = True  # Add this line
+    app.run(host='0.0.0.0', port=5000)
