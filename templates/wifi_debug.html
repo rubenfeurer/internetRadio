@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WiFi Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .debug-section {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .debug-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .network-info {
+            margin-left: 20px;
+        }
+        .signal-strong {
+            color: green;
+        }
+        .signal-medium {
+            color: orange;
+        }
+        .signal-weak {
+            color: red;
+        }
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>WiFi Debug Information</h1>
+    
+    <div class="debug-section">
+        <div class="debug-title">Current Connection:</div>
+        <div class="network-info">
+            <p>SSID: {{ current.ESSID }}</p>
+            <p>Frequency: {{ current.Frequency }} GHz</p>
+            <p>Signal Strength: {{ current.Signal }} dBm</p>
+        </div>
+    </div>
+
+    <div class="debug-section">
+        <div class="debug-title">Network Devices:</div>
+        <div class="network-info">
+            {% for device in devices %}
+            <p>{{ device.device }} ({{ device.type }}): {{ device.state }}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="debug-section">
+        <div class="debug-title">Available Networks:</div>
+        <button onclick="rescanNetworks()" id="rescanButton">Rescan Networks</button>
+        <div id="scanStatus" style="margin: 10px 0; display: none;">
+            <div class="spinner"></div>
+            <span>Scanning for networks...</span>
+        </div>
+        <div class="network-info" id="networksList">
+            {% for network in networks %}
+            <p>{{ network }}</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        function rescanNetworks() {
+            const button = document.getElementById('rescanButton');
+            const status = document.getElementById('scanStatus');
+            const networksList = document.getElementById('networksList');
+            
+            // Disable button and show status
+            button.disabled = true;
+            status.style.display = 'block';
+            networksList.innerHTML = '<p>Scanning...</p>';
+            
+            console.log('Starting network scan...'); // Debug log
+            
+            // Make API call to rescan
+            fetch('/wifi-rescan')
+                .then(response => {
+                    console.log('Got response:', response); // Debug log
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Got data:', data); // Debug log
+                    networksList.innerHTML = '';
+                    if (data.networks && data.networks.length > 0) {
+                        data.networks.forEach(network => {
+                            networksList.innerHTML += `<p>${network}</p>`;
+                        });
+                    } else {
+                        networksList.innerHTML = '<p>No networks found</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error); // Debug log
+                    networksList.innerHTML = `<p style="color: red;">Error scanning networks: ${error}</p>`;
+                })
+                .finally(() => {
+                    // Re-enable button and hide status
+                    button.disabled = false;
+                    status.style.display = 'none';
+                });
+        }
+    </script>
+</body>
+</html> 
