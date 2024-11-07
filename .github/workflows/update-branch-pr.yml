@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
       
     steps:
       - uses: actions/checkout@v3
@@ -37,11 +38,13 @@ jobs:
             echo "changed=false" >> $GITHUB_OUTPUT
           fi
           
-      - name: Commit and push if changed
+      - name: Create Pull Request
         if: steps.changes.outputs.changed == 'true'
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add scripts/update_radio.sh
-          git commit -m "Update branch name in update_radio.sh [skip ci]"
-          git push 
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update branch name in update_radio.sh [skip ci]
+          title: 'Update branch name in update_radio.sh'
+          body: 'Automated update of branch name in update_radio.sh'
+          branch: update-branch-name
+          base: ${{ github.ref }}
