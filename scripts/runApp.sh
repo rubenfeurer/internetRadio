@@ -13,7 +13,7 @@ export XDG_RUNTIME_DIR=/run/user/$(id -u radio)
 export PULSE_RUNTIME_PATH=$XDG_RUNTIME_DIR/pulse
 
 # Create logs directory if it doesn't exist
-mkdir -p /home/radio/internetRadio/logs
+mkdir -p /home/radio/internetRadio/scripts/logs
 
 # Set audio volume
 amixer -D pulse sset Master 100% unmute || true
@@ -42,4 +42,4 @@ done
 
 # Start the Python application with error handling
 echo "Starting Python application..."
-python main.py 2>&1 | tee -a /home/radio/internetRadio/logs/app.log
+python main.py 2>&1 | tee -a /home/radio/internetRadio/scripts/logs/app.log
