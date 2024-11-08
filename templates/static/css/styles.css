@@ -332,4 +332,144 @@ button:active {
     background: rgb(183, 183, 183);
     box-shadow: none;
     color:white;
-}   
+}
+
+/* Network List Styles */
+.network-item {
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.network-header {
+    padding: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.network-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.connected-badge, .saved-badge {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+.connected-badge {
+    background-color: #28a745;
+    color: white;
+}
+
+.saved-badge {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+.network-actions {
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.password-field {
+    margin-bottom: 10px;
+}
+
+.password-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.network-password {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.connect-btn, .forget-btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.connect-btn {
+    background-color: #000;
+    color: white;
+}
+
+.forget-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.connect-btn:hover {
+    background-color: #333;
+}
+
+.forget-btn:hover {
+    background-color: #c82333;
+}
+
+.connect-btn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+.network-status {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.info-message {
+    background-color: #e2e3e5;
+    color: #383d41;
+}
+
+.refresh-btn {
+    margin-top: 20px;
+    background-color: #6c757d;
+}
+
+.refresh-btn:hover {
+    background-color: #5a6268;
+}
+
+.current-connection {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #6c757d;
+}

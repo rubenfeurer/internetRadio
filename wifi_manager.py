@@ -34,14 +34,30 @@ class WiFiManager:
         )
 
     def get_saved_networks(self):
-        """Get list of saved network connections."""
+        """Get list of valid saved network connections."""
         try:
             result = subprocess.run(
-                ['nmcli', '-t', '-f', 'NAME', 'connection', 'show'],
+                ['sudo', 'nmcli', '-t', '-f', 'NAME,UUID', 'connection', 'show'],
                 capture_output=True, text=True, check=True
             )
-            networks = [net for net in result.stdout.split('\n') if net]
-            logging.info(f"Found saved networks: {networks}")
+            networks = []
+            for line in result.stdout.split('\n'):
+                if line:
+                    name = line.split(':')[0]
+                    if name and name != '--' and name != self.ap_ssid:
+                        # Check if this is a valid connection
+                        check_cmd = ['sudo', 'nmcli', 'connection', 'show', name]
+                        check = subprocess.run(check_cmd, capture_output=True, text=True)
+                        # Only include networks that have valid credentials and are not in a failed state
+                        if ('802-11-wireless-security.psk:' in check.stdout and 
+                            'connection.autoconnect:yes' in check.stdout):
+                            networks.append(name)
+                        else:
+                            # If connection is invalid, delete it
+                            subprocess.run(['sudo', 'nmcli', 'connection', 'delete', name],
+                                        capture_output=True)
+            
+            logging.info(f"Found valid saved networks: {networks}")
             return networks
         except Exception as e:
             logging.error(f"Error getting saved networks: {e}")

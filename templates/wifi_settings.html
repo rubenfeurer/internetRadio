@@ -6,256 +6,229 @@
     <title>Wi-Fi Setup</title>
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <style>
-        .scan-status {
-            display: none;
-            margin: 10px 0;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            text-align: center;
-        }
-        
-        .spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #3498db;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .connection-status {
-            display: none;
-            margin: 10px 0;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            text-align: center;
-        }
-        
-        .connecting-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #3498db;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-
-        .status-message {
-            margin-top: 10px;
-            font-weight: bold;
-        }
-
-        .error-message {
-            color: #dc3545;
-        }
-
-        .success-message {
-            color: #28a745;
-        }
-    </style>
 </head>
 <body>
     <div class="container">
         <h1>Radio</h1>
         <h2>WiFi Settings</h2>
+        
+        <div id="currentConnection" class="current-connection">
+            Checking connection...
+        </div>
+
         <p>Select the local WiFi to which you want to connect your radio.</p>
 
-        <form method="POST" action="{{ url_for('wifi.wifi_settings') }}" id="wifi-form">
-            <label for="ssid">WiFi</label>
-            <select id="ssid" name="ssid" required>
-                <option value="" disabled selected>Please select</option>
-            </select>
+        <div id="scanStatus" class="scan-status">
+            <div class="spinner"></div>
+            <span>Scanning for networks...</span>
+        </div>
 
-            <div id="scanStatus" class="scan-status">
-                <div class="spinner"></div>
-                <span>Scanning for networks...</span>
-            </div>
+        <div id="networkList"></div>
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Password" required>
-
-            <div id="connectionStatus" class="connection-status">
-                <div class="connecting-spinner"></div>
-                <div class="status-message" id="statusMessage">Initializing connection...</div>
-                <div id="connectionDetails" style="margin-top: 10px; font-size: 0.9em;"></div>
-            </div>
-
-            <button type="submit">Connect</button>
-        </form>
-    </div>
-
-    <div class="ap-mode-notice" style="display: none;">
-        <p><strong>Device is in Access Point Mode</strong></p>
-        <p>SSID: InternetRadio</p>
-        <p>Password: radiopassword</p>
-        <p>Please connect to a network below to exit AP mode.</p>
+        <button type="button" id="refreshButton" class="refresh-btn">
+            Refresh Networks
+        </button>
     </div>
 
     <script>
-        document.getElementById('wifi-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+        function createNetworkItem(network, isSaved, isConnected) {
+            const div = document.createElement('div');
+            div.className = 'network-item' + (isSaved ? ' saved' : '') + (isConnected ? ' connected' : '');
             
-            const formData = new FormData(this);
-            const connectionStatus = document.getElementById('connectionStatus');
-            const statusMessage = document.getElementById('statusMessage');
-            const connectionDetails = document.getElementById('connectionDetails');
-            const submitButton = this.querySelector('button[type="submit"]');
-            const ssid = formData.get('ssid');
-            
-            // Reset and show connection status
-            connectionStatus.style.display = 'block';
-            submitButton.disabled = true;
-            submitButton.textContent = 'Connecting...';
-            
-            function updateStatus(message, isError = false) {
-                statusMessage.textContent = message;
-                statusMessage.className = 'status-message ' + (isError ? 'error-message' : '');
+            div.innerHTML = `
+                <div class="network-header">
+                    <span class="network-name">
+                        ${network}
+                        ${isConnected ? '<span class="connected-badge">Connected</span>' : ''}
+                        ${isSaved && !isConnected ? '<span class="saved-badge">Saved</span>' : ''}
+                    </span>
+                </div>
+                <div class="network-actions" style="display: none;">
+                    ${isConnected ? `
+                        <div class="button-group">
+                            <button type="button" class="forget-btn">Forget Network</button>
+                        </div>
+                    ` : isSaved ? `
+                        <div class="button-group">
+                            <button type="button" class="connect-btn">Connect</button>
+                            <button type="button" class="forget-btn">Forget Network</button>
+                        </div>
+                    ` : `
+                        <div class="password-field">
+                            <label class="password-label" for="password-${network}">Password</label>
+                            <input type="password" id="password-${network}" class="network-password" placeholder="Enter network password">
+                            <button type="button" class="connect-btn">Connect</button>
+                        </div>
+                    `}
+                </div>
+            `;
+
+            // Add click handlers
+            div.querySelector('.network-header').addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.querySelectorAll('.network-actions').forEach(el => {
+                    if (el !== div.querySelector('.network-actions')) {
+                        el.style.display = 'none';
+                    }
+                });
+                const actions = div.querySelector('.network-actions');
+                actions.style.display = actions.style.display === 'none' ? 'block' : 'none';
+            });
+
+            // Add button handlers
+            if (isConnected) {
+                div.querySelector('.forget-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    forgetNetwork(network, div);
+                });
+            } else if (isSaved) {
+                div.querySelector('.connect-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    connectToNetwork(network, null, div);
+                });
+                
+                div.querySelector('.forget-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    forgetNetwork(network, div);
+                });
+            } else {
+                div.querySelector('.connect-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const password = div.querySelector('.network-password').value;
+                    if (!password) {
+                        showStatus(div, 'Please enter a password', 'error');
+                        return;
+                    }
+                    connectToNetwork(network, password, div);
+                });
             }
 
-            updateStatus('Initiating connection...');
+            return div;
+        }
 
-            fetch(this.action, {
+        function showStatus(networkDiv, message, type) {
+            if (!networkDiv) return;
+            let statusDiv = networkDiv.querySelector('.network-status');
+            if (!statusDiv) {
+                statusDiv = document.createElement('div');
+                statusDiv.className = 'network-status';
+                networkDiv.appendChild(statusDiv);
+            }
+            statusDiv.textContent = message;
+            statusDiv.className = `network-status ${type}-message`;
+        }
+
+        function connectToNetwork(network, password = null, networkDiv = null) {
+            const formData = new FormData();
+            formData.append('ssid', network);
+            if (password) {
+                formData.append('password', password);
+            }
+            
+            // Disable connect button and show connecting status
+            const connectButton = networkDiv.querySelector('.connect-btn');
+            if (connectButton) {
+                connectButton.disabled = true;
+                connectButton.textContent = 'Connecting...';
+            }
+            
+            showStatus(networkDiv, 'Connecting...', 'info');
+            
+            fetch('/wifi-settings', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    updateStatus(`Successfully connected to ${ssid}! Device needs to be rebooted.`, false);
-                    connectionDetails.textContent = 'Click the button below to reboot and apply changes.';
-                    
-                    // Add reboot button
-                    const rebootButton = document.createElement('button');
-                    rebootButton.textContent = 'Reboot Device';
-                    rebootButton.style.marginTop = '15px';
-                    rebootButton.onclick = function() {
-                        if (confirm('Are you sure you want to reboot the device?')) {
-                            updateStatus('Initiating reboot...', false);
-                            fetch('/wifi/reboot', { method: 'POST' })
-                            .then(() => {
-                                updateStatus('Device is rebooting. Please wait 1 minute before reconnecting.', false);
-                            })
-                            .catch(() => {
-                                // Even if we get an error, the device might still be rebooting
-                                updateStatus('Device is rebooting. Please wait 1 minute before reconnecting.', false);
-                            });
-                        }
-                    };
-                    connectionDetails.appendChild(rebootButton);
+                    showStatus(networkDiv, 'Connected! Reloading...', 'success');
+                    setTimeout(() => window.location.reload(), 2000);
                 } else {
-                    updateStatus(data.message || 'Failed to connect. Please check your password.', true);
-                    connectionDetails.textContent = 'Please try again or select a different network.';
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Connect';
+                    let errorMessage = data.message;
+                    if (errorMessage.includes('Secrets were required') || 
+                        errorMessage.includes('connection activation failed')) {
+                        errorMessage = 'Wrong password. Please try again.';
+                        const passwordField = networkDiv.querySelector('.network-password');
+                        if (passwordField) {
+                            passwordField.value = '';
+                            passwordField.focus();
+                        }
+                    }
+                    showStatus(networkDiv, errorMessage, 'error');
+                    if (connectButton) {
+                        connectButton.disabled = false;
+                        connectButton.textContent = 'Connect';
+                    }
                 }
             })
-            .catch(error => {
-                // If we lose connection during network switch, show waiting message
-                updateStatus('Switching networks...', false);
-                connectionDetails.textContent = 'Please wait while your device reconnects...';
-                
-                // Start checking for connection
-                let attempts = 0;
-                const maxAttempts = 30; // 30 seconds
-                const checkConnection = setInterval(() => {
-                    attempts++;
-                    if (attempts > maxAttempts) {
-                        clearInterval(checkConnection);
-                        updateStatus('Connection timeout. Please refresh the page manually.', true);
-                        submitButton.disabled = false;
-                        submitButton.textContent = 'Connect';
-                        return;
-                    }
-
-                    fetch('/ping')
-                        .then(response => {
-                            if (response.ok) {
-                                clearInterval(checkConnection);
-                                window.location.reload();
-                            }
-                        })
-                        .catch(() => {
-                            // Still waiting for connection
-                            connectionDetails.textContent = `Waiting for connection... (${attempts}/${maxAttempts})`;
-                        });
-                }, 1000);
+            .catch(() => {
+                showStatus(networkDiv, 'Connection failed', 'error');
+                if (connectButton) {
+                    connectButton.disabled = false;
+                    connectButton.textContent = 'Connect';
+                }
             });
-        });
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const status = document.getElementById('scanStatus');
-            const select = document.getElementById('ssid');
+        }
+
+        function forgetNetwork(network, networkDiv) {
+            const formData = new FormData();
+            formData.append('forget', network);
             
-            // Show scanning status
+            showStatus(networkDiv, 'Forgetting network...', 'info');
+            
+            fetch('/wifi-settings', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showStatus(networkDiv, 'Network forgotten! Reloading...', 'success');
+                    setTimeout(() => window.location.reload(), 2000);
+                } else {
+                    showStatus(networkDiv, data.message, 'error');
+                }
+            })
+            .catch(() => {
+                showStatus(networkDiv, 'Error forgetting network', 'error');
+            });
+        }
+
+        function updateNetworks() {
+            const networkList = document.getElementById('networkList');
+            const status = document.getElementById('scanStatus');
             status.style.display = 'block';
             
-            // Function to update the network list
-            function updateNetworks() {
-                fetch('/wifi-scan')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'complete') {
-                            // Clear existing options (except the first one)
-                            while (select.options.length > 1) {
-                                select.remove(1);
+            // First get current connection status
+            fetch('/status')
+                .then(response => response.json())
+                .then(statusData => {
+                    // Then get networks
+                    fetch('/wifi-scan')
+                        .then(response => response.json())
+                        .then(data => {
+                            networkList.innerHTML = '';
+                            if (data.networks) {
+                                data.networks.forEach(network => {
+                                    if (network !== 'InternetRadio') {
+                                        const isSaved = data.saved_networks && data.saved_networks.includes(network);
+                                        const isConnected = statusData.ssid === network;
+                                        const div = createNetworkItem(network, isSaved, isConnected);
+                                        networkList.appendChild(div);
+                                    }
+                                });
                             }
-                            
-                            // Add new options
-                            data.networks.forEach(network => {
-                                if (network !== 'InternetRadio') {  // Don't show our own AP
-                                    const option = new Option(network, network);
-                                    select.add(option);
-                                }
-                            });
-                            
-                            // Hide status indicator
                             status.style.display = 'none';
-                            
-                            // Show/hide AP mode notice
-                            const apModeNotice = document.querySelector('.ap-mode-notice');
-                            if (data.ap_mode) {
-                                apModeNotice.style.display = 'block';
-                            } else {
-                                apModeNotice.style.display = 'none';
-                            }
-                        } else if (data.status === 'error') {
-                            status.innerHTML = `<p style="color: red;">Error: ${data.error}</p>`;
-                        }
-                    })
-                    .catch(error => {
-                        status.innerHTML = `<p style="color: red;">Error scanning networks: ${error}</p>`;
-                    });
-            }
-            
-            // Initial scan
+                        })
+                        .catch(error => {
+                            status.innerHTML = `<p style="color: red;">Error scanning networks: ${error}</p>`;
+                        });
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
             updateNetworks();
-            
-            // Add refresh button after the select element
-            const refreshButton = document.createElement('button');
-            refreshButton.type = 'button';
-            refreshButton.textContent = 'Refresh Networks';
-            refreshButton.style.marginBottom = '15px';
-            refreshButton.style.display = 'block';  // Make it a block element
-            refreshButton.onclick = function() {
-                status.style.display = 'block';
-                status.innerHTML = '<div class="spinner"></div><span>Scanning for networks...</span>';
-                updateNetworks();
-            };
-            select.parentNode.insertBefore(refreshButton, select.nextSibling);
+            document.getElementById('refreshButton').onclick = updateNetworks;
         });
     </script>
 </body>
