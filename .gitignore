@@ -2,4 +2,3 @@
 scripts/logs/*
 .venv/
 __pycache__/
-logs/*
