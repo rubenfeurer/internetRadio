@@ -194,8 +194,10 @@ setup_service() {
     cat > /etc/systemd/system/internetradio.service << 'EOL'
 [Unit]
 Description=Internet Radio Service
-After=network.target network-manager.service pigpiod.service
-Requires=pigpiod.service
+After=network.target network-manager.service pigpiod.service sound.target systemd-logind.service
+Requires=pigpiod.service sound.target
+Wants=network-manager.service
+Before=multi-user.target
 
 [Service]
 Type=simple
@@ -206,11 +208,6 @@ Environment=XAUTHORITY=/home/radio/.Xauthority
 Environment=HOME=/home/radio
 Environment=XDG_RUNTIME_DIR=/run/user/1000
 WorkingDirectory=/home/radio/internetRadio
-
-# Setup runtime directory
-ExecStartPre=/bin/mkdir -p /run/user/1000
-ExecStartPre=/bin/chown radio:radio /run/user/1000
-ExecStartPre=/bin/chmod 700 /run/user/1000
 
 # Start the main application
 ExecStart=/home/radio/internetRadio/scripts/runApp.sh
@@ -225,6 +222,9 @@ EOL
 
     # Set proper permissions
     chmod 644 /etc/systemd/system/internetradio.service
+    
+    # Enable pigpiod service
+    systemctl enable pigpiod.service
     
     # Reload systemd and enable service
     systemctl daemon-reload
