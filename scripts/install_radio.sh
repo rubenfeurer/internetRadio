@@ -260,12 +260,6 @@ verify_installation() {
 setup_radio_files() {
     log_message "Setting up radio files..."
     
-    # Create required directories
-    mkdir -p "/home/radio/internetRadio"
-    
-    # Copy all files
-    cp -r ./* "/home/radio/internetRadio/"
-    
     # Fix permissions
     chown -R radio:radio "/home/radio/internetRadio"
     chmod -R 755 "/home/radio/internetRadio/scripts/"*.sh
@@ -372,3 +366,7 @@ main() {
 
 # Run main installation
 main
+
+# After creating the README.md file, update the hostname
+HOSTNAME=$(hostname)
+sed -i "s/{hostname}/$HOSTNAME/g" /home/radio/internetRadio/README.md
