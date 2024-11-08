@@ -36,28 +36,24 @@ class WiFiManager:
     def get_saved_networks(self):
         """Get list of valid saved network connections."""
         try:
+            # Get all connections
             result = subprocess.run(
-                ['sudo', 'nmcli', '-t', '-f', 'NAME,UUID', 'connection', 'show'],
+                ['sudo', 'nmcli', '-t', '-f', 'NAME,TYPE', 'connection', 'show'],
                 capture_output=True, text=True, check=True
             )
+            
             networks = []
             for line in result.stdout.split('\n'):
                 if line:
-                    name = line.split(':')[0]
-                    if name and name != '--' and name != self.ap_ssid:
-                        # Check if this is a valid connection
-                        check_cmd = ['sudo', 'nmcli', 'connection', 'show', name]
-                        check = subprocess.run(check_cmd, capture_output=True, text=True)
-                        # Only include networks that have valid credentials and are not in a failed state
-                        if ('802-11-wireless-security.psk:' in check.stdout and 
-                            'connection.autoconnect:yes' in check.stdout):
+                    parts = line.split(':')
+                    if len(parts) == 2:
+                        name, conn_type = parts
+                        # Only include wifi connections that aren't our AP
+                        if conn_type == 'wifi' and name != self.ap_ssid and name != '--':
                             networks.append(name)
-                        else:
-                            # If connection is invalid, delete it
-                            subprocess.run(['sudo', 'nmcli', 'connection', 'delete', name],
-                                        capture_output=True)
+                            logging.info(f"Found saved wifi network: {name}")
             
-            logging.info(f"Found valid saved networks: {networks}")
+            logging.info(f"Final list of saved networks: {networks}")
             return networks
         except Exception as e:
             logging.error(f"Error getting saved networks: {e}")
