@@ -68,7 +68,7 @@ class WiFiManager:
                             self.initial_connection_made = True
                             return True
             attempt += 1
-            time.sleep(5)
+            time.sleep(2)
         
         # Only enable AP mode if we haven't made an initial connection
         if not self.initial_connection_made:
@@ -84,7 +84,7 @@ class WiFiManager:
                 capture_output=True, text=True, check=True
             )
             logging.info(f"Initial connection to {ssid} successful")
-            time.sleep(5)  # Wait for connection to stabilize
+            time.sleep(2)  # Changed from 5 to 2 seconds to wait for connection to stabilize
             return True
         except subprocess.CalledProcessError as e:
             logging.error(f"Failed to connect to {ssid}: {e}")

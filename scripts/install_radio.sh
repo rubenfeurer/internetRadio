@@ -366,3 +366,7 @@ main() {
 
 # Run main installation
 main
+
+# After creating the README.md file, update the hostname
+HOSTNAME=$(hostname)
+sed -i "s/{hostname}/$HOSTNAME/g" /home/radio/internetRadio/README.md
