@@ -26,6 +26,9 @@ sound_folder = "/home/radio/internetRadio/sounds"
 stream_manager = None
 sound_manager = None
 
+LOG_DIR = '/home/radio/internetRadio/scripts/logs'
+os.makedirs(LOG_DIR, exist_ok=True)
+
 def run_flask_app():
     app.run(host='0.0.0.0', port=5000, debug=False)
 

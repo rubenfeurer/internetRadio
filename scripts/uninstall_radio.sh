@@ -77,7 +77,6 @@ if [[ $remove_packages == [yY] ]]; then
         "vlc"
         "pigpio"
         "dos2unix"
-        "network-manager"
     )
     
     for package in "${PACKAGES[@]}"; do
@@ -86,7 +85,13 @@ if [[ $remove_packages == [yY] ]]; then
         fi
     done
     
-    sudo apt-get autoremove -y
+    log_message "Skipping network-manager removal to preserve WiFi connectivity"
+    echo "NOTE: network-manager was not removed to preserve WiFi connectivity"
+    
+    read -p "Run autoremove? This might affect system packages. (y/N): " do_autoremove
+    if [[ $do_autoremove == [yY] ]]; then
+        sudo apt-get autoremove -y
+    fi
 fi
 
 # Remove application directories and files

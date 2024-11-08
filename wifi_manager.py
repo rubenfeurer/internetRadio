@@ -24,7 +24,7 @@ class WiFiManager:
 
     def setup_logging(self):
         """Setup logging configuration."""
-        log_file = '/home/radio/internetRadio/logs/wifi.log'
+        log_file = '/home/radio/internetRadio/scripts/logs/wifi.log'
         os.makedirs(os.path.dirname(log_file), exist_ok=True)
         
         logging.basicConfig(
