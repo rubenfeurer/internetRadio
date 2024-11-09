@@ -8,13 +8,20 @@ from datetime import datetime
 class WiFiManager:
     def __init__(self, app=None):
         """Initialize the WiFi manager."""
-        self.app = app
-        self.blueprint = Blueprint('wifi', __name__)
-        self.register_routes()
-        self.ap_mode = False
-        self.ap_ssid = "InternetRadio"
-        self.ap_password = "radiopassword"
-        self.initial_connection_made = False
+        try:
+            # Get Pi's hostname
+            hostname = subprocess.check_output(['hostname']).decode('utf-8').strip()
+            self.ap_ssid = f"Radio_{hostname}"
+            self.ap_password = "Radio@1234"
+            
+            logging.info(f"Initializing WiFi Manager with SSID: {self.ap_ssid}")
+            self.ap_mode = False
+            self.initial_connection_made = False
+        except Exception as e:
+            logging.error(f"Error initializing WiFi manager: {e}")
+            # Fallback values if hostname can't be retrieved
+            self.ap_ssid = "Radio_Default"
+            self.ap_password = "Radio@1234"
         
         # Setup logging
         self.setup_logging()
