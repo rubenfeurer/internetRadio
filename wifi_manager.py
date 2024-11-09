@@ -87,7 +87,7 @@ class WiFiManager:
             return []
 
     def try_connect_saved_networks(self):
-        """Try to connect to saved networks only at startup."""
+        """Try to connect to saved networks and fall back to AP mode if needed."""
         logging.info("Starting try_connect_saved_networks...")
         
         # First check if we're already connected
@@ -97,46 +97,38 @@ class WiFiManager:
                 capture_output=True, text=True, check=True
             )
             if 'connected' in result.stdout:
-                logging.info("Already connected to a network")
+                ssid = subprocess.run(
+                    ['iwgetid', '-r'],
+                    capture_output=True, text=True, check=True
+                ).stdout.strip()
+                logging.info(f"Already connected to network: {ssid}")
                 self.initial_connection_made = True
                 return True
         except Exception as e:
             logging.error(f"Error checking current connection: {e}")
         
-        if self.initial_connection_made:
-            logging.info("Initial connection already made, skipping network scan")
-            return True
-            
-        max_attempts = 3
-        attempt = 0
+        # Get list of saved networks
+        networks = self.get_saved_networks()
+        logging.info(f"Found saved networks: {networks}")
         
-        while attempt < max_attempts:
-            networks = self.get_saved_networks()
-            logging.info(f"Attempt {attempt + 1}/{max_attempts}. Found networks: {networks}")
-            
-            for network in networks:
-                if network != self.ap_ssid:  # Skip our own AP
-                    logging.info(f"Attempting to connect to: {network}")
-                    if self.connect_to_network(network):
-                        logging.info(f"Connected to {network}, checking internet...")
-                        if self.check_internet():
-                            logging.info(f"Internet connection confirmed on {network}")
-                            self.initial_connection_made = True
-                            return True
-                        else:
-                            logging.info(f"No internet on {network}")
+        # Try each saved network
+        for network in networks:
+            if network != self.ap_ssid:  # Skip our own AP
+                logging.info(f"Attempting to connect to: {network}")
+                if self.connect_to_network(network):
+                    logging.info(f"Connected to {network}, checking internet...")
+                    if self.check_internet():
+                        logging.info(f"Internet connection confirmed on {network}")
+                        self.initial_connection_made = True
+                        return True
                     else:
-                        logging.info(f"Failed to connect to {network}")
-            
-            attempt += 1
-            logging.info(f"Attempt {attempt} failed, waiting 2 seconds...")
-            time.sleep(2)
+                        logging.info(f"No internet on {network}")
+                else:
+                    logging.info(f"Failed to connect to {network}")
         
-        # Only enable AP mode if we haven't made an initial connection
-        if not self.initial_connection_made:
-            logging.info("No saved networks available or couldn't connect, enabling AP mode")
-            return self.enable_ap_mode()
-        return False
+        # If we get here, we couldn't connect to any network
+        logging.info("Could not connect to any saved networks, enabling AP mode")
+        return self.enable_ap_mode()
 
     def connect_to_network(self, ssid):
         """Connect to a specific network."""
@@ -156,11 +148,11 @@ class WiFiManager:
         """Check if we have internet connectivity."""
         try:
             subprocess.run(
-                ['ping', '-c', '1', '8.8.8.8'],
-                capture_output=True, check=True, timeout=5
+                ['ping', '-c', '1', '-W', '5', '8.8.8.8'],
+                capture_output=True, check=True
             )
             return True
-        except (subprocess.CalledProcessError, subprocess.TimeoutExpired):
+        except subprocess.CalledProcessError:
             return False
 
     def enable_ap_mode(self):
@@ -169,36 +161,33 @@ class WiFiManager:
             return True
             
         try:
-            # Delete existing AP connection if it exists
-            subprocess.run(['sudo', 'nmcli', 'connection', 'delete', self.ap_ssid], 
-                         capture_output=True, check=False)
+            logging.info("Starting Wi-Fi hotspot...")
             
-            # Create new AP connection
-            subprocess.run([
-                'sudo', 'nmcli', 'connection', 'add',
-                'type', 'wifi',
+            # Delete any existing hotspot connections
+            subprocess.run(
+                ['sudo', 'nmcli', 'connection', 'delete', 'Hotspot'],
+                capture_output=True, text=True
+            )
+            subprocess.run(
+                ['sudo', 'nmcli', 'connection', 'delete', self.ap_ssid],
+                capture_output=True, text=True
+            )
+            
+            # Create new hotspot
+            result = subprocess.run([
+                'sudo', 'nmcli', 'device', 'wifi', 'hotspot',
                 'ifname', 'wlan0',
-                'con-name', self.ap_ssid,
-                'autoconnect', 'yes',
                 'ssid', self.ap_ssid,
-                'mode', 'ap',
-                'ipv4.method', 'shared'
-            ], check=True)
+                'password', self.ap_password
+            ], capture_output=True, text=True)
             
-            # Set password
-            subprocess.run([
-                'sudo', 'nmcli', 'connection', 'modify', self.ap_ssid,
-                'wifi-sec.key-mgmt', 'wpa-psk',
-                'wifi-sec.psk', self.ap_password
-            ], check=True)
-            
-            # Activate the connection
-            subprocess.run(['sudo', 'nmcli', 'connection', 'up', self.ap_ssid], check=True)
-            
-            self.ap_mode = True
-            logging.info("AP mode enabled successfully")
-            return True
-            
+            if result.returncode == 0:
+                logging.info("Hotspot started successfully")
+                self.ap_mode = True
+                return True
+            else:
+                logging.error(f"Failed to start hotspot: {result.stderr}")
+                return False
         except Exception as e:
             logging.error(f"Error enabling AP mode: {e}")
             return False
