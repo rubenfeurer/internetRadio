@@ -28,7 +28,7 @@
             <div class="stream-card" onclick="updateStream('{{ channel }}', '{{ link.url }}')">
                 <div class="stream-details">
                     <h2>{{ link.name }}</h2>
-                    <p>{{ link.country }}</p>
+                    <p>{{ link.country }}{% if link.location %} - {{ link.location }}{% endif %}</p>
                 </div>
 
                 <div class="play-button" onclick="playStream(event, '{{ link.url }}', this)">
@@ -56,9 +56,9 @@
 
             for (let card of streamCards) {
                 const name = card.querySelector('h2').textContent.toLowerCase();
-                const country = card.querySelector('p').textContent.toLowerCase();
+                const details = card.querySelector('p').textContent.toLowerCase();
                 
-                if (name.includes(searchTerm) || country.includes(searchTerm) || searchTerm === '') {
+                if (name.includes(searchTerm) || details.includes(searchTerm) || searchTerm === '') {
                     card.style.display = '';
                 } else {
                     card.style.display = 'none';
