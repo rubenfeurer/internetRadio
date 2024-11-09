@@ -36,20 +36,43 @@ class WiFiManager:
     def get_saved_networks(self):
         """Get list of valid saved network connections."""
         try:
-            # Get all connections
+            logging.info("Getting saved networks...")
+            
+            # First get the actual SSID from preconfigured connection
+            active_conn = subprocess.run(
+                ['sudo', 'nmcli', '-s', 'connection', 'show', 'preconfigured'],
+                capture_output=True, text=True, check=True
+            )
+            
+            # Extract the SSID from active connection
+            active_ssid = None
+            for line in active_conn.stdout.splitlines():
+                if '802-11-wireless.ssid' in line:
+                    active_ssid = line.split(':')[1].strip()
+                    logging.info(f"Found active SSID: {active_ssid}")
+                    break
+            
+            # Get all saved connections
             result = subprocess.run(
                 ['sudo', 'nmcli', '-t', '-f', 'NAME,TYPE', 'connection', 'show'],
                 capture_output=True, text=True, check=True
             )
             
             networks = []
+            if active_ssid:
+                networks.append(active_ssid)
+                
             for line in result.stdout.split('\n'):
                 if line:
                     parts = line.split(':')
                     if len(parts) == 2:
                         name, conn_type = parts
-                        # Only include wifi connections that aren't our AP
-                        if conn_type == 'wifi' and name != self.ap_ssid and name != '--':
+                        # Include wifi connections that aren't preconfigured or AP
+                        if (conn_type == 'wifi' and 
+                            name != self.ap_ssid and 
+                            name != 'preconfigured' and 
+                            name != '--' and
+                            name != active_ssid):
                             networks.append(name)
                             logging.info(f"Found saved wifi network: {name}")
             
@@ -61,6 +84,8 @@ class WiFiManager:
 
     def try_connect_saved_networks(self):
         """Try to connect to saved networks only at startup."""
+        logging.info("Starting try_connect_saved_networks...")
+        
         if self.initial_connection_made:
             logging.info("Initial connection already made, skipping network scan")
             return True
@@ -70,16 +95,24 @@ class WiFiManager:
         
         while attempt < max_attempts:
             networks = self.get_saved_networks()
-            logging.info(f"Attempting to connect to saved networks (attempt {attempt + 1}/{max_attempts})")
+            logging.info(f"Attempt {attempt + 1}/{max_attempts}. Found networks: {networks}")
             
             for network in networks:
                 if network != self.ap_ssid:  # Skip our own AP
+                    logging.info(f"Attempting to connect to: {network}")
                     if self.connect_to_network(network):
+                        logging.info(f"Connected to {network}, checking internet...")
                         if self.check_internet():
-                            logging.info(f"Successfully connected to {network} with internet access")
+                            logging.info(f"Internet connection confirmed on {network}")
                             self.initial_connection_made = True
                             return True
+                        else:
+                            logging.info(f"No internet on {network}")
+                    else:
+                        logging.info(f"Failed to connect to {network}")
+            
             attempt += 1
+            logging.info(f"Attempt {attempt} failed, waiting 2 seconds...")
             time.sleep(2)
         
         # Only enable AP mode if we haven't made an initial connection
@@ -91,12 +124,24 @@ class WiFiManager:
     def connect_to_network(self, ssid):
         """Connect to a specific network."""
         try:
+            # Check if this is the preconfigured network
+            if ssid == 'preconfigured':
+                active_conn = subprocess.run(
+                    ['sudo', 'nmcli', '-s', 'connection', 'show', 'preconfigured'],
+                    capture_output=True, text=True, check=True
+                )
+                for line in active_conn.stdout.splitlines():
+                    if '802-11-wireless.ssid' in line:
+                        ssid = line.split(':')[1].strip()
+                        break
+            
+            logging.info(f"Attempting to connect to network: {ssid}")
             result = subprocess.run(
                 ['sudo', 'nmcli', 'connection', 'up', ssid],
                 capture_output=True, text=True, check=True
             )
-            logging.info(f"Initial connection to {ssid} successful")
-            time.sleep(2)  # Changed from 5 to 2 seconds to wait for connection to stabilize
+            logging.info(f"Connection to {ssid} successful")
+            time.sleep(2)
             return True
         except subprocess.CalledProcessError as e:
             logging.error(f"Failed to connect to {ssid}: {e}")
