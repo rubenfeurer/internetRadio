@@ -381,29 +381,66 @@ class WiFiManager:
 
     def register_routes(self):
         """Register the WiFi routes."""
-        @self.blueprint.route('/wifi-settings', methods=['GET', 'POST'])
-        def wifi_settings():
-            return self.handle_wifi_settings()
-            
-        @self.blueprint.route('/wifi-scan')
-        def wifi_scan():
-            return self.handle_wifi_scan()
-            
-        @self.blueprint.route('/status')
-        def wifi_status():
-            return self.handle_wifi_status()
-            
+        
+        # Store reference to self for closure
+        manager = self
+        
         @self.blueprint.route('/ping')
         def ping():
-            return self.handle_ping()
+            return jsonify({'status': 'ok'})
+        
+        @self.blueprint.route('/wifi-scan')
+        def wifi_scan():
+            logging.info("WiFi scan route called")
+            try:
+                networks = manager.scan_wifi()
+                logging.info(f"Scan complete. Found networks: {networks}")
+                return jsonify({
+                    'status': 'success',
+                    'networks': networks
+                })
+            except Exception as e:
+                logging.error(f"Error in wifi_scan route: {str(e)}")
+                return jsonify({
+                    'status': 'error',
+                    'message': str(e)
+                }), 500
+            
+        @self.blueprint.route('/status')
+        def status():
+            logging.info("Status route called")
+            try:
+                return manager.handle_wifi_status()
+            except Exception as e:
+                logging.error(f"Error in status route: {str(e)}")
+                return jsonify({
+                    'status': 'error',
+                    'message': str(e)
+                }), 500
+            
+        @self.blueprint.route('/wifi-settings', methods=['GET', 'POST'])
+        def wifi_settings():
+            logging.info(f"WiFi settings route called with method: {request.method}")
+            try:
+                return manager.handle_wifi_settings()
+            except Exception as e:
+                logging.error(f"Error in wifi_settings route: {str(e)}")
+                return jsonify({
+                    'status': 'error',
+                    'message': str(e)
+                }), 500
             
         @self.blueprint.route('/reboot', methods=['POST'])
         def reboot():
-            return self.handle_reboot()
-            
-        @self.blueprint.route('/start-ap-test', methods=['POST'])
-        def start_ap_test():
-            return jsonify({'success': self.start_ap_test_mode()})
+            logging.info("Reboot route called")
+            try:
+                return manager.handle_reboot()
+            except Exception as e:
+                logging.error(f"Error in reboot route: {str(e)}")
+                return jsonify({
+                    'status': 'error',
+                    'message': str(e)
+                }), 500
 
     def init_app(self, app):
         """Initialize the application."""
