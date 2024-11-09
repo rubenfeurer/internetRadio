@@ -58,6 +58,7 @@ check_prerequisites() {
         "dos2unix"
         "wireless-tools"
         "network-manager"
+        "python3-rpi.gpio"
     )
     
     for package in "${REQUIRED_PACKAGES[@]}"; do
@@ -194,8 +195,8 @@ setup_service() {
     cat > /etc/systemd/system/internetradio.service << 'EOL'
 [Unit]
 Description=Internet Radio Service
-After=network.target network-manager.service pigpiod.service sound.target systemd-logind.service
-Requires=pigpiod.service sound.target
+After=network.target network-manager.service pigpiod.service sound.target systemd-logind.service NetworkManager-wait-online.service
+Requires=pigpiod.service sound.target NetworkManager-wait-online.service
 Wants=network-manager.service
 Before=multi-user.target
 
@@ -208,11 +209,8 @@ Environment=XAUTHORITY=/home/radio/.Xauthority
 Environment=HOME=/home/radio
 Environment=XDG_RUNTIME_DIR=/run/user/1000
 WorkingDirectory=/home/radio/internetRadio
-
-# Start the main application
-ExecStart=/home/radio/internetRadio/scripts/runApp.sh
-
-# Restart settings
+ExecStartPre=/bin/bash -c 'until nmcli device show wlan0 | grep -q "GENERAL.STATE.*connected"; do sleep 1; done'
+ExecStart=/bin/bash -c 'source .venv/bin/activate && exec python main.py 2>&1 | tee -a /home/radio/internetRadio/scripts/logs/app.log'
 Restart=always
 RestartSec=10
 
@@ -303,6 +301,31 @@ EOF
     fi
 }
 
+setup_network_manager() {
+    log_message "Configuring NetworkManager..."
+    
+    # Enable NetworkManager
+    systemctl enable NetworkManager
+    systemctl start NetworkManager
+    
+    # Configure NetworkManager
+    cat > /etc/NetworkManager/conf.d/10-globally-managed-devices.conf << EOF
+[keyfile]
+unmanaged-devices=none
+EOF
+    
+    # Backup and disable default wifi config if exists
+    if [ -f /etc/wpa_supplicant/wpa_supplicant.conf ]; then
+        mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf.bak
+    fi
+    
+    # Create logs directory if it doesn't exist
+    mkdir -p /home/radio/internetRadio/scripts/logs
+    chown -R radio:radio /home/radio/internetRadio/scripts/logs
+    
+    log_message "NetworkManager configuration complete"
+}
+
 # Main installation function
 main() {
     log_message "Starting installation..."
@@ -320,6 +343,11 @@ main() {
     
     setup_radio_files || {
         log_message "Radio files setup failed"
+        exit 1
+    }
+    
+    setup_network_manager || {
+        log_message "NetworkManager setup failed"
         exit 1
     }
     

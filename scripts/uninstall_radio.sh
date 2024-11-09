@@ -24,6 +24,7 @@ SERVICES=(
     "radio-update.timer"
     "radio-update.service"
     "pigpiod.service"
+    "NetworkManager-wait-online.service"
 )
 
 for service in "${SERVICES[@]}"; do
@@ -143,61 +144,35 @@ sudo ldconfig
 FINAL_LOG="$HOME/radio_uninstall.log"
 cp "$LOG_FILE" "$FINAL_LOG"
 
-log_message "Uninstallation completed successfully"
-echo
-echo "Internet Radio has been removed from the system."
-echo "The radio user account has been preserved."
-echo "Uninstallation log has been saved to: $FINAL_LOG"
-echo
-echo "Please reboot the system to complete the cleanup."
-read -p "Would you like to reboot now? (y/N): " reboot
-if [[ $reboot == [yY] ]]; then
-    sudo reboot
-fi
-
-# Add process cleanup section
-log_message "Cleaning up running processes..."
-sudo pkill -f pulseaudio || true
-sudo pkill -f python || true
-sudo pkill -f vlc || true
-
-# Add runtime directory cleanup
-log_message "Cleaning runtime directories..."
-sudo rm -rf /run/user/1000/* || true
-
-# Stop and remove service
-if systemctl is-active --quiet internetradio; then
-    systemctl stop internetradio
-fi
-if systemctl is-enabled --quiet internetradio; then
-    systemctl disable internetradio
-fi
-rm -f /etc/systemd/system/internetradio.service
-systemctl daemon-reload
-
-# Add repository handling
-log_message "Checking for repository..."
-if [ -d "/home/radio/internetRadio/.git" ]; then
-    read -p "Repository clone found. Do you want to remove it? (y/N): " remove_repo
-    if [[ $remove_repo == [yY] ]]; then
-        log_message "Removing repository..."
-        sudo rm -rf /home/radio/internetRadio
-    else
-        log_message "Keeping repository but cleaning build artifacts..."
-        # Clean but keep repo
-        if [ -d "/home/radio/internetRadio/.venv" ]; then
-            sudo rm -rf /home/radio/internetRadio/.venv
-        fi
-        sudo rm -f /home/radio/internetRadio/logs/*
+# Add new function for network cleanup
+cleanup_network() {
+    log_message "Cleaning up network configuration..."
+    
+    # Restore original wpa_supplicant if backup exists
+    if [ -f /etc/wpa_supplicant/wpa_supplicant.conf.bak ]; then
+        log_message "Restoring original wpa_supplicant configuration..."
+        mv /etc/wpa_supplicant/wpa_supplicant.conf.bak /etc/wpa_supplicant/wpa_supplicant.conf
     fi
-fi
-
-# Add ALSA configuration cleanup
-cleanup_audio() {
-    log_message "Cleaning up audio configuration..."
-    rm -f /etc/asound.conf
+    
+    # Remove NetworkManager configuration
+    if [ -f /etc/NetworkManager/conf.d/10-globally-managed-devices.conf ]; then
+        log_message "Removing NetworkManager configuration..."
+        rm -f /etc/NetworkManager/conf.d/10-globally-managed-devices.conf
+    fi
+    
+    # Remove any saved connections
+    log_message "Removing saved NetworkManager connections..."
+    if [ -d /etc/NetworkManager/system-connections ]; then
+        rm -f /etc/NetworkManager/system-connections/preconfigured*
+        rm -f /etc/NetworkManager/system-connections/Hotspot*
+        rm -f /etc/NetworkManager/system-connections/InternetRadio*
+    fi
+    
+    # Don't disable NetworkManager itself as it might be needed for other services
+    log_message "Note: NetworkManager service remains enabled for system connectivity"
 }
 
+# Add to the main cleanup section before final message:
 main() {
     # ... existing checks ...
 
@@ -207,6 +182,9 @@ main() {
     # Remove audio config
     cleanup_audio
 
+    # Clean up network configurations
+    cleanup_network
+
     # Remove Python packages and venv
     cleanup_python_env
 
@@ -214,4 +192,16 @@ main() {
     cleanup_logs
 
     log_message "Uninstallation completed successfully"
+    
+    echo
+    echo "Internet Radio has been removed from the system."
+    echo "The radio user account has been preserved."
+    echo "NetworkManager remains installed for system connectivity."
+    echo "Uninstallation log has been saved to: $FINAL_LOG"
+    echo
+    echo "Please reboot the system to complete the cleanup."
+    read -p "Would you like to reboot now? (y/N): " reboot
+    if [[ $reboot == [yY] ]]; then
+        sudo reboot
+    fi
 }
