@@ -134,51 +134,53 @@ internetradio.service
 
 ### Normal Connection Flow
 1. **Initial Boot**
-   - System attempts to connect to previously saved networks
-   - Makes 3 connection attempts for each saved network
-   - Each attempt includes:
-     - Connection attempt (2s timeout)
-     - Internet verification (5s timeout)
-     - Delay between attempts (2s)
-   - Total maximum time until AP mode: ~27 seconds
+   - System attempts to connect to previously saved networks using NetworkManager
+   - Specifically tries to connect to configured network
+   - Connection verification includes:
+     - NetworkManager connection status check
+     - Internet connectivity verification
+   - Maximum wait time: 30 seconds
 
 2. **Connection Verification**
-   - Checks if connection is established using `nmcli`
-   - Verifies internet connectivity by pinging 8.8.8.8
-   - Logs all connection attempts and results
+   - Uses NetworkManager (`nmcli`) to verify connection status
+   - Checks for specific network SSID connection
+   - Verifies internet connectivity
+   - All steps are logged in `/scripts/logs/wifi.log`
 
 3. **AP Mode Fallback**
-   If no connection can be established:
-   - System creates its own Access Point
-   - SSID: "InternetRadio"
-   - Password: "radiopassword"
+   If connection fails:
+   - System creates an Access Point
+   - SSID: "Radio_{hostname}" (e.g., "Radio_radiod")
+   - Password: "Radio@1234"
    - Interface: wlan0
-   - IP Address: Automatically assigned
+   - IP Address: 10.42.0.1
 
 ### Access Point (AP) Mode
 When in AP mode:
 1. **Network Configuration**
-   - Creates a WiFi network other devices can connect to
+   - Creates a WiFi network named "Radio_{hostname}"
    - Uses NetworkManager for AP configuration
+   - Default password: "Radio@1234"
    - Provides DHCP for connected devices
 
 2. **Web Interface Access**
-   - Connect to "InternetRadio" WiFi network
-   - Use password: "radiopassword"
-   - Access web interface at: radio@{hostname}.local:5000
-   - Example: If your radio's hostname is "{hostname}", use: radio@{hostname}.local:5000
+   - Connect to "Radio_{hostname}" WiFi network
+   - Use password: "Radio@1234"
+   - Access web interface at: http://10.42.0.1:5000
+   - Or use: radio@{hostname}.local:5000
 
 3. **WiFi Setup**
    - Use web interface to scan for available networks
    - Select desired network and enter credentials
-   - System will attempt to connect to new network
+   - System attempts connection to new network
    - On success, AP mode is disabled automatically
 
 ### Network Management
-- All WiFi credentials are stored by NetworkManager
-- Previous connections are remembered and tried first
-- System logs all connection attempts in `/logs/wifi.log`
-- Web interface provides real-time connection status
+- NetworkManager handles all WiFi connections
+- Credentials stored securely in `/etc/NetworkManager/system-connections/`
+- Connection status logged in `/scripts/logs/wifi.log`
+- Service logs in `/scripts/logs/service.log`
+- Application logs in `/scripts/logs/app.log`
 
 ## Monitoring and Maintenance
 
@@ -230,3 +232,31 @@ systemctl is-active internetradio
 systemctl is-active pigpiod
 systemctl is-active NetworkManager
 ```
+
+#### Network Issues
+1. **WiFi Connection Problems**
+   ```bash
+   # Check NetworkManager status
+   sudo systemctl status NetworkManager
+   
+   # View saved connections
+   sudo nmcli connection show
+   
+   # Check current connection
+   nmcli device status
+   
+   # View detailed logs
+   tail -f /scripts/logs/wifi.log
+   ```
+
+2. **AP Mode Issues**
+   ```bash
+   # Check if AP mode is active
+   sudo nmcli connection show
+   
+   # Restart NetworkManager
+   sudo systemctl restart NetworkManager
+   
+   # Force AP mode (if needed)
+   sudo nmcli device disconnect wlan0
+   ```
