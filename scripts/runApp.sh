@@ -40,6 +40,42 @@ while [ $attempt -lt $max_attempts ]; do
     sleep 1
 done
 
+# Wait for NetworkManager to establish connection
+echo "Waiting for Wi-Fi connection..."
+max_wifi_attempts=30  # 30 seconds max
+wifi_attempt=0
+
+while [ $wifi_attempt -lt $max_wifi_attempts ]; do
+    # Check if preconfigured connection is active and connected
+    if nmcli -g GENERAL.STATE device show wlan0 | grep -q "connected"; then
+        SSID=$(iwgetid -r)
+        echo "Connected to WiFi network: $SSID"
+        
+        # Verify it's our expected network
+        if [ "$SSID" = "Salt_5GHz_D8261F" ]; then
+            echo "Connected to correct network"
+            # Verify internet connectivity
+            if ping -c 1 8.8.8.8 >/dev/null 2>&1; the
+                echo "Internet connection verified"
+                break
+            else
+                echo "No internet connectivity yet..."
+            fi
+        else
+            echo "Connected to unexpected network: $SSID"
+        fi
+    fi
+    
+    echo "Waiting for Wi-Fi connection (attempt $((wifi_attempt + 1))/$max_wifi_attempts)..."
+    wifi_attempt=$((wifi_attempt + 1))
+    sleep 1
+done
+
+# Log network status
+echo "Network status:"
+nmcli device status
+nmcli connection show --active
+
 # Start the Python application with error handling
 echo "Starting Python application..."
 python main.py 2>&1 | tee -a /home/radio/internetRadio/scripts/logs/app.log

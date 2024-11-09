@@ -19,6 +19,10 @@ class WiFiManager:
         # Setup logging
         self.setup_logging()
         
+        # Try to connect to saved networks at startup
+        logging.info("Initializing WiFi Manager...")
+        self.try_connect_saved_networks()
+        
         if app is not None:
             self.init_app(app)
 
@@ -86,6 +90,19 @@ class WiFiManager:
         """Try to connect to saved networks only at startup."""
         logging.info("Starting try_connect_saved_networks...")
         
+        # First check if we're already connected
+        try:
+            result = subprocess.run(
+                ['nmcli', '-t', '-f', 'GENERAL.STATE', 'device', 'show', 'wlan0'],
+                capture_output=True, text=True, check=True
+            )
+            if 'connected' in result.stdout:
+                logging.info("Already connected to a network")
+                self.initial_connection_made = True
+                return True
+        except Exception as e:
+            logging.error(f"Error checking current connection: {e}")
+        
         if self.initial_connection_made:
             logging.info("Initial connection already made, skipping network scan")
             return True
@@ -124,24 +141,12 @@ class WiFiManager:
     def connect_to_network(self, ssid):
         """Connect to a specific network."""
         try:
-            # Check if this is the preconfigured network
-            if ssid == 'preconfigured':
-                active_conn = subprocess.run(
-                    ['sudo', 'nmcli', '-s', 'connection', 'show', 'preconfigured'],
-                    capture_output=True, text=True, check=True
-                )
-                for line in active_conn.stdout.splitlines():
-                    if '802-11-wireless.ssid' in line:
-                        ssid = line.split(':')[1].strip()
-                        break
-            
-            logging.info(f"Attempting to connect to network: {ssid}")
             result = subprocess.run(
                 ['sudo', 'nmcli', 'connection', 'up', ssid],
                 capture_output=True, text=True, check=True
             )
-            logging.info(f"Connection to {ssid} successful")
-            time.sleep(2)
+            logging.info(f"Initial connection to {ssid} successful")
+            time.sleep(2)  # Changed from 5 to 2 seconds to wait for connection to stabilize
             return True
         except subprocess.CalledProcessError as e:
             logging.error(f"Failed to connect to {ssid}: {e}")
