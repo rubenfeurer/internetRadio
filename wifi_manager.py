@@ -90,7 +90,10 @@ class WiFiManager:
         """Try to connect to saved networks and fall back to AP mode if needed."""
         logging.info("Starting try_connect_saved_networks...")
         
-        # First check if we're already connected
+        # Define preferred network
+        preferred_network = "Salt_5GHz_D8261F"
+        
+        # First check if we're already connected to our preferred network
         try:
             result = subprocess.run(
                 ['nmcli', '-t', '-f', 'GENERAL.STATE', 'device', 'show', 'wlan0'],
@@ -101,19 +104,41 @@ class WiFiManager:
                     ['iwgetid', '-r'],
                     capture_output=True, text=True, check=True
                 ).stdout.strip()
-                logging.info(f"Already connected to network: {ssid}")
-                self.initial_connection_made = True
-                return True
+                logging.info(f"Currently connected to: {ssid}")
+                
+                # If connected to wrong network, try to connect to preferred
+                if ssid != preferred_network:
+                    logging.info(f"Connected to wrong network, trying to connect to {preferred_network}")
+                    if self.connect_to_network(preferred_network):
+                        logging.info(f"Successfully connected to {preferred_network}")
+                        self.initial_connection_made = True
+                        return True
+                else:
+                    logging.info("Already connected to preferred network")
+                    self.initial_connection_made = True
+                    return True
         except Exception as e:
             logging.error(f"Error checking current connection: {e}")
         
-        # Get list of saved networks
-        networks = self.get_saved_networks()
-        logging.info(f"Found saved networks: {networks}")
+        # Try preferred network first
+        logging.info(f"Attempting to connect to preferred network: {preferred_network}")
+        if self.connect_to_network(preferred_network):
+            logging.info(f"Connected to {preferred_network}, checking internet...")
+            if self.check_internet():
+                logging.info(f"Internet connection confirmed on {preferred_network}")
+                self.initial_connection_made = True
+                return True
+            else:
+                logging.info(f"No internet on {preferred_network}")
+        else:
+            logging.info(f"Failed to connect to {preferred_network}")
         
-        # Try each saved network
+        # If preferred network fails, try other saved networks
+        networks = self.get_saved_networks()
+        logging.info(f"Found other saved networks: {networks}")
+        
         for network in networks:
-            if network != self.ap_ssid:  # Skip our own AP
+            if network != self.ap_ssid and network != preferred_network:
                 logging.info(f"Attempting to connect to: {network}")
                 if self.connect_to_network(network):
                     logging.info(f"Connected to {network}, checking internet...")
@@ -127,7 +152,7 @@ class WiFiManager:
                     logging.info(f"Failed to connect to {network}")
         
         # If we get here, we couldn't connect to any network
-        logging.info("Could not connect to any saved networks, enabling AP mode")
+        logging.info("Could not connect to any networks, enabling AP mode")
         return self.enable_ap_mode()
 
     def connect_to_network(self, ssid):
