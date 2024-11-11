@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wi-Fi Setup</title>
-    <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <style>
         .scan-status {
@@ -74,7 +73,7 @@
         <h2>WiFi Settings</h2>
         <p>Select the local WiFi to which you want to connect your radio.</p>
 
-        <form method="POST" action="{{ url_for('wifi.wifi_settings') }}" id="wifi-form">
+        <form method="POST" action="{{ url_for('wifi_settings') }}" id="wifi-form">
             <label for="ssid">WiFi</label>
             <select id="ssid" name="ssid" required>
                 <option value="" disabled selected>Please select</option>

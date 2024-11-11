@@ -9,7 +9,7 @@ import signal
 import sys
 import pygame
 import vlc
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, url_for
 from gpiozero import Button, RotaryEncoder, LED, Device
 from gpiozero.pins.pigpio import PiGPIOFactory
 import pigpio
@@ -275,8 +275,69 @@ class RadioController:
             logger.error(f"Cleanup error: {e}")
 
 def create_app(stream_manager):
-    app = Flask(__name__)
+    app = Flask(__name__, 
+                static_folder='static',
+                static_url_path='/static')
     
+    @app.route('/')
+    def index():
+        try:
+            return render_template('index.html', 
+                                 link1=stream_manager.streams['link1'],
+                                 link2=stream_manager.streams['link2'],
+                                 link3=stream_manager.streams['link3'])
+        except Exception as e:
+            logger.error(f"Error in index route: {e}")
+            return str(e), 500
+
+    @app.route('/wifi-settings', methods=['GET', 'POST'])
+    def wifi_settings():
+        try:
+            if request.method == 'POST':
+                ssid = request.form.get('ssid')
+                password = request.form.get('password')
+                # Add your WiFi connection logic here
+                return jsonify({'status': 'success'})
+            return render_template('wifi_settings.html')
+        except Exception as e:
+            logger.error(f"Error in wifi_settings: {e}")
+            return str(e), 500
+
+    @app.route('/wifi-scan')
+    def wifi_scan():
+        try:
+            # Get list of available networks
+            result = subprocess.run(['iwlist', 'wlan0', 'scan'], capture_output=True, text=True)
+            networks = []
+            for line in result.stdout.split('\n'):
+                if 'ESSID:' in line:
+                    ssid = line.split('ESSID:')[1].strip('"')
+                    if ssid and ssid != 'InternetRadio':  # Don't show our own AP
+                        networks.append(ssid)
+            return jsonify({'status': 'complete', 'networks': networks})
+        except Exception as e:
+            logger.error(f"Error scanning networks: {e}")
+            return jsonify({'status': 'error', 'error': str(e)})
+
+    # Add WiFi status route
+    @app.route('/get_wifi_ssid')
+    def get_wifi_ssid():
+        try:
+            result = subprocess.run(['iwgetid', '-r'], capture_output=True, text=True)
+            ssid = result.stdout.strip() if result.returncode == 0 else None
+            return jsonify({'ssid': ssid})
+        except Exception as e:
+            return jsonify({'error': str(e)})
+
+    # Add internet check route
+    @app.route('/check_internet_connection')
+    def check_internet_connection():
+        try:
+            subprocess.check_output(['ping', '-c', '1', '8.8.8.8'])
+            return jsonify({'connected': True})
+        except:
+            return jsonify({'connected': False})
+
     @app.route('/api/stream/play', methods=['POST'])
     def play_stream():
         try:
@@ -362,7 +423,7 @@ def main():
 
         # Start Flask in a separate thread
         flask_thread = threading.Thread(
-            target=lambda: radio.app.run(host='0.0.0.0', port=5000, debug=False)
+            target=lambda: radio.app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
         )
         flask_thread.daemon = True
         flask_thread.start()

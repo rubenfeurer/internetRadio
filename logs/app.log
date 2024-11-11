@@ -5480,3 +5480,394 @@ Connected to pigpiod successfully
 2024-11-11 23:10:34,708 - __main__ - INFO - Volume up: 80
 2024-11-11 23:10:34,856 - __main__ - INFO - Volume set to 85
 2024-11-11 23:10:34,856 - __main__ - INFO - Volume up: 85
+2024-11-11 23:14:13,957 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:14:14,011 - __main__ - INFO - StreamManager initialized
+2024-11-11 23:14:14,011 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:14:14,033 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:14:14,035 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:14:14,080 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 23:14:14,080 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:14:15,912 - main - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1796, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/main.py", line 283, in index
+    return render_template('index.html',
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/usr/lib/python3/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 2031, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 2020, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/werkzeug/routing/map.py", line 917, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:14:15,926 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 23:14:15] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:14:21,164 - main - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1796, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/main.py", line 283, in index
+    return render_template('index.html',
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/usr/lib/python3/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 2031, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 2020, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/werkzeug/routing/map.py", line 917, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:14:21,174 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:14:21] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:14:22,317 - main - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1796, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/main.py", line 283, in index
+    return render_template('index.html',
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/templating.py", line 147, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/templating.py", line 130, in _render
+    rv = template.render(context)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/jinja2/environment.py", line 1301, in render
+    self.environment.handle_exception()
+  File "/usr/lib/python3/dist-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/radio/internetRadio/templates/index.html", line 40, in top-level template code
+    <a href="{{ url_for('wifi.wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 2031, in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 2020, in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/werkzeug/routing/map.py", line 917, in build
+    raise BuildError(endpoint, values, method, self)
+werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:14:22,327 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:14:22] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:15:53,822 - __main__ - INFO - Received signal 15
+2024-11-11 23:15:53,823 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:15:53,823 - __main__ - INFO - Stopping stream
+2024-11-11 23:15:53,826 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-11 23:15:56,266 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:15:56,320 - __main__ - INFO - StreamManager initialized
+2024-11-11 23:15:56,320 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:15:56,341 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:15:56,343 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:15:56,385 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 23:15:56,386 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:16:03,462 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:16:03,465 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:16:03] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:16:04,395 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:16:04,397 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:16:04] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:16:04,642 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:16:04,643 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:16:04] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:16:31,995 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 23:16:31] "GET /static/css/styles.css HTTP/1.1" 200 -
+2024-11-11 23:17:18,775 - __main__ - INFO - Received signal 15
+2024-11-11 23:17:18,776 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:17:18,776 - __main__ - INFO - Stopping stream
+2024-11-11 23:17:18,781 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-11 23:17:18,782 - __main__ - INFO - Received signal 15
+2024-11-11 23:17:18,783 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:17:18,784 - __main__ - INFO - Stopping stream
+2024-11-11 23:17:18,785 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-11 23:17:19,785 - __main__ - INFO - Cleanup completed
+2024-11-11 23:17:21,189 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:17:21,244 - __main__ - INFO - StreamManager initialized
+2024-11-11 23:17:21,245 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:17:21,265 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:17:21,267 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:17:21,313 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 23:17:21,313 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:17:25,718 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:17:25,719 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:17:25] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:17:28,272 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:17:28,273 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:17:28] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:17:32,836 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:17:32,838 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:17:32] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:18:03,963 - __main__ - INFO - Received signal 15
+2024-11-11 23:18:03,964 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:18:03,964 - __main__ - INFO - Stopping stream
+2024-11-11 23:18:03,966 - __main__ - INFO - Received signal 15
+2024-11-11 23:18:03,967 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:18:03,967 - __main__ - INFO - Stopping stream
+2024-11-11 23:18:05,804 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:18:05,805 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:18:05] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:18:10,923 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:18:10,925 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:18:10] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:18:14,522 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:18:14] "[33mGET /api/wifi/scan HTTP/1.1[0m" 404 -
+2024-11-11 23:18:16,442 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:18:16,442 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:18:16] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:18:17,802 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:18:17,805 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:18:17] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:18:19,396 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:18:19,398 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:18:19] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:18:21,895 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:18:21,896 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:18:21] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:18:31,497 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:18:31,498 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:18:31] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:18:34,390 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'get_wifi_ssid' instead?
+2024-11-11 23:18:34,391 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:18:34] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:18:34,706 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:18:34] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 17, in <module>
+    from wifi_manager import wifi_bp
+ModuleNotFoundError: No module named 'wifi_manager'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 17, in <module>
+    from wifi_manager import wifi_bp
+ModuleNotFoundError: No module named 'wifi_manager'
+2024-11-11 23:20:51,607 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:20:51,661 - __main__ - INFO - StreamManager initialized
+2024-11-11 23:20:51,662 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:20:51,682 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:20:51,684 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:20:51,731 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 23:20:51,731 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:21:03,348 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:21:03] "GET / HTTP/1.1" 200 -
+2024-11-11 23:21:03,413 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:21:03] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:21:03,576 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:21:03] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:21:03,789 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:21:03] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:21:07,061 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:21:07,062 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:21:07] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:21:16,432 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 23:21:16] "GET / HTTP/1.1" 200 -
+2024-11-11 23:21:53,616 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:21:53,617 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:21:53] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:22:13,753 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:22:13,756 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:22:13] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:22:17,349 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:22:17] "GET / HTTP/1.1" 200 -
+2024-11-11 23:22:17,366 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:22:17] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:22:17,686 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:22:17] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:22:17,695 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:22:17] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:22:18,628 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:22:18,629 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:22:18] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:22:20,423 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:22:20] "GET / HTTP/1.1" 200 -
+2024-11-11 23:22:20,441 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:22:20] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:22:20,839 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:22:20] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:22:20,847 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:22:20] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:22:22,136 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:22:22,137 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:22:22] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:23:02,348 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:02] "GET / HTTP/1.1" 200 -
+2024-11-11 23:23:02,366 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:02] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:23:02,689 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:02] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:23:02,698 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:02] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:23:03,642 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:23:03,643 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:03] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:23:11,301 - __main__ - INFO - Received signal 15
+2024-11-11 23:23:11,301 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:23:11,301 - __main__ - INFO - Stopping stream
+2024-11-11 23:23:11,304 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-11 23:23:12,304 - __main__ - INFO - Cleanup completed
+2024-11-11 23:23:13,758 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:23:13,812 - __main__ - INFO - StreamManager initialized
+2024-11-11 23:23:13,812 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:23:13,833 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:23:13,835 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+2024-11-11 23:23:13,880 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:23:13,880 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:23:16,240 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:23:16,242 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:16] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:23:17,760 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:17] "GET / HTTP/1.1" 200 -
+2024-11-11 23:23:17,786 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:17] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:23:18,114 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:18] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:23:18,122 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:18] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:23:18,950 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:23:18,951 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:18] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:23:20,844 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:20] "GET / HTTP/1.1" 200 -
+2024-11-11 23:23:20,862 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:20] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:23:21,191 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:21] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:23:21,199 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:21] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:23:21,763 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:23:21,765 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:21] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:23:22,234 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:23:22,235 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:22] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:23:27,084 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 23:23:27] "GET / HTTP/1.1" 200 -
+2024-11-11 23:23:56,807 - __main__ - INFO - Received signal 15
+2024-11-11 23:23:56,807 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:23:56,808 - __main__ - INFO - Stopping stream
+2024-11-11 23:23:56,810 - __main__ - INFO - Received signal 15
+2024-11-11 23:23:56,810 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:23:56,810 - __main__ - INFO - Stopping stream
+2024-11-11 23:23:56,812 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-11 23:23:57,812 - __main__ - INFO - Cleanup completed
+2024-11-11 23:23:59,206 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:23:59,260 - __main__ - INFO - StreamManager initialized
+2024-11-11 23:23:59,260 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:23:59,281 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:23:59,283 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:23:59,330 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 23:23:59,331 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:23:59,761 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:23:59,763 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:23:59] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:24:31,642 - __main__ - INFO - Received signal 15
+2024-11-11 23:24:31,643 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:24:31,643 - __main__ - INFO - Stopping stream
+2024-11-11 23:24:31,645 - __main__ - INFO - Received signal 15
+2024-11-11 23:24:31,646 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:24:31,646 - __main__ - INFO - Stopping stream
+2024-11-11 23:24:32,987 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:24:32,988 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:24:32] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:24:37,409 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:24:37,411 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:24:37] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:24:37,709 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:24:37] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-11-11 23:24:38,668 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:24:38,670 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:24:38] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:24:38,821 - __main__ - ERROR - Error in wifi_settings: Could not build url for endpoint 'wifi.wifi_settings'. Did you mean 'wifi_settings' instead?
+2024-11-11 23:24:38,823 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:24:38] "[35m[1mGET /wifi-settings HTTP/1.1[0m" 500 -
+2024-11-11 23:24:41,646 - __main__ - ERROR - Cleanup error: Thread failed to die within 10 seconds
+2024-11-11 23:24:41,768 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:24:41] "GET / HTTP/1.1" 200 -
+2024-11-11 23:24:41,807 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:24:41] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:24:43,090 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:24:43,144 - __main__ - INFO - StreamManager initialized
+2024-11-11 23:24:43,144 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:24:43,166 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:24:43,168 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:24:43,231 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 23:24:43,231 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:24:44,132 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:24:44] "GET /wifi-settings HTTP/1.1" 200 -
+2024-11-11 23:24:44,436 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:24:44] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:24:44,783 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:24:44] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-11 23:24:53,231 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:24:53] "GET /wifi-scan HTTP/1.1" 200 -
