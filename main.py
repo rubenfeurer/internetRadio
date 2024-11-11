@@ -15,6 +15,7 @@ from gpiozero.pins.pigpio import PiGPIOFactory
 import pigpio
 import re
 import toml
+import tempfile
 
 # Set up logging
 logging.basicConfig(
@@ -279,6 +280,26 @@ class RadioController:
         except Exception as e:
             logger.error(f"Cleanup error: {e}")
 
+# Move this function outside create_app
+def is_in_ap_mode():
+    try:
+        # First check if hostapd service exists
+        service_check = subprocess.run(['systemctl', 'list-unit-files', 'hostapd.service'],
+                                     capture_output=True, text=True)
+        if 'hostapd.service' not in service_check.stdout:
+            logger.info("hostapd service not found - not in AP mode")
+            return False
+            
+        # Then check if it's running
+        result = subprocess.run(['systemctl', 'is-active', 'hostapd'], 
+                              capture_output=True, text=True)
+        is_ap = result.stdout.strip() == 'active'
+        logger.info(f"AP mode check: hostapd is {result.stdout.strip()}")
+        return is_ap
+    except Exception as e:
+        logger.error(f"Error checking AP mode: {e}")
+        return False
+
 def create_app(stream_manager):
     app = Flask(__name__, 
                 static_folder='static',
@@ -300,34 +321,100 @@ def create_app(stream_manager):
             logger.error(f"Error in index: {e}")
             return str(e), 500
 
-    @app.route('/wifi-settings', methods=['GET', 'POST'])
+    @app.route('/wifi_settings', methods=['GET', 'POST'])
     def wifi_settings():
-        try:
-            if request.method == 'POST':
+        if request.method == 'POST':
+            try:
                 ssid = request.form.get('ssid')
                 password = request.form.get('password')
-                # Add your WiFi connection logic here
-                return jsonify({'status': 'success'})
-            return render_template('wifi_settings.html')
-        except Exception as e:
-            logger.error(f"Error in wifi_settings: {e}")
-            return str(e), 500
+                
+                if not ssid or not password:
+                    return jsonify({
+                        'status': 'error',
+                        'message': 'SSID and password are required'
+                    })
+
+                logger.info(f"Attempting to connect to network: {ssid}")
+                
+                # Create a temporary wpa_supplicant configuration
+                test_config = f'''
+                ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+                update_config=1
+                country=CH
+
+                network={{
+                    ssid="{ssid}"
+                    psk="{password}"
+                    key_mgmt=WPA-PSK
+                }}
+                '''
+                
+                with tempfile.NamedTemporaryFile(mode='w') as temp_conf:
+                    temp_conf.write(test_config)
+                    temp_conf.flush()
+                    
+                    # Stop existing wpa_supplicant
+                    subprocess.run(['sudo', 'killall', 'wpa_supplicant'], 
+                                 capture_output=True)
+                    time.sleep(1)
+                    
+                    # Test connection
+                    result = subprocess.run([
+                        'sudo', 'wpa_supplicant',
+                        '-i', 'wlan0',
+                        '-c', temp_conf.name,
+                        '-B'
+                    ], capture_output=True, text=True)
+                    
+                    if result.returncode != 0:
+                        logger.error(f"Connection test failed: {result.stderr}")
+                        return jsonify({
+                            'status': 'error',
+                            'message': 'Invalid network credentials'
+                        })
+                    
+                    # If test successful, save configuration
+                    with open('/etc/wpa_supplicant/wpa_supplicant.conf', 'w') as f:
+                        f.write(test_config)
+                    
+                    logger.info("Successfully saved new network configuration")
+                    
+                    return jsonify({
+                        'status': 'success',
+                        'message': 'Connected successfully'
+                    })
+                    
+            except Exception as e:
+                logger.error(f"Error connecting to network: {e}")
+                return jsonify({
+                    'status': 'error',
+                    'message': str(e)
+                })
+        
+        return render_template('wifi_settings.html')
 
     @app.route('/wifi-scan')
     def wifi_scan():
         try:
-            # Get list of available networks
-            result = subprocess.run(['iwlist', 'wlan0', 'scan'], capture_output=True, text=True)
-            networks = []
-            for line in result.stdout.split('\n'):
-                if 'ESSID:' in line:
-                    ssid = line.split('ESSID:')[1].strip('"')
-                    if ssid and ssid != 'InternetRadio':  # Don't show our own AP
-                        networks.append(ssid)
-            return jsonify({'status': 'complete', 'networks': networks})
+            # Get all available networks
+            cmd = "sudo iwlist wlan0 scan | grep 'ESSID:' | cut -d '\"' -f 2"
+            networks = subprocess.check_output(cmd, shell=True).decode().split('\n')
+            networks = sorted(list(set(filter(None, networks))))
+            
+            ap_mode = is_in_ap_mode()
+            logger.info(f"AP mode status: {ap_mode}")
+            
+            return jsonify({
+                'status': 'complete',
+                'networks': networks,
+                'ap_mode': ap_mode
+            })
         except Exception as e:
             logger.error(f"Error scanning networks: {e}")
-            return jsonify({'status': 'error', 'error': str(e)})
+            return jsonify({
+                'status': 'error',
+                'error': str(e)
+            })
 
     # Add WiFi status route
     @app.route('/get_wifi_ssid')
@@ -496,6 +583,29 @@ def create_app(stream_manager):
         except Exception as e:
             logger.error(f"Error updating stream: {e}")
             return jsonify({'success': False, 'error': str(e)}), 500
+
+    @app.route('/wifi/reboot', methods=['POST'])
+    def reboot_device():
+        try:
+            logger.info("Initiating device reboot...")
+            # Send response before reboot
+            response = jsonify({'status': 'success', 'message': 'Rebooting device'})
+            
+            # Schedule reboot with a small delay to allow response to be sent
+            def delayed_reboot():
+                time.sleep(2)
+                subprocess.run(['sudo', 'shutdown', '-r', 'now'])
+                
+            threading.Thread(target=delayed_reboot).start()
+            
+            return response
+        except Exception as e:
+            logger.error(f"Error during reboot: {e}")
+            return jsonify({'status': 'error', 'message': str(e)}), 500
+
+    @app.route('/ping')
+    def ping():
+        return jsonify({'status': 'ok'})
 
     return app
 

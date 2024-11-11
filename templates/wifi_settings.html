@@ -137,20 +137,41 @@
                     updateStatus(`Successfully connected to ${ssid}! Device needs to be rebooted.`, false);
                     connectionDetails.textContent = 'Click the button below to reboot and apply changes.';
                     
-                    // Add reboot button
+                    // Add reboot button with improved error handling
                     const rebootButton = document.createElement('button');
                     rebootButton.textContent = 'Reboot Device';
                     rebootButton.style.marginTop = '15px';
                     rebootButton.onclick = function() {
                         if (confirm('Are you sure you want to reboot the device?')) {
                             updateStatus('Initiating reboot...', false);
-                            fetch('/wifi/reboot', { method: 'POST' })
-                            .then(() => {
-                                updateStatus('Device is rebooting. Please wait 1 minute before reconnecting.', false);
+                            fetch('/wifi/reboot', { 
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
                             })
-                            .catch(() => {
-                                // Even if we get an error, the device might still be rebooting
-                                updateStatus('Device is rebooting. Please wait 1 minute before reconnecting.', false);
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === 'success') {
+                                    updateStatus('Device is rebooting. Please wait 1 minute before reconnecting.', false);
+                                    rebootButton.disabled = true;
+                                    // Start a countdown timer
+                                    let seconds = 60;
+                                    const countdownInterval = setInterval(() => {
+                                        seconds--;
+                                        connectionDetails.textContent = `Please wait ${seconds} seconds before reconnecting...`;
+                                        if (seconds <= 0) {
+                                            clearInterval(countdownInterval);
+                                            connectionDetails.textContent = 'You can now reconnect to the new network.';
+                                        }
+                                    }, 1000);
+                                } else {
+                                    updateStatus('Reboot failed: ' + (data.message || 'Unknown error'), true);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Reboot error:', error);
+                                updateStatus('Error initiating reboot. Please try again.', true);
                             });
                         }
                     };
