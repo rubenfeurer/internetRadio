@@ -98,7 +98,8 @@ def create_app():
     app.secret_key = 'your_secret_key_here'
     app.register_blueprint(wifi_bp, url_prefix='/wifi')
 
-    player = StreamManager(50)
+    # Use the singleton instance
+    player = StreamManager(50)  # This will return the existing instance
 
     register_core_routes(app, player)
 
@@ -256,3 +257,18 @@ def register_core_routes(app, player):
                 return False, f"Radio service is not active: {result.stdout.strip()}"
         except Exception as e:
             return False, f"Error checking radio status: {str(e)}"
+
+    @app.route('/stream-status')
+    def stream_status():
+        """Get current stream status"""
+        try:
+            if player:
+                status = {
+                    'is_playing': player.is_playing(),
+                    'current_stream': player.current_key,
+                    'volume': player.volume
+                }
+                return jsonify(status)
+            return jsonify({'error': 'Stream manager not initialized'})
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500

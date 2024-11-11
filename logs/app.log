@@ -1376,3 +1376,3025 @@ Hotspot started successfully. Visit http://10.42.0.1:5000 to configure Wi-Fi set
    WARNING: This is a development server. Do not use it in a production deployment.
    Use a production WSGI server instead.
  * Debug mode: off
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Traceback (most recent call last):
+  File "/home/radio/internetRadio/main.py", line 31, in <module>
+    wifi_manager = WiFiManager(app)
+                   ^^^^^^^^^^^^^^^^
+  File "/home/radio/internetRadio/wifi_manager.py", line 42, in __init__
+    app.register_blueprint(wifi_bp)
+  File "/usr/lib/python3/dist-packages/flask/scaffold.py", line 50, in wrapper_func
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/flask/app.py", line 1296, in register_blueprint
+    blueprint.register(self, options)
+  File "/usr/lib/python3/dist-packages/flask/blueprints.py", line 384, in register
+    raise ValueError(
+ValueError: The name 'wifi' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'app'
+ * Debug mode: off
+2024-11-11 20:50:16,360 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:50:16,363 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:50:16,395 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'app'
+ * Debug mode: off
+2024-11-11 20:50:23,485 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:50:23,486 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:50:23,529 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'app'
+ * Debug mode: off
+2024-11-11 20:50:37,108 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:50:37,108 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:50:37,135 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'app'
+ * Debug mode: off
+2024-11-11 20:50:50,621 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:50:50,622 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:50:50,639 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'app'
+ * Debug mode: off
+2024-11-11 20:51:04,054 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:51:04,055 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:51:04,088 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'app'
+ * Debug mode: off
+2024-11-11 20:51:17,620 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:51:17,620 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:51:17,648 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'app'
+ * Debug mode: off
+2024-11-11 20:51:31,042 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:51:31,043 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:51:31,121 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+2024-11-11 20:51:44,474 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:51:44,590 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:51:44,591 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:51:44,616 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+2024-11-11 20:51:52,895 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:51:53,019 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:51:53,019 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:51:53,044 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+2024-11-11 20:52:06,486 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:52:06,603 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:52:06,603 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:52:06,639 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+2024-11-11 20:52:19,968 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:52:20,112 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:52:20,112 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:52:20,136 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+2024-11-11 20:52:27,634 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:52:27,779 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:52:27,780 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:52:27,802 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+2024-11-11 20:52:41,229 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:52:41,351 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:52:41,352 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:52:41,378 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+2024-11-11 20:52:54,770 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:52:54,902 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:52:54,903 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:52:54,917 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+2024-11-11 20:53:08,239 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:53:08,357 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:53:08,358 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:53:08,398 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+2024-11-11 20:53:21,744 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:53:21,860 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:53:21,861 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:53:21,893 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+2024-11-11 20:53:35,241 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:53:35,351 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:53:35,352 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:53:35,393 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+2024-11-11 20:53:48,722 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:53:48,837 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:53:48,838 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:53:48,866 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+2024-11-11 20:54:02,207 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+Initializing StreamManager...
+Creating VLC instance...
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:54:02,338 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:54:02,339 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:54:02,359 - __main__ - INFO - Initial volume set to: 50
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+2024-11-11 20:54:15,752 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Creating new StreamManager instance...
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:54:15,847 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:54:15,848 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:54:29,234 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Creating new StreamManager instance...
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:54:29,324 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:54:29,325 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:54:42,729 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Creating new StreamManager instance...
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:54:42,821 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:54:42,821 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:54:56,231 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Creating new StreamManager instance...
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:54:56,320 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:54:56,322 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:55:09,722 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Creating new StreamManager instance...
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:55:09,822 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:55:09,823 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:55:23,239 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Creating new StreamManager instance...
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:55:23,330 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:55:23,331 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:55:32,611 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Creating new StreamManager instance...
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:55:32,696 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:55:32,696 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:55:45,990 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Creating new StreamManager instance...
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:55:46,090 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:55:46,093 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:55:59,416 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Creating new StreamManager instance...
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:55:59,513 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:55:59,514 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:56:12,970 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Creating new StreamManager instance...
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:56:13,063 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:56:13,064 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:56:26,472 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Creating new StreamManager instance...
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:56:26,564 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:56:26,564 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:56:39,991 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Creating new StreamManager instance...
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:56:40,090 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:56:40,090 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:56:53,499 - wifi_manager - ERROR - Error registering WiFi blueprint: The name 'wifi_manager_bp' is already registered for a different blueprint. Use 'name=' to provide a unique name.
+Creating new StreamManager instance...
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+Playing sound: /home/radio/internetRadio/sounds/boot.wav
+Connected to network: wlan0     ESSID:"Salt_5GHz_D8261F"
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 20:56:53,584 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 20:56:53,585 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 20:57:06,964 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+Creating new StreamManager instance...
+Initializing StreamManager...
+Creating VLC instance...
+VLC instance created
+Creating media player...
+Media player created
+StreamManager initialized successfully
+An error occurred: name 'sound_folder' is not defined
+2024-11-11 20:57:20,212 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 20:57:33,454 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 20:57:46,734 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 20:57:59,960 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 20:58:13,233 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 20:58:26,507 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 20:58:39,718 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 20:58:53,118 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 21:03:07,758 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 21:03:15,962 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 21:03:24,222 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 21:03:32,482 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 21:03:40,665 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 21:03:48,745 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 21:03:57,012 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 21:04:05,232 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 21:04:13,463 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 21:04:21,723 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 21:04:29,949 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 21:04:38,280 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 21:04:46,490 - __main__ - ERROR - An error occurred: name 'sound_folder' is not defined
+2024-11-11 21:04:54,752 - __main__ - ERROR - An error occurred: name 'check_wifi' is not defined
+2024-11-11 21:05:03,633 - __main__ - ERROR - An error occurred: name 'check_wifi' is not defined
+2024-11-11 21:05:11,958 - __main__ - ERROR - An error occurred: name 'check_wifi' is not defined
+2024-11-11 21:05:20,263 - __main__ - ERROR - An error occurred: name 'check_wifi' is not defined
+2024-11-11 21:05:28,772 - __main__ - ERROR - An error occurred: name 'check_wifi' is not defined
+2024-11-11 21:05:37,253 - __main__ - ERROR - An error occurred: name 'check_wifi' is not defined
+2024-11-11 21:05:45,829 - __main__ - ERROR - An error occurred: name 'check_wifi' is not defined
+2024-11-11 21:05:54,243 - __main__ - ERROR - An error occurred: name 'check_wifi' is not defined
+2024-11-11 21:06:02,758 - __main__ - ERROR - An error occurred: name 'check_wifi' is not defined
+2024-11-11 21:06:11,261 - __main__ - ERROR - An error occurred: name 'check_wifi' is not defined
+2024-11-11 21:06:19,786 - __main__ - ERROR - An error occurred: name 'check_wifi' is not defined
+2024-11-11 21:06:28,303 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 21:06:28,304 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 21:06:58,887 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 21:06:58,887 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 21:07:52,373 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 21:07:52] "GET /api/wifi/status HTTP/1.1" 200 -
+2024-11-11 21:08:48,122 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 21:08:48] "[33mPOST /api/stream/play HTTP/1.1[0m" 404 -
+2024-11-11 21:09:00,834 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 21:09:00] "[33mGET /api/stream/status HTTP/1.1[0m" 404 -
+2024-11-11 21:09:02,756 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 21:09:02] "[33mPOST /api/stream/volume HTTP/1.1[0m" 404 -
+2024-11-11 21:10:04,416 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 21:10:04,416 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 21:10:06,341 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 21:10:06] "GET /api/stream/status HTTP/1.1" 200 -
+2024-11-11 21:10:06,401 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 21:10:06] "POST /api/stream/play HTTP/1.1" 200 -
+2024-11-11 21:10:06,428 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 21:10:06] "POST /api/stream/volume HTTP/1.1" 200 -
+2024-11-11 21:10:47,375 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 21:10:47] "POST /api/stream/stop HTTP/1.1" 200 -
+2024-11-11 21:10:49,888 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 21:10:49] "GET /api/stream/status HTTP/1.1" 200 -
+2024-11-11 21:10:52,098 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 21:10:52] "POST /api/stream/play HTTP/1.1" 200 -
+2024-11-11 21:11:52,060 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 21:11:52,060 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 21:11:53,833 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 21:11:53] "POST /api/stream/play HTTP/1.1" 200 -
+2024-11-11 21:11:57,109 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 21:11:57] "POST /api/stream/play HTTP/1.1" 200 -
+2024-11-11 21:12:24,944 - werkzeug - INFO - 127.0.0.1 - - [11/Nov/2024 21:12:24] "GET /api/stream/status HTTP/1.1" 200 -
+2024-11-11 21:13:31,582 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 21:13:31] "[33mGET / HTTP/1.1[0m" 404 -
+2024-11-11 21:13:33,038 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 21:13:33] "[33mGET / HTTP/1.1[0m" 404 -
+2024-11-11 21:14:00,207 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 21:14:00,208 - werkzeug - INFO - [33mPress CTRL+C to quit[0m

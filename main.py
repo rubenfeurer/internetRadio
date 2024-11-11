@@ -14,7 +14,7 @@ from app import create_app
 from sounds import SoundManager
 from wifi_manager import WiFiManager
 
-from flask import Flask, Blueprint
+from flask import Flask, Blueprint, request, jsonify
 
 # Set up logging
 logging.basicConfig(
@@ -24,144 +24,93 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Create the Flask app
-app = create_app()
-
-# Initialize managers with the app instance
-wifi_manager = WiFiManager(app)
-
-volume = 50
-sound_folder = "/home/radio/internetRadio/sounds"
-stream_manager = None
-sound_manager = None
-
-def run_flask_app():
-    app.run(host='0.0.0.0', port=5000, debug=False)
-
-def button_handler(stream_key):
-    # print(f"Button pressed for {stream_key}")
-    if stream_manager.current_key == stream_key:
-        stream_manager.stop_stream()
-    else:
-        stream_manager.play_stream(stream_key)
-
-def restart_pi():
-    print("Reboot Pi")
-    sound_manager.play_sound("boot.wav")  # Add this line
-    time.sleep(2)  # Add a small delay to ensure the sound plays
-    os.system("sudo reboot")
-
-def volume_up(encoder):
-    global volume, stream_manager
-    if stream_manager:
-        volume = min(100, volume + 5)  # Increase by 5, max 100
-        print(f"Volume Up: {volume}")
-        stream_manager.set_volume(volume)
-
-def volume_down(encoder):
-    global volume, stream_manager
-    if stream_manager:
-        volume = max(0, volume - 5)  # Decrease by 5, min 0
-        print(f"Volume Down: {volume}")
-        stream_manager.set_volume(volume)
-
-def check_wifi():
-    try:
-        # Check if connected to a Wi-Fi network (router)
-        result = subprocess.run(['iwgetid'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        if result.returncode == 0:  # Return code 0 means connected to a Wi-Fi network
-            network_name = result.stdout.decode().strip()
-            print(f"Connected to network: {network_name}")
-            return True
-        else:
-            print("Not connected to any Wi-Fi network.")
-            return False
-    except Exception as e:
-        print(f"Error checking Wi-Fi: {e}")
-        return False
-
-def get_ip_address(interface='wlan0'):
-    try:
-        result = subprocess.check_output(['ip', 'addr', 'show', interface]).decode()
-        for line in result.splitlines():
-            if 'inet ' in line:
-                ip_address = line.strip().split()[1].split('/')[0]
-                return ip_address
-    except (subprocess.CalledProcessError, IndexError):
-        return None
-
-def start_hotspot():
-    try:
-        print("Starting Wi-Fi hotspot...")
-        subprocess.run(['sudo', 'nmcli', 'device', 'wifi', 'hotspot', 'ssid', 'Radio', 'password', 'Radio@1234', 'ifname', 'wlan0'], check=True)
-        ip_address = get_ip_address('wlan0')
-        if ip_address:
-            print(f"Hotspot started successfully. Visit http://{ip_address}:5000 to configure Wi-Fi settings.")
-        else:
-            print("Hotspot started, but IP address could not be determined.")
-    except subprocess.CalledProcessError as e:
-        print(f"Error starting hotspot: {e}") 
-
-def fade_volume_down():
-    # Fade out from current volume to 0%
-    for vol in range(100, -1, -10):
-        subprocess.run(['amixer', 'set', 'PCM', f'{vol}%'], capture_output=True)
-        time.sleep(0.05)
-
-def fade_volume_up():
-    # Fade in from 0% to 100%
-    subprocess.run(['amixer', 'set', 'PCM', '0%'], capture_output=True)
-    time.sleep(0.1)  # Small delay before starting playback
-    for vol in range(0, 101, 10):
-        subprocess.run(['amixer', 'set', 'PCM', f'{vol}%'], capture_output=True)
-        time.sleep(0.05)
-
-# Use before shutdown/reboot
-def safe_shutdown():
-    fade_volume_down()
-    time.sleep(0.2)  # Small delay before actual shutdown
-    subprocess.run(['sudo', 'shutdown', '-h', 'now'])
-
-# Use before reboot
-def safe_reboot():
-    fade_volume_down()
-    time.sleep(0.2)  # Small delay before actual reboot
-    subprocess.run(['sudo', 'reboot'])
-
-def shutdown_sequence():
-    # Set volume to 0 before shutdown
-    subprocess.run(['amixer', 'set', 'PCM', '0%'], capture_output=True)
-    time.sleep(0.2)  # Wait for audio to settle
-    subprocess.run(['sudo', 'shutdown', '-h', 'now'])
-
-def startup_sequence():
-    # Start with volume at 0
-    subprocess.run(['amixer', 'set', 'PCM', '0%'], capture_output=True)
-    time.sleep(0.2)  # Wait for system to settle
-    # Then gradually increase
-    for vol in range(0, 101, 10):
-        subprocess.run(['amixer', 'set', 'PCM', f'{vol}%'], capture_output=True)
-        time.sleep(0.05)
-
-# GPIO Pin Definitions
+# Add these constants at the top of the file, after imports
+SOUND_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sounds')
+LED_PIN = 25  # LED on GPIO25
+ENCODER_SW = 10  # Encoder button on GPIO10
+ENCODER_DT = 9  # Encoder DT on GPIO9
+ENCODER_CLK = 11  # Encoder CLK on GPIO11
 BUTTON_PINS = {
-    'link1': 17,  # Pin 11 (GPIO17) with GND on Pin 9
-    'link2': 16,  # Pin 36 (GPIO16) with GND on Pin 34
-    'link3': 26   # Pin 37 (GPIO26) with GND on Pin 39
+    'link1': 17,  # Button 1 on GPIO17
+    'link2': 16,  # Button 2 on GPIO16
+    'link3': 26   # Button 3 on GPIO26
 }
 
-# Rotary Encoder Pins
-ENCODER_SW = 10    # Pin 19 (GPIO10) - Button Press
-ENCODER_DT = 9     # Pin 21 (GPIO9)  - Data Channel
-ENCODER_CLK = 11   # Pin 23 (GPIO11) - Clock Channel
-
-# LED Pin
-LED_PIN = 25       # Pin 22 (GPIO25) with GND on Pin 9
-
-if __name__ == "__main__":
+def check_wifi():
+    """Check if WiFi is connected"""
     try:
+        result = subprocess.run(['iwgetid'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        return result.returncode == 0
+    except Exception as e:
+        logger.error(f"Error checking WiFi: {e}")
+        return False
+
+def create_app():
+    app = Flask(__name__)
+    
+    # Initialize StreamManager only once (it's now a singleton)
+    stream_manager = StreamManager(50)
+    
+    # Initialize other components
+    wifi_manager = WiFiManager(app)
+    
+    # Register stream endpoints
+    @app.route('/api/stream/play', methods=['POST'])
+    def play_stream():
+        try:
+            data = request.get_json()
+            stream_key = data.get('stream_key')
+            if not stream_key:
+                return jsonify({'error': 'stream_key required'}), 400
+            success = stream_manager.play_stream(stream_key)
+            return jsonify({'success': success})
+        except Exception as e:
+            logger.error(f"Error playing stream: {e}")
+            return jsonify({'error': str(e)}), 500
+
+    @app.route('/api/stream/stop', methods=['POST'])
+    def stop_stream():
+        try:
+            success = stream_manager.stop_stream()
+            return jsonify({'success': success})
+        except Exception as e:
+            logger.error(f"Error stopping stream: {e}")
+            return jsonify({'error': str(e)}), 500
+
+    @app.route('/api/stream/volume', methods=['POST'])
+    def set_volume():
+        try:
+            data = request.get_json()
+            volume = data.get('volume')
+            if volume is None:
+                return jsonify({'error': 'volume required'}), 400
+            stream_manager.set_volume(volume)
+            return jsonify({'success': True, 'volume': volume})
+        except Exception as e:
+            logger.error(f"Error setting volume: {e}")
+            return jsonify({'error': str(e)}), 500
+
+    @app.route('/api/stream/status', methods=['GET'])
+    def get_stream_status():
+        try:
+            return jsonify({
+                'is_playing': stream_manager.player.is_playing(),
+                'current_stream': stream_manager.current_key,
+                'volume': stream_manager.volume
+            })
+        except Exception as e:
+            logger.error(f"Error getting status: {e}")
+            return jsonify({'error': str(e)}), 500
+
+    return app, stream_manager
+
+def main():
+    try:
+        # Create the application
+        app, stream_manager = create_app()
+        
         # Initialize sound manager and play boot sound
-        sound_manager = SoundManager(sound_folder)
+        sound_manager = SoundManager(SOUND_FOLDER)
         sound_manager.play_sound("boot.wav")
 
         # Initialize LED with correct pin
@@ -180,14 +129,6 @@ if __name__ == "__main__":
             led.blink(on_time=0.5, off_time=0.5)  # Fast blink in AP mode
         else:
             led.blink(on_time=3, off_time=3)  # Slow blink when connected
-
-        # Start Flask app in background
-        flask_thread = threading.Thread(target=run_flask_app, daemon=True)
-        flask_thread.start()
-
-        # Initialize stream manager
-        stream_manager = StreamManager(volume)
-        logger.info(f"Initial volume set to: {volume}")
 
         # Set up radio buttons with correct pins
         button1 = Button(BUTTON_PINS['link1'], pull_up=True, bounce_time=0.2)
@@ -210,8 +151,15 @@ if __name__ == "__main__":
         encoder.when_rotated_clockwise = lambda rotation: volume_up(rotation)
         encoder.when_rotated_counter_clockwise = lambda rotation: volume_down(rotation)
 
-        # Rest of your code remains the same...
+        # Start Flask app
+        app.run(host='0.0.0.0', port=5000, debug=False)
 
     except Exception as e:
         logger.error(f"An error occurred: {e}")
         print(f"An error occurred: {e}")
+        return 1
+
+    return 0
+
+if __name__ == "__main__":
+    exit(main())

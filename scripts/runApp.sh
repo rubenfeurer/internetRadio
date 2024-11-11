@@ -40,6 +40,17 @@ while [ $attempt -lt $max_attempts ]; do
     sleep 1
 done
 
+if [ $attempt -eq $max_attempts ]; then
+    echo "Error: pigpiod failed to start"
+    exit 1
+fi
+
 # Start the Python application with error handling
 echo "Starting Python application..."
-python main.py 2>&1 | tee -a /home/radio/internetRadio/logs/app.log
+python main.py
+exit_code=$?
+
+if [ $exit_code -ne 0 ]; then
+    echo "Python application exited with code $exit_code"
+    exit $exit_code
+fi

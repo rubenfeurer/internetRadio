@@ -10,9 +10,9 @@ class WiFiManager:
         self.logger = logging.getLogger(__name__)
         
         # Register routes with Flask
-        wifi_bp = Blueprint('wifi', __name__)
+        wifi_bp = Blueprint('wifi_manager_bp', __name__, url_prefix='/api/wifi')
         
-        @wifi_bp.route('/api/wifi/status', methods=['GET'])
+        @wifi_bp.route('/status', methods=['GET'])
         def get_wifi_status():
             is_connected = self.check_connection()
             ip_address = self.get_ip_address() if is_connected else None
@@ -21,12 +21,12 @@ class WiFiManager:
                 'ip_address': ip_address
             })
             
-        @wifi_bp.route('/api/wifi/networks', methods=['GET'])
+        @wifi_bp.route('/networks', methods=['GET'])
         def get_networks():
             networks = self.scan_networks()
             return jsonify(networks)
             
-        @wifi_bp.route('/api/wifi/connect', methods=['POST'])
+        @wifi_bp.route('/connect', methods=['POST'])
         def connect_wifi():
             data = request.get_json()
             ssid = data.get('ssid')
@@ -38,8 +38,11 @@ class WiFiManager:
             success = self.connect_to_network(ssid, password)
             return jsonify({'success': success})
             
-        # Register the blueprint with the app
-        app.register_blueprint(wifi_bp)
+        try:
+            # Register the blueprint with the app
+            app.register_blueprint(wifi_bp)
+        except Exception as e:
+            self.logger.error(f"Error registering WiFi blueprint: {e}")
 
     def check_connection(self):
         """Check if connected to WiFi"""
