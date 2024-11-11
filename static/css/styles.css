@@ -126,24 +126,33 @@ button:active {
     padding: 25px 25px 25px 15px;
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.3s ease;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
     font-size: 20px;
     text-align: left;
-    display: flex;  /* Add this */
-    justify-content: space-between;  /* Add this */
-    align-items: center;  /* Add this */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-/* Add this new class for the arrow */
 .edit-button::after {
     content: '';
     width: 10px;
     height: 10px;
-    border-top: 2px solid #000;
-    border-right: 2px solid #000;
+    border-top: 2px solid currentColor;
+    border-right: 2px solid currentColor;
     transform: rotate(45deg);
     margin-left: 10px;
+}
+
+/* Playing state styles */
+.edit-button.playing {
+    background-color: #ff0000;
+    color: white;
+}
+
+.edit-button.playing::after {
+    border-color: white;
 }
 
 /* Stream Card Styles (for displaying streams) */
@@ -332,9 +341,4 @@ button:active {
     background: rgb(183, 183, 183);
     box-shadow: none;
     color:white;
-}
-
-.edit-button.playing {
-    background-color: #ff0000;
-    color: white;
 }

@@ -56,6 +56,7 @@ class StreamManager:
         self.player = self.instance.media_player_new()
         self.volume = initial_volume
         self.current_stream = None
+        self.is_playing = False
         self.streams = {}  # Dictionary to store stream URLs for each button
         
         # Initialize streams from config.toml
@@ -76,9 +77,9 @@ class StreamManager:
         try:
             logger.info(f"Playing stream_key: {stream_key}")
             logger.info(f"Available streams: {self.streams}")
-            logger.info(f"Playing stream: {stream_key}")
+            
             if stream_key in self.streams:
-                if self.current_stream == stream_key and self.player.is_playing():
+                if self.current_stream == stream_key and self.is_playing:
                     logger.info("Stopping current stream")
                     self.stop_stream()
                     return True
@@ -89,9 +90,9 @@ class StreamManager:
                 media = self.instance.media_new(stream_url)
                 self.player.set_media(media)
                 success = self.player.play() == 0
+                self.is_playing = success
                 logger.info(f"Stream play result: {success}")
                 return success
-            logger.warning(f"Stream key not found: {stream_key}")
             return False
         except Exception as e:
             logger.error(f"Error playing stream: {e}")
@@ -101,7 +102,7 @@ class StreamManager:
         try:
             logger.info("Stopping stream")
             self.player.stop()
-            self.current_stream = None
+            self.is_playing = False
             return True
         except Exception as e:
             logger.error(f"Error stopping stream: {e}")
@@ -389,11 +390,21 @@ def create_app(stream_manager):
     @app.route('/stream-status')
     def stream_status():
         try:
-            is_running = stream_manager.player.is_playing()
-            return jsonify({'is_running': bool(is_running)})
+            is_running = stream_manager.is_playing and stream_manager.player.is_playing()
+            current_stream = stream_manager.current_stream if is_running else None
+            
+            logger.info(f"Stream status: playing={is_running}, stream={current_stream}")
+            
+            return jsonify({
+                'is_running': bool(is_running),
+                'current_stream': current_stream
+            })
         except Exception as e:
             logger.error(f"Error checking stream status: {e}")
-            return jsonify({'is_running': False})
+            return jsonify({
+                'is_running': False,
+                'current_stream': None
+            })
 
     @app.route('/api/stream/volume', methods=['POST'])
     def set_volume():

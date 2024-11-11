@@ -11,26 +11,8 @@ country = "Switzerland"
 location = "Saint-Maurice"
 
 [[links]]
-name = "GDS.FM"
-url = "https://gdsfm.out.airtime.pro/gdsfm_a"
-country = "Switzerland"
-location = ""
-
-[[links]]
 name = "1.FM - Amsterdam Trance Radio"
 url = "https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3"
-country = "Switzerland"
-location = "Zug"
-
-[[links]]
-name = "1.FM - Absolute Trance"
-url = "https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3"
-country = "Switzerland"
-location = "Zug"
-
-[[links]]
-name = "1.FM - Deep House"
-url = "https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3"
 country = "Switzerland"
 location = "Zug"
 
@@ -39,6 +21,24 @@ name = "80s Forever Radio"
 url = "https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3"
 country = "Switzerland"
 location = "Bergdietikon"
+
+[[links]]
+name = "1.FM - Absolute Trance"
+url = "https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3"
+country = "Switzerland"
+location = "Zug"
+
+[[links]]
+name = "GDS.FM"
+url = "https://gdsfm.out.airtime.pro/gdsfm_a"
+country = "Switzerland"
+location = ""
+
+[[links]]
+name = "1.FM - Deep House"
+url = "https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3"
+country = "Switzerland"
+location = "Zug"
 
 [[links]]
 name = "1.FM - Bossa Nova Hits"
