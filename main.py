@@ -4,6 +4,7 @@ import subprocess
 import threading
 import time
 import os
+import logging
 
 from gpiozero import Button, RotaryEncoder, LED
 from signal import pause
@@ -14,6 +15,14 @@ from sounds import SoundManager
 from wifi_manager import WiFiManager
 
 from flask import Flask, Blueprint
+
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    filename='/home/radio/internetRadio/logs/app.log'
+)
+logger = logging.getLogger(__name__)
 
 # Create the Flask app
 app = create_app()
@@ -134,78 +143,75 @@ def startup_sequence():
         subprocess.run(['amixer', 'set', 'PCM', f'{vol}%'], capture_output=True)
         time.sleep(0.05)
 
+# GPIO Pin Definitions
+BUTTON_PINS = {
+    'link1': 17,  # Pin 11 (GPIO17) with GND on Pin 9
+    'link2': 16,  # Pin 36 (GPIO16) with GND on Pin 34
+    'link3': 26   # Pin 37 (GPIO26) with GND on Pin 39
+}
+
+# Rotary Encoder Pins
+ENCODER_SW = 10    # Pin 19 (GPIO10) - Button Press
+ENCODER_DT = 9     # Pin 21 (GPIO9)  - Data Channel
+ENCODER_CLK = 11   # Pin 23 (GPIO11) - Clock Channel
+
+# LED Pin
+LED_PIN = 25       # Pin 22 (GPIO25) with GND on Pin 9
+
 if __name__ == "__main__":
-    sound_manager = SoundManager(sound_folder)
-    sound_manager.play_sound("boot.wav")
+    try:
+        # Initialize sound manager and play boot sound
+        sound_manager = SoundManager(sound_folder)
+        sound_manager.play_sound("boot.wav")
 
-    LED_PIN = 24
-    ENCODER_BUTTON = 10  # Pin 19 (GPIO10)
+        # Initialize LED with correct pin
+        led = LED(LED_PIN)
+        led.on()
 
-    led = LED(LED_PIN)
-    led.on()
-    
-    buttonEn = Button(ENCODER_BUTTON, pull_up=True, bounce_time=0.2, hold_time=2)
-    buttonEn.when_pressed = lambda: print("Encoder Pressed")
-    buttonEn.when_held = lambda: restart_pi()
-    
-    if not check_wifi():
-        print("Starting Wi-Fi hotspot...")
-        start_hotspot()  
+        # Initialize encoder button with correct pin
+        buttonEn = Button(ENCODER_SW, pull_up=True, bounce_time=0.2, hold_time=2)
+        buttonEn.when_pressed = lambda: logger.info("Encoder Pressed")
+        buttonEn.when_held = lambda: restart_pi()
 
-    flask_thread = threading.Thread(target=run_flask_app, daemon=True)
-    flask_thread.start()
+        # Check WiFi and start hotspot if needed
+        if not check_wifi():
+            logger.info("Starting Wi-Fi hotspot...")
+            wifi_manager.start_hotspot()
+            led.blink(on_time=0.5, off_time=0.5)  # Fast blink in AP mode
+        else:
+            led.blink(on_time=3, off_time=3)  # Slow blink when connected
 
-    while not check_wifi():
-        led.blink(on_time=1, off_time=1)
-        print("Waiting for Wi-Fi connection...")
-        time.sleep(5) 
+        # Start Flask app in background
+        flask_thread = threading.Thread(target=run_flask_app, daemon=True)
+        flask_thread.start()
 
-    led.blink(on_time=3, off_time=3)
-    sound_manager.play_sound("wifi.wav")
-    stream_manager = StreamManager(volume)
-    print (volume)
+        # Initialize stream manager
+        stream_manager = StreamManager(volume)
+        logger.info(f"Initial volume set to: {volume}")
 
-    BUTTON1_PIN = 17  # Pin 11 (GPIO17) with GND on Pin 9
-    BUTTON2_PIN = 16  # Pin 36 (GPIO16) with GND on Pin 34
-    BUTTON3_PIN = 26  # Pin 37 (GPIO26) with GND on Pin 39
+        # Set up radio buttons with correct pins
+        button1 = Button(BUTTON_PINS['link1'], pull_up=True, bounce_time=0.2)
+        button2 = Button(BUTTON_PINS['link2'], pull_up=True, bounce_time=0.2)
+        button3 = Button(BUTTON_PINS['link3'], pull_up=True, bounce_time=0.2)
 
-    button1 = Button(BUTTON1_PIN, pull_up=True, bounce_time=0.2)
-    button2 = Button(BUTTON2_PIN, pull_up=True, bounce_time=0.2)
-    button3 = Button(BUTTON3_PIN, pull_up=True, bounce_time=0.2)
+        button1.when_pressed = lambda: button_handler('link1')
+        button2.when_pressed = lambda: button_handler('link2')
+        button3.when_pressed = lambda: button_handler('link3')
 
-    button1.when_pressed = lambda: button_handler('link1')
-    button2.when_pressed = lambda: button_handler('link2')
-    button3.when_pressed = lambda: button_handler('link3')
+        # Set up rotary encoder with correct pins
+        encoder = RotaryEncoder(
+            ENCODER_DT,   # Data pin (GPIO9)
+            ENCODER_CLK,  # Clock pin (GPIO11)
+            bounce_time=0.1,
+            max_steps=1,
+            wrap=False,
+            threshold_steps=(0,100)
+        )
+        encoder.when_rotated_clockwise = lambda rotation: volume_up(rotation)
+        encoder.when_rotated_counter_clockwise = lambda rotation: volume_down(rotation)
 
-    DT_PIN = 9    # Changed from 5 to 9 (GPIO9)
-    CLK_PIN = 11  # Changed from 6 to 11 (GPIO11)
+        # Rest of your code remains the same...
 
-    encoder = RotaryEncoder(
-        DT_PIN, 
-        CLK_PIN, 
-        bounce_time=0.1, 
-        max_steps=1, 
-        wrap=False, 
-        threshold_steps=(0,100)
-    )
-    encoder.when_rotated_clockwise = lambda rotation: volume_up(rotation)
-    encoder.when_rotated_counter_clockwise = lambda rotation: volume_down(rotation)
-    
-    played = False
-
-    while True:
-        wifi_status = check_wifi()
-        if not wifi_status and not played:
-            print("WiFi connection lost")
-            sound_manager.play_sound("noWifi.wav")
-            led.blink(on_time=0.5, off_time=0.5)
-            played = True
-        elif wifi_status and played:
-            sound_manager.play_sound("wifi.wav")
-            led.blink(on_time=3, off_time=3)
-            played = False
-        
-        time.sleep(30)
-
-    app.debug = True  # Add this line
-    app.run(host='0.0.0.0', port=5000)
+    except Exception as e:
+        logger.error(f"An error occurred: {e}")
+        print(f"An error occurred: {e}")

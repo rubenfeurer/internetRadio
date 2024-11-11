@@ -1,15 +1,102 @@
-from flask import Flask, render_template, session, redirect, url_for, jsonify, request
+from flask import Flask, render_template, session, redirect, url_for, jsonify, request, Blueprint
 import subprocess
 import re
 import toml
 from stream_manager import StreamManager
 import json
 import time
+import logging
+
+wifi_bp = Blueprint('wifi', __name__)
+
+@wifi_bp.route('/wifi-settings')
+def wifi_settings():
+    return render_template('wifi_settings.html')
+
+@wifi_bp.route('/wifi-scan')
+def wifi_scan():
+    try:
+        # Get list of available networks
+        result = subprocess.check_output(['sudo', 'iwlist', 'wlan0', 'scan']).decode()
+        networks = []
+        for line in result.splitlines():
+            if 'ESSID:' in line:
+                ssid = line.split('ESSID:')[1].strip('"')
+                if ssid and ssid != 'InternetRadio':  # Don't show our own AP
+                    networks.append(ssid)
+        
+        # Check if we're in AP mode
+        ap_mode = False
+        try:
+            hostapd_status = subprocess.check_output(['systemctl', 'is-active', 'hostapd']).decode().strip()
+            ap_mode = (hostapd_status == 'active')
+        except:
+            pass
+            
+        return jsonify({
+            'status': 'complete',
+            'networks': sorted(list(set(networks))),  # Remove duplicates
+            'ap_mode': ap_mode
+        })
+    except Exception as e:
+        logging.error(f"Error scanning networks: {e}")
+        return jsonify({
+            'status': 'error',
+            'error': str(e)
+        })
+
+@wifi_bp.route('/wifi-settings', methods=['POST'])
+def connect_wifi():
+    try:
+        ssid = request.form.get('ssid')
+        password = request.form.get('password')
+        
+        if not ssid or not password:
+            return jsonify({
+                'status': 'error',
+                'message': 'SSID and password are required'
+            })
+            
+        # Create NetworkManager connection
+        subprocess.run([
+            'sudo', 'nmcli', 'device', 'wifi', 'connect', ssid,
+            'password', password
+        ], check=True)
+        
+        return jsonify({
+            'status': 'success',
+            'message': f'Successfully connected to {ssid}'
+        })
+        
+    except subprocess.CalledProcessError as e:
+        logging.error(f"Error connecting to WiFi: {e}")
+        return jsonify({
+            'status': 'error',
+            'message': 'Failed to connect. Please check your password.'
+        })
+
+@wifi_bp.route('/get_wifi_ssid')
+def get_wifi_ssid():
+    try:
+        result = subprocess.check_output(['iwgetid', '-r']).decode().strip()
+        return jsonify({'ssid': result})
+    except:
+        return jsonify({'error': 'Not connected'})
+
+@wifi_bp.route('/check_internet_connection')
+def check_internet():
+    try:
+        # Try to ping Google's DNS
+        subprocess.check_call(['ping', '-c', '1', '8.8.8.8'])
+        return jsonify({'connected': True})
+    except:
+        return jsonify({'connected': False})
 
 def create_app():
     """Create and configure the Flask app."""
     app = Flask(__name__, static_folder='templates/static')
     app.secret_key = 'your_secret_key_here'
+    app.register_blueprint(wifi_bp, url_prefix='/wifi')
 
     player = StreamManager(50)
 
