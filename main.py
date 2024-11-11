@@ -5,16 +5,15 @@ import threading
 import time
 import os
 import logging
-
-from gpiozero import Button, RotaryEncoder, LED
-from signal import pause
-
-from stream_manager import StreamManager
-from app import create_app
-from sounds import SoundManager
-from wifi_manager import WiFiManager
-
-from flask import Flask, Blueprint, request, jsonify
+import signal
+import sys
+import pygame
+import vlc
+from flask import Flask, request, jsonify
+from gpiozero import Button, RotaryEncoder, LED, Device
+from gpiozero.pins.pigpio import PiGPIOFactory
+import pigpio
+import re
 
 # Set up logging
 logging.basicConfig(
@@ -24,7 +23,18 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Add these constants at the top of the file, after imports
+# Initialize pigpio
+print("Initializing pigpio...")
+pi = pigpio.pi()
+if not pi.connected:
+    print("Failed to connect to pigpiod")
+    exit()
+print("Connected to pigpiod successfully")
+
+# Set up PiGPIO as the pin factory
+Device.pin_factory = PiGPIOFactory()
+
+# Constants
 SOUND_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sounds')
 LED_PIN = 25  # LED on GPIO25
 ENCODER_SW = 10  # Encoder button on GPIO10
@@ -36,25 +46,237 @@ BUTTON_PINS = {
     'link3': 26   # Button 3 on GPIO26
 }
 
-def check_wifi():
-    """Check if WiFi is connected"""
-    try:
-        result = subprocess.run(['iwgetid'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        return result.returncode == 0
-    except Exception as e:
-        logger.error(f"Error checking WiFi: {e}")
-        return False
+class StreamManager:
+    def __init__(self, initial_volume=50):
+        logger.info("Initializing StreamManager...")
+        # Add VLC parameters for better buffering
+        self.instance = vlc.Instance('--no-xlib',
+                                   '--aout=alsa',
+                                   '--alsa-audio-device=hw:2,0',
+                                   '--file-caching=5000',
+                                   '--network-caching=5000',
+                                   '--live-caching=5000',
+                                   '--sout-mux-caching=5000',
+                                   '--clock-jitter=0',
+                                   '--sout-rtp-proto=udp')
+        self.player = self.instance.media_player_new()
+        self.volume = initial_volume
+        self.current_key = None
+        self.streams = {
+            'link1': "http://stream.srg-ssr.ch/m/rsj/mp3_128",
+            'link2': "http://stream.srg-ssr.ch/m/rsj/mp3_128",
+            'link3': "http://stream.srg-ssr.ch/m/rsj/mp3_128"
+        }
+        self.player.audio_set_volume(self.volume)
+        logger.info("StreamManager initialized")
 
-def create_app():
+    def play_stream(self, stream_key):
+        try:
+            logger.info(f"Playing stream: {stream_key}")
+            if stream_key in self.streams:
+                if self.current_key == stream_key and self.player.is_playing():
+                    logger.info("Stopping current stream")
+                    self.stop_stream()
+                    return True
+                
+                self.current_key = stream_key
+                stream_url = self.streams[stream_key]
+                media = self.instance.media_new(stream_url)
+                # Add media options for better buffering
+                media.add_option('network-caching=1500')
+                media.add_option('file-caching=1500')
+                media.add_option('live-caching=1500')
+                self.player.set_media(media)
+                self.player.play()
+                return True
+            return False
+        except Exception as e:
+            logger.error(f"Error playing stream: {e}")
+            return False
+
+    def stop_stream(self):
+        try:
+            logger.info("Stopping stream")
+            self.player.stop()
+            return True
+        except Exception as e:
+            logger.error(f"Error stopping stream: {e}")
+            return False
+
+    def set_volume(self, volume):
+        try:
+            self.volume = max(0, min(100, volume))
+            self.player.audio_set_volume(self.volume)
+            logger.info(f"Volume set to {self.volume}")
+        except Exception as e:
+            logger.error(f"Error setting volume: {e}")
+
+    def get_volume(self):
+        return self.volume
+
+class SoundManager:
+    def __init__(self, sounds_dir):
+        logger.info("Initializing SoundManager...")
+        self.sounds_dir = sounds_dir
+        pygame.mixer.init()
+        logger.info("SoundManager initialized")
+
+    def play_sound(self, sound_file):
+        try:
+            sound_path = os.path.join(self.sounds_dir, sound_file)
+            if os.path.exists(sound_path):
+                sound = pygame.mixer.Sound(sound_path)
+                sound.play()
+                logger.info(f"Playing sound: {sound_file}")
+            else:
+                logger.error(f"Sound file not found: {sound_path}")
+        except Exception as e:
+            logger.error(f"Error playing sound: {e}")
+
+class WiFiManager:
+    def __init__(self, app):
+        self.app = app
+        self.interface = "wlan0"
+
+    def start_hotspot(self):
+        try:
+            logger.info("Starting WiFi hotspot...")
+            # Add hotspot setup code here if needed
+            pass
+        except Exception as e:
+            logger.error(f"Error starting hotspot: {e}")
+
+    def get_current_wifi_status(self):
+        try:
+            result = subprocess.run(['iwgetid', '-r'], 
+                                  capture_output=True, 
+                                  text=True)
+            current_ssid = result.stdout.strip() if result.returncode == 0 else None
+            
+            result = subprocess.run(['iwconfig', self.interface], 
+                                  capture_output=True, 
+                                  text=True)
+            signal_match = re.search(r'Signal level=(-\d+)', result.stdout)
+            signal_strength = signal_match.group(1) if signal_match else 'unknown'
+            
+            return {
+                'connected': bool(current_ssid),
+                'ssid': current_ssid if current_ssid else None,
+                'signal_strength': signal_strength
+            }
+        except Exception as e:
+            logger.error(f"Error getting WiFi status: {e}")
+            return {'connected': False, 'ssid': None, 'signal_strength': 'unknown'}
+
+class RadioController:
+    def __init__(self):
+        self.stream_manager = None
+        self.sound_manager = None
+        self.wifi_manager = None
+        self.buttons = {}
+        self.encoder = None
+        self.led = None
+        self.app = None
+
+    def initialize(self):
+        try:
+            print("\n=== INITIALIZATION START ===")
+            
+            # Initialize StreamManager
+            self.stream_manager = StreamManager(50)
+            
+            # Initialize sound manager
+            self.sound_manager = SoundManager(SOUND_FOLDER)
+            self.sound_manager.play_sound("boot.wav")
+            
+            # Initialize LED
+            self.led = LED(LED_PIN)
+            self.setup_buttons()
+            self.setup_encoder()
+            
+            # Create Flask app
+            self.app = create_app(self.stream_manager)
+            
+            return True
+        except Exception as e:
+            logger.error(f"Initialization error: {e}")
+            return False
+
+    def setup_buttons(self):
+        try:
+            self.buttons = {
+                'link1': Button(BUTTON_PINS['link1'], pull_up=True, bounce_time=0.2),
+                'link2': Button(BUTTON_PINS['link2'], pull_up=True, bounce_time=0.2),
+                'link3': Button(BUTTON_PINS['link3'], pull_up=True, bounce_time=0.2),
+                'encoder': Button(ENCODER_SW, pull_up=True, bounce_time=0.2, hold_time=2)
+            }
+            
+            # Set up callbacks
+            self.buttons['link1'].when_pressed = lambda: self.button_handler('link1')
+            self.buttons['link2'].when_pressed = lambda: self.button_handler('link2')
+            self.buttons['link3'].when_pressed = lambda: self.button_handler('link3')
+            self.buttons['encoder'].when_pressed = lambda: logger.info("Encoder Pressed")
+            self.buttons['encoder'].when_held = restart_pi
+            
+        except Exception as e:
+            logger.error(f"Button setup error: {e}")
+
+    def setup_encoder(self):
+        try:
+            self.encoder = RotaryEncoder(
+                ENCODER_DT,
+                ENCODER_CLK,
+                bounce_time=0.1,
+                max_steps=1,
+                wrap=False
+            )
+            self.encoder.when_rotated_clockwise = self.volume_up
+            self.encoder.when_rotated_counter_clockwise = self.volume_down
+        except Exception as e:
+            logger.error(f"Encoder setup error: {e}")
+
+    def button_handler(self, stream_key):
+        try:
+            logger.info(f"Button pressed for stream: {stream_key}")
+            if self.stream_manager:
+                self.sound_manager.play_sound("click.wav")
+                self.stream_manager.play_stream(stream_key)
+        except Exception as e:
+            logger.error(f"Button handler error: {e}")
+            self.sound_manager.play_sound("error.wav")
+
+    def volume_up(self):
+        if self.stream_manager:
+            current_volume = self.stream_manager.get_volume()
+            new_volume = min(100, current_volume + 5)
+            self.stream_manager.set_volume(new_volume)
+            logger.info(f"Volume up: {new_volume}")
+
+    def volume_down(self):
+        if self.stream_manager:
+            current_volume = self.stream_manager.get_volume()
+            new_volume = max(0, current_volume - 5)
+            self.stream_manager.set_volume(new_volume)
+            logger.info(f"Volume down: {new_volume}")
+
+    def cleanup(self):
+        """Clean up resources"""
+        try:
+            logger.info("Starting cleanup...")
+            if self.stream_manager:
+                self.stream_manager.stop_stream()
+            if self.led:
+                self.led.off()
+            if self.sound_manager:
+                self.sound_manager.play_sound("shutdown.wav")
+                time.sleep(1)  # Give time for shutdown sound to play
+            logger.info("Cleanup completed")
+        except Exception as e:
+            logger.error(f"Cleanup error: {e}")
+
+def create_app(stream_manager):
     app = Flask(__name__)
     
-    # Initialize StreamManager only once (it's now a singleton)
-    stream_manager = StreamManager(50)
-    
-    # Initialize other components
-    wifi_manager = WiFiManager(app)
-    
-    # Register stream endpoints
     @app.route('/api/stream/play', methods=['POST'])
     def play_stream():
         try:
@@ -90,73 +312,67 @@ def create_app():
             logger.error(f"Error setting volume: {e}")
             return jsonify({'error': str(e)}), 500
 
-    @app.route('/api/stream/status', methods=['GET'])
-    def get_stream_status():
-        try:
-            return jsonify({
-                'is_playing': stream_manager.player.is_playing(),
-                'current_stream': stream_manager.current_key,
-                'volume': stream_manager.volume
-            })
-        except Exception as e:
-            logger.error(f"Error getting status: {e}")
-            return jsonify({'error': str(e)}), 500
+    return app
 
-    return app, stream_manager
+def restart_pi():
+    """Restart the Raspberry Pi"""
+    try:
+        logger.info("Restarting Raspberry Pi...")
+        subprocess.run(['sudo', 'reboot'])
+    except Exception as e:
+        logger.error(f"Error restarting Pi: {e}")
+
+def check_wifi():
+    """Check if WiFi is connected"""
+    try:
+        result = subprocess.run(['iwgetid'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        return result.returncode == 0
+    except Exception as e:
+        logger.error(f"Error checking WiFi: {e}")
+        return False
+
+def signal_handler(signum, frame):
+    """Handle shutdown signals"""
+    logger.info(f"Received signal {signum}")
+    if 'radio' in globals():
+        radio.cleanup()
+    sys.exit(0)
 
 def main():
     try:
-        # Create the application
-        app, stream_manager = create_app()
-        
-        # Initialize sound manager and play boot sound
-        sound_manager = SoundManager(SOUND_FOLDER)
-        sound_manager.play_sound("boot.wav")
+        # Set up signal handlers
+        signal.signal(signal.SIGTERM, signal_handler)
+        signal.signal(signal.SIGINT, signal_handler)
 
-        # Initialize LED with correct pin
-        led = LED(LED_PIN)
-        led.on()
+        # Create and initialize radio controller
+        global radio
+        radio = RadioController()
+        if not radio.initialize():
+            logger.error("Failed to initialize radio")
+            return 1
 
-        # Initialize encoder button with correct pin
-        buttonEn = Button(ENCODER_SW, pull_up=True, bounce_time=0.2, hold_time=2)
-        buttonEn.when_pressed = lambda: logger.info("Encoder Pressed")
-        buttonEn.when_held = lambda: restart_pi()
-
-        # Check WiFi and start hotspot if needed
+        # Check WiFi
         if not check_wifi():
             logger.info("Starting Wi-Fi hotspot...")
-            wifi_manager.start_hotspot()
-            led.blink(on_time=0.5, off_time=0.5)  # Fast blink in AP mode
+            radio.wifi_manager = WiFiManager(radio.app)
+            radio.wifi_manager.start_hotspot()
+            radio.led.blink(on_time=0.5, off_time=0.5)
         else:
-            led.blink(on_time=3, off_time=3)  # Slow blink when connected
+            radio.led.blink(on_time=3, off_time=3)
 
-        # Set up radio buttons with correct pins
-        button1 = Button(BUTTON_PINS['link1'], pull_up=True, bounce_time=0.2)
-        button2 = Button(BUTTON_PINS['link2'], pull_up=True, bounce_time=0.2)
-        button3 = Button(BUTTON_PINS['link3'], pull_up=True, bounce_time=0.2)
-
-        button1.when_pressed = lambda: button_handler('link1')
-        button2.when_pressed = lambda: button_handler('link2')
-        button3.when_pressed = lambda: button_handler('link3')
-
-        # Set up rotary encoder with correct pins
-        encoder = RotaryEncoder(
-            ENCODER_DT,   # Data pin (GPIO9)
-            ENCODER_CLK,  # Clock pin (GPIO11)
-            bounce_time=0.1,
-            max_steps=1,
-            wrap=False,
-            threshold_steps=(0,100)
+        # Start Flask in a separate thread
+        flask_thread = threading.Thread(
+            target=lambda: radio.app.run(host='0.0.0.0', port=5000, debug=False)
         )
-        encoder.when_rotated_clockwise = lambda rotation: volume_up(rotation)
-        encoder.when_rotated_counter_clockwise = lambda rotation: volume_down(rotation)
+        flask_thread.daemon = True
+        flask_thread.start()
 
-        # Start Flask app
-        app.run(host='0.0.0.0', port=5000, debug=False)
+        # Keep the main thread running
+        while True:
+            time.sleep(1)
 
     except Exception as e:
-        logger.error(f"An error occurred: {e}")
-        print(f"An error occurred: {e}")
+        logger.error(f"Main error: {e}")
         return 1
 
     return 0
