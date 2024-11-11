@@ -5871,3 +5871,893 @@ Connected to pigpiod successfully
 2024-11-11 23:24:44,436 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:24:44] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
 2024-11-11 23:24:44,783 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:24:44] "GET /wifi-scan HTTP/1.1" 200 -
 2024-11-11 23:24:53,231 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:24:53] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-11 23:25:18,828 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:25:18] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:25:18,835 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:25:18] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:25:47,325 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:25:47] "[33mGET /stream-select?channel=link1 HTTP/1.1[0m" 404 -
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+2024-11-11 23:27:13,182 - __main__ - ERROR - Error in index route: Could not build url for endpoint 'stream_select' with values ['channel']. Did you mean 'play_stream' instead?
+2024-11-11 23:27:13,184 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:13] "[35m[1mGET / HTTP/1.1[0m" 500 -
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+ALSA lib pcm.c:8570:(snd_pcm_recover) underrun occurred
+2024-11-11 23:27:19,983 - __main__ - INFO - Received signal 15
+2024-11-11 23:27:19,984 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:27:19,984 - __main__ - INFO - Stopping stream
+2024-11-11 23:27:19,986 - __main__ - INFO - Received signal 15
+2024-11-11 23:27:19,987 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:27:19,988 - __main__ - INFO - Stopping stream
+2024-11-11 23:27:19,991 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-11 23:27:20,992 - __main__ - INFO - Cleanup completed
+2024-11-11 23:27:22,406 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:27:22,460 - __main__ - INFO - StreamManager initialized
+2024-11-11 23:27:22,460 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:27:22,481 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:27:22,483 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:27:22,532 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 23:27:22,532 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:27:23,755 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:27:23,756 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:27:23,756 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:27:28,517 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:28] "GET / HTTP/1.1" 200 -
+2024-11-11 23:27:28,558 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:28] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:27:28,908 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:28] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:27:28,916 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:28] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:27:30,583 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:30] "GET /stream-select?channel=link2 HTTP/1.1" 200 -
+2024-11-11 23:27:30,869 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:30] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:27:46,978 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:46] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:27:47,305 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:47] "GET / HTTP/1.1" 200 -
+2024-11-11 23:27:47,362 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:47] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:27:47,567 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:47] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:27:47,697 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:47] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:27:50,932 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:50] "GET /stream-select?channel=link3 HTTP/1.1" 200 -
+2024-11-11 23:27:50,938 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:50] "[31m[1mPOST /api/stream/play HTTP/1.1[0m" 400 -
+2024-11-11 23:27:51,188 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:51] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:27:51,884 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:51] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:27:52,223 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:52] "GET / HTTP/1.1" 200 -
+2024-11-11 23:27:52,277 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:52] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:27:52,477 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:52] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:27:52,603 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:52] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:27:53,579 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:53] "GET /stream-select?channel=link3 HTTP/1.1" 200 -
+2024-11-11 23:27:53,583 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:53] "[31m[1mPOST /api/stream/play HTTP/1.1[0m" 400 -
+2024-11-11 23:27:53,832 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:53] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:27:54,522 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:54] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:27:54,852 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:54] "GET / HTTP/1.1" 200 -
+2024-11-11 23:27:54,906 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:54] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:27:55,107 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:55] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:27:55,245 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:27:55] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:29:44,251 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:29:44] "GET / HTTP/1.1" 200 -
+2024-11-11 23:29:44,283 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:29:44] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:29:44,316 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:29:44] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:29:55,317 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:29:55] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:30:29,333 - __main__ - INFO - Received signal 15
+2024-11-11 23:30:29,334 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:30:29,335 - __main__ - INFO - Stopping stream
+2024-11-11 23:30:29,363 - __main__ - INFO - Received signal 15
+2024-11-11 23:30:29,363 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:30:29,364 - __main__ - INFO - Stopping stream
+2024-11-11 23:30:29,365 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-11 23:30:30,366 - __main__ - INFO - Cleanup completed
+2024-11-11 23:30:31,672 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:30:31,727 - __main__ - INFO - StreamManager initialized
+2024-11-11 23:30:31,727 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:30:31,748 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:30:31,750 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:30:31,797 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 23:30:31,798 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:30:33,267 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:33] "GET / HTTP/1.1" 200 -
+2024-11-11 23:30:33,309 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:33] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:30:33,474 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:33] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:30:33,635 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:33] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:30:35,595 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:35] "GET / HTTP/1.1" 200 -
+2024-11-11 23:30:35,625 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:35] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:30:35,711 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:35] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:30:35,955 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:35] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:30:37,944 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:37] "[31m[1mPOST /api/stream/play HTTP/1.1[0m" 400 -
+2024-11-11 23:30:37,987 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:37] "GET /stream-select?channel=link1 HTTP/1.1" 200 -
+2024-11-11 23:30:38,191 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:38] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:30:39,852 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:39] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:30:40,215 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:40] "GET / HTTP/1.1" 200 -
+2024-11-11 23:30:40,271 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:40] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:30:40,440 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:40] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:30:40,605 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:40] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:30:42,752 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:30:42,754 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:30:42,754 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:30:45,990 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:45] "[31m[1mPOST /api/stream/play HTTP/1.1[0m" 400 -
+2024-11-11 23:30:46,024 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:46] "GET /stream-select?channel=link3 HTTP/1.1" 200 -
+2024-11-11 23:30:46,233 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:46] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:30:47,653 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:47] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:30:48,052 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:48] "GET / HTTP/1.1" 200 -
+2024-11-11 23:30:48,113 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:48] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:30:48,240 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:48] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:30:48,442 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:48] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:30:49,747 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:30:49,747 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:30:49,748 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:30:49,748 - __main__ - INFO - Stopping current stream
+2024-11-11 23:30:49,748 - __main__ - INFO - Stopping stream
+2024-11-11 23:30:50,862 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:30:50,863 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:30:50,863 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:30:53,619 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:53] "[31m[1mPOST /api/stream/play HTTP/1.1[0m" 400 -
+2024-11-11 23:30:53,704 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:53] "GET /stream-select?channel=link3 HTTP/1.1" 200 -
+2024-11-11 23:30:53,867 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:53] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:30:54,636 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:54] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:30:55,000 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:55] "GET / HTTP/1.1" 200 -
+2024-11-11 23:30:55,050 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:55] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:30:55,224 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:55] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:30:55,376 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:30:55] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:31:15,337 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:15] "[31m[1mPOST /api/stream/play HTTP/1.1[0m" 400 -
+2024-11-11 23:31:15,371 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:15] "GET /stream-select?channel=link3 HTTP/1.1" 200 -
+2024-11-11 23:31:15,588 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:15] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:31:16,638 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:16] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:31:16,998 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:16] "GET / HTTP/1.1" 200 -
+2024-11-11 23:31:17,047 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:17] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:31:17,221 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:17] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:31:17,377 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:17] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:31:17,983 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:17] "[31m[1mPOST /api/stream/play HTTP/1.1[0m" 400 -
+2024-11-11 23:31:18,017 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:18] "GET /stream-select?channel=link2 HTTP/1.1" 200 -
+2024-11-11 23:31:18,238 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:18] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:31:18,965 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:18] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:31:19,324 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:19] "GET / HTTP/1.1" 200 -
+2024-11-11 23:31:19,361 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:19] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:31:19,544 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:19] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:31:19,699 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:19] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:31:20,457 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:20] "GET / HTTP/1.1" 200 -
+2024-11-11 23:31:20,489 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:20] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:31:20,675 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:20] "GET /get_wifi_ssid HTTP/1.1" 200 -
+2024-11-11 23:31:20,816 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:31:20] "GET /check_internet_connection HTTP/1.1" 200 -
+2024-11-11 23:33:29,933 - __main__ - INFO - Received signal 15
+2024-11-11 23:33:29,935 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:33:32,297 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:33:32,351 - __main__ - INFO - StreamManager initialized
+2024-11-11 23:33:32,351 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:33:32,372 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:33:32,374 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:33:32,422 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 23:33:32,423 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:33:33,455 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:33] "GET / HTTP/1.1" 200 -
+2024-11-11 23:33:33,497 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:33] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:33:36,398 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:36] "GET /stream-select?channel=link1 HTTP/1.1" 200 -
+2024-11-11 23:33:36,619 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:36] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:33:38,481 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:38] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:33:38,728 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:38] "GET / HTTP/1.1" 200 -
+2024-11-11 23:33:38,819 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:38] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:33:39,512 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:39] "GET /stream-select?channel=link2 HTTP/1.1" 200 -
+2024-11-11 23:33:39,779 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:39] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:33:40,769 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:40] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:33:40,959 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:40] "GET / HTTP/1.1" 200 -
+2024-11-11 23:33:41,096 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:41] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:33:41,763 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:41] "GET /stream-select?channel=link2 HTTP/1.1" 200 -
+2024-11-11 23:33:42,030 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:42] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:33:43,016 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:43] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:33:43,266 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:43] "GET / HTTP/1.1" 200 -
+2024-11-11 23:33:43,346 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:43] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:33:44,212 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:44] "GET /stream-select?channel=link3 HTTP/1.1" 200 -
+2024-11-11 23:33:44,478 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:44] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:33:47,401 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:47] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:33:47,646 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:47] "GET / HTTP/1.1" 200 -
+2024-11-11 23:33:47,760 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:33:47] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:33:49,810 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:33:49,811 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:33:49,811 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:33:52,055 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:33:52,055 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:33:52,056 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:33:52,056 - __main__ - INFO - Stopping current stream
+2024-11-11 23:33:52,056 - __main__ - INFO - Stopping stream
+2024-11-11 23:33:52,767 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:33:52,768 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:33:52,769 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:35:02,246 - __main__ - INFO - Received signal 15
+2024-11-11 23:35:02,247 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:35:02,247 - __main__ - INFO - Stopping stream
+2024-11-11 23:35:02,258 - __main__ - INFO - Received signal 15
+2024-11-11 23:35:02,258 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:35:02,258 - __main__ - INFO - Stopping stream
+2024-11-11 23:35:02,260 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-11 23:35:03,260 - __main__ - INFO - Cleanup completed
+2024-11-11 23:35:04,689 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:35:04,743 - __main__ - INFO - StreamManager initialized
+2024-11-11 23:35:04,743 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:35:04,764 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:35:04,766 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:35:04,815 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 23:35:04,816 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:35:06,219 - __main__ - ERROR - Error in index: 'list object' has no attribute ' + (channel-1) + '
+2024-11-11 23:35:06,221 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:35:06] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:35:06,414 - __main__ - ERROR - Error in index: 'list object' has no attribute ' + (channel-1) + '
+2024-11-11 23:35:06,415 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:35:06] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:35:09,915 - __main__ - ERROR - Error in index: 'list object' has no attribute ' + (channel-1) + '
+2024-11-11 23:35:09,916 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:35:09] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:35:43,117 - __main__ - INFO - Received signal 15
+2024-11-11 23:35:43,117 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:35:43,118 - __main__ - INFO - Stopping stream
+2024-11-11 23:35:43,121 - __main__ - INFO - Received signal 15
+2024-11-11 23:35:43,122 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:35:43,123 - __main__ - INFO - Stopping stream
+2024-11-11 23:35:44,518 - __main__ - ERROR - Error in index: 'list object' has no attribute ' + (channel-1) + '
+2024-11-11 23:35:44,519 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:35:44] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:35:48,154 - __main__ - ERROR - Error in index: 'list object' has no attribute ' + (channel-1) + '
+2024-11-11 23:35:48,154 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:35:48] "[35m[1mGET / HTTP/1.1[0m" 500 -
+2024-11-11 23:35:53,123 - __main__ - ERROR - Cleanup error: Thread failed to die within 10 seconds
+2024-11-11 23:35:54,506 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:35:54,560 - __main__ - INFO - StreamManager initialized
+2024-11-11 23:35:54,560 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:35:54,581 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:35:54,583 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:35:54,632 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 23:35:54,632 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:35:56,115 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:35:56] "GET / HTTP/1.1" 200 -
+2024-11-11 23:35:56,158 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:35:56] "GET /static/css/styles.css HTTP/1.1" 200 -
+2024-11-11 23:35:56,251 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:35:56] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:35:59,257 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:35:59,257 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:35:59,258 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:36:05,062 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:05] "GET /stream-select?channel=link3 HTTP/1.1" 200 -
+2024-11-11 23:36:05,136 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:05] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:36:06,709 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:06] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:36:07,105 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:07] "GET / HTTP/1.1" 200 -
+2024-11-11 23:36:07,162 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:07] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:36:07,293 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:07] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:36:08,127 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:36:08,127 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:36:08,128 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:36:08,128 - __main__ - INFO - Stopping current stream
+2024-11-11 23:36:08,128 - __main__ - INFO - Stopping stream
+2024-11-11 23:36:10,013 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:36:10,014 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:36:10,014 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:36:12,452 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:12] "GET /stream-select?channel=link1 HTTP/1.1" 200 -
+2024-11-11 23:36:12,509 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:12] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:36:13,469 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:13] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:36:13,831 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:13] "GET / HTTP/1.1" 200 -
+2024-11-11 23:36:13,884 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:13] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:36:14,055 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:14] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:36:14,856 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:14] "GET /stream-select?channel=link2 HTTP/1.1" 200 -
+2024-11-11 23:36:14,901 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:14] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:36:15,768 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:15] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:36:16,136 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:16] "GET / HTTP/1.1" 200 -
+2024-11-11 23:36:16,190 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:16] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:36:16,354 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:36:16] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:36:17,151 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:36:17,152 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:36:17,152 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:36:17,152 - __main__ - INFO - Stopping current stream
+2024-11-11 23:36:17,153 - __main__ - INFO - Stopping stream
+2024-11-11 23:36:18,229 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:36:18,230 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:36:18,231 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:37:43,383 - __main__ - INFO - Received signal 15
+2024-11-11 23:37:43,384 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:37:43,384 - __main__ - INFO - Stopping stream
+2024-11-11 23:37:43,404 - __main__ - INFO - Received signal 15
+2024-11-11 23:37:43,405 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:37:43,405 - __main__ - INFO - Stopping stream
+2024-11-11 23:37:43,407 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-11 23:37:44,407 - __main__ - INFO - Cleanup completed
+2024-11-11 23:37:45,835 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:37:45,890 - __main__ - INFO - StreamManager initialized
+2024-11-11 23:37:45,891 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:37:45,911 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:37:45,914 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:37:45,962 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 23:37:45,962 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:37:55,788 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:37:55,790 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:37:55,790 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:37:59,153 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:37:59] "GET / HTTP/1.1" 200 -
+2024-11-11 23:37:59,196 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:37:59] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:37:59,267 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:37:59] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:38:02,556 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:38:02] "GET / HTTP/1.1" 200 -
+2024-11-11 23:38:02,588 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:38:02] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:38:02,737 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:38:02] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:39:12,330 - __main__ - INFO - Received signal 15
+2024-11-11 23:39:12,330 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:39:12,330 - __main__ - INFO - Stopping stream
+2024-11-11 23:39:12,338 - __main__ - INFO - Received signal 15
+2024-11-11 23:39:12,338 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:39:12,338 - __main__ - INFO - Stopping stream
+2024-11-11 23:39:12,339 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-11 23:39:13,339 - __main__ - INFO - Cleanup completed
+2024-11-11 23:39:14,794 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:39:14,881 - __main__ - INFO - StreamManager initialized
+2024-11-11 23:39:14,881 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:39:14,902 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:39:14,904 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:39:14,950 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 23:39:14,951 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:39:18,463 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:39:18,463 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:39:18,463 - __main__ - INFO - Playing stream: link3
+[0000007f64007da0] http stream error: local stream 1 error: Cancellation (0x8)
+[0000007f64007da0] http stream error: local stream 1 error: Stream closed (0x5)
+[0000007f64007da0] access stream error: HTTP 404 error
+[0000007f6c003330] main input error: Your input can't be opened
+[0000007f6c003330] main input error: VLC is unable to open the MRL 'https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3'. Check the log for details.
+2024-11-11 23:39:24,631 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:39:24,633 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:39:24,633 - __main__ - INFO - Playing stream: link3
+[0000007f70002460] http stream error: local stream 1 error: Cancellation (0x8)
+[0000007f70002460] http stream error: local stream 1 error: Stream closed (0x5)
+[0000007f70002460] http stream error: local stream 1 error: Stream closed (0x5)
+[0000007f70002460] access stream error: HTTP 404 error
+[0000007f6c008c80] main input error: Your input can't be opened
+[0000007f6c008c80] main input error: VLC is unable to open the MRL 'https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3'. Check the log for details.
+2024-11-11 23:39:27,939 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:27] "GET / HTTP/1.1" 200 -
+2024-11-11 23:39:27,986 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:27] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:39:28,179 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:28] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:39:30,050 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:30] "GET / HTTP/1.1" 200 -
+2024-11-11 23:39:30,082 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:30] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:39:30,220 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:30] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:39:32,387 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:32] "GET /stream-select?channel=link3 HTTP/1.1" 200 -
+2024-11-11 23:39:32,442 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:32] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:39:33,515 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:33] "[33mPOST /stop-stream HTTP/1.1[0m" 404 -
+2024-11-11 23:39:37,970 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:37] "[33mPOST /stop-stream HTTP/1.1[0m" 404 -
+2024-11-11 23:39:38,374 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:38] "[33mPOST /stop-stream HTTP/1.1[0m" 404 -
+2024-11-11 23:39:38,850 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:38] "[33mPOST /stop-stream HTTP/1.1[0m" 404 -
+2024-11-11 23:39:38,995 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:38] "[33mPOST /stop-stream HTTP/1.1[0m" 404 -
+2024-11-11 23:39:39,107 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:39] "[33mPOST /stop-stream HTTP/1.1[0m" 404 -
+2024-11-11 23:39:40,475 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:40] "[33mPOST /stop-stream HTTP/1.1[0m" 404 -
+2024-11-11 23:39:41,573 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:41] "GET /stream-select?channel=link3 HTTP/1.1" 200 -
+2024-11-11 23:39:41,601 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:41] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:39:42,682 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:42] "[33mPOST /stop-stream HTTP/1.1[0m" 404 -
+2024-11-11 23:39:43,149 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:43] "[33mPOST /stop-stream HTTP/1.1[0m" 404 -
+2024-11-11 23:39:43,324 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:43] "[33mPOST /stop-stream HTTP/1.1[0m" 404 -
+2024-11-11 23:39:43,487 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:43] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:39:44,271 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:44] "GET /stream-select?channel=link2 HTTP/1.1" 200 -
+2024-11-11 23:39:44,547 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:44] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:39:46,023 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:46] "[33mPOST /stop-stream HTTP/1.1[0m" 404 -
+2024-11-11 23:39:46,425 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:39:46] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:39:48,418 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:39:48,419 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:39:48,419 - __main__ - INFO - Playing stream: link3
+[0000007f3c004560] http stream error: local stream 1 error: Cancellation (0x8)
+[0000007f3c004560] http stream error: local stream 1 error: Stream closed (0x5)
+[0000007f3c004560] access stream error: HTTP 404 error
+[0000007f6c008c80] main input error: Your input can't be opened
+[0000007f6c008c80] main input error: VLC is unable to open the MRL 'https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3'. Check the log for details.
+2024-11-11 23:40:23,172 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:40:23] "GET /stream-select?channel=link3 HTTP/1.1" 200 -
+2024-11-11 23:40:23,397 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:40:23] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:40:24,413 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:40:24] "[33mPOST /stop-stream HTTP/1.1[0m" 404 -
+2024-11-11 23:40:25,514 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:40:25] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:41:09,018 - __main__ - INFO - Received signal 15
+2024-11-11 23:41:09,019 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:41:09,019 - __main__ - INFO - Stopping stream
+2024-11-11 23:41:09,022 - __main__ - INFO - Received signal 15
+2024-11-11 23:41:09,023 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:41:09,023 - __main__ - INFO - Stopping stream
+2024-11-11 23:41:09,025 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-11 23:41:10,026 - __main__ - INFO - Cleanup completed
+2024-11-11 23:41:11,495 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:41:11,584 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3'}
+2024-11-11 23:41:11,584 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:41:11,605 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:41:11,607 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:41:11,654 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-11 23:41:11,654 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:41:13,374 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:41:13] "GET / HTTP/1.1" 200 -
+2024-11-11 23:41:13,420 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:41:13] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:41:13,518 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:41:13] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:41:38,872 - __main__ - INFO - Received signal 15
+2024-11-11 23:41:38,873 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:41:38,873 - __main__ - INFO - Stopping stream
+2024-11-11 23:41:38,875 - __main__ - INFO - Received signal 15
+2024-11-11 23:41:38,875 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:41:38,876 - __main__ - INFO - Stopping stream
+2024-11-11 23:41:44,685 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:41:44] "GET / HTTP/1.1" 200 -
+2024-11-11 23:41:44,718 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:41:44] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:41:44,856 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:41:44] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:41:49,675 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:41:49,675 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:41:49,675 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:41:49,675 - __main__ - INFO - Creating media for URL: https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3
+2024-11-11 23:41:49,676 - __main__ - INFO - Stream play result: True
+2024-11-11 23:41:53,142 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:41:53,143 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:41:53,144 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:41:53,144 - __main__ - INFO - Creating media for URL: https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3
+2024-11-11 23:41:53,146 - __main__ - INFO - Stream play result: True
+2024-11-11 23:41:55,498 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:41:55] "GET / HTTP/1.1" 200 -
+2024-11-11 23:41:55,528 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:41:55] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:41:55,719 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:41:55] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:41:59,092 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:41:59] "GET /stream-select?channel=link2 HTTP/1.1" 200 -
+2024-11-11 23:41:59,150 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:41:59] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:42:02,929 - __main__ - INFO - Stopping stream
+2024-11-11 23:42:02,930 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:42:02] "POST /stop-stream HTTP/1.1" 200 -
+2024-11-11 23:42:03,288 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:42:03] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:42:03,496 - __main__ - INFO - Playing stream: link2
+2024-11-11 23:42:03,496 - __main__ - INFO - Creating media for URL: https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3
+2024-11-11 23:42:03,497 - __main__ - INFO - Stream play result: True
+2024-11-11 23:42:03,498 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:42:03] "POST /play-stream HTTP/1.1" 200 -
+2024-11-11 23:42:03,647 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:42:03] "GET / HTTP/1.1" 200 -
+2024-11-11 23:42:03,824 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:42:03] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:42:03,994 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:42:03] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:42:22,560 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:42:22,562 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:42:22,562 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:42:22,562 - __main__ - INFO - Creating media for URL: https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3
+2024-11-11 23:42:22,592 - __main__ - INFO - Stream play result: True
+2024-11-11 23:42:24,737 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:42:24,738 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:42:24,738 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:42:24,738 - __main__ - INFO - Creating media for URL: https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3
+2024-11-11 23:42:24,739 - __main__ - INFO - Stream play result: True
+2024-11-11 23:43:10,071 - __main__ - INFO - Initializing StreamManager...
+2024-11-11 23:43:10,158 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3'}
+2024-11-11 23:43:10,159 - __main__ - INFO - Initializing SoundManager...
+2024-11-11 23:43:10,179 - __main__ - INFO - SoundManager initialized
+2024-11-11 23:43:10,181 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+2024-11-11 23:43:10,228 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-11 23:43:10,229 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-11 23:43:35,015 - __main__ - INFO - Received signal 15
+2024-11-11 23:43:35,015 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:43:35,016 - __main__ - INFO - Stopping stream
+2024-11-11 23:43:35,017 - __main__ - INFO - Received signal 15
+2024-11-11 23:43:35,018 - __main__ - INFO - Starting cleanup...
+2024-11-11 23:43:35,018 - __main__ - INFO - Stopping stream
+2024-11-11 23:43:43,137 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:43:43,139 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:43:43,139 - __main__ - INFO - Playing stream_key: link3
+2024-11-11 23:43:43,139 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3'}
+2024-11-11 23:43:43,140 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:43:43,140 - __main__ - INFO - Creating media for URL: https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3
+2024-11-11 23:43:43,142 - __main__ - INFO - Stream play result: True
+2024-11-11 23:43:47,467 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:43:47] "GET /stream-select?channel=link3 HTTP/1.1" 200 -
+2024-11-11 23:43:47,574 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:43:47] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:43:50,679 - __main__ - INFO - Stopping stream
+2024-11-11 23:43:50,716 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:43:50] "POST /stop-stream HTTP/1.1" 200 -
+2024-11-11 23:43:51,040 - __main__ - INFO - Updating stream for channel link3 with URL https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3
+2024-11-11 23:43:51,041 - __main__ - INFO - Current streams before update: {'link1': 'https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3'}
+2024-11-11 23:43:51,117 - __main__ - INFO - Updated streams in manager: {'link1': 'https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:43:51,118 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:43:51] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:43:51,288 - __main__ - INFO - Attempting to play URL: https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3
+2024-11-11 23:43:51,289 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:43:51,289 - __main__ - INFO - Playing stream_key: link3
+2024-11-11 23:43:51,289 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:43:51,289 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:43:51,289 - __main__ - INFO - Creating media for URL: https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3
+2024-11-11 23:43:51,290 - __main__ - INFO - Stream play result: True
+2024-11-11 23:43:51,292 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:43:51] "POST /play-stream HTTP/1.1" 200 -
+2024-11-11 23:43:51,486 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:43:51] "GET / HTTP/1.1" 200 -
+2024-11-11 23:43:51,621 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:43:51] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:43:51,846 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:43:51] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:43:58,088 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:43:58] "GET /stream-select?channel=link2 HTTP/1.1" 200 -
+2024-11-11 23:43:58,290 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:43:58] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:44:00,578 - __main__ - INFO - Stopping stream
+2024-11-11 23:44:00,589 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:00] "POST /stop-stream HTTP/1.1" 200 -
+2024-11-11 23:44:00,733 - __main__ - INFO - Updating stream for channel link2 with URL https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3
+2024-11-11 23:44:00,733 - __main__ - INFO - Current streams before update: {'link1': 'https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:44:00,771 - __main__ - INFO - Updated streams in manager: {'link1': 'https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:44:00,772 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:00] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:44:00,906 - __main__ - INFO - Attempting to play URL: https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3
+2024-11-11 23:44:00,906 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:44:00,906 - __main__ - INFO - Playing stream_key: link2
+2024-11-11 23:44:00,906 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:44:00,906 - __main__ - INFO - Playing stream: link2
+2024-11-11 23:44:00,906 - __main__ - INFO - Creating media for URL: https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3
+2024-11-11 23:44:00,907 - __main__ - INFO - Stream play result: True
+2024-11-11 23:44:00,909 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:00] "POST /play-stream HTTP/1.1" 200 -
+2024-11-11 23:44:01,131 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:01] "GET / HTTP/1.1" 200 -
+2024-11-11 23:44:01,247 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:01] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:44:01,569 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:01] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:44:08,324 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:08] "GET /stream-select?channel=link1 HTTP/1.1" 200 -
+2024-11-11 23:44:08,552 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:08] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:44:09,777 - __main__ - INFO - Stopping stream
+2024-11-11 23:44:09,778 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:09] "POST /stop-stream HTTP/1.1" 200 -
+2024-11-11 23:44:10,034 - __main__ - INFO - Updating stream for channel link1 with URL https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3
+2024-11-11 23:44:10,035 - __main__ - INFO - Current streams before update: {'link1': 'https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:44:10,073 - __main__ - INFO - Updated streams in manager: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:44:10,074 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:10] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:44:10,210 - __main__ - INFO - Attempting to play URL: https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3
+2024-11-11 23:44:10,210 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:44:10,210 - __main__ - INFO - Playing stream_key: link1
+2024-11-11 23:44:10,210 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:44:10,210 - __main__ - INFO - Playing stream: link1
+2024-11-11 23:44:10,210 - __main__ - INFO - Creating media for URL: https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3
+2024-11-11 23:44:10,211 - __main__ - INFO - Stream play result: True
+2024-11-11 23:44:10,212 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:10] "POST /play-stream HTTP/1.1" 200 -
+2024-11-11 23:44:10,429 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:10] "GET / HTTP/1.1" 200 -
+2024-11-11 23:44:10,542 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:10] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:44:10,791 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:10] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:44:13,038 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:13] "GET /stream-select?channel=link2 HTTP/1.1" 200 -
+2024-11-11 23:44:13,301 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:13] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:44:15,097 - __main__ - INFO - Stopping stream
+2024-11-11 23:44:15,124 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:15] "POST /stop-stream HTTP/1.1" 200 -
+2024-11-11 23:44:15,353 - __main__ - INFO - Updating stream for channel link2 with URL https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3
+2024-11-11 23:44:15,354 - __main__ - INFO - Current streams before update: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:44:15,431 - __main__ - INFO - Updated streams in manager: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:44:15,432 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:15] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:44:15,446 - __main__ - INFO - Attempting to play URL: https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3
+2024-11-11 23:44:15,447 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:44:15,447 - __main__ - INFO - Playing stream_key: link2
+2024-11-11 23:44:15,447 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:44:15,447 - __main__ - INFO - Playing stream: link2
+2024-11-11 23:44:15,447 - __main__ - INFO - Creating media for URL: https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3
+2024-11-11 23:44:15,448 - __main__ - INFO - Stream play result: True
+2024-11-11 23:44:15,449 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:15] "POST /play-stream HTTP/1.1" 200 -
+2024-11-11 23:44:15,805 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:15] "GET / HTTP/1.1" 200 -
+2024-11-11 23:44:15,840 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:15] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:44:16,028 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:16] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:44:19,732 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:19] "GET /stream-select?channel=link3 HTTP/1.1" 200 -
+2024-11-11 23:44:19,790 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:19] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:44:22,745 - __main__ - INFO - Stopping stream
+2024-11-11 23:44:22,765 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:22] "POST /stop-stream HTTP/1.1" 200 -
+2024-11-11 23:44:23,085 - __main__ - INFO - Updating stream for channel link3 with URL https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-11 23:44:23,086 - __main__ - INFO - Current streams before update: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3'}
+2024-11-11 23:44:23,159 - __main__ - INFO - Updated streams in manager: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-11 23:44:23,161 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:23] "POST /update-stream HTTP/1.1" 200 -
+2024-11-11 23:44:23,342 - __main__ - INFO - Attempting to play URL: https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-11 23:44:23,343 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-11 23:44:23,343 - __main__ - INFO - Playing stream_key: link3
+2024-11-11 23:44:23,343 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-11 23:44:23,343 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:44:23,344 - __main__ - INFO - Creating media for URL: https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-11 23:44:23,345 - __main__ - INFO - Stream play result: True
+2024-11-11 23:44:23,347 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:23] "POST /play-stream HTTP/1.1" 200 -
+2024-11-11 23:44:23,514 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:23] "GET / HTTP/1.1" 200 -
+2024-11-11 23:44:23,677 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:23] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-11 23:44:23,870 - werkzeug - INFO - 192.168.1.6 - - [11/Nov/2024 23:44:23] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-11 23:44:26,337 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:44:26,338 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:44:26,338 - __main__ - INFO - Playing stream_key: link3
+2024-11-11 23:44:26,338 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-11 23:44:26,338 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:44:26,338 - __main__ - INFO - Stopping current stream
+2024-11-11 23:44:26,338 - __main__ - INFO - Stopping stream
+2024-11-11 23:44:27,404 - __main__ - INFO - Button pressed for stream: link3
+2024-11-11 23:44:27,404 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-11 23:44:27,405 - __main__ - INFO - Playing stream_key: link3
+2024-11-11 23:44:27,405 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-11 23:44:27,405 - __main__ - INFO - Playing stream: link3
+2024-11-11 23:44:27,405 - __main__ - INFO - Creating media for URL: https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-11 23:44:27,405 - __main__ - INFO - Stream play result: True

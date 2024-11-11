@@ -14,6 +14,7 @@ from gpiozero import Button, RotaryEncoder, LED, Device
 from gpiozero.pins.pigpio import PiGPIOFactory
 import pigpio
 import re
+import toml
 
 # Set up logging
 logging.basicConfig(
@@ -49,46 +50,48 @@ BUTTON_PINS = {
 class StreamManager:
     def __init__(self, initial_volume=50):
         logger.info("Initializing StreamManager...")
-        # Add VLC parameters for better buffering
         self.instance = vlc.Instance('--no-xlib',
                                    '--aout=alsa',
-                                   '--alsa-audio-device=hw:2,0',
-                                   '--file-caching=5000',
-                                   '--network-caching=5000',
-                                   '--live-caching=5000',
-                                   '--sout-mux-caching=5000',
-                                   '--clock-jitter=0',
-                                   '--sout-rtp-proto=udp')
+                                   '--alsa-audio-device=hw:2,0')
         self.player = self.instance.media_player_new()
         self.volume = initial_volume
-        self.current_key = None
-        self.streams = {
-            'link1': "http://stream.srg-ssr.ch/m/rsj/mp3_128",
-            'link2': "http://stream.srg-ssr.ch/m/rsj/mp3_128",
-            'link3': "http://stream.srg-ssr.ch/m/rsj/mp3_128"
-        }
+        self.current_stream = None
+        self.streams = {}  # Dictionary to store stream URLs for each button
+        
+        # Initialize streams from config.toml
+        try:
+            with open('config.toml', 'r', encoding='utf-8') as f:
+                config = toml.load(f)
+                stations = config.get('links', [])
+                # Set first three stations as default streams
+                for i, station in enumerate(stations[:3]):
+                    self.streams[f'link{i+1}'] = station['url']
+        except Exception as e:
+            logger.error(f"Error loading initial streams: {e}")
+        
         self.player.audio_set_volume(self.volume)
-        logger.info("StreamManager initialized")
+        logger.info("StreamManager initialized with streams: %s", self.streams)
 
     def play_stream(self, stream_key):
         try:
+            logger.info(f"Playing stream_key: {stream_key}")
+            logger.info(f"Available streams: {self.streams}")
             logger.info(f"Playing stream: {stream_key}")
             if stream_key in self.streams:
-                if self.current_key == stream_key and self.player.is_playing():
+                if self.current_stream == stream_key and self.player.is_playing():
                     logger.info("Stopping current stream")
                     self.stop_stream()
                     return True
                 
-                self.current_key = stream_key
+                self.current_stream = stream_key
                 stream_url = self.streams[stream_key]
+                logger.info(f"Creating media for URL: {stream_url}")
                 media = self.instance.media_new(stream_url)
-                # Add media options for better buffering
-                media.add_option('network-caching=1500')
-                media.add_option('file-caching=1500')
-                media.add_option('live-caching=1500')
                 self.player.set_media(media)
-                self.player.play()
-                return True
+                success = self.player.play() == 0
+                logger.info(f"Stream play result: {success}")
+                return success
+            logger.warning(f"Stream key not found: {stream_key}")
             return False
         except Exception as e:
             logger.error(f"Error playing stream: {e}")
@@ -98,6 +101,7 @@ class StreamManager:
         try:
             logger.info("Stopping stream")
             self.player.stop()
+            self.current_stream = None
             return True
         except Exception as e:
             logger.error(f"Error stopping stream: {e}")
@@ -282,12 +286,17 @@ def create_app(stream_manager):
     @app.route('/')
     def index():
         try:
-            return render_template('index.html', 
-                                 link1=stream_manager.streams['link1'],
-                                 link2=stream_manager.streams['link2'],
-                                 link3=stream_manager.streams['link3'])
+            # Load radio stations from config.toml
+            with open('config.toml', 'r', encoding='utf-8') as f:
+                config = toml.load(f)
+                stations = config.get('links', [])
+            
+            # Get default streams (first three entries)
+            default_streams = stations[:3]
+            
+            return render_template('index.html', default_streams=default_streams)
         except Exception as e:
-            logger.error(f"Error in index route: {e}")
+            logger.error(f"Error in index: {e}")
             return str(e), 500
 
     @app.route('/wifi-settings', methods=['GET', 'POST'])
@@ -338,27 +347,53 @@ def create_app(stream_manager):
         except:
             return jsonify({'connected': False})
 
-    @app.route('/api/stream/play', methods=['POST'])
+    @app.route('/play-stream', methods=['POST'])
     def play_stream():
         try:
-            data = request.get_json()
-            stream_key = data.get('stream_key')
-            if not stream_key:
-                return jsonify({'error': 'stream_key required'}), 400
-            success = stream_manager.play_stream(stream_key)
+            url = request.form.get('url')
+            logger.info(f"Attempting to play URL: {url}")
+            logger.info(f"Available streams: {stream_manager.streams}")
+            
+            if not url:
+                return jsonify({'success': False, 'error': 'URL required'}), 400
+                
+            # Find which channel this URL belongs to
+            channel = None
+            for key, stream_url in stream_manager.streams.items():
+                if stream_url == url:
+                    channel = key
+                    break
+                    
+            if channel:
+                success = stream_manager.play_stream(channel)
+            else:
+                # If no channel found, play directly with URL
+                media = stream_manager.instance.media_new(url)
+                stream_manager.player.set_media(media)
+                success = stream_manager.player.play() == 0
+                
             return jsonify({'success': success})
         except Exception as e:
             logger.error(f"Error playing stream: {e}")
-            return jsonify({'error': str(e)}), 500
+            return jsonify({'success': False, 'error': str(e)}), 500
 
-    @app.route('/api/stream/stop', methods=['POST'])
+    @app.route('/stop-stream', methods=['POST'])
     def stop_stream():
         try:
             success = stream_manager.stop_stream()
             return jsonify({'success': success})
         except Exception as e:
             logger.error(f"Error stopping stream: {e}")
-            return jsonify({'error': str(e)}), 500
+            return jsonify({'success': False, 'error': str(e)}), 500
+
+    @app.route('/stream-status')
+    def stream_status():
+        try:
+            is_running = stream_manager.player.is_playing()
+            return jsonify({'is_running': bool(is_running)})
+        except Exception as e:
+            logger.error(f"Error checking stream status: {e}")
+            return jsonify({'is_running': False})
 
     @app.route('/api/stream/volume', methods=['POST'])
     def set_volume():
@@ -372,6 +407,84 @@ def create_app(stream_manager):
         except Exception as e:
             logger.error(f"Error setting volume: {e}")
             return jsonify({'error': str(e)}), 500
+
+    @app.route('/stream-select')
+    def stream_select():
+        try:
+            channel = request.args.get('channel')
+            if not channel:
+                return "Channel parameter is required", 400
+
+            # Load radio stations from config.toml
+            with open('config.toml', 'r', encoding='utf-8') as f:
+                config = toml.load(f)
+                stations = config.get('links', [])
+            
+            # Get default streams (first three entries)
+            default_streams = stations[:3]
+            # Get remaining stations for selection
+            spare_links = stations[3:]
+            
+            return render_template('stream_select.html', 
+                                 spare_links=spare_links,
+                                 channel=channel,
+                                 default_streams=default_streams)
+        except Exception as e:
+            logger.error(f"Error in stream_select: {e}")
+            return str(e), 500
+
+    @app.route('/update-stream', methods=['POST'])
+    def update_stream():
+        try:
+            channel = request.form.get('channel')
+            selected_link = request.form.get('selected_link')
+            
+            logger.info(f"Updating stream for channel {channel} with URL {selected_link}")
+            logger.info(f"Current streams before update: {stream_manager.streams}")
+            
+            if not channel or not selected_link:
+                return jsonify({'success': False, 'error': 'Missing parameters'}), 400
+                
+            # Load current config
+            with open('config.toml', 'r', encoding='utf-8') as f:
+                config = toml.load(f)
+                stations = config.get('links', [])
+            
+            # Find the selected station
+            selected_station = None
+            for station in stations:
+                if station['url'] == selected_link:
+                    selected_station = station
+                    break
+                
+            if selected_station:
+                # Move selected station to the appropriate position (0, 1, or 2)
+                channel_index = int(channel[-1]) - 1  # Convert link1 to 0, link2 to 1, etc.
+                if 0 <= channel_index < 3:
+                    # Remove station from current position if it exists
+                    stations.remove(selected_station)
+                    # Insert at new position
+                    stations.insert(channel_index, selected_station)
+                    
+                    # Save updated config
+                    with open('config.toml', 'w', encoding='utf-8') as f:
+                        toml.dump({'links': stations}, f)
+                    
+                    # Update the stream manager with the new URL
+                    stream_manager.streams[channel] = selected_station['url']
+                    logger.info(f"Updated streams in manager: {stream_manager.streams}")
+                    
+                    # Reload the stream if it was currently playing
+                    if stream_manager.current_stream == channel:
+                        logger.info(f"Reloading current stream for channel {channel}")
+                        stream_manager.play_stream(channel)
+                    
+                    return jsonify({'success': True})
+            
+            return jsonify({'success': False, 'error': 'Station not found'})
+        except Exception as e:
+            logger.error(f"Error updating stream: {e}")
+            return jsonify({'success': False, 'error': str(e)}), 500
 
     return app
 

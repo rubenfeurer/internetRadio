@@ -332,4 +332,9 @@ button:active {
     background: rgb(183, 183, 183);
     box-shadow: none;
     color:white;
-}   
+}
+
+.edit-button.playing {
+    background-color: #ff0000;
+    color: white;
+}

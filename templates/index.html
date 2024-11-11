@@ -10,21 +10,33 @@
     <div class="container">
         <h1>Radio</h1>
         <div class="input-group">
-            <!-- <label for="link1">Channel 1:</label> -->
             <div class="input-row">
-                <button class="edit-button" onclick="toggleEdit('link1')">{{ link1 }}</button>
+                <button class="edit-button" 
+                        id="button1" 
+                        data-url="{{ default_streams[0].url if default_streams else '' }}"
+                        onclick="window.location.href='{{ url_for('stream_select', channel='link1') }}'">
+                    {{ default_streams[0].name if default_streams else 'Select Stream' }}
+                </button>
             </div>
         </div>
         <div class="input-group">
-            <!-- <label for="link2">Channel 2:</label> -->
             <div class="input-row">
-                <button class="edit-button" onclick="toggleEdit('link2')">{{ link2 }}</button>
+                <button class="edit-button" 
+                        id="button2" 
+                        data-url="{{ default_streams[1].url if default_streams else '' }}"
+                        onclick="window.location.href='{{ url_for('stream_select', channel='link2') }}'">
+                    {{ default_streams[1].name if default_streams else 'Select Stream' }}
+                </button>
             </div>
         </div>
         <div class="input-group">
-            <!-- <label for="link3">Channel 3:</label> -->
             <div class="input-row">
-                <button class="edit-button" onclick="toggleEdit('link3')">{{ link3 }}</button>
+                <button class="edit-button" 
+                        id="button3" 
+                        data-url="{{ default_streams[2].url if default_streams else '' }}"
+                        onclick="window.location.href='{{ url_for('stream_select', channel='link3') }}'">
+                    {{ default_streams[2].name if default_streams else 'Select Stream' }}
+                </button>
             </div>
         </div>
         <div class="wifi-status">
@@ -39,47 +51,83 @@
             <a href="{{ url_for('wifi_settings') }}" class="wifi-settings-button">WiFi Settings</a>
         </div>
     </div>
+
     <script>
-        function toggleEdit(id) {
-            window.location.href = `/stream-select?channel=${id}`;
-        }
-        function updateWifiStatus() {
-            fetch('/get_wifi_ssid')
+        // Store the currently playing stream
+        let currentlyPlaying = null;
+
+        // Function to play/pause stream
+        function toggleStream(channel) {
+            const button = document.getElementById(`button${channel}`);
+            // Get the URL from a data attribute we'll add to the button
+            const url = button.getAttribute('data-url');
+            
+            if (!url) {
+                console.error('No stream URL configured for this button');
+                return;
+            }
+            
+            if (currentlyPlaying === channel) {
+                // Stop the current stream
+                fetch('/stop-stream', {
+                    method: 'POST'
+                })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.ssid) {
-                        document.getElementById('wifi-ssid').textContent = `${data.ssid} WiFi`;
-                    } else if (data.error) {
-                        // If no Wi-Fi is connected, redirect to the Wi-Fi settings page
-                        window.location.href = '/wifi-setup';
+                    if (data.success) {
+                        currentlyPlaying = null;
+                        button.classList.remove('playing');
                     }
                 })
                 .catch(error => console.error('Error:', error));
-        }
-        function updateInternetStatus() {
-            // Check internet connection by calling the server-side Flask route
-            fetch('/check_internet_connection')
+            } else {
+                // Stop any currently playing stream
+                if (currentlyPlaying) {
+                    document.getElementById(`button${currentlyPlaying}`).classList.remove('playing');
+                }
+                
+                // Play the new stream
+                fetch('/play-stream', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({ url: url })
+                })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.connected) {
-                        document.getElementById('connection-status-circle').style.backgroundColor = 'green';
-                        document.getElementById('connection-status-message').textContent = 'Connected';
-                    } else {
-                        document.getElementById('connection-status-circle').style.backgroundColor = 'red';
-                        document.getElementById('connection-status-message').textContent = 'No Internet connection';
+                    if (data.success) {
+                        currentlyPlaying = channel;
+                        button.classList.add('playing');
                     }
                 })
-                .catch(error => {
-                    console.log(data)
-                    console.error('Error:', error);
-                    document.getElementById('connection-status-circle').style.backgroundColor = 'blue';
-                    document.getElementById('connection-status-message').textContent = 'No Internet connection';
-                });
+                .catch(error => console.error('Error:', error));
+            }
         }
-        window.onload = function() {
-            updateWifiStatus();
-            updateInternetStatus();
+
+        // Listen for physical button events from server
+        const eventSource = new EventSource('/button-events');
+        eventSource.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            if (data.button && data.action === 'press') {
+                toggleStream(data.button);
+            }
         };
+
+        // Check stream status periodically
+        setInterval(() => {
+            if (currentlyPlaying) {
+                fetch('/stream-status')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.is_running) {
+                        document.getElementById(`button${currentlyPlaying}`).classList.remove('playing');
+                        currentlyPlaying = null;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }, 1000);
     </script>
 </body>
 </html>

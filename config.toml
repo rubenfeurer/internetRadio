@@ -1,8 +1,62 @@
 [[links]]
+name = "A Fine Jazz Gumbo Radio"
+url = "https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3"
+country = "Switzerland"
+location = "Bellinzona"
+
+[[links]]
+name = "Agaune Radio"
+url = "https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3"
+country = "Switzerland"
+location = "Saint-Maurice"
+
+[[links]]
 name = "GDS.FM"
 url = "https://gdsfm.out.airtime.pro/gdsfm_a"
 country = "Switzerland"
 location = ""
+
+[[links]]
+name = "1.FM - Amsterdam Trance Radio"
+url = "https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3"
+country = "Switzerland"
+location = "Zug"
+
+[[links]]
+name = "1.FM - Absolute Trance"
+url = "https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3"
+country = "Switzerland"
+location = "Zug"
+
+[[links]]
+name = "1.FM - Deep House"
+url = "https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3"
+country = "Switzerland"
+location = "Zug"
+
+[[links]]
+name = "80s Forever Radio"
+url = "https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3"
+country = "Switzerland"
+location = "Bergdietikon"
+
+[[links]]
+name = "1.FM - Bossa Nova Hits"
+url = "https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3"
+country = "Switzerland"
+location = "Zug"
+
+[[links]]
+name = "1.FM - Classic Rock Replay Radio"
+url = "https://radio.garden/api/ara/content/listen/9-QUhrUm/channel.mp3"
+country = "Switzerland"
+location = "Zug"
+
+[[links]]
+name = "1.FM - Disco Ball 70's-80's Radio"
+url = "https://radio.garden/api/ara/content/listen/disco-ball/channel.mp3"
+country = "Switzerland"
+location = "Zug"
 
 [[links]]
 name = "SRF 1"
@@ -159,18 +213,6 @@ name = "RadioPolis.xyz"
 url = "https://radio.garden/api/ara/content/listen/XjDlwbDG/channel.mp3"
 country = "Switzerland"
 location = "Basel"
-
-[[links]]
-name = "A Fine Jazz Gumbo Radio"
-url = "https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3"
-country = "Switzerland"
-location = "Bellinzona"
-
-[[links]]
-name = "80s Forever Radio"
-url = "https://radio.garden/api/ara/content/listen/jLLD76tj/channel.mp3"
-country = "Switzerland"
-location = "Bergdietikon"
 
 [[links]]
 name = "Klassik Radio Schweiz"
@@ -611,12 +653,6 @@ country = "Switzerland"
 location = "Saint-Jorioz"
 
 [[links]]
-name = "Agaune Radio"
-url = "https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3"
-country = "Switzerland"
-location = "Saint-Maurice"
-
-[[links]]
 name = "Radio Giffre FM 100.9"
 url = "https://radio.garden/api/ara/content/listen/86BesX3G/channel.mp3"
 country = "Switzerland"
@@ -796,38 +832,3 @@ url = "https://radio.garden/api/ara/content/listen/yG3MCoFr/channel.mp3"
 country = "Switzerland"
 location = "Zuchwil"
 
-[[links]]
-name = "1.FM - Absolute Trance"
-url = "https://radio.garden/api/ara/content/listen/03pDIT2N/channel.mp3"
-country = "Switzerland"
-location = "Zug"
-
-[[links]]
-name = "1.FM - Amsterdam Trance Radio"
-url = "https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3"
-country = "Switzerland"
-location = "Zug"
-
-[[links]]
-name = "1.FM - Bossa Nova Hits"
-url = "https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3"
-country = "Switzerland"
-location = "Zug"
-
-[[links]]
-name = "1.FM - Classic Rock Replay Radio"
-url = "https://radio.garden/api/ara/content/listen/9-QUhrUm/channel.mp3"
-country = "Switzerland"
-location = "Zug"
-
-[[links]]
-name = "1.FM - Deep House"
-url = "https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3"
-country = "Switzerland"
-location = "Zug"
-
-[[links]]
-name = "1.FM - Disco Ball 70's-80's Radio"
-url = "https://radio.garden/api/ara/content/listen/disco-ball/channel.mp3"
-country = "Switzerland"
-location = "Zug"
