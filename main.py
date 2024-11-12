@@ -727,30 +727,34 @@ def get_wifi_networks():
         return []
 
 def get_saved_networks():
-    """Get list of saved WiFi networks"""
     try:
-        # Get all connections directly
         result = subprocess.run(
-            ['sudo', 'nmcli', '-t', 'connection', 'show'],
-            capture_output=True, text=True
+            ['nmcli', '-t', '-f', 'NAME,TYPE,TIMESTAMP-REAL', 'connection', 'show'],
+            capture_output=True,
+            text=True
         )
         
-        logger.info(f"Raw nmcli output: {result.stdout}")
+        saved_networks = []
+        if result.returncode == 0:
+            for line in result.stdout.strip().split('\n'):
+                if line and 'wifi' in line:
+                    name = line.split(':')[0]
+                    # Check if this connection was ever successful
+                    check_status = subprocess.run(
+                        ['nmcli', '-t', '-f', 'GENERAL.STATE', 'connection', 'show', name],
+                        capture_output=True,
+                        text=True
+                    )
+                    if check_status.returncode == 0 and 'activated' in check_status.stdout.lower():
+                        saved_networks.append(name)
+                    else:
+                        # Clean up never-connected networks
+                        subprocess.run(['sudo', 'nmcli', 'connection', 'delete', name])
         
-        # Filter for wifi connections
-        saved = []
-        for line in result.stdout.strip().split('\n'):
-            if ':802-11-wireless:' in line:  # Check for WiFi connections
-                name = line.split(':')[0]
-                if name not in ['InternetRadio', 'Hotspot', 'preconfigured']:
-                    saved.append(name)
-                    logger.info(f"Added {name} to saved networks")
+        return saved_networks
         
-        logger.info(f"Final saved networks list: {saved}")
-        return saved
     except Exception as e:
-        logger.error(f"Error getting saved networks: {e}")
-        logger.error(f"Exception details: {str(e)}")
+        logger.error(f"Error getting saved networks: {str(e)}")
         return []
 
 def setup_ap_mode():
@@ -868,6 +872,56 @@ def switch_to_ap_mode():
     except Exception as e:
         logger.error(f"Error switching to AP mode: {str(e)}")
         return False
+
+def connect_to_network(ssid, password=None):
+    try:
+        logger.info(f"Attempting to connect to network: {ssid}")
+        
+        # First check if this is a saved connection
+        check_saved = subprocess.run(
+            ['nmcli', '-t', '-f', 'NAME', 'connection', 'show'],
+            capture_output=True,
+            text=True
+        )
+        
+        # If connection exists but never succeeded, delete it
+        if ssid in check_saved.stdout:
+            check_status = subprocess.run(
+                ['nmcli', '-t', '-f', 'GENERAL.STATE', 'connection', 'show', ssid],
+                capture_output=True,
+                text=True
+            )
+            if 'activated' not in check_status.stdout.lower():
+                logger.info(f"Removing failed connection for {ssid}")
+                subprocess.run(['sudo', 'nmcli', 'connection', 'delete', ssid])
+
+        # Attempt to connect
+        if password:
+            result = subprocess.run(
+                ['sudo', 'nmcli', 'device', 'wifi', 'connect', ssid, 'password', password],
+                capture_output=True,
+                text=True
+            )
+        else:
+            result = subprocess.run(
+                ['sudo', 'nmcli', 'device', 'wifi', 'connect', ssid],
+                capture_output=True,
+                text=True
+            )
+
+        if result.returncode == 0:
+            logger.info(f"Successfully connected to {ssid}")
+            return {'status': 'success'}
+        else:
+            error_msg = result.stderr.strip() or "Failed to connect"
+            logger.error(f"Failed to connect to {ssid}: {error_msg}")
+            # Clean up failed connection
+            subprocess.run(['sudo', 'nmcli', 'connection', 'delete', ssid])
+            return {'status': 'error', 'message': error_msg}
+
+    except Exception as e:
+        logger.error(f"Error in connect_to_network: {str(e)}")
+        return {'status': 'error', 'message': str(e)}
 
 def main():
     try:

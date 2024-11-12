@@ -11152,3 +11152,296 @@ Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
 2024-11-12 13:12:09,661 - __main__ - INFO - hostapd service active
 2024-11-12 13:12:09,661 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'UETLIBERG', 'pab-81759', 'visitor-81759', 'Salt_2GHz_9AA844', 'KerichtHome', 'FRITZ!Box 5530_2.4', 'netzwlan5', 'Surfs_up_1', 'UPCD5B6DA7'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Surfs_up_2'], 'current_network': 'Salt_5GHz_D8261F', 'ap_mode': True}
 2024-11-12 13:12:09,662 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:12:09] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 13:13:12,602 - __main__ - INFO - Button pressed for stream: link3
+2024-11-12 13:13:12,605 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-12 13:13:12,605 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 13:13:12,605 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 13:13:12,606 - __main__ - INFO - Creating media for URL: https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3
+2024-11-12 13:13:12,607 - __main__ - INFO - Stream play result: True
+[0000007f78000c70] http stream error: local stream 1 error: Cancellation (0x8)
+[0000007f78000c70] http stream error: local stream 1 error: Stream closed (0x5)
+2024-11-12 13:13:13,592 - __main__ - INFO - Volume set to 55
+2024-11-12 13:13:13,592 - __main__ - INFO - Volume up: 55
+2024-11-12 13:13:13,604 - __main__ - INFO - Volume set to 60
+2024-11-12 13:13:13,604 - __main__ - INFO - Volume up: 60
+2024-11-12 13:13:13,619 - __main__ - INFO - Volume set to 65
+2024-11-12 13:13:13,619 - __main__ - INFO - Volume up: 65
+2024-11-12 13:13:13,661 - __main__ - INFO - Volume set to 70
+2024-11-12 13:13:13,661 - __main__ - INFO - Volume up: 70
+2024-11-12 13:13:13,751 - __main__ - INFO - Volume set to 75
+2024-11-12 13:13:13,751 - __main__ - INFO - Volume up: 75
+2024-11-12 13:13:13,810 - __main__ - INFO - Volume set to 80
+2024-11-12 13:13:13,810 - __main__ - INFO - Volume up: 80
+2024-11-12 13:13:13,852 - __main__ - INFO - Volume set to 85
+2024-11-12 13:13:13,852 - __main__ - INFO - Volume up: 85
+2024-11-12 13:13:13,888 - __main__ - INFO - Volume set to 90
+2024-11-12 13:13:13,888 - __main__ - INFO - Volume up: 90
+2024-11-12 13:13:13,917 - __main__ - INFO - Volume set to 95
+2024-11-12 13:13:13,917 - __main__ - INFO - Volume up: 95
+2024-11-12 13:13:13,937 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:13,937 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:13,953 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:13,953 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:13,980 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:13,980 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:14,042 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:14,042 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:14,070 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:14,070 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:14,086 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:14,086 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:14,101 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:14,101 - __main__ - INFO - Volume up: 100
+[0000007f78000c70] access stream error: HTTP 404 error
+[0000007f74002c30] main input error: Your input can't be opened
+[0000007f74002c30] main input error: VLC is unable to open the MRL 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'. Check the log for details.
+2024-11-12 13:13:14,525 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:14,526 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:14,567 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:14,567 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:14,657 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:14,657 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:14,740 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:14,740 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:14,887 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:14,887 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:17,537 - __main__ - INFO - Volume set to 95
+2024-11-12 13:13:17,537 - __main__ - INFO - Volume down: 95
+2024-11-12 13:13:17,552 - __main__ - INFO - Volume set to 90
+2024-11-12 13:13:17,552 - __main__ - INFO - Volume down: 90
+2024-11-12 13:13:17,573 - __main__ - INFO - Volume set to 85
+2024-11-12 13:13:17,573 - __main__ - INFO - Volume down: 85
+2024-11-12 13:13:17,600 - __main__ - INFO - Volume set to 80
+2024-11-12 13:13:17,600 - __main__ - INFO - Volume down: 80
+2024-11-12 13:13:17,629 - __main__ - INFO - Volume set to 75
+2024-11-12 13:13:17,629 - __main__ - INFO - Volume down: 75
+2024-11-12 13:13:17,659 - __main__ - INFO - Volume set to 70
+2024-11-12 13:13:17,660 - __main__ - INFO - Volume down: 70
+2024-11-12 13:13:17,692 - __main__ - INFO - Volume set to 65
+2024-11-12 13:13:17,692 - __main__ - INFO - Volume down: 65
+2024-11-12 13:13:17,725 - __main__ - INFO - Volume set to 60
+2024-11-12 13:13:17,725 - __main__ - INFO - Volume down: 60
+2024-11-12 13:13:17,753 - __main__ - INFO - Volume set to 55
+2024-11-12 13:13:17,754 - __main__ - INFO - Volume down: 55
+2024-11-12 13:13:17,784 - __main__ - INFO - Volume set to 50
+2024-11-12 13:13:17,784 - __main__ - INFO - Volume down: 50
+2024-11-12 13:13:17,808 - __main__ - INFO - Volume set to 45
+2024-11-12 13:13:17,809 - __main__ - INFO - Volume down: 45
+2024-11-12 13:13:17,832 - __main__ - INFO - Volume set to 40
+2024-11-12 13:13:17,833 - __main__ - INFO - Volume down: 40
+2024-11-12 13:13:17,849 - __main__ - INFO - Volume set to 35
+2024-11-12 13:13:17,849 - __main__ - INFO - Volume down: 35
+2024-11-12 13:13:17,861 - __main__ - INFO - Volume set to 30
+2024-11-12 13:13:17,862 - __main__ - INFO - Volume down: 30
+2024-11-12 13:13:17,876 - __main__ - INFO - Volume set to 25
+2024-11-12 13:13:17,876 - __main__ - INFO - Volume down: 25
+2024-11-12 13:13:17,914 - __main__ - INFO - Volume set to 20
+2024-11-12 13:13:17,915 - __main__ - INFO - Volume down: 20
+2024-11-12 13:13:18,348 - __main__ - INFO - Volume set to 15
+2024-11-12 13:13:18,349 - __main__ - INFO - Volume down: 15
+2024-11-12 13:13:18,400 - __main__ - INFO - Volume set to 10
+2024-11-12 13:13:18,400 - __main__ - INFO - Volume down: 10
+2024-11-12 13:13:18,464 - __main__ - INFO - Volume set to 5
+2024-11-12 13:13:18,464 - __main__ - INFO - Volume down: 5
+2024-11-12 13:13:18,495 - __main__ - INFO - Volume set to 0
+2024-11-12 13:13:18,496 - __main__ - INFO - Volume down: 0
+2024-11-12 13:13:18,544 - __main__ - INFO - Volume set to 0
+2024-11-12 13:13:18,544 - __main__ - INFO - Volume down: 0
+2024-11-12 13:13:18,602 - __main__ - INFO - Volume set to 0
+2024-11-12 13:13:18,603 - __main__ - INFO - Volume down: 0
+2024-11-12 13:13:19,839 - __main__ - INFO - Volume set to 5
+2024-11-12 13:13:19,840 - __main__ - INFO - Volume up: 5
+2024-11-12 13:13:19,877 - __main__ - INFO - Volume set to 10
+2024-11-12 13:13:19,877 - __main__ - INFO - Volume up: 10
+2024-11-12 13:13:19,902 - __main__ - INFO - Volume set to 15
+2024-11-12 13:13:19,902 - __main__ - INFO - Volume up: 15
+2024-11-12 13:13:19,924 - __main__ - INFO - Volume set to 20
+2024-11-12 13:13:19,925 - __main__ - INFO - Volume up: 20
+2024-11-12 13:13:19,942 - __main__ - INFO - Volume set to 25
+2024-11-12 13:13:19,943 - __main__ - INFO - Volume up: 25
+2024-11-12 13:13:19,956 - __main__ - INFO - Volume set to 30
+2024-11-12 13:13:19,956 - __main__ - INFO - Volume up: 30
+2024-11-12 13:13:19,966 - __main__ - INFO - Volume set to 35
+2024-11-12 13:13:19,967 - __main__ - INFO - Volume up: 35
+2024-11-12 13:13:19,976 - __main__ - INFO - Volume set to 40
+2024-11-12 13:13:19,976 - __main__ - INFO - Volume up: 40
+2024-11-12 13:13:19,984 - __main__ - INFO - Volume set to 45
+2024-11-12 13:13:19,985 - __main__ - INFO - Volume up: 45
+2024-11-12 13:13:19,995 - __main__ - INFO - Volume set to 50
+2024-11-12 13:13:19,995 - __main__ - INFO - Volume up: 50
+2024-11-12 13:13:20,007 - __main__ - INFO - Volume set to 55
+2024-11-12 13:13:20,008 - __main__ - INFO - Volume up: 55
+2024-11-12 13:13:20,027 - __main__ - INFO - Volume set to 60
+2024-11-12 13:13:20,028 - __main__ - INFO - Volume up: 60
+2024-11-12 13:13:20,583 - __main__ - INFO - Volume set to 65
+2024-11-12 13:13:20,583 - __main__ - INFO - Volume up: 65
+2024-11-12 13:13:20,600 - __main__ - INFO - Volume set to 70
+2024-11-12 13:13:20,601 - __main__ - INFO - Volume up: 70
+2024-11-12 13:13:20,626 - __main__ - INFO - Volume set to 75
+2024-11-12 13:13:20,627 - __main__ - INFO - Volume up: 75
+2024-11-12 13:13:20,676 - __main__ - INFO - Volume set to 80
+2024-11-12 13:13:20,676 - __main__ - INFO - Volume up: 80
+2024-11-12 13:13:20,703 - __main__ - INFO - Volume set to 85
+2024-11-12 13:13:20,703 - __main__ - INFO - Volume up: 85
+2024-11-12 13:13:20,728 - __main__ - INFO - Volume set to 90
+2024-11-12 13:13:20,728 - __main__ - INFO - Volume up: 90
+2024-11-12 13:13:20,753 - __main__ - INFO - Volume set to 95
+2024-11-12 13:13:20,753 - __main__ - INFO - Volume up: 95
+2024-11-12 13:13:20,776 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:20,776 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:20,798 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:20,798 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:20,817 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:20,818 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:20,839 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:20,840 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:21,321 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:21,321 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:21,328 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:21,328 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:21,335 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:21,335 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:21,343 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:21,344 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:21,356 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:21,356 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:21,372 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:21,372 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:21,394 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:21,394 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:21,419 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:21,419 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:21,451 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:21,451 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:21,980 - __main__ - INFO - Button pressed for stream: link3
+2024-11-12 13:13:21,981 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-12 13:13:21,981 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 13:13:21,981 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 13:13:21,981 - __main__ - INFO - Stopping current stream
+2024-11-12 13:13:21,981 - __main__ - INFO - Stopping stream
+2024-11-12 13:13:27,275 - __main__ - INFO - Button pressed for stream: link3
+2024-11-12 13:13:27,276 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-12 13:13:27,276 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 13:13:27,276 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 13:13:27,276 - __main__ - INFO - Creating media for URL: https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3
+2024-11-12 13:13:27,276 - __main__ - INFO - Stream play result: True
+[0000007f78020150] http stream error: local stream 1 error: Cancellation (0x8)
+[0000007f78020150] http stream error: local stream 1 error: Stream closed (0x5)
+[0000007f78020150] access stream error: HTTP 404 error
+[0000007f74002c30] main input error: Your input can't be opened
+[0000007f74002c30] main input error: VLC is unable to open the MRL 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'. Check the log for details.
+2024-11-12 13:13:28,991 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:28,991 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:29,007 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:29,007 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:29,018 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:29,018 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:29,029 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:29,029 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:29,077 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:29,077 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:29,123 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:29,123 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:29,148 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:29,149 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:29,169 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:29,169 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:29,188 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:29,188 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:29,211 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:29,211 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:29,232 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:29,232 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:29,253 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:29,253 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:30,213 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:30,213 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:30,270 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:30,271 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:30,308 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:30,308 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:30,334 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:30,334 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:30,358 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:30,359 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:30,387 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:30,388 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:30,420 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:30,420 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:30,981 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:30,981 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:30,995 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:30,995 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:31,005 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:31,005 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:31,015 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:31,015 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:31,027 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:31,027 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:31,043 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:31,044 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:31,068 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:31,069 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:31,114 - __main__ - INFO - Volume set to 100
+2024-11-12 13:13:31,115 - __main__ - INFO - Volume up: 100
+2024-11-12 13:13:41,280 - __main__ - INFO - Button pressed for stream: link3
+2024-11-12 13:13:41,280 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-12 13:13:41,281 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 13:13:41,281 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 13:13:41,281 - __main__ - INFO - Stopping current stream
+2024-11-12 13:13:41,281 - __main__ - INFO - Stopping stream
+2024-11-12 13:18:03,974 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:18:03] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 13:18:04,002 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:18:04] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 13:18:07,255 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'fkG091B_2', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759']
+2024-11-12 13:18:07,307 - __main__ - INFO - Raw nmcli output: preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:wlan0
+lo:8eac5409-4357-4294-b1e7-d0ca628c80ce:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 13:18:07,308 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 13:18:07,308 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 13:18:07,309 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 13:18:07,320 - __main__ - INFO - hostapd service active
+2024-11-12 13:18:07,320 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'fkG091B_2', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_5GHz_D8261F', 'ap_mode': True}
+2024-11-12 13:18:07,321 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:18:07] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 13:18:15,001 - __main__ - INFO - Received signal 15
+2024-11-12 13:18:15,001 - __main__ - INFO - Starting cleanup...
+2024-11-12 13:18:15,001 - __main__ - INFO - Stopping stream
+2024-11-12 13:18:15,004 - __main__ - INFO - Received signal 15
+2024-11-12 13:18:15,005 - __main__ - INFO - Starting cleanup...
+2024-11-12 13:18:15,006 - __main__ - INFO - Stopping stream
+2024-11-12 13:18:22,972 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:18:22] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 13:18:22,990 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:18:22] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 13:18:26,213 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'fkG091B_2', 'Surfs_up_2', 'Skynet2.4G', 'visitor-81759', 'DIRECT-2E-HP OfficeJet 4650', 'FotokiteFactory', 'pab-81759']
+2024-11-12 13:18:26,298 - __main__ - INFO - Raw nmcli output: preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:wlan0
+lo:8eac5409-4357-4294-b1e7-d0ca628c80ce:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 13:18:26,299 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 13:18:26,299 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 13:18:26,299 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 13:18:26,317 - __main__ - INFO - hostapd service active
+2024-11-12 13:18:26,317 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'fkG091B_2', 'Surfs_up_2', 'Skynet2.4G', 'visitor-81759', 'DIRECT-2E-HP OfficeJet 4650', 'FotokiteFactory', 'pab-81759'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_5GHz_D8261F', 'ap_mode': True}
+2024-11-12 13:18:26,318 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:18:26] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 13:18:29,142 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 13:18:38,397 - __main__ - INFO - Successfully connected to Salt_2GHz_D8261F
+2024-11-12 13:18:38,399 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:18:38] "POST /connect HTTP/1.1" 200 -
+2024-11-12 13:18:46,161 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'fkG091B_2', 'Surfs_up_2', 'Skynet2.4G', 'visitor-81759', 'FotokiteFactory', 'netzwlan5', 'DIRECT-2E-HP OfficeJet 4650', 'pab-81759', 'Surfs_up_1']
+2024-11-12 13:18:46,219 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:8eac5409-4357-4294-b1e7-d0ca628c80ce:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 13:18:46,219 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 13:18:46,219 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 13:18:46,219 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 13:18:46,230 - __main__ - INFO - hostapd service active
+2024-11-12 13:18:46,231 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'fkG091B_2', 'Surfs_up_2', 'Skynet2.4G', 'visitor-81759', 'FotokiteFactory', 'netzwlan5', 'DIRECT-2E-HP OfficeJet 4650', 'pab-81759', 'Surfs_up_1'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': True}
+2024-11-12 13:18:46,232 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:18:46] "GET /wifi-scan HTTP/1.1" 200 -
