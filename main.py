@@ -636,6 +636,43 @@ def create_app(stream_manager):
     def ping():
         return jsonify({'status': 'ok'})
 
+    @app.route('/connect', methods=['POST'])
+    def connect_to_network():
+        try:
+            ssid = request.form.get('ssid')
+            password = request.form.get('password')
+            
+            if not ssid:
+                return jsonify({'status': 'error', 'message': 'SSID is required'}), 400
+                
+            logger.info(f"Attempting to connect to network: {ssid}")
+            
+            # Your existing connection logic here
+            result = subprocess.run(
+                ['sudo', 'nmcli', 'device', 'wifi', 'connect', ssid] + 
+                (['password', password] if password else []),
+                capture_output=True,
+                text=True
+            )
+            
+            if result.returncode == 0:
+                logger.info(f"Successfully connected to {ssid}")
+                return jsonify({'status': 'success'})
+            else:
+                error_msg = result.stderr.strip() or "Unknown error occurred"
+                logger.error(f"Failed to connect to {ssid}: {error_msg}")
+                return jsonify({
+                    'status': 'error',
+                    'message': error_msg
+                }), 400
+                
+        except Exception as e:
+            logger.error(f"Error in connect_to_network: {str(e)}")
+            return jsonify({
+                'status': 'error',
+                'message': str(e)
+            }), 500
+
     return app
 
 def restart_pi():

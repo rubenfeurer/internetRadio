@@ -116,6 +116,7 @@ button:active {
 .button-container {
     margin-bottom: 40px; /* Margin below button containers to separate them from other elements */
     margin-top: 20px;
+    position: relative;
 }
 
 .edit-button {
@@ -352,20 +353,25 @@ button:active {
 
 .network-item {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
     padding: 15px;
     margin-bottom: 10px;
     background-color: #fff;
     border-radius: 8px;
     cursor: pointer;
-    position: relative;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    min-height: 24px;
+}
+
+.network-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .network-name {
-    flex-grow: 1;
-    margin-right: 10px;
+    margin-right: auto;  /* Push labels to the right */
 }
 
 .labels-container {
@@ -374,13 +380,60 @@ button:active {
     align-items: center;
 }
 
+.network-form {
+    display: none;
+    width: 100%;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    position: relative;
+}
+
+.connect-button, .forget-button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.connect-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.connect-button:hover {
+    background-color: #0056b3;
+}
+
+.forget-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.forget-button:hover {
+    background-color: #c82333;
+}
+
+/* Hide forms during scanning */
+.scanning .network-form {
+    display: none !important;
+}
+
 .saved-label, .current-label {
-    display: inline-block;
+    display: inline-flex;
     padding: 3px 8px;
     border-radius: 12px;
     font-size: 0.8em;
     color: white;
-    white-space: nowrap;
 }
 
 .saved-label {
@@ -389,12 +442,6 @@ button:active {
 
 .current-label {
     background-color: #007bff;
-}
-
-.network-form {
-    display: none;
-    margin-top: 10px;
-    width: 100%;
 }
 
 .network-item.active {
@@ -416,11 +463,9 @@ button:active {
 
 .scan-status {
     display: none;
-    margin: 10px 0;
-    padding: 10px;
-    background-color: #f8f9fa;
-    border-radius: 4px;
     text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
 }
 
 .spinner {
@@ -443,10 +488,27 @@ button:active {
 .connection-status {
     display: none;
     margin: 10px 0;
-    padding: 15px;
+    padding: 10px;
     background-color: #f8f9fa;
     border-radius: 4px;
     text-align: center;
+}
+
+.error-message {
+    color: #dc3545;
+    display: block;
+    margin-bottom: 5px;
+    word-break: break-word;
+}
+
+.success-message {
+    color: #28a745;
+}
+
+.error-details {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px;
 }
 
 .connecting-spinner {
@@ -466,13 +528,28 @@ button:active {
     font-weight: bold;
 }
 
-.error-message {
-    color: #dc3545;
-}
-
-.success-message {
-    color: #28a745;
-}
-
 .ap-mode-notice {
     margin
+}
+
+#refreshButton {
+    width: 100%;
+    padding: 15px;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: opacity 0.3s ease;
+}
+
+#refreshButton.scanning {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Remove the global connection status from the page */
+#connectionStatus {
+    display: none !important;
+}
