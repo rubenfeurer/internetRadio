@@ -31,6 +31,12 @@
         <p>Please connect to a network below to exit AP mode.</p>
     </div>
 
+    <div id="connection-status" class="connection-status-container" style="display: none;">
+        <div class="status-spinner"></div>
+        <div class="status-message"></div>
+        <div class="status-details"></div>
+    </div>
+
     <script>
         let currentNetwork = '';
         
@@ -227,26 +233,25 @@
                 });
         }
 
+        function showStatus(message, details = '', type = 'info') {
+            const statusContainer = document.getElementById('connection-status');
+            const statusMessage = statusContainer.querySelector('.status-message');
+            const statusDetails = statusContainer.querySelector('.status-details');
+            
+            statusContainer.style.display = 'block';
+            statusMessage.textContent = message;
+            statusDetails.innerHTML = details;
+            
+            // Apply appropriate styling based on type
+            statusContainer.className = 'connection-status-container ' + type;
+        }
+
         function submitConnection(formData) {
             const ssid = formData.get('ssid');
-            const networkItem = Array.from(document.querySelectorAll('.network-item'))
-                .find(item => item.querySelector('.network-name').textContent === ssid);
-            
-            if (!networkItem) return;
-
-            let connectionStatus = networkItem.querySelector('.connection-status');
-            if (!connectionStatus) {
-                connectionStatus = document.createElement('div');
-                connectionStatus.className = 'connection-status';
-                const form = networkItem.querySelector('.network-form');
-                form.insertAdjacentElement('afterend', connectionStatus);
-            }
-
-            connectionStatus.innerHTML = `
-                <div class="connecting-spinner"></div>
-                <span>Connecting to ${ssid}...</span>
-            `;
-            connectionStatus.style.display = 'block';
+            showStatus(
+                `Attempting to connect to ${ssid}...`,
+                'This may take up to 30 seconds.'
+            );
 
             fetch('/connect', {
                 method: 'POST',
@@ -263,23 +268,29 @@
             })
             .then(data => {
                 if (data.status === 'success') {
-                    connectionStatus.innerHTML = `<span class="success-message">Successfully connected to ${ssid}</span>`;
+                    showStatus(
+                        'Successfully connected to ' + ssid,
+                        '',
+                        'connection-success'
+                    );
                     setTimeout(() => {
                         updateNetworks();
                     }, 2000);
                 } else {
-                    connectionStatus.innerHTML = `
-                        <span class="error-message">Failed to connect: ${data.message || 'Unknown error'}</span>
-                        <div class="error-details">Please check the password and try again.</div>
-                    `;
+                    showStatus(
+                        'Failed to connect: ' + (data.message || 'Unknown error'),
+                        'Please check the password and try again.',
+                        'connection-error'
+                    );
                 }
             })
             .catch(error => {
                 console.error('Connection error:', error);
-                connectionStatus.innerHTML = `
-                    <span class="error-message">Connection error: ${error.message || error}</span>
-                    <div class="error-details">Please try again.</div>
-                `;
+                showStatus(
+                    'Connection error: ' + error.message || error,
+                    'Please try again.',
+                    'connection-error'
+                );
             });
         }
 

@@ -553,3 +553,59 @@ button:active {
 #connectionStatus {
     display: none !important;
 }
+
+/* Add these styles after your existing CSS */
+
+/* Connection Status Styles */
+.connection-status-container {
+    margin: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.status-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+}
+
+.status-message {
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.status-details {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.retry-attempt {
+    color: #856404;
+    background-color: #fff3cd;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin: 5px 0;
+}
+
+.connection-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 5px 0;
+}
+
+.connection-success {
+    color: #155724;
+    background-color: #d4edda;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 5px 0;
+}

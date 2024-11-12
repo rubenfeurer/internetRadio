@@ -656,24 +656,36 @@ def create_app(stream_manager):
                 
             logger.info(f"Attempting to connect to network: {ssid}")
             
-            # Your existing connection logic here
-            result = subprocess.run(
-                ['sudo', 'nmcli', 'device', 'wifi', 'connect', ssid] + 
-                (['password', password] if password else []),
-                capture_output=True,
-                text=True
-            )
+            MAX_RETRIES = 2
+            for attempt in range(MAX_RETRIES):
+                if attempt > 0:
+                    # Inform client of retry
+                    logger.info(f"Retry attempt {attempt + 1} for {ssid}")
+                    
+                result = subprocess.run(
+                    ['sudo', 'nmcli', 'device', 'wifi', 'connect', ssid] + 
+                    (['password', password] if password else []),
+                    capture_output=True,
+                    text=True
+                )
+                
+                # Wait for connection to establish
+                start_time = time.time()
+                while time.time() - start_time < 15:  # 15 second timeout
+                    if verify_connection(ssid):
+                        logger.info(f"Successfully connected to {ssid}")
+                        return jsonify({'status': 'success'})
+                    time.sleep(1)
+                
+                if attempt < MAX_RETRIES - 1:
+                    time.sleep(5)  # Wait before retry
             
-            if result.returncode == 0:
-                logger.info(f"Successfully connected to {ssid}")
-                return jsonify({'status': 'success'})
-            else:
-                error_msg = result.stderr.strip() or "Unknown error occurred"
-                logger.error(f"Failed to connect to {ssid}: {error_msg}")
-                return jsonify({
-                    'status': 'error',
-                    'message': error_msg
-                }), 400
+            error_msg = result.stderr.strip() or "Connection timeout"
+            logger.error(f"Failed to connect to {ssid}: {error_msg}")
+            return jsonify({
+                'status': 'error',
+                'message': error_msg
+            }), 400
                 
         except Exception as e:
             logger.error(f"Error in connect_to_network: {str(e)}")
@@ -913,11 +925,37 @@ def check_and_setup_network():
             return switch_to_ap_mode()
             
         # Try to connect to saved networks
+        MAX_RETRIES = 2  # Number of attempts per network
+        RETRY_DELAY = 5  # Seconds between retries
+        CONNECTION_TIMEOUT = 15  # Seconds to wait for connection
+        
         for network in saved_networks:
-            if try_connect_to_network(network):
-                logger.info(f"Successfully connected to {network}")
-                return True
+            logger.info(f"Attempting to connect to {network}")
+            
+            for attempt in range(MAX_RETRIES):
+                if attempt > 0:
+                    logger.info(f"Retry {attempt} for network {network}")
+                    time.sleep(RETRY_DELAY)
                 
+                # Try to connect
+                result = subprocess.run(
+                    ['sudo', 'nmcli', 'connection', 'up', network],
+                    capture_output=True,
+                    text=True
+                )
+                
+                # Wait for connection to establish
+                start_time = time.time()
+                while time.time() - start_time < CONNECTION_TIMEOUT:
+                    if verify_connection(network):
+                        logger.info(f"Successfully connected to {network}")
+                        return True
+                    time.sleep(1)
+                
+                logger.warning(f"Connection attempt {attempt + 1} to {network} failed")
+            
+            logger.error(f"Failed to connect to {network} after {MAX_RETRIES} attempts")
+        
         # If no connections successful, switch to AP mode
         logger.info("Could not connect to any saved networks, switching to AP mode")
         return switch_to_ap_mode()
