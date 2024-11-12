@@ -1,3 +1,5 @@
+# Internet Radio Project
+
 ## Overview
 A Raspberry Pi-based Internet Radio project with physical controls (buttons, encoder) and web interface. The project uses Python for the backend, Flask for the web interface, and handles both WiFi and Access Point modes.
 
@@ -15,43 +17,40 @@ A Raspberry Pi-based Internet Radio project with physical controls (buttons, enc
 ## Project Structure
 internetRadio/
 ├── config/
-│ └── streams.json # Radio stream configurations
-├── logs/ # Application logs
-├── scripts/
-│ └── various system scripts
-├── sounds/ # System sound effects
+│   └── streams.json       # Radio stream configurations
+├── logs/                  # Application logs
+├── scripts/              
+│   └── various system scripts
+├── sounds/                # System sound effects
 ├── src/
-│ ├── audio/
-│ │ └── audio_manager.py
-│ ├── controllers/
-│ │ ├── radio_controller.py
-│ │ ├── network_controller.py
-│ │ └── web_controller.py
-│ ├── hardware/
-│ │ └── gpio_manager.py
-│ ├── network/
-│ │ └── wifi_manager.py
-│ ├── utils/
-│ │ └── logger.py
-│ └── web/
-│ └── templates/
+│   ├── audio/
+│   │   └── audio_manager.py
+│   ├── controllers/
+│   │   ├── radio_controller.py
+│   │   ├── network_controller.py
+│   │   └── web_controller.py
+│   ├── hardware/
+│   │   └── gpio_manager.py
+│   ├── network/
+│   │   └── wifi_manager.py
+│   ├── utils/
+│   │   └── logger.py
+│   └── web/
+│       └── templates/
 ├── static/
-│ └── css/
+│   └── css/
 ├── templates/
-│ ├── index.html
-│ ├── stream_select.html
-│ └── wifi_settings.html
+│   ├── index.html
+│   ├── stream_select.html
+│   └── wifi_settings.html
 ├── tests/
-│ ├── test_audio_manager.py
-│ ├── test_gpio_manager.py
-│ ├── test_radio_controller.py
-│ └── test_web_controller.py
+│   ├── test_audio_manager.py
+│   ├── test_gpio_manager.py
+│   ├── test_radio_controller.py
+│   └── test_web_controller.py
 ├── main.py
 └── runApp.sh
 
-
-# Add Dependencies section
-echo '
 ## Dependencies
 - Python 3.11+
 - Flask
@@ -86,10 +85,8 @@ Manages network connectivity and AP mode.
 - Features:
   - WiFi scanning/connection
   - AP mode management
-  - Network status monitoring' >> README.md
+  - Network status monitoring
 
-# Add Hardware Setup and Implementation Details
-echo '
 ## Hardware Setup
 - Raspberry Pi (tested on Pi 4)
 - Rotary Encoder (Volume control)
@@ -100,25 +97,26 @@ echo '
 ## Current Implementation Details
 
 ### Main Application Flow
-python
+```python
 def main():
-# Initialize controllers
-radio = RadioController()
-network = NetworkController()
-web = WebController(radio, network)
-# Setup network
-wifi_connected = network.check_and_setup_network()
-# Start web interface
-web.start()
-# Main loop
-while True:
-# Monitor states
-radio.monitor()
-network.monitor()
+    # Initialize controllers
+    radio = RadioController()
+    network = NetworkController()
+    web = WebController(radio, network)
+    
+    # Setup network
+    wifi_connected = network.check_and_setup_network()
+    
+    # Start web interface
+    web.start()
+    
+    # Main loop
+    while True:
+        # Monitor states
+        radio.monitor()
+        network.monitor()
+```
 
-
-# Add Web Routes and Next Steps
-echo '
 ### Web Routes
 - `/` - Main interface
 - `/stream-select/<channel>` - Stream selection
@@ -150,12 +148,12 @@ echo '
 
 ## Configuration Files
 streams.json format:
-json
+```json
 [
-{
-"name": "Stream Name",
-"url": "http://stream.url",
-"country": "Country",
-"location": "Location"
-}
+  {
+    "name": "Stream Name",
+    "url": "http://stream.url",
+    "country": "Country",
+    "location": "Location"
+  }
 ]
