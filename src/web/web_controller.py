@@ -116,6 +116,21 @@ class WebController:
                 self.logger.error(f"Error stopping stream: {e}")
                 return jsonify({'success': False, 'error': str(e)}), 500
 
-    def run(self, host: str = '0.0.0.0', port: int = 5000) -> None:
-        """Run the Flask application"""
-        self.app.run(host=host, port=port, debug=False, threaded=True) 
+        @self.app.route('/stream-status')
+        def stream_status():
+            """Get current stream playback status"""
+            try:
+                status = self.radio.get_playback_status()
+                return jsonify(status)
+            except Exception as e:
+                self.logger.error(f"Error getting stream status: {e}")
+                return jsonify({'error': str(e)}), 500
+
+    def start(self) -> None:
+        """Start the Flask application in a separate thread"""
+        self.logger.info("Starting web interface")
+        web_thread = threading.Thread(
+            target=lambda: self.app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
+        )
+        web_thread.daemon = True
+        web_thread.start()

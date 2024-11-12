@@ -1,5 +1,5 @@
 import logging
-from typing import Optional
+from typing import Optional, Dict
 from ..hardware.gpio_manager import GPIOManager
 from ..audio.audio_manager import AudioManager
 from ..utils.logger import Logger
@@ -103,4 +103,19 @@ class RadioController:
             self.gpio_manager.cleanup()
             self.audio_manager.cleanup()
         except Exception as e:
-            self.logger.error(f"Error during cleanup: {e}") 
+            self.logger.error(f"Error during cleanup: {e}")
+    
+    def get_playback_status(self) -> Dict:
+        """Get current playback status"""
+        try:
+            return {
+                'is_running': self.is_playing,
+                'current_stream': self.current_stream if self.is_playing else None
+            }
+        except Exception as e:
+            self.logger.error(f"Error getting playback status: {e}")
+            return {
+                'is_running': False,
+                'current_stream': None,
+                'error': str(e)
+            }
