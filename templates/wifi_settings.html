@@ -90,22 +90,19 @@
             const buttonContainer = document.createElement('div');
             buttonContainer.className = 'button-container';
             
-            if (isConnected) {
-                // Always show forget button for connected network
-                const forgetButton = createForgetButton(network);
-                buttonContainer.appendChild(forgetButton);
-            } else {
-                // Show connect button for non-connected networks
+            // Show connect button for non-connected networks
+            if (!isConnected) {
                 const connectButton = document.createElement('button');
                 connectButton.type = 'submit';
                 connectButton.className = 'connect-button';
                 connectButton.textContent = 'Connect';
                 buttonContainer.appendChild(connectButton);
-                
-                if (isSaved) {
-                    const forgetButton = createForgetButton(network);
-                    buttonContainer.appendChild(forgetButton);
-                }
+            }
+            
+            // Always show forget button for saved networks
+            if (isSaved || isConnected) {
+                const forgetButton = createForgetButton(network);
+                buttonContainer.appendChild(forgetButton);
             }
             
             form.appendChild(buttonContainer);
@@ -129,9 +126,8 @@
                     document.querySelectorAll('.network-form').forEach(f => {
                         if (f !== form) f.style.display = 'none';
                     });
-                    if (!isConnected) {  // Only toggle form if not connected
-                        form.style.display = form.style.display === 'block' ? 'none' : 'block';
-                    }
+                    // Always show form when clicking, even for connected networks
+                    form.style.display = form.style.display === 'block' ? 'none' : 'block';
                 }
             });
             

@@ -17,13 +17,53 @@ import re
 import toml
 import tempfile
 
-# Set up logging
+# Set up logging with more detailed configuration
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    filename='/home/radio/internetRadio/logs/app.log'
+    handlers=[
+        logging.FileHandler('/home/radio/internetRadio/logs/app.log'),
+        logging.FileHandler('/home/radio/internetRadio/logs/network_debug.log'),  # Separate file for network logs
+        logging.StreamHandler(sys.stdout)
+    ]
 )
 logger = logging.getLogger(__name__)
+
+# Add a specific logger for network operations
+network_logger = logging.getLogger('network')
+network_logger.setLevel(logging.DEBUG)
+network_handler = logging.FileHandler('/home/radio/internetRadio/logs/network_debug.log')
+network_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s'))
+network_logger.addHandler(network_handler)
+
+def log_network_status():
+    try:
+        # Log WiFi interface status
+        wifi_status = subprocess.run(["iwconfig", "wlan0"], capture_output=True, text=True)
+        network_logger.info(f"WiFi Status:\n{wifi_status.stdout}")
+
+        # Log IP configuration
+        ip_status = subprocess.run(["ip", "addr", "show", "wlan0"], capture_output=True, text=True)
+        network_logger.info(f"IP Configuration:\n{ip_status.stdout}")
+
+        # Log routing table
+        route_status = subprocess.run(["ip", "route"], capture_output=True, text=True)
+        network_logger.info(f"Routing Table:\n{route_status.stdout}")
+
+        # Log NetworkManager status
+        nm_status = subprocess.run(["systemctl", "status", "NetworkManager"], capture_output=True, text=True)
+        network_logger.info(f"NetworkManager Status:\n{nm_status.stdout}")
+
+        # Log hostapd status if in AP mode
+        hostapd_status = subprocess.run(["systemctl", "status", "hostapd"], capture_output=True, text=True)
+        network_logger.info(f"Hostapd Status:\n{hostapd_status.stdout}")
+
+        # Log dnsmasq status if in AP mode
+        dnsmasq_status = subprocess.run(["systemctl", "status", "dnsmasq"], capture_output=True, text=True)
+        network_logger.info(f"Dnsmasq Status:\n{dnsmasq_status.stdout}")
+
+    except Exception as e:
+        network_logger.error(f"Error logging network status: {str(e)}")
 
 # Initialize pigpio
 print("Initializing pigpio...")
@@ -140,722 +180,341 @@ class SoundManager:
             logger.error(f"Error playing sound: {e}")
 
 class WiFiManager:
-    def __init__(self, app):
-        self.app = app
-        self.interface = "wlan0"
+    def __init__(self):
+        logger.info("Initializing WiFiManager...")
+        self.networks = []
+        self.update_networks()
+        logger.info("WiFiManager initialized")
 
-    def start_hotspot(self):
+    def update_networks(self):
         try:
-            logger.info("Starting WiFi hotspot...")
-            # Add hotspot setup code here if needed
-            pass
+            result = subprocess.run(
+                ["sudo", "iwlist", "wlan0", "scan"],
+                capture_output=True,
+                text=True
+            )
+            
+            if result.returncode == 0:
+                networks = []
+                for line in result.stdout.split('\n'):
+                    if 'ESSID:' in line:
+                        essid = line.split('ESSID:"')[1].split('"')[0]
+                        if essid:  # Only add non-empty ESSIDs
+                            networks.append(essid)
+                self.networks = list(set(networks))  # Remove duplicates
+                logger.info(f"Found networks: {self.networks}")
+            else:
+                logger.error("Failed to scan networks")
+                
         except Exception as e:
-            logger.error(f"Error starting hotspot: {e}")
+            logger.error(f"Error updating networks: {e}")
 
-    def get_current_wifi_status(self):
+    def get_networks(self):
+        return self.networks
+
+    def connect_to_network(self, ssid, password):
         try:
-            result = subprocess.run(['iwgetid', '-r'], 
-                                  capture_output=True, 
-                                  text=True)
-            current_ssid = result.stdout.strip() if result.returncode == 0 else None
-            
-            result = subprocess.run(['iwconfig', self.interface], 
-                                  capture_output=True, 
-                                  text=True)
-            signal_match = re.search(r'Signal level=(-\d+)', result.stdout)
-            signal_strength = signal_match.group(1) if signal_match else 'unknown'
-            
-            return {
-                'connected': bool(current_ssid),
-                'ssid': current_ssid if current_ssid else None,
-                'signal_strength': signal_strength
-            }
+            # Create a temporary file for the connection
+            with tempfile.NamedTemporaryFile(mode='w', delete=False) as temp_file:
+                connection_content = f"""[connection]
+id={ssid}
+uuid=$(uuidgen)
+type=wifi
+
+[wifi]
+mode=infrastructure
+ssid={ssid}
+
+[wifi-security]
+auth-alg=open
+key-mgmt=wpa-psk
+psk={password}
+
+[ipv4]
+method=auto
+
+[ipv6]
+addr-gen-mode=stable-privacy
+method=auto"""
+                temp_file.write(connection_content)
+                temp_file_path = temp_file.name
+
+            # Import the connection
+            result = subprocess.run(
+                ["sudo", "nmcli", "connection", "import", "type", "wifi", "file", temp_file_path],
+                capture_output=True,
+                text=True
+            )
+
+            # Clean up the temporary file
+            os.unlink(temp_file_path)
+
+            if result.returncode == 0:
+                logger.info(f"Successfully imported connection for {ssid}")
+                
+                # Try to connect to the network
+                connect_result = subprocess.run(
+                    ["sudo", "nmcli", "connection", "up", ssid],
+                    capture_output=True,
+                    text=True
+                )
+                
+                if connect_result.returncode == 0:
+                    logger.info(f"Successfully connected to {ssid}")
+                    return True, "Connected successfully"
+                else:
+                    logger.error(f"Failed to connect to {ssid}: {connect_result.stderr}")
+                    return False, f"Failed to connect: {connect_result.stderr}"
+            else:
+                logger.error(f"Failed to import connection: {result.stderr}")
+                return False, f"Failed to import connection: {result.stderr}"
+                
         except Exception as e:
-            logger.error(f"Error getting WiFi status: {e}")
-            return {'connected': False, 'ssid': None, 'signal_strength': 'unknown'}
+            logger.error(f"Error connecting to network: {e}")
+            return False, f"Error: {str(e)}"
 
 class RadioController:
     def __init__(self):
+        logger.info("Initializing RadioController...")
+        self.app = self.create_app()
         self.stream_manager = None
         self.sound_manager = None
         self.wifi_manager = None
-        self.buttons = {}
-        self.encoder = None
         self.led = None
-        self.app = None
+        self.encoder = None
+        self.buttons = {}
+        logger.info("RadioController initialized")
 
     def initialize(self):
         try:
-            print("\n=== INITIALIZATION START ===")
-            
-            # Initialize StreamManager
-            self.stream_manager = StreamManager(50)
-            
-            # Initialize sound manager
-            self.sound_manager = SoundManager(SOUND_FOLDER)
-            self.sound_manager.play_sound("boot.wav")
-            
             # Initialize LED
             self.led = LED(LED_PIN)
-            self.setup_buttons()
-            self.setup_encoder()
             
-            # Create Flask app
-            self.app = create_app(self.stream_manager)
-            
-            return True
-        except Exception as e:
-            logger.error(f"Initialization error: {e}")
-            return False
-
-    def setup_buttons(self):
-        try:
-            self.buttons = {
-                'link1': Button(BUTTON_PINS['link1'], pull_up=True, bounce_time=0.2),
-                'link2': Button(BUTTON_PINS['link2'], pull_up=True, bounce_time=0.2),
-                'link3': Button(BUTTON_PINS['link3'], pull_up=True, bounce_time=0.2),
-                'encoder': Button(ENCODER_SW, pull_up=True, bounce_time=0.2, hold_time=2)
-            }
-            
-            # Set up callbacks
-            self.buttons['link1'].when_pressed = lambda: self.button_handler('link1')
-            self.buttons['link2'].when_pressed = lambda: self.button_handler('link2')
-            self.buttons['link3'].when_pressed = lambda: self.button_handler('link3')
-            self.buttons['encoder'].when_pressed = lambda: logger.info("Encoder Pressed")
-            self.buttons['encoder'].when_held = restart_pi
-            
-        except Exception as e:
-            logger.error(f"Button setup error: {e}")
-
-    def setup_encoder(self):
-        try:
-            self.encoder = RotaryEncoder(
-                ENCODER_DT,
-                ENCODER_CLK,
-                bounce_time=0.1,
-                max_steps=1,
-                wrap=False
-            )
+            # Initialize rotary encoder
+            self.encoder = RotaryEncoder(ENCODER_DT, ENCODER_CLK)
             self.encoder.when_rotated_clockwise = self.volume_up
             self.encoder.when_rotated_counter_clockwise = self.volume_down
+            
+            # Initialize buttons
+            for name, pin in BUTTON_PINS.items():
+                button = Button(pin)
+                button.when_pressed = lambda n=name: self.handle_button_press(n)
+                self.buttons[name] = button
+            
+            # Initialize managers
+            self.stream_manager = StreamManager()
+            self.sound_manager = SoundManager(SOUND_FOLDER)
+            self.wifi_manager = WiFiManager()
+            
+            logger.info("All components initialized successfully")
+            return True
+            
         except Exception as e:
-            logger.error(f"Encoder setup error: {e}")
+            logger.error(f"Error initializing components: {e}")
+            return False
 
-    def button_handler(self, stream_key):
+    def create_app(self):
+        app = Flask(__name__)
+
+        @app.route('/wifi_settings')
+        def wifi_settings():
+            available_networks = get_available_networks()
+            saved_networks = get_saved_networks()
+            return render_template('wifi_settings.html', 
+                                 available_networks=available_networks,
+                                 saved_networks=saved_networks)
+
+        @app.route('/')
+        def index():
+            return render_template('index.html')
+
+        @app.route('/api/networks', methods=['GET'])
+        def get_networks():
+            try:
+                self.wifi_manager.update_networks()
+                networks = self.wifi_manager.get_networks()
+                return jsonify({"networks": networks})
+            except Exception as e:
+                logger.error(f"Error getting networks: {e}")
+                return jsonify({"error": str(e)}), 500
+
+        @app.route('/api/connect', methods=['POST'])
+        def connect_network():
+            try:
+                data = request.get_json()
+                ssid = data.get('ssid')
+                password = data.get('password')
+                
+                if not ssid or not password:
+                    return jsonify({"error": "SSID and password required"}), 400
+                
+                success, message = self.wifi_manager.connect_to_network(ssid, password)
+                
+                if success:
+                    return jsonify({"message": message})
+                else:
+                    return jsonify({"error": message}), 500
+                    
+            except Exception as e:
+                logger.error(f"Error connecting to network: {e}")
+                return jsonify({"error": str(e)}), 500
+
+        @app.route('/api/volume', methods=['GET', 'POST'])
+        def handle_volume():
+            if request.method == 'GET':
+                try:
+                    volume = self.stream_manager.get_volume()
+                    return jsonify({"volume": volume})
+                except Exception as e:
+                    logger.error(f"Error getting volume: {e}")
+                    return jsonify({"error": str(e)}), 500
+            else:
+                try:
+                    data = request.get_json()
+                    volume = data.get('volume')
+                    
+                    if volume is None:
+                        return jsonify({"error": "Volume value required"}), 400
+                        
+                    self.stream_manager.set_volume(volume)
+                    return jsonify({"message": "Volume updated successfully"})
+                    
+                except Exception as e:
+                    logger.error(f"Error setting volume: {e}")
+                    return jsonify({"error": str(e)}), 500
+
+        @app.route('/api/stream/<stream_key>', methods=['POST'])
+        def handle_stream(stream_key):
+            try:
+                success = self.stream_manager.play_stream(stream_key)
+                
+                if success:
+                    return jsonify({"message": f"Stream {stream_key} handled successfully"})
+                else:
+                    return jsonify({"error": f"Failed to handle stream {stream_key}"}), 500
+                    
+            except Exception as e:
+                logger.error(f"Error handling stream: {e}")
+                return jsonify({"error": str(e)}), 500
+
+        @app.route('/api/stop', methods=['POST'])
+        def stop_stream():
+            try:
+                success = self.stream_manager.stop_stream()
+                
+                if success:
+                    return jsonify({"message": "Stream stopped successfully"})
+                else:
+                    return jsonify({"error": "Failed to stop stream"}), 500
+                    
+            except Exception as e:
+                logger.error(f"Error stopping stream: {e}")
+                return jsonify({"error": str(e)}), 500
+
+        return app
+
+    def handle_button_press(self, button_name):
         try:
-            logger.info(f"Button pressed for stream: {stream_key}")
-            if self.stream_manager:
-                self.sound_manager.play_sound("click.wav")
-                self.stream_manager.play_stream(stream_key)
+            logger.info(f"Button pressed: {button_name}")
+            self.sound_manager.play_sound("click.wav")
+            self.stream_manager.play_stream(button_name)
         except Exception as e:
-            logger.error(f"Button handler error: {e}")
-            self.sound_manager.play_sound("error.wav")
+            logger.error(f"Error handling button press: {e}")
 
     def volume_up(self):
-        if self.stream_manager:
+        try:
             current_volume = self.stream_manager.get_volume()
             new_volume = min(100, current_volume + 5)
             self.stream_manager.set_volume(new_volume)
-            logger.info(f"Volume up: {new_volume}")
+            self.sound_manager.play_sound("click.wav")
+        except Exception as e:
+            logger.error(f"Error increasing volume: {e}")
 
     def volume_down(self):
-        if self.stream_manager:
+        try:
             current_volume = self.stream_manager.get_volume()
             new_volume = max(0, current_volume - 5)
             self.stream_manager.set_volume(new_volume)
-            logger.info(f"Volume down: {new_volume}")
-
-    def cleanup(self):
-        """Clean up resources"""
-        try:
-            logger.info("Starting cleanup...")
-            if self.stream_manager:
-                self.stream_manager.stop_stream()
-            if self.led:
-                self.led.off()
-            if self.sound_manager:
-                self.sound_manager.play_sound("shutdown.wav")
-                time.sleep(1)  # Give time for shutdown sound to play
-            logger.info("Cleanup completed")
+            self.sound_manager.play_sound("click.wav")
         except Exception as e:
-            logger.error(f"Cleanup error: {e}")
-
-# Move this function outside create_app
-def is_in_ap_mode():
-    """Check if device is in Access Point mode"""
-    try:
-        result = subprocess.run(['systemctl', 'is-active', 'hostapd'], 
-                              capture_output=True, text=True)
-        logger.info(f"hostapd service {result.stdout.strip()}")
-        return result.returncode == 0
-    except Exception as e:
-        logger.error(f"Error checking AP mode: {e}")
-        return False
-
-def create_app(stream_manager):
-    app = Flask(__name__, 
-                static_folder='static',
-                static_url_path='/static')
-    
-    @app.route('/')
-    def index():
-        try:
-            # Load radio stations from config.toml
-            with open('config.toml', 'r', encoding='utf-8') as f:
-                config = toml.load(f)
-                stations = config.get('links', [])
-            
-            # Get default streams (first three entries)
-            default_streams = stations[:3]
-            
-            return render_template('index.html', default_streams=default_streams)
-        except Exception as e:
-            logger.error(f"Error in index: {e}")
-            return str(e), 500
-
-    @app.route('/wifi_settings', methods=['GET', 'POST'])
-    def wifi_settings():
-        if request.method == 'POST':
-            try:
-                # If we're in AP mode, disable it before connecting
-                if is_in_ap_mode():
-                    if not disable_ap_mode():
-                        return jsonify({
-                            'status': 'error',
-                            'message': 'Failed to disable AP mode'
-                        })
-                    time.sleep(2)  # Give services time to restart
-                
-                ssid = request.form.get('ssid')
-                password = request.form.get('password')
-                
-                if not ssid or not password:
-                    return jsonify({
-                        'status': 'error',
-                        'message': 'SSID and password are required'
-                    })
-
-                logger.info(f"Attempting to connect to network: {ssid}")
-                
-                # Delete existing connection with same SSID if exists
-                subprocess.run(['sudo', 'nmcli', 'connection', 'delete', ssid], 
-                             capture_output=True)
-                
-                # Add new connection
-                logger.info(f"Adding new connection for {ssid}")
-                add_result = subprocess.run([
-                    'sudo', 'nmcli', 'connection', 'add',
-                    'type', 'wifi',
-                    'con-name', ssid,
-                    'ifname', 'wlan0',
-                    'ssid', ssid,
-                    'wifi-sec.key-mgmt', 'wpa-psk',
-                    'wifi-sec.psk', password
-                ], capture_output=True, text=True)
-                
-                if add_result.returncode != 0:
-                    raise Exception(f"Failed to add connection: {add_result.stderr}")
-                
-                # Try to activate new connection
-                logger.info(f"Activating connection to {ssid}")
-                activate_result = subprocess.run([
-                    'sudo', 'nmcli', 'connection', 'up', ssid
-                ], capture_output=True, text=True)
-                
-                # Check connection status
-                max_attempts = 3
-                for attempt in range(max_attempts):
-                    logger.info(f"Connection verification attempt {attempt + 1}/{max_attempts}")
-                    time.sleep(5)
-                    
-                    check_result = subprocess.run([
-                        'nmcli', '-t', '-f', 'NAME', 'connection', 'show', '--active'
-                    ], capture_output=True, text=True)
-                    
-                    new_ssid = check_result.stdout.strip()
-                    logger.info(f"Current SSID: {new_ssid}")
-                    
-                    if ssid in new_ssid:
-                        logger.info(f"Successfully connected to {ssid}")
-                        return jsonify({
-                            'status': 'success',
-                            'message': 'Connected successfully'
-                        })
-                
-                # Connection failed, restore previous connection
-                logger.error(f"Failed to connect to {ssid}, restoring previous connection")
-                if current_ssid:
-                    logger.info(f"Reconnecting to {current_ssid}")
-                    subprocess.run([
-                        'sudo', 'nmcli', 'connection', 'up', current_ssid
-                    ])
-                
-                # Clean up failed connection
-                subprocess.run([
-                    'sudo', 'nmcli', 'connection', 'delete', ssid
-                ])
-                
-                return jsonify({
-                    'status': 'error',
-                    'message': 'Failed to connect. Please check your password.'
-                })
-                
-            except Exception as network_error:
-                logger.error(f"Network error: {network_error}")
-                # Try to restore previous connection
-                if current_ssid:
-                    subprocess.run([
-                        'sudo', 'nmcli', 'connection', 'up', current_ssid
-                    ])
-                raise
-                
-            except Exception as e:
-                logger.error(f"Error in wifi_settings: {e}")
-                return jsonify({
-                    'status': 'error',
-                    'message': str(e)
-                })
-            
-        return render_template('wifi_settings.html')
-
-    @app.route('/wifi-scan')
-    def wifi_scan():
-        try:
-            # Get current connection
-            iwgetid_result = subprocess.run(['iwgetid', '-r'], 
-                                          capture_output=True, text=True)
-            current_network = iwgetid_result.stdout.strip() if iwgetid_result.stdout else None
-            
-            # Get available and saved networks
-            available_networks = get_wifi_networks()
-            saved_networks = get_saved_networks()
-            
-            response_data = {
-                'status': 'complete',
-                'networks': available_networks,
-                'saved_networks': saved_networks,
-                'current_network': current_network,
-                'ap_mode': is_in_ap_mode()
-            }
-            
-            logger.info(f"Sending response: {response_data}")
-            return jsonify(response_data)
-        except Exception as e:
-            logger.error(f"Error in wifi_scan: {e}")
-            return jsonify({
-                'status': 'error',
-                'error': str(e)
-            })
-
-    # Add WiFi status route
-    @app.route('/get_wifi_ssid')
-    def get_wifi_ssid():
-        try:
-            result = subprocess.run(['iwgetid', '-r'], capture_output=True, text=True)
-            ssid = result.stdout.strip() if result.returncode == 0 else None
-            return jsonify({'ssid': ssid})
-        except Exception as e:
-            logger.error(f"Error getting SSID: {e}")
-            return jsonify({'error': str(e)})
-
-    # Add internet check route
-    @app.route('/check_internet_connection')
-    def check_internet_connection():
-        try:
-            subprocess.check_output(['ping', '-c', '1', '8.8.8.8'])
-            return jsonify({'connected': True})
-        except Exception as e:
-            logger.error(f"Error checking internet: {e}")
-            return jsonify({'connected': False})
-
-    @app.route('/play-stream', methods=['POST'])
-    def play_stream():
-        try:
-            url = request.form.get('url')
-            logger.info(f"Attempting to play URL: {url}")
-            logger.info(f"Available streams: {stream_manager.streams}")
-            
-            if not url:
-                return jsonify({'success': False, 'error': 'URL required'}), 400
-                
-            # Find which channel this URL belongs to
-            channel = None
-            for key, stream_url in stream_manager.streams.items():
-                if stream_url == url:
-                    channel = key
-                    break
-                    
-            if channel:
-                success = stream_manager.play_stream(channel)
-            else:
-                # If no channel found, play directly with URL
-                media = stream_manager.instance.media_new(url)
-                stream_manager.player.set_media(media)
-                success = stream_manager.player.play() == 0
-                
-            return jsonify({'success': success})
-        except Exception as e:
-            logger.error(f"Error playing stream: {e}")
-            return jsonify({'success': False, 'error': str(e)}), 500
-
-    @app.route('/stop-stream', methods=['POST'])
-    def stop_stream():
-        try:
-            success = stream_manager.stop_stream()
-            return jsonify({'success': success})
-        except Exception as e:
-            logger.error(f"Error stopping stream: {e}")
-            return jsonify({'success': False, 'error': str(e)}), 500
-
-    @app.route('/stream-status')
-    def stream_status():
-        try:
-            is_running = stream_manager.is_playing and stream_manager.player.is_playing()
-            current_stream = stream_manager.current_stream if is_running else None
-            
-            logger.info(f"Stream status: playing={is_running}, stream={current_stream}")
-            
-            return jsonify({
-                'is_running': bool(is_running),
-                'current_stream': current_stream
-            })
-        except Exception as e:
-            logger.error(f"Error checking stream status: {e}")
-            return jsonify({
-                'is_running': False,
-                'current_stream': None
-            })
-
-    @app.route('/api/stream/volume', methods=['POST'])
-    def set_volume():
-        try:
-            data = request.get_json()
-            volume = data.get('volume')
-            if volume is None:
-                return jsonify({'error': 'volume required'}), 400
-            stream_manager.set_volume(volume)
-            return jsonify({'success': True, 'volume': volume})
-        except Exception as e:
-            logger.error(f"Error setting volume: {e}")
-            return jsonify({'error': str(e)}), 500
-
-    @app.route('/stream-select')
-    def stream_select():
-        try:
-            channel = request.args.get('channel')
-            if not channel:
-                return "Channel parameter is required", 400
-
-            # Load radio stations from config.toml
-            with open('config.toml', 'r', encoding='utf-8') as f:
-                config = toml.load(f)
-                stations = config.get('links', [])
-            
-            # Get default streams (first three entries)
-            default_streams = stations[:3]
-            # Get remaining stations for selection
-            spare_links = stations[3:]
-            
-            return render_template('stream_select.html', 
-                                 spare_links=spare_links,
-                                 channel=channel,
-                                 default_streams=default_streams)
-        except Exception as e:
-            logger.error(f"Error in stream_select: {e}")
-            return str(e), 500
-
-    @app.route('/update-stream', methods=['POST'])
-    def update_stream():
-        try:
-            channel = request.form.get('channel')
-            selected_link = request.form.get('selected_link')
-            
-            logger.info(f"Updating stream for channel {channel} with URL {selected_link}")
-            logger.info(f"Current streams before update: {stream_manager.streams}")
-            
-            if not channel or not selected_link:
-                return jsonify({'success': False, 'error': 'Missing parameters'}), 400
-                
-            # Load current config
-            with open('config.toml', 'r', encoding='utf-8') as f:
-                config = toml.load(f)
-                stations = config.get('links', [])
-            
-            # Find the selected station
-            selected_station = None
-            for station in stations:
-                if station['url'] == selected_link:
-                    selected_station = station
-                    break
-                
-            if selected_station:
-                # Move selected station to the appropriate position (0, 1, or 2)
-                channel_index = int(channel[-1]) - 1  # Convert link1 to 0, link2 to 1, etc.
-                if 0 <= channel_index < 3:
-                    # Remove station from current position if it exists
-                    stations.remove(selected_station)
-                    # Insert at new position
-                    stations.insert(channel_index, selected_station)
-                    
-                    # Save updated config
-                    with open('config.toml', 'w', encoding='utf-8') as f:
-                        toml.dump({'links': stations}, f)
-                    
-                    # Update the stream manager with the new URL
-                    stream_manager.streams[channel] = selected_station['url']
-                    logger.info(f"Updated streams in manager: {stream_manager.streams}")
-                    
-                    # Reload the stream if it was currently playing
-                    if stream_manager.current_stream == channel:
-                        logger.info(f"Reloading current stream for channel {channel}")
-                        stream_manager.play_stream(channel)
-                    
-                    return jsonify({'success': True})
-            
-            return jsonify({'success': False, 'error': 'Station not found'})
-        except Exception as e:
-            logger.error(f"Error updating stream: {e}")
-            return jsonify({'success': False, 'error': str(e)}), 500
-
-    @app.route('/wifi/reboot', methods=['POST'])
-    def reboot_device():
-        try:
-            logger.info("Initiating device reboot...")
-            response = jsonify({'status': 'success', 'message': 'Rebooting device'})
-            
-            def delayed_reboot():
-                time.sleep(2)
-                subprocess.run(['sudo', 'shutdown', '-r', 'now'])
-                
-            threading.Thread(target=delayed_reboot).start()
-            return response
-            
-        except Exception as e:
-            logger.error(f"Error during reboot: {e}")
-            return jsonify({'status': 'error', 'message': str(e)}), 500
-
-    @app.route('/ping')
-    def ping():
-        return jsonify({'status': 'ok'})
-
-    @app.route('/connect', methods=['POST'])
-    def connect_to_network():
-        try:
-            ssid = request.form.get('ssid')
-            password = request.form.get('password')
-            
-            if not ssid:
-                return jsonify({'status': 'error', 'message': 'SSID is required'}), 400
-                
-            logger.info(f"Attempting to connect to network: {ssid}")
-            
-            # If it's the Salt 5GHz network, use the preconfigured connection
-            if ssid == 'Salt_5GHz_D8261F':
-                result = subprocess.run(
-                    ['sudo', 'nmcli', 'connection', 'up', 'preconfigured'],
-                    capture_output=True,
-                    text=True
-                )
-            else:
-                # For other networks, connect directly
-                result = subprocess.run(
-                    ['sudo', 'nmcli', 'device', 'wifi', 'connect', ssid] + 
-                    (['password', password] if password else []),
-                    capture_output=True,
-                    text=True
-                )
-
-            if result.returncode == 0:
-                logger.info(f"Successfully connected to {ssid}")
-                return jsonify({'status': 'success'})
-            else:
-                error_msg = result.stderr.strip() or "Connection failed"
-                logger.error(f"Failed to connect to {ssid}: {error_msg}")
-                return jsonify({
-                    'status': 'error',
-                    'message': error_msg
-                }), 400
-                
-        except Exception as e:
-            logger.error(f"Error in connect_to_network: {str(e)}")
-            return jsonify({
-                'status': 'error',
-                'message': str(e)
-            }), 500
-
-    @app.route('/forget_network', methods=['POST'])
-    def forget_network_route():
-        try:
-            data = request.get_json()
-            if not data or 'ssid' not in data:
-                return jsonify({'status': 'error', 'message': 'SSID is required'}), 400
-                
-            ssid = data['ssid']
-            logger.info(f"Attempting to forget network: {ssid}")
-            
-            # First check if we're currently connected to this network
-            current_connection = subprocess.run(
-                ['nmcli', '-t', '-f', 'NAME,TYPE,DEVICE', 'connection', 'show', '--active'],
-                capture_output=True,
-                text=True
-            )
-            
-            is_current = any(ssid in line and 'wifi' in line for line in current_connection.stdout.split('\n'))
-            
-            # If it's the current connection, disconnect first
-            if is_current:
-                logger.info(f"Disconnecting from current network: {ssid}")
-                subprocess.run(['sudo', 'nmcli', 'device', 'disconnect', 'wlan0'],
-                             capture_output=True)
-                time.sleep(1)
-            
-            # Delete the connection
-            result = subprocess.run(
-                ['sudo', 'nmcli', 'connection', 'delete', ssid],
-                capture_output=True,
-                text=True
-            )
-            
-            if result.returncode == 0:
-                logger.info(f"Successfully forgot network: {ssid}")
-                return jsonify({'status': 'success'})
-            else:
-                error_msg = result.stderr.strip() or "Unknown error occurred"
-                logger.error(f"Failed to forget network {ssid}: {error_msg}")
-                return jsonify({'status': 'error', 'message': error_msg}), 400
-                
-        except Exception as e:
-            logger.error(f"Error in forget_network route: {str(e)}")
-            return jsonify({'status': 'error', 'message': str(e)}), 500
-
-    return app
-
-def restart_pi():
-    """Restart the Raspberry Pi"""
-    try:
-        logger.info("Restarting Raspberry Pi...")
-        subprocess.run(['sudo', 'reboot'])
-    except Exception as e:
-        logger.error(f"Error restarting Pi: {e}")
-
-def check_wifi():
-    """Check if WiFi is connected"""
-    try:
-        result = subprocess.run(['iwgetid'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        return result.returncode == 0
-    except Exception as e:
-        logger.error(f"Error checking WiFi: {e}")
-        return False
+            logger.error(f"Error decreasing volume: {e}")
 
 def signal_handler(signum, frame):
-    """Handle shutdown signals"""
-    logger.info(f"Received signal {signum}")
-    if 'radio' in globals():
-        radio.cleanup()
+    logger.info("Received signal to terminate")
     sys.exit(0)
 
-def get_wifi_networks():
-    """Get list of available WiFi networks"""
+def is_in_ap_mode():
     try:
-        # Get list of available networks using nmcli
-        result = subprocess.run(
-            ['sudo', 'nmcli', '-t', '-f', 'SSID', 'device', 'wifi', 'list', '--rescan', 'yes'],
-            capture_output=True, text=True
+        # Check if hostapd is running
+        hostapd_status = subprocess.run(
+            ["sudo", "systemctl", "is-active", "hostapd"],
+            capture_output=True,
+            text=True
         )
-        
-        # Split output into lines and remove empty strings
-        networks = [line for line in result.stdout.strip().split('\n') if line]
-        
-        # Remove duplicates while preserving order
-        seen = set()
-        unique_networks = []
-        for network in networks:
-            if network not in seen and network:  # Skip empty SSIDs
-                seen.add(network)
-                unique_networks.append(network)
-        
-        logger.info(f"Found networks: {unique_networks}")
-        return unique_networks
-        
+        return hostapd_status.stdout.strip() == "active"
     except Exception as e:
-        logger.error(f"Error getting networks: {e}")
-        return []
+        logger.error(f"Error checking AP mode: {str(e)}")
+        return False
 
 def get_saved_networks():
     try:
-        # Get all saved connections including preconfigured
+        logger.info("Checking for saved networks...")
         result = subprocess.run(
-            ['sudo', 'nmcli', '--fields', 'NAME,TYPE', 'connection', 'show'],
+            ["sudo", "nmcli", "connection", "show"],
             capture_output=True,
             text=True
         )
         
-        saved_networks = []
         if result.returncode == 0:
-            for line in result.stdout.strip().split('\n'):
-                if 'wifi' in line.lower():  # Only get WiFi connections
-                    name = line.split()[0]  # Get the network name
-                    if name != 'Hotspot':  # Exclude the AP mode hotspot
-                        # Replace 'preconfigured' with actual SSID if it's the preconfigured network
-                        if name == 'preconfigured':
-                            saved_networks.append('Salt_5GHz_D8261F')
-                        else:
-                            saved_networks.append(name)
+            networks = []
+            logger.info(f"Raw nmcli output: {result.stdout}")  # Debug line
+            
+            for line in result.stdout.split('\n')[1:]:  # Skip header line
+                if line.strip():
+                    # Split line and get connection name and type
+                    parts = line.split()
+                    if len(parts) >= 3 and parts[2] == "wifi":  # Check if it's a WiFi connection
+                        networks.append(parts[0])
+            
+            logger.info(f"Found saved WiFi networks: {networks}")
+            return networks
         
-        logger.info(f"Found saved networks: {saved_networks}")
-        return saved_networks
+        logger.error(f"nmcli command failed with return code: {result.returncode}")
+        logger.error(f"Error output: {result.stderr}")
+        return []
         
     except Exception as e:
         logger.error(f"Error getting saved networks: {str(e)}")
         return []
 
-def get_network_status():
+def get_available_networks():
     try:
-        # Get current connection
-        current = subprocess.run(
-            ['nmcli', '-t', '-f', 'NAME,TYPE,DEVICE', 'connection', 'show', '--active'],
+        result = subprocess.run(
+            ["sudo", "iwlist", "wlan0", "scan"],
             capture_output=True,
             text=True
         )
         
-        # Get saved networks
-        saved_networks = get_saved_networks()
-        
-        # Get all available networks
-        available = get_available_networks()
-        
-        current_network = None
-        if current.returncode == 0:
-            for line in current.stdout.strip().split('\n'):
-                if 'wifi' in line and 'wlan0' in line:
-                    conn_name = line.split(':')[0]
-                    if conn_name == 'preconfigured':
-                        current_network = 'Salt_5GHz_D8261F'
-                    else:
-                        current_network = conn_name
-        
-        # Mark networks as saved and/or current
-        for network in available:
-            network['saved'] = network['ssid'] in saved_networks
-            network['current'] = network['ssid'] == current_network
-        
-        logger.info(f"Network status: {available}")
-        return available
+        if result.returncode == 0:
+            networks = []
+            for line in result.stdout.split('\n'):
+                if 'ESSID:' in line:
+                    essid = line.split('ESSID:"')[1].split('"')[0]
+                    if essid:  # Only add non-empty ESSIDs
+                        networks.append(essid)
+            return list(set(networks))  # Remove duplicates
+        return []
         
     except Exception as e:
-        logger.error(f"Error getting network status: {str(e)}")
+        logger.error(f"Error getting networks: {str(e)}")
         return []
 
 def setup_ap_mode():
     try:
-        # Get hostname to use as SSID
-        hostname = subprocess.check_output(['hostname']).decode('utf-8').strip()
-        
-        # Create hostapd config
-        hostapd_config = f"""
-interface=wlan0
+        # Create hostapd configuration
+        hostapd_conf = """interface=wlan0
 driver=nl80211
-ssid={hostname}
+ssid=InternetRadio
 hw_mode=g
 channel=7
 wmm_enabled=0
@@ -863,116 +522,87 @@ macaddr_acl=0
 auth_algs=1
 ignore_broadcast_ssid=0
 wpa=2
-wpa_passphrase=Radio@1234
+wpa_passphrase=raspberry
 wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
-rsn_pairwise=CCMP
-"""
-        
+rsn_pairwise=CCMP"""
+
+        # Write hostapd configuration
         with open('/etc/hostapd/hostapd.conf', 'w') as f:
-            f.write(hostapd_config)
-            
-        # Update default configuration
+            f.write(hostapd_conf)
+
+        # Create dnsmasq configuration
+        dnsmasq_conf = """interface=wlan0
+dhcp-range=192.168.4.2,192.168.4.20,255.255.255.0,24h
+domain=wlan
+address=/gw.wlan/192.168.4.1"""
+
+        # Write dnsmasq configuration
+        with open('/etc/dnsmasq.conf', 'w') as f:
+            f.write(dnsmasq_conf)
+
+        # Update hostapd default configuration
         with open('/etc/default/hostapd', 'w') as f:
             f.write('DAEMON_CONF="/etc/hostapd/hostapd.conf"')
-            
-        logger.info("AP mode configuration updated")
+
         return True
-        
+
     except Exception as e:
         logger.error(f"Error setting up AP mode: {str(e)}")
         return False
 
-def get_available_networks():
-    try:
-        # Get hostname to exclude from network list
-        hostname = subprocess.check_output(['hostname']).decode('utf-8').strip()
-        
-        # Get all networks
-        result = subprocess.run(
-            ['sudo', 'nmcli', '-t', '-f', 'SSID,SIGNAL,SECURITY', 'device', 'wifi', 'list'],
-            capture_output=True,
-            text=True
-        )
-        
-        networks = []
-        if result.returncode == 0:
-            for line in result.stdout.strip().split('\n'):
-                if line:
-                    ssid, signal, security = line.split(':')
-                    # Skip empty SSIDs and our own AP
-                    if ssid and ssid != hostname:
-                        networks.append({
-                            'ssid': ssid,
-                            'signal': signal,
-                            'security': security
-                        })
-        
-        return networks
-        
-    except Exception as e:
-        logger.error(f"Error getting networks: {str(e)}")
-        return []
 
-def check_and_setup_network():
-    try:
-        # Check for saved networks
-        saved_networks = get_saved_networks()
-        
-        if not saved_networks:
-            logger.info("No saved networks found, switching to AP mode")
-            return switch_to_ap_mode()
-            
-        # Try to connect to saved networks
-        for network in saved_networks:
-            logger.info(f"Attempting to connect to {network}")
-            
-            result = subprocess.run(
-                ["sudo", "nmcli", "connection", "up", network],
-                capture_output=True,
-                text=True
-            )
-            
-            if result.returncode == 0:
-                logger.info(f"Successfully connected to {network}")
-                return True
-            
-            logger.warning(f"Failed to connect to {network}")
-        
-        # If no connections successful, switch to AP mode
-        logger.info("Could not connect to any saved networks, switching to AP mode")
-        return switch_to_ap_mode()
-        
-    except Exception as e:
-        logger.error(f"Error in network setup: {str(e)}")
-        return False
 
 def switch_to_ap_mode():
     try:
         logger.info("Starting AP mode setup...")
         
         # Stop potentially interfering services
-        subprocess.run(['sudo', 'systemctl', 'stop', 'NetworkManager'])
-        subprocess.run(['sudo', 'systemctl', 'stop', 'wpa_supplicant'])
+        logger.info("Stopping NetworkManager...")
+        subprocess.run(["sudo", "systemctl", "stop", "NetworkManager"])
+        time.sleep(2)
+        
+        logger.info("Stopping wpa_supplicant...")
+        subprocess.run(["sudo", "systemctl", "stop", "wpa_supplicant"])
+        time.sleep(2)
         
         # Ensure wireless interface is up and not blocked
-        subprocess.run(['sudo', 'rfkill', 'unblock', 'wifi'])
-        subprocess.run(['sudo', 'ifconfig', 'wlan0', 'up'])
+        logger.info("Unblocking WiFi and bringing up interface...")
+        subprocess.run(["sudo", "rfkill", "unblock", "wifi"])
+        subprocess.run(["sudo", "ifconfig", "wlan0", "up"])
+        time.sleep(1)
         
-        # Setup AP configuration
-        if not setup_ap_mode():
-            logger.error("Failed to setup AP mode configuration")
+        # Configure network interface
+        logger.info("Configuring network interface...")
+        subprocess.run(["sudo", "ifconfig", "wlan0", "down"])
+        time.sleep(1)
+        subprocess.run(["sudo", "ifconfig", "wlan0", "192.168.4.1", "netmask", "255.255.255.0"])
+        time.sleep(1)
+        subprocess.run(["sudo", "ifconfig", "wlan0", "up"])
+        time.sleep(1)
+        
+        # Start services in correct order with proper delays
+        logger.info("Starting dnsmasq...")
+        subprocess.run(["sudo", "systemctl", "start", "dnsmasq"])
+        time.sleep(3)
+        
+        logger.info("Starting hostapd...")
+        subprocess.run(["sudo", "systemctl", "start", "hostapd"])
+        time.sleep(3)
+        
+        # Verify services are running
+        logger.info("Verifying services...")
+        dnsmasq_status = subprocess.run(["sudo", "systemctl", "is-active", "dnsmasq"], 
+                                      capture_output=True, text=True)
+        hostapd_status = subprocess.run(["sudo", "systemctl", "is-active", "hostapd"], 
+                                      capture_output=True, text=True)
+        
+        logger.info(f"dnsmasq status: {dnsmasq_status.stdout.strip()}")
+        logger.info(f"hostapd status: {hostapd_status.stdout.strip()}")
+        
+        if dnsmasq_status.stdout.strip() != "active" or hostapd_status.stdout.strip() != "active":
+            logger.error("Failed to start AP mode services")
             return False
-            
-        # Configure network interface before starting services
-        subprocess.run(['sudo', 'ifconfig', 'wlan0', 'down'])
-        subprocess.run(['sudo', 'ifconfig', 'wlan0', '192.168.4.1', 'netmask', '255.255.255.0'])
-        subprocess.run(['sudo', 'ifconfig', 'wlan0', 'up'])
-        
-        # Start services in correct order
-        subprocess.run(['sudo', 'systemctl', 'restart', 'dnsmasq'])
-        time.sleep(2)  # Give dnsmasq time to start
-        subprocess.run(['sudo', 'systemctl', 'restart', 'hostapd'])
         
         logger.info("AP mode activated successfully")
         return True
@@ -981,96 +611,54 @@ def switch_to_ap_mode():
         logger.error(f"Error switching to AP mode: {str(e)}")
         return False
 
-def connect_to_network(ssid, password=None):
+def check_and_setup_network():
     try:
-        logger.info(f"Attempting to connect to network: {ssid}")
+        network_logger.info("=== Starting network setup check ===")
+        log_network_status()  # Log initial state
         
-        # First, bring down any active WiFi connection
-        subprocess.run(['sudo', 'nmcli', 'device', 'disconnect', 'wlan0'],
-                      capture_output=True)
-        time.sleep(1)
-        
-        # If it's the Salt 5GHz network, use the preconfigured connection
-        if ssid == 'Salt_5GHz_D8261F':
-            logger.info("Using preconfigured connection")
-            result = subprocess.run(
-                ['sudo', 'nmcli', 'connection', 'up', 'preconfigured'],
-                capture_output=True,
-                text=True
-            )
-        else:
-            # For other networks, use the connection by name
-            result = subprocess.run(
-                ['sudo', 'nmcli', 'connection', 'up', ssid],
-                capture_output=True,
-                text=True
-            )
-
-        if result.returncode == 0:
-            logger.info(f"Successfully connected to {ssid}")
-            return {'status': 'success'}
-        else:
-            error_msg = result.stderr.strip() or "Connection failed"
-            logger.error(f"Failed to connect to {ssid}: {error_msg}")
-            return {'status': 'error', 'message': error_msg}
-            
-    except Exception as e:
-        logger.error(f"Error in connect_to_network: {str(e)}")
-        return {'status': 'error', 'message': str(e)}
-
-def should_enable_ap_mode():
-    try:
-        # Check if we're already in AP mode
-        if is_in_ap_mode():
-            return False
-            
-        # Check for any active WiFi connection
-        wifi_status = subprocess.run(['iwgetid'], capture_output=True, text=True)
-        if wifi_status.returncode == 0 and wifi_status.stdout.strip():
-            return False
-            
-        # Check saved networks
         saved_networks = get_saved_networks()
+        network_logger.info(f"Found saved networks: {saved_networks}")
+        
         if not saved_networks:
-            logger.info("No saved networks found")
-            return True
+            network_logger.info("No saved networks found, switching to AP mode")
+            ap_result = switch_to_ap_mode()
+            network_logger.info(f"AP mode setup result: {ap_result}")
+            log_network_status()  # Log state after AP mode setup
+            return ap_result
             
-        # Try scanning for saved networks
-        available = get_available_networks()
-        available_ssids = [net['ssid'] for net in available]
-        
-        for saved in saved_networks:
-            if saved in available_ssids:
-                return False
+        # Try to connect to saved networks
+        max_retries = 3
+        for network in saved_networks:
+            network_logger.info(f"Attempting to connect to {network}")
+            
+            for attempt in range(max_retries):
+                network_logger.info(f"Connection attempt {attempt + 1} of {max_retries} for {network}")
                 
-        logger.info("No saved networks in range")
-        return True
+                result = subprocess.run(
+                    ["sudo", "nmcli", "connection", "up", network],
+                    capture_output=True,
+                    text=True
+                )
+                
+                if result.returncode == 0:
+                    network_logger.info(f"Successfully connected to {network}")
+                    log_network_status()  # Log successful connection state
+                    return True
+                
+                network_logger.warning(f"Failed to connect to {network} on attempt {attempt + 1}")
+                network_logger.warning(f"Error output: {result.stderr}")
+                time.sleep(2)
+            
+            network_logger.warning(f"All connection attempts failed for {network}")
+        
+        network_logger.info("Could not connect to any saved networks, switching to AP mode")
+        ap_result = switch_to_ap_mode()
+        network_logger.info(f"AP mode setup result: {ap_result}")
+        log_network_status()  # Log final state
+        return ap_result
         
     except Exception as e:
-        logger.error(f"Error checking AP mode status: {str(e)}")
-        return True  # Default to AP mode on error
-
-def disable_ap_mode():
-    try:
-        logger.info("Disabling AP mode...")
-        
-        # Stop AP services
-        subprocess.run(['sudo', 'systemctl', 'stop', 'hostapd'])
-        subprocess.run(['sudo', 'systemctl', 'stop', 'dnsmasq'])
-        
-        # Reset interface
-        subprocess.run(['sudo', 'ifconfig', 'wlan0', 'down'])
-        subprocess.run(['sudo', 'ifconfig', 'wlan0', 'up'])
-        
-        # Restart network services
-        subprocess.run(['sudo', 'systemctl', 'restart', 'wpa_supplicant'])
-        subprocess.run(['sudo', 'systemctl', 'restart', 'NetworkManager'])
-        
-        logger.info("AP mode disabled")
-        return True
-        
-    except Exception as e:
-        logger.error(f"Error disabling AP mode: {str(e)}")
+        network_logger.error(f"Error in network setup: {str(e)}")
         return False
 
 def main():
@@ -1086,14 +674,14 @@ def main():
             logger.error("Failed to initialize radio")
             return 1
 
-        # Check WiFi
-        if not check_wifi():
-            logger.info("Starting Wi-Fi hotspot...")
-            radio.wifi_manager = WiFiManager(radio.app)
-            radio.wifi_manager.start_hotspot()
-            radio.led.blink(on_time=0.5, off_time=0.5)
-        else:
+        # Try to connect to saved networks first
+        wifi_connected = check_and_setup_network()
+        
+        if wifi_connected:
             radio.led.blink(on_time=3, off_time=3)
+        else:
+            logger.info("Could not connect to any networks, maintaining AP mode...")
+            radio.led.blink(on_time=0.5, off_time=0.5)
 
         # Start Flask in a separate thread
         flask_thread = threading.Thread(
@@ -1102,9 +690,14 @@ def main():
         flask_thread.daemon = True
         flask_thread.start()
 
-        # Keep the main thread running
+        # Keep the main thread running and monitor AP mode if active
         while True:
-            time.sleep(1)
+            if not wifi_connected:
+                # Verify AP mode is still active
+                if not is_in_ap_mode():
+                    logger.warning("AP mode stopped unexpectedly, restarting...")
+                    switch_to_ap_mode()
+            time.sleep(5)
 
     except Exception as e:
         logger.error(f"Main error: {e}")
