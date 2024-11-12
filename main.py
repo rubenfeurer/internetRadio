@@ -753,6 +753,122 @@ def get_saved_networks():
         logger.error(f"Exception details: {str(e)}")
         return []
 
+def setup_ap_mode():
+    try:
+        # Get hostname to use as SSID
+        hostname = subprocess.check_output(['hostname']).decode('utf-8').strip()
+        
+        # Create hostapd config
+        hostapd_config = f"""
+interface=wlan0
+driver=nl80211
+ssid={hostname}
+hw_mode=g
+channel=7
+wmm_enabled=0
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=Radio@1234
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+"""
+        
+        with open('/etc/hostapd/hostapd.conf', 'w') as f:
+            f.write(hostapd_config)
+            
+        # Update default configuration
+        with open('/etc/default/hostapd', 'w') as f:
+            f.write('DAEMON_CONF="/etc/hostapd/hostapd.conf"')
+            
+        logger.info("AP mode configuration updated")
+        return True
+        
+    except Exception as e:
+        logger.error(f"Error setting up AP mode: {str(e)}")
+        return False
+
+def get_available_networks():
+    try:
+        # Get hostname to exclude from network list
+        hostname = subprocess.check_output(['hostname']).decode('utf-8').strip()
+        
+        # Get all networks
+        result = subprocess.run(
+            ['sudo', 'nmcli', '-t', '-f', 'SSID,SIGNAL,SECURITY', 'device', 'wifi', 'list'],
+            capture_output=True,
+            text=True
+        )
+        
+        networks = []
+        if result.returncode == 0:
+            for line in result.stdout.strip().split('\n'):
+                if line:
+                    ssid, signal, security = line.split(':')
+                    # Skip empty SSIDs and our own AP
+                    if ssid and ssid != hostname:
+                        networks.append({
+                            'ssid': ssid,
+                            'signal': signal,
+                            'security': security
+                        })
+        
+        return networks
+        
+    except Exception as e:
+        logger.error(f"Error getting networks: {str(e)}")
+        return []
+
+def check_and_setup_network():
+    try:
+        # Check for saved networks
+        saved_networks = get_saved_networks()
+        
+        if not saved_networks:
+            logger.info("No saved networks found, switching to AP mode")
+            return switch_to_ap_mode()
+            
+        # Try to connect to saved networks
+        for network in saved_networks:
+            if try_connect_to_network(network):
+                logger.info(f"Successfully connected to {network}")
+                return True
+                
+        # If no connections successful, switch to AP mode
+        logger.info("Could not connect to any saved networks, switching to AP mode")
+        return switch_to_ap_mode()
+        
+    except Exception as e:
+        logger.error(f"Error in network setup: {str(e)}")
+        return False
+
+def switch_to_ap_mode():
+    try:
+        # Stop NetworkManager
+        subprocess.run(['sudo', 'systemctl', 'stop', 'NetworkManager'])
+        
+        # Setup AP configuration
+        if not setup_ap_mode():
+            return False
+            
+        # Start hostapd
+        subprocess.run(['sudo', 'systemctl', 'restart', 'hostapd'])
+        
+        # Configure network interface
+        subprocess.run(['sudo', 'ifconfig', 'wlan0', '192.168.4.1', 'netmask', '255.255.255.0'])
+        
+        # Start DHCP server
+        subprocess.run(['sudo', 'systemctl', 'restart', 'dnsmasq'])
+        
+        logger.info("AP mode activated successfully")
+        return True
+        
+    except Exception as e:
+        logger.error(f"Error switching to AP mode: {str(e)}")
+        return False
+
 def main():
     try:
         # Set up signal handlers

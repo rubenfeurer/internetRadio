@@ -11004,3 +11004,151 @@ Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
 2024-11-12 12:50:47,675 - __main__ - INFO - hostapd service inactive
 2024-11-12 12:50:47,676 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'UPC8791472', 'Skynet5G', 'WN-AB7C60', 'visitor-81759', 'mzv-46205', 'pab-81759', 'FotokiteOffice', 'Salt_2GHz_9AA844', 'Surfs_up_1', 'KerichtHome', 'UPC87914725GHz'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Surfs_up_2'], 'current_network': 'Salt_5GHz_D8261F', 'ap_mode': False}
 2024-11-12 12:50:47,676 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:50:47] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:56:34,769 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:56:34] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:56:34,783 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:56:34] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:56:38,134 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Skynet2.4G', 'Surfs_up_2', 'KerichtHome', 'DIRECT-2E-HP OfficeJet 4650']
+2024-11-12 12:56:38,190 - __main__ - INFO - Raw nmcli output: preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:wlan0
+lo:c21e81d5-2523-4c51-b403-73be20b7ab8c:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Surfs_up_2:c56f7a36-8084-4857-bcc7-02b4086e5e9f:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:56:38,191 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:56:38,191 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:56:38,191 - __main__ - INFO - Added Surfs_up_2 to saved networks
+2024-11-12 12:56:38,191 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Surfs_up_2']
+2024-11-12 12:56:38,202 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:56:38,202 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Skynet2.4G', 'Surfs_up_2', 'KerichtHome', 'DIRECT-2E-HP OfficeJet 4650'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Surfs_up_2'], 'current_network': 'Salt_5GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:56:38,203 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:56:38] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:57:30,153 - __main__ - INFO - Received signal 15
+2024-11-12 12:57:30,153 - __main__ - INFO - Starting cleanup...
+2024-11-12 12:57:30,154 - __main__ - INFO - Stopping stream
+2024-11-12 12:57:30,159 - __main__ - INFO - Received signal 15
+2024-11-12 12:57:30,160 - __main__ - INFO - Starting cleanup...
+2024-11-12 12:57:30,161 - __main__ - INFO - Stopping stream
+2024-11-12 12:57:40,161 - __main__ - ERROR - Cleanup error: Thread failed to die within 10 seconds
+2024-11-12 12:57:41,645 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 12:57:41,738 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 12:57:41,738 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 12:57:41,759 - __main__ - INFO - SoundManager initialized
+2024-11-12 12:57:41,761 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 12:57:41,812 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 12:57:41,951 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 12:59:07,926 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 12:59:08,159 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 12:59:08,159 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 12:59:08,192 - __main__ - INFO - SoundManager initialized
+2024-11-12 12:59:08,199 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+2024-11-12 12:59:08,265 - __main__ - INFO - Starting Wi-Fi hotspot...
+2024-11-12 12:59:08,266 - __main__ - INFO - Starting WiFi hotspot...
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 12:59:08,281 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+2024-11-12 12:59:08,282 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+                                                                                                                                                                                                                                                                                                                                                                                         2024-11-12 13:00:08,592 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 13:00:08,798 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 13:00:08,798 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 13:00:08,831 - __main__ - INFO - SoundManager initialized
+2024-11-12 13:00:08,837 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+2024-11-12 13:00:08,870 - __main__ - INFO - Starting Wi-Fi hotspot...
+2024-11-12 13:00:08,870 - __main__ - INFO - Starting WiFi hotspot...
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 13:00:08,883 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+2024-11-12 13:00:08,883 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 13:07:09,815 - __main__ - INFO - Received signal 15
+2024-11-12 13:07:09,815 - __main__ - INFO - Starting cleanup...
+2024-11-12 13:07:09,816 - __main__ - INFO - Stopping stream
+2024-11-12 13:07:09,881 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 13:07:09,896 - __main__ - INFO - Received signal 15
+2024-11-12 13:07:09,896 - __main__ - INFO - Starting cleanup...
+2024-11-12 13:07:09,897 - __main__ - INFO - Stopping stream
+2024-11-12 13:07:09,906 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 13:07:10,906 - __main__ - INFO - Cleanup completed
+2024-11-12 13:08:55,036 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 13:08:55,262 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 13:08:55,262 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 13:08:55,298 - __main__ - INFO - SoundManager initialized
+2024-11-12 13:08:55,305 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+2024-11-12 13:08:55,366 - __main__ - INFO - Starting Wi-Fi hotspot...
+2024-11-12 13:08:55,366 - __main__ - INFO - Starting WiFi hotspot...
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 13:08:55,380 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+2024-11-12 13:08:55,380 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 13:11:53,537 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:11:53] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 13:11:53,581 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:11:53] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 13:11:57,196 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'Salt_2GHz_D8261F', 'pab-81759', 'Surfs_up_2', 'UETLIBERG', 'Skynet2.4G', 'Salt_2GHz_9AA844', 'visitor-81759', 'KerichtHome', 'WN-AB7C60', 'Surfs_up_1', 'UPCD5B6DA7']
+2024-11-12 13:11:57,263 - __main__ - INFO - Raw nmcli output: preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:wlan0
+lo:8eac5409-4357-4294-b1e7-d0ca628c80ce:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Surfs_up_2:c56f7a36-8084-4857-bcc7-02b4086e5e9f:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 13:11:57,263 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 13:11:57,263 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 13:11:57,264 - __main__ - INFO - Added Surfs_up_2 to saved networks
+2024-11-12 13:11:57,264 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Surfs_up_2']
+2024-11-12 13:11:57,275 - __main__ - INFO - hostapd service active
+2024-11-12 13:11:57,276 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'Salt_2GHz_D8261F', 'pab-81759', 'Surfs_up_2', 'UETLIBERG', 'Skynet2.4G', 'Salt_2GHz_9AA844', 'visitor-81759', 'KerichtHome', 'WN-AB7C60', 'Surfs_up_1', 'UPCD5B6DA7'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Surfs_up_2'], 'current_network': 'Salt_5GHz_D8261F', 'ap_mode': True}
+2024-11-12 13:11:57,277 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:11:57] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 13:12:06,121 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:12:06] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 13:12:06,219 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:12:06] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 13:12:09,581 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'UETLIBERG', 'pab-81759', 'visitor-81759', 'Salt_2GHz_9AA844', 'KerichtHome', 'FRITZ!Box 5530_2.4', 'netzwlan5', 'Surfs_up_1', 'UPCD5B6DA7']
+2024-11-12 13:12:09,648 - __main__ - INFO - Raw nmcli output: preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:wlan0
+lo:8eac5409-4357-4294-b1e7-d0ca628c80ce:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Surfs_up_2:c56f7a36-8084-4857-bcc7-02b4086e5e9f:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 13:12:09,648 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 13:12:09,648 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 13:12:09,648 - __main__ - INFO - Added Surfs_up_2 to saved networks
+2024-11-12 13:12:09,648 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Surfs_up_2']
+2024-11-12 13:12:09,661 - __main__ - INFO - hostapd service active
+2024-11-12 13:12:09,661 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'UETLIBERG', 'pab-81759', 'visitor-81759', 'Salt_2GHz_9AA844', 'KerichtHome', 'FRITZ!Box 5530_2.4', 'netzwlan5', 'Surfs_up_1', 'UPCD5B6DA7'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'Surfs_up_2'], 'current_network': 'Salt_5GHz_D8261F', 'ap_mode': True}
+2024-11-12 13:12:09,662 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 13:12:09] "GET /wifi-scan HTTP/1.1" 200 -
