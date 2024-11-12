@@ -1,5 +1,7 @@
 import logging
 from typing import Optional, Dict, List
+import subprocess
+import time
 from ..network.wifi_manager import WiFiManager
 from ..network.ap_manager import APManager
 from ..utils.logger import Logger
@@ -120,3 +122,57 @@ class NetworkController:
             self.ap_manager.cleanup()
         except Exception as e:
             self.logger.error(f"Error during cleanup: {e}")
+    
+    def check_and_setup_network(self) -> bool:
+        """Initial network setup - tries WiFi first, falls back to AP"""
+        try:
+            self.logger.info("Starting network setup check")
+            self.log_network_status()
+            
+            saved_networks = self.wifi_manager.get_saved_networks()
+            if not saved_networks:
+                self.logger.info("No saved networks found")
+                return self.start_ap_mode()
+                
+            # Try connecting to saved networks
+            for network in saved_networks:
+                if self.wifi_manager.connect_to_network(network, None):
+                    self.logger.info(f"Connected to {network}")
+                    return True
+                    
+            # If no connection successful, start AP mode
+            self.logger.info("Could not connect to any networks")
+            return self.start_ap_mode()
+            
+        except Exception as e:
+            self.logger.error(f"Network setup error: {e}")
+            return False
+    
+    def log_network_status(self) -> None:
+        """Log detailed network status"""
+        try:
+            commands = {
+                "WiFi Status": ["iwconfig", "wlan0"],
+                "IP Config": ["ip", "addr", "show", "wlan0"],
+                "Routing": ["ip", "route"],
+                "NetworkManager": ["systemctl", "status", "NetworkManager"],
+                "Hostapd": ["systemctl", "status", "hostapd"],
+                "Dnsmasq": ["systemctl", "status", "dnsmasq"]
+            }
+            
+            for name, cmd in commands.items():
+                result = subprocess.run(cmd, capture_output=True, text=True)
+                self.logger.info(f"{name}:\n{result.stdout}")
+                
+        except Exception as e:
+            self.logger.error(f"Error logging network status: {e}")
+    
+    def monitor_network(self) -> None:
+        """Continuous network monitoring"""
+        try:
+            if self.is_ap_mode and not self.ap_manager.is_active():
+                self.logger.warning("AP mode stopped unexpectedly")
+                self.start_ap_mode()
+                
+        except Exception as e:
+            self.logger.error(f"Network monitoring error: {e}")

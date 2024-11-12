@@ -55,6 +55,54 @@ Wired connection 1   d5ce7973-f25b-33c5-bc00-50dc57c4800d  ethernet  --     """
         self.assertFalse(
             self.wifi_manager.connect_to_network("TestNetwork", "password123")
         )
+    
+    @patch('subprocess.run')
+    def test_is_connected(self, mock_run):
+        # Test connected state
+        mock_run.return_value = MagicMock(
+            stdout='wlan0     IEEE 802.11  ESSID:"TestNetwork"  Mode:Managed'
+        )
+        self.assertTrue(self.wifi_manager.is_connected())
+        
+        # Test disconnected state
+        mock_run.return_value = MagicMock(
+            stdout='wlan0     IEEE 802.11  ESSID:off/any  Mode:Managed'
+        )
+        self.assertFalse(self.wifi_manager.is_connected())
+    
+    @patch('subprocess.run')
+    def test_get_current_network(self, mock_run):
+        # Test with connected network
+        mock_run.return_value = MagicMock(
+            stdout='wlan0     IEEE 802.11  ESSID:"TestNetwork"  Mode:Managed'
+        )
+        self.assertEqual(self.wifi_manager.get_current_network(), 'TestNetwork')
+        
+        # Test with no network
+        mock_run.return_value = MagicMock(
+            stdout='wlan0     IEEE 802.11  ESSID:off/any  Mode:Managed'
+        )
+        self.assertIsNone(self.wifi_manager.get_current_network())
+    
+    @patch('subprocess.run')
+    def test_disconnect(self, mock_run):
+        # Test successful disconnect
+        mock_run.return_value = MagicMock(returncode=0)
+        self.assertTrue(self.wifi_manager.disconnect())
+        
+        # Test failed disconnect
+        mock_run.return_value = MagicMock(returncode=1)
+        self.assertFalse(self.wifi_manager.disconnect())
+    
+    @patch('subprocess.run')
+    def test_initialize(self, mock_run):
+        # Test successful initialization
+        mock_run.return_value = MagicMock(returncode=0)
+        self.assertTrue(self.wifi_manager.initialize())
+        
+        # Test failed initialization
+        mock_run.side_effect = Exception("Failed to initialize")
+        self.assertFalse(self.wifi_manager.initialize())
 
 if __name__ == '__main__':
     unittest.main() 

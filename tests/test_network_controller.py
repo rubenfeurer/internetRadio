@@ -91,3 +91,95 @@ class TestNetworkController(unittest.TestCase):
         self.assertTrue(result)
         self.assertFalse(self.network.is_ap_mode)
         self.mock_ap.stop.assert_called_once()
+    
+    def test_network_setup(self):
+        # Setup
+        self.mock_wifi.get_saved_networks.return_value = ["Network1", "Network2"]
+        self.mock_wifi.connect_to_network.return_value = True
+        
+        # Test
+        result = self.network.check_and_setup_network()
+        
+        # Verify
+        self.assertTrue(result)
+        self.mock_wifi.get_saved_networks.assert_called_once()
+        self.mock_wifi.connect_to_network.assert_called_once_with("Network1", None)
+    
+    def test_network_setup_fallback(self):
+        # Setup
+        self.mock_wifi.get_saved_networks.return_value = []
+        self.mock_ap.start.return_value = True
+        
+        # Test
+        result = self.network.check_and_setup_network()
+        
+        # Verify
+        self.assertTrue(result)
+        self.assertTrue(self.network.is_ap_mode)
+        self.mock_ap.start.assert_called_once()
+    
+    def test_get_connection_status(self):
+        """Test getting connection status"""
+        # Setup
+        self.mock_wifi.is_connected.return_value = True
+        self.mock_wifi.get_current_ssid.return_value = "TestNetwork"
+        self.mock_wifi.get_ip.return_value = "192.168.1.100"
+        
+        # Test normal WiFi mode
+        status = self.network.get_connection_status()
+        self.assertEqual(status['is_ap_mode'], False)
+        self.assertEqual(status['ip_address'], "192.168.1.100")
+        self.assertEqual(status['wifi_connected'], True)
+        self.assertEqual(status['current_ssid'], "TestNetwork")
+        
+        # Test AP mode
+        self.network.is_ap_mode = True
+        self.mock_ap.get_ip.return_value = "192.168.4.1"
+        status = self.network.get_connection_status()
+        self.assertEqual(status['is_ap_mode'], True)
+        self.assertEqual(status['ip_address'], "192.168.4.1")
+        self.assertEqual(status['wifi_connected'], False)
+        self.assertIsNone(status['current_ssid'])
+
+    def test_cleanup(self):
+        """Test network cleanup"""
+        # Setup
+        self.network.is_ap_mode = True
+        self.mock_ap.stop.return_value = True
+        
+        # Test
+        self.network.cleanup()
+        
+        # Verify
+        self.mock_ap.stop.assert_called_once()
+        self.mock_wifi.cleanup.assert_called_once()
+        self.mock_ap.cleanup.assert_called_once()
+
+    def test_monitor_network(self):
+        """Test network monitoring"""
+        # Setup
+        self.network.is_ap_mode = True
+        self.mock_ap.is_active.return_value = False
+        
+        # Test
+        self.network.monitor_network()
+        
+        # Verify
+        self.mock_ap.is_active.assert_called_once()
+        self.mock_ap.start.assert_called_once()
+
+    @patch('subprocess.run')
+    def test_log_network_status(self, mock_run):
+        """Test network status logging"""
+        # Setup
+        mock_run.return_value = MagicMock(
+            returncode=0,
+            stdout="Test output"
+        )
+        
+        # Test
+        self.network.log_network_status()
+        
+        # Verify
+        self.assertEqual(mock_run.call_count, 6)  # Six different commands
+        self.mock_logger.info.assert_called()

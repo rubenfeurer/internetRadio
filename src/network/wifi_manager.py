@@ -94,7 +94,75 @@ class WiFiManager:
         """Initialize WiFi hardware"""
         try:
             self.logger.info("Initializing WiFi Manager")
+            # Execute commands and check their return codes
+            commands = [
+                ["sudo", "rfkill", "unblock", "wifi"],
+                ["sudo", "ifconfig", "wlan0", "up"]
+            ]
+            
+            for cmd in commands:
+                result = subprocess.run(cmd, capture_output=True, text=True)
+                if result.returncode != 0:
+                    self.logger.error(f"Command failed: {' '.join(cmd)}")
+                    return False
+                    
             return True
+            
         except Exception as e:
             self.logger.error(f"Failed to initialize WiFi: {e}")
+            return False
+
+    def is_connected(self) -> bool:
+        """Check if connected to a WiFi network"""
+        try:
+            result = subprocess.run(
+                ["iwconfig", "wlan0"],
+                capture_output=True,
+                text=True
+            )
+            
+            # More precise check for connection status
+            if "ESSID:" not in result.stdout:
+                return False
+                
+            if "Not-Associated" in result.stdout:
+                return False
+                
+            if "ESSID:off/any" in result.stdout:
+                return False
+                
+            essid = result.stdout.split('ESSID:"')[1].split('"')[0]
+            return bool(essid.strip())
+            
+        except Exception as e:
+            self.logger.error(f"Error checking connection status: {e}")
+            return False
+
+    def get_current_network(self) -> Optional[str]:
+        """Get current connected network SSID"""
+        try:
+            result = subprocess.run(
+                ["iwconfig", "wlan0"],
+                capture_output=True,
+                text=True
+            )
+            if "ESSID:" in result.stdout:
+                essid = result.stdout.split('ESSID:"')[1].split('"')[0]
+                return essid if essid else None
+            return None
+        except Exception as e:
+            self.logger.error(f"Error getting current network: {e}")
+            return None
+
+    def disconnect(self) -> bool:
+        """Disconnect from current network"""
+        try:
+            result = subprocess.run(
+                ["sudo", "nmcli", "device", "disconnect", "wlan0"],
+                capture_output=True,
+                text=True
+            )
+            return result.returncode == 0
+        except Exception as e:
+            self.logger.error(f"Error disconnecting: {e}")
             return False
