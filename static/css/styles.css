@@ -609,3 +609,19 @@ button:active {
     border-radius: 4px;
     margin: 5px 0;
 }
+
+.connecting-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.connecting-status .spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
