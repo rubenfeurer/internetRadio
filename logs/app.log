@@ -7830,3 +7830,1656 @@ Connected to pigpiod successfully
 2024-11-12 00:14:42,015 - __main__ - INFO - Volume down: 65
 2024-11-12 00:14:42,362 - __main__ - INFO - Volume set to 60
 2024-11-12 00:14:42,363 - __main__ - INFO - Volume down: 60
+2024-11-12 00:15:18,875 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:18] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-12 00:15:20,364 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:20] "GET /stream-select?channel=link3 HTTP/1.1" 200 -
+2024-11-12 00:15:20,405 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:20] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 00:15:23,400 - __main__ - INFO - Stopping stream
+2024-11-12 00:15:23,416 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:23] "POST /stop-stream HTTP/1.1" 200 -
+2024-11-12 00:15:23,656 - __main__ - INFO - Updating stream for channel link3 with URL https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-12 00:15:23,656 - __main__ - INFO - Current streams before update: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/3bi15goo/channel.mp3'}
+2024-11-12 00:15:23,696 - __main__ - INFO - Updated streams in manager: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:23,697 - __main__ - INFO - Reloading current stream for channel link3
+2024-11-12 00:15:23,697 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 00:15:23,697 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:23,697 - __main__ - INFO - Creating media for URL: https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-12 00:15:23,698 - __main__ - INFO - Stream play result: True
+2024-11-12 00:15:23,699 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:23] "POST /update-stream HTTP/1.1" 200 -
+2024-11-12 00:15:23,733 - __main__ - INFO - Attempting to play URL: https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-12 00:15:23,733 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:23,733 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 00:15:23,733 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:23,733 - __main__ - INFO - Stopping current stream
+2024-11-12 00:15:23,733 - __main__ - INFO - Stopping stream
+[0000007f940d3d90] main tls client error: cannot resolve gdsfm.out.airtime.pro port 443: System error
+[0000007f9407ba20] access stream error: HTTP connection failure
+2024-11-12 00:15:23,741 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:23] "POST /play-stream HTTP/1.1" 200 -
+2024-11-12 00:15:24,126 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:24] "GET / HTTP/1.1" 200 -
+2024-11-12 00:15:24,186 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:24] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 00:15:24,508 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:24] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-12 00:15:24,511 - __main__ - INFO - Stream status: playing=False, stream=None
+2024-11-12 00:15:24,511 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:24] "GET /stream-status HTTP/1.1" 200 -
+2024-11-12 00:15:30,663 - __main__ - INFO - Button pressed for stream: link3
+2024-11-12 00:15:30,664 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-12 00:15:30,665 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 00:15:30,665 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:30,665 - __main__ - INFO - Creating media for URL: https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-12 00:15:30,666 - __main__ - INFO - Stream play result: True
+2024-11-12 00:15:33,557 - __main__ - INFO - Button pressed for stream: link3
+2024-11-12 00:15:33,558 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-12 00:15:33,558 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 00:15:33,558 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:33,559 - __main__ - INFO - Stopping current stream
+2024-11-12 00:15:33,559 - __main__ - INFO - Stopping stream
+2024-11-12 00:15:35,225 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:35] "GET /stream-select?channel=link2 HTTP/1.1" 200 -
+2024-11-12 00:15:35,492 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:35] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 00:15:37,607 - __main__ - INFO - Stopping stream
+2024-11-12 00:15:37,609 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:37] "POST /stop-stream HTTP/1.1" 200 -
+2024-11-12 00:15:37,865 - __main__ - INFO - Updating stream for channel link2 with URL https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3
+2024-11-12 00:15:37,866 - __main__ - INFO - Current streams before update: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/VU44VQKM/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:37,946 - __main__ - INFO - Updated streams in manager: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:37,947 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:37] "POST /update-stream HTTP/1.1" 200 -
+2024-11-12 00:15:37,956 - __main__ - INFO - Attempting to play URL: https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3
+2024-11-12 00:15:37,956 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:37,956 - __main__ - INFO - Playing stream_key: link2
+2024-11-12 00:15:37,956 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:37,956 - __main__ - INFO - Creating media for URL: https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3
+2024-11-12 00:15:37,957 - __main__ - INFO - Stream play result: True
+2024-11-12 00:15:37,958 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:37] "POST /play-stream HTTP/1.1" 200 -
+[0000007f340194a0] http stream error: local stream 1 error: Cancellation (0x8)
+2024-11-12 00:15:38,322 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:38] "GET / HTTP/1.1" 200 -
+2024-11-12 00:15:38,358 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:38] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 00:15:38,539 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:38] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-12 00:15:38,691 - __main__ - INFO - Stream status: playing=0, stream=None
+2024-11-12 00:15:38,691 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:38] "GET /stream-status HTTP/1.1" 200 -
+[0000007f340194a0] access stream error: HTTP 404 error
+[0000007f940cbf40] main input error: Your input can't be opened
+[0000007f940cbf40] main input error: VLC is unable to open the MRL 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'. Check the log for details.
+2024-11-12 00:15:39,497 - __main__ - INFO - Button pressed for stream: link3
+2024-11-12 00:15:39,498 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-12 00:15:39,498 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 00:15:39,498 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:39,498 - __main__ - INFO - Creating media for URL: https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-12 00:15:39,499 - __main__ - INFO - Stream play result: True
+2024-11-12 00:15:45,934 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:45] "GET /stream-select?channel=link3 HTTP/1.1" 200 -
+2024-11-12 00:15:45,988 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:45] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 00:15:47,762 - __main__ - INFO - Stopping stream
+2024-11-12 00:15:47,776 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:47] "POST /stop-stream HTTP/1.1" 200 -
+2024-11-12 00:15:48,095 - __main__ - INFO - Updating stream for channel link3 with URL https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-12 00:15:48,095 - __main__ - INFO - Current streams before update: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:48,134 - __main__ - INFO - Updated streams in manager: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:48,134 - __main__ - INFO - Reloading current stream for channel link3
+2024-11-12 00:15:48,134 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 00:15:48,134 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:48,134 - __main__ - INFO - Creating media for URL: https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-12 00:15:48,135 - __main__ - INFO - Stream play result: True
+2024-11-12 00:15:48,136 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:48] "POST /update-stream HTTP/1.1" 200 -
+2024-11-12 00:15:48,354 - __main__ - INFO - Attempting to play URL: https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-12 00:15:48,354 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:48,354 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 00:15:48,354 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:48,354 - __main__ - INFO - Stopping current stream
+2024-11-12 00:15:48,354 - __main__ - INFO - Stopping stream
+[0000007f34003410] main tls client error: connection error: Resource temporarily unavailable
+[0000007f34003410] main tls client error: connection error: Interrupted system call
+[0000007f3433ed70] access stream error: HTTP connection failure
+2024-11-12 00:15:48,360 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:48] "POST /play-stream HTTP/1.1" 200 -
+2024-11-12 00:15:48,539 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:48] "GET / HTTP/1.1" 200 -
+2024-11-12 00:15:48,693 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:48] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 00:15:48,906 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:48] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-12 00:15:49,018 - __main__ - INFO - Stream status: playing=False, stream=None
+2024-11-12 00:15:49,019 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:49] "GET /stream-status HTTP/1.1" 200 -
+2024-11-12 00:15:51,548 - __main__ - INFO - Button pressed for stream: link3
+2024-11-12 00:15:51,549 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-12 00:15:51,550 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 00:15:51,550 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:51,550 - __main__ - INFO - Creating media for URL: https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-12 00:15:51,552 - __main__ - INFO - Stream play result: True
+2024-11-12 00:15:53,629 - __main__ - INFO - Button pressed for stream: link3
+2024-11-12 00:15:53,629 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-12 00:15:53,630 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 00:15:53,630 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:53,630 - __main__ - INFO - Stopping current stream
+2024-11-12 00:15:53,630 - __main__ - INFO - Stopping stream
+2024-11-12 00:15:54,475 - __main__ - INFO - Button pressed for stream: link3
+2024-11-12 00:15:54,476 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-12 00:15:54,476 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 00:15:54,476 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:54,476 - __main__ - INFO - Creating media for URL: https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-12 00:15:54,476 - __main__ - INFO - Stream play result: True
+2024-11-12 00:15:55,743 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:55] "GET /stream-select?channel=link2 HTTP/1.1" 200 -
+2024-11-12 00:15:56,008 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:56] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 00:15:57,710 - __main__ - INFO - Stopping stream
+2024-11-12 00:15:57,742 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:57] "POST /stop-stream HTTP/1.1" 200 -
+2024-11-12 00:15:57,971 - __main__ - INFO - Updating stream for channel link2 with URL https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3
+2024-11-12 00:15:57,971 - __main__ - INFO - Current streams before update: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:58,061 - __main__ - INFO - Updated streams in manager: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:58,062 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:58] "POST /update-stream HTTP/1.1" 200 -
+2024-11-12 00:15:58,082 - __main__ - INFO - Attempting to play URL: https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3
+2024-11-12 00:15:58,082 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:58,082 - __main__ - INFO - Playing stream_key: link2
+2024-11-12 00:15:58,082 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:15:58,082 - __main__ - INFO - Creating media for URL: https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3
+2024-11-12 00:15:58,083 - __main__ - INFO - Stream play result: True
+2024-11-12 00:15:58,083 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:58] "POST /play-stream HTTP/1.1" 200 -
+[0000007f340034c0] http stream error: local stream 1 error: Cancellation (0x8)
+2024-11-12 00:15:58,441 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:58] "GET / HTTP/1.1" 200 -
+2024-11-12 00:15:58,494 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:58] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 00:15:58,769 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:58] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-12 00:15:58,821 - __main__ - INFO - Stream status: playing=0, stream=None
+2024-11-12 00:15:58,821 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:15:58] "GET /stream-status HTTP/1.1" 200 -
+2024-11-12 00:16:10,244 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:16:10] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 00:16:10,337 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:16:10] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 00:16:11,373 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:16:11] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-12 00:16:13,703 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 00:16:13,704 - __main__ - INFO - AP mode status: False
+2024-11-12 00:16:13,704 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:16:13] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 00:18:48,359 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:18:48] "GET / HTTP/1.1" 200 -
+2024-11-12 00:18:49,149 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:18:49] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 00:18:49,437 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:18:49] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-12 00:18:49,758 - __main__ - INFO - Stream status: playing=1, stream=link2
+2024-11-12 00:18:49,759 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 00:18:49] "GET /stream-status HTTP/1.1" 200 -
+2024-11-12 00:18:55,645 - __main__ - INFO - Button pressed for stream: link3
+2024-11-12 00:18:55,646 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-12 00:18:55,647 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 00:18:55,647 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:18:55,647 - __main__ - INFO - Creating media for URL: https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-12 00:18:55,662 - __main__ - INFO - Stream play result: True
+2024-11-12 00:18:59,502 - __main__ - INFO - Button pressed for stream: link3
+2024-11-12 00:18:59,503 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-12 00:18:59,503 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 00:18:59,503 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:18:59,503 - __main__ - INFO - Stopping current stream
+2024-11-12 00:18:59,503 - __main__ - INFO - Stopping stream
+2024-11-12 00:19:00,488 - __main__ - INFO - Button pressed for stream: link3
+2024-11-12 00:19:00,489 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-12 00:19:00,489 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 00:19:00,489 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:19:00,489 - __main__ - INFO - Creating media for URL: https://gdsfm.out.airtime.pro/gdsfm_a
+2024-11-12 00:19:00,490 - __main__ - INFO - Stream play result: True
+2024-11-12 00:19:03,949 - __main__ - INFO - Button pressed for stream: link3
+2024-11-12 00:19:03,951 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/click.wav'
+2024-11-12 00:19:03,951 - __main__ - INFO - Playing stream_key: link3
+2024-11-12 00:19:03,951 - __main__ - INFO - Available streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://gdsfm.out.airtime.pro/gdsfm_a'}
+2024-11-12 00:19:03,952 - __main__ - INFO - Stopping current stream
+2024-11-12 00:19:03,952 - __main__ - INFO - Stopping stream
+2024-11-12 10:15:46,929 - __main__ - INFO - Received signal 15
+2024-11-12 10:15:46,929 - __main__ - INFO - Starting cleanup...
+2024-11-12 10:15:46,930 - __main__ - INFO - Stopping stream
+2024-11-12 10:15:46,933 - __main__ - INFO - Received signal 15
+2024-11-12 10:15:46,934 - __main__ - INFO - Starting cleanup...
+2024-11-12 10:15:46,934 - __main__ - INFO - Stopping stream
+2024-11-12 10:15:46,936 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 10:15:47,937 - __main__ - INFO - Cleanup completed
+2024-11-12 10:15:49,429 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 10:15:49,526 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 10:15:49,526 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 10:15:49,537 - __main__ - INFO - SoundManager initialized
+2024-11-12 10:15:49,539 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 10:15:49,598 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 10:15:49,599 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 10:16:09,025 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:16:09] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-12 10:16:10,618 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:16:10] "GET / HTTP/1.1" 200 -
+2024-11-12 10:16:10,895 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:16:10] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 10:16:11,252 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:16:11] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-12 10:16:11,254 - __main__ - INFO - Stream status: playing=False, stream=None
+2024-11-12 10:16:11,255 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:16:11] "GET /stream-status HTTP/1.1" 200 -
+2024-11-12 10:16:13,472 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:16:13] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:16:13,773 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:16:13] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 10:16:17,411 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 10:16:17,411 - __main__ - INFO - AP mode status: False
+2024-11-12 10:16:17,413 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:16:17] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 10:16:23,820 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 10:16:23,822 - __main__ - INFO - Backed up current configuration
+2024-11-12 10:16:23,823 - __main__ - INFO - Created test configuration
+2024-11-12 10:16:25,848 - __main__ - INFO - Testing new configuration...
+2024-11-12 10:16:37,052 - __main__ - ERROR - Connection failed: Failed to connect to network
+2024-11-12 10:16:39,104 - __main__ - ERROR - Failed to restore configuration: [Errno 13] Permission denied: '/etc/wpa_supplicant/wpa_supplicant.conf'
+2024-11-12 10:16:39,105 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:16:39] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:18:06,636 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 10:18:06,637 - __main__ - INFO - Backed up current configuration
+2024-11-12 10:18:06,638 - __main__ - INFO - Created test configuration
+2024-11-12 10:18:08,689 - __main__ - INFO - Testing new configuration...
+2024-11-12 10:18:19,845 - __main__ - ERROR - Connection failed: Failed to connect to network
+2024-11-12 10:18:21,895 - __main__ - ERROR - Failed to restore configuration: [Errno 13] Permission denied: '/etc/wpa_supplicant/wpa_supplicant.conf'
+2024-11-12 10:18:21,897 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:18:21] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:18:48,572 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:18:48] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:18:48,879 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:18:48] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 10:18:52,406 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 10:18:52,406 - __main__ - INFO - AP mode status: False
+2024-11-12 10:18:52,407 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:18:52] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 10:19:01,295 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 10:19:01,296 - __main__ - INFO - Backed up current configuration
+2024-11-12 10:19:01,298 - __main__ - INFO - Created test configuration
+2024-11-12 10:19:03,347 - __main__ - INFO - Testing new configuration...
+2024-11-12 10:19:14,505 - __main__ - ERROR - Connection failed: Failed to connect to network
+2024-11-12 10:19:16,554 - __main__ - ERROR - Failed to restore configuration: [Errno 13] Permission denied: '/etc/wpa_supplicant/wpa_supplicant.conf'
+2024-11-12 10:19:16,555 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:19:16] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:21:42,708 - __main__ - INFO - Received signal 15
+2024-11-12 10:21:42,708 - __main__ - INFO - Starting cleanup...
+2024-11-12 10:21:42,709 - __main__ - INFO - Stopping stream
+2024-11-12 10:21:42,710 - __main__ - INFO - Received signal 15
+2024-11-12 10:21:42,710 - __main__ - INFO - Starting cleanup...
+2024-11-12 10:21:42,710 - __main__ - INFO - Stopping stream
+2024-11-12 10:21:42,716 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 10:21:43,717 - __main__ - INFO - Cleanup completed
+2024-11-12 10:21:45,078 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 10:21:45,176 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 10:21:45,176 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 10:21:45,188 - __main__ - INFO - SoundManager initialized
+2024-11-12 10:21:45,191 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 10:21:45,248 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 10:21:45,249 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 10:22:01,945 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:22:01] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-12 10:22:07,488 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:22:07] "GET / HTTP/1.1" 200 -
+2024-11-12 10:22:07,751 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:22:07] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 10:22:08,098 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:22:08] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-12 10:22:08,101 - __main__ - INFO - Stream status: playing=False, stream=None
+2024-11-12 10:22:08,101 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:22:08] "GET /stream-status HTTP/1.1" 200 -
+2024-11-12 10:22:15,332 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:22:15] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:22:15,629 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:22:15] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 10:22:19,247 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 10:22:19,247 - __main__ - INFO - AP mode status: False
+2024-11-12 10:22:19,248 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:22:19] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 10:22:27,006 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 10:22:27,009 - __main__ - INFO - Created test configuration
+2024-11-12 10:22:29,056 - __main__ - INFO - Starting wpa_supplicant...
+2024-11-12 10:22:29,173 - __main__ - INFO - wpa_supplicant output: wpa_supplicant v2.10
+random: getrandom() support available
+Successfully initialized wpa_supplicant
+Initializing interface 'wlan0' conf '/tmp/tmp_bot8p0w' driver 'default' ctrl_interface 'N/A' bridge 'N/A'
+Configuration file '/tmp/tmp_bot8p0w' -> '/tmp/tmp_bot8p0w'
+Reading configuration file '/tmp/tmp_bot8p0w'
+ctrl_interface='DIR=/var/run/wpa_supplicant GROUP=netdev'
+update_config=1
+country='CH'
+Priority group 0
+   id=0 ssid='Salt_2GHz_D8261F'
+nl80211: Using driver-based roaming
+nl80211: Supported cipher 00-0f-ac:1
+nl80211: Supported cipher 00-0f-ac:5
+nl80211: Supported cipher 00-0f-ac:2
+nl80211: Supported cipher 00-0f-ac:4
+nl80211: Supported cipher 00-0f-ac:6
+nl80211: Using driver-based off-channel TX
+nl80211: Supported vendor command: vendor_id=0x1018 subcmd=1
+nl80211: Use separate P2P group interface (driver advertised support)
+nl80211: Enable multi-channel concurrent (driver advertised support)
+nl80211: use P2P_DEVICE support
+nl80211: key_mgmt=0xd0f enc=0x10f auth=0x7 flags=0x3a04fac4 rrm_flags=0x0 probe_resp_offloads=0x0 max_stations=0 max_remain_on_chan=5000 max_scan_ssids=10
+nl80211: interface wlan0 in phy phy0
+nl80211: Set mode ifindex 3 iftype 2 (STATION)
+nl80211: Subscribe to mgmt frames with non-AP handle 0x556696b480
+nl80211: Register frame type=0xb0 (WLAN_FC_STYPE_AUTH) nl_handle=0x556696b480 match=0300 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=0104 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=040a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=040b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=040c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=040d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=090a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=090b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=090c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=090d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=0409506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=7f506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=0409506f9a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=0800 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=0801 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=12 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=06 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=0a07 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=0a11 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=0a0b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=0a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=1101 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=1102 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=0505 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=0500 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=1301 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=1305 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x556696b480 match=7e506f9a1a multicast=0
+rfkill: initial event: idx=1 type=1 op=0 soft=0 hard=0
+netlink: Operstate: ifindex=3 linkmode=1 (userspace-control), operstate=5 (IF_OPER_DORMANT)
+Add interface wlan0 to a new radio phy0
+nl80211: Regulatory information - country=CH (DFS-ETSI)
+nl80211: 2400-2483 @ 40 MHz 20 mBm
+nl80211: 5150-5250 @ 80 MHz 23 mBm (no outdoor)
+nl80211: 5250-5350 @ 80 MHz 20 mBm (no outdoor) (DFS)
+nl80211: 5470-5725 @ 160 MHz 26 mBm (DFS)
+nl80211: 5725-5875 @ 80 MHz 13 mBm
+nl80211: 57000-66000 @ 2160 MHz 40 mBm
+nl80211: Added 802.11b mode based on 802.11g information
+nl80211: Mode IEEE 802.11g: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484[DISABLED]
+nl80211: Mode IEEE 802.11a: 5170 5180 5190 5200 5210 5220 5230 5240 5260[RADAR] 5280[RADAR] 5300[RADAR] 5320[RADAR] 5500[RADAR] 5520[RADAR] 5540[RADAR] 5560[RADAR] 5580[RADAR] 5600[RADAR] 5620[RADAR] 5640[RADAR] 5660[RADAR]
+nl80211: Mode IEEE 802.11b: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484[DISABLED]
+wlan0: Own MAC address: 2c:cf:67:67:8b:21
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=0 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=1 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=2 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=3 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=4 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=5 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wlan0: RSN: flushing PMKID list in the driver
+nl80211: Flush PMKIDs
+TDLS: TDLS operation not supported by driver
+TDLS: Driver uses internal link setup
+TDLS: Driver does not support TDLS channel switching
+wlan0: WPS: UUID based on MAC address: 0441057d-7610-5294-96c3-75bf98ded93a
+ENGINE: Loading builtin engines
+ENGINE: Loading builtin engines
+EAPOL: SUPP_PAE entering state DISCONNECTED
+EAPOL: Supplicant port status: Unauthorized
+nl80211: Skip set_supp_port(unauthorized) while not associated
+EAPOL: KEY_RX entering state NO_KEY_RECEIVE
+EAPOL: SUPP_BE entering state INITIALIZE
+EAP: EAP entering state DISABLED
+ctrl_interface_group=106 (from group name 'netdev')
+MBO: Update non-preferred channels, non_pref_chan=N/A
+wlan0: Added interface wlan0
+wlan0: State: DISCONNECTED -> DISCONNECTED
+nl80211: Set wlan0 operstate 0->0 (DORMANT)
+netlink: Operstate: ifindex=3 linkmode=-1 (no change), operstate=5 (IF_OPER_DORMANT)
+nl80211: Create interface iftype 10 (P2P_DEVICE)
+nl80211: New P2P Device interface p2p-dev-wlan0 (0x9) created
+Initializing interface 'p2p-dev-wlan0' conf '/tmp/tmp_bot8p0w' driver 'nl80211' ctrl_interface 'DIR=/var/run/wpa_supplicant GROUP=netdev' bridge 'N/A'
+Configuration file '/tmp/tmp_bot8p0w' -> '/tmp/tmp_bot8p0w'
+Reading configuration file '/tmp/tmp_bot8p0w'
+ctrl_interface='DIR=/var/run/wpa_supplicant GROUP=netdev'
+update_config=1
+country='CH'
+Priority group 0
+   id=0 ssid='Salt_2GHz_D8261F'
+nl80211: Using driver-based roaming
+nl80211: Supported cipher 00-0f-ac:1
+nl80211: Supported cipher 00-0f-ac:5
+nl80211: Supported cipher 00-0f-ac:2
+nl80211: Supported cipher 00-0f-ac:4
+nl80211: Supported cipher 00-0f-ac:6
+nl80211: Using driver-based off-channel TX
+nl80211: Supported vendor command: vendor_id=0x1018 subcmd=1
+nl80211: Use separate P2P group interface (driver advertised support)
+nl80211: Enable multi-channel concurrent (driver advertised support)
+nl80211: use P2P_DEVICE support
+nl80211: key_mgmt=0xd0f enc=0x10f auth=0x7 flags=0x3a04fac4 rrm_flags=0x0 probe_resp_offloads=0x0 max_stations=0 max_remain_on_chan=5000 max_scan_ssids=10
+nl80211: interface p2p-dev-wlan0 in phy phy0
+nl80211: Set mode ifindex 0 iftype 10 (P2P_DEVICE)
+nl80211: Failed to set interface 0 to mode 10: -22 (Invalid argument)
+nl80211: Subscribe to mgmt frames with non-AP handle 0x55669dd960
+nl80211: Register frame type=0xb0 (WLAN_FC_STYPE_AUTH) nl_handle=0x55669dd960 match=0300 multicast=0
+nl80211: kernel reports: Registration to specific type not supported
+nl80211: Register frame command failed (type=176): ret=-22 (Invalid argument)
+nl80211: Register frame match - hexdump(len=2): 03 00
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=0104 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=040a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=040b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=040c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=040d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=090a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=090b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=090c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=090d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=0409506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=7f506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=0409506f9a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=0800 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=0801 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=12 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=06 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=0a07 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=0a11 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=0a0b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=0a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=1101 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=1102 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=0505 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=0500 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=1301 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=1305 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55669dd960 match=7e506f9a1a multicast=0
+nl80211: Use (wlan0) to initialize P2P Device rfkill
+rfkill: initial event: idx=1 type=1 op=0 soft=0 hard=0
+nl80211: Start P2P Device p2p-dev-wlan0 (0x9): Success
+Add interface p2p-dev-wlan0 to existing radio phy0
+nl80211: Regulatory information - country=CH (DFS-ETSI)
+nl80211: 2400-2483 @ 40 MHz 20 mBm
+nl80211: 5150-5250 @ 80 MHz 23 mBm (no outdoor)
+nl80211: 5250-5350 @ 80 MHz 20 mBm (no outdoor) (DFS)
+nl80211: 5470-5725 @ 160 MHz 26 mBm (DFS)
+nl80211: 5725-5875 @ 80 MHz 13 mBm
+nl80211: 57000-66000 @ 2160 MHz 40 mBm
+nl80211: Added 802.11b mode based on 802.11g information
+nl80211: Mode IEEE 802.11g: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484[DISABLED]
+nl80211: Mode IEEE 802.11a: 5170 5180 5190 5200 5210 5220 5230 5240 5260[RADAR] 5280[RADAR] 5300[RADAR] 5320[RADAR] 5500[RADAR] 5520[RADAR] 5540[RADAR] 5560[RADAR] 5580[RADAR] 5600[RADAR] 5620[RADAR] 5640[RADAR] 5660[RADAR]
+nl80211: Mode IEEE 802.11b: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484[DISABLED]
+p2p-dev-wlan0: Own MAC address: 2e:cf:67:67:8b:21
+p2p-dev-wlan0: RSN: flushing PMKID list in the driver
+nl80211: Flush PMKIDs
+p2p-dev-wlan0: State: DISCONNECTED -> INACTIVE
+p2p-dev-wlan0: WPS: UUID from the first interface: 0441057d-7610-5294-96c3-75bf98ded93a
+ENGINE: Loading builtin engines
+ENGINE: Loading builtin engines
+EAPOL: SUPP_PAE entering state DISCONNECTED
+EAPOL: Supplicant port status: Unauthorized
+nl80211: Skip set_supp_port(unauthorized) while not associated
+EAPOL: KEY_RX entering state NO_KEY_RECEIVE
+EAPOL: SUPP_BE entering state INITIALIZE
+EAP: EAP entering state DISABLED
+Using existing control interface directory.
+ctrl_interface_group=106 (from group name 'netdev')
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=13): 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d
+P2P: Add operating class 115
+P2P: Channels - hexdump(len=4): 24 28 2c 30
+P2P: Add operating class 116
+P2P: Channels - hexdump(len=2): 24 2c
+P2P: Add operating class 117
+P2P: Channels - hexdump(len=2): 28 30
+P2P: Add operating class 124
+P2P: Channels - hexdump(len=4): 95 99 9d a1
+P2P: Add operating class 125
+P2P: Channels - hexdump(len=5): 95 99 9d a1 a5
+P2P: Add operating class 126
+P2P: Channels - hexdump(len=2): 95 9d
+P2P: Add operating class 127
+P2P: Channels - hexdump(len=2): 99 a1
+P2P: Add operating class 128
+P2P: Channels - hexdump(len=8): 24 28 2c 30 95 99 9d a1
+P2P: Add operating class 130
+P2P: Channels - hexdump(len=9): 24 28 2c 30 95 99 9d a1 a5
+P2P: Own listen channel: 81:1
+P2P: Random operating channel: 81:11
+P2P: initialized
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11,12,13 115:36,40,44,48 116:36,44 117:40,48 124:149,153,157,161 125:149,153,157,161,165 126:149,157 127:153,161 128:36,40,44,48,149,153,157,161 130:36,40,44,48,149,153,157,161,165
+P2P: cli_channels:
+MBO: Update non-preferred channels, non_pref_chan=N/A
+p2p-dev-wlan0: Added interface p2p-dev-wlan0
+p2p-dev-wlan0: State: INACTIVE -> DISCONNECTED
+nl80211: Set p2p-dev-wlan0 operstate 0->0 (DORMANT)
+netlink: Operstate: ifindex=0 linkmode=-1 (no change), operstate=5 (IF_OPER_DORMANT)
+p2p-dev-wlan0: Determining shared radio frequencies (max len 2)
+p2p-dev-wlan0: Shared frequencies (len=0): completed iteration
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=13): 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d
+P2P: Add operating class 115
+P2P: Channels - hexdump(len=4): 24 28 2c 30
+P2P: Add operating class 116
+P2P: Channels - hexdump(len=2): 24 2c
+P2P: Add operating class 117
+P2P: Channels - hexdump(len=2): 28 30
+P2P: Add operating class 124
+P2P: Channels - hexdump(len=4): 95 99 9d a1
+P2P: Add operating class 125
+P2P: Channels - hexdump(len=5): 95 99 9d a1 a5
+P2P: Add operating class 126
+P2P: Channels - hexdump(len=2): 95 9d
+P2P: Add operating class 127
+P2P: Channels - hexdump(len=2): 99 a1
+P2P: Add operating class 128
+P2P: Channels - hexdump(len=8): 24 28 2c 30 95 99 9d a1
+P2P: Add operating class 130
+P2P: Channels - hexdump(len=9): 24 28 2c 30 95 99 9d a1 a5
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11,12,13 115:36,40,44,48 116:36,44 117:40,48 124:149,153,157,161 125:149,153,157,161,165 126:149,157 127:153,161 128:36,40,44,48,149,153,157,161 130:36,40,44,48,149,153,157,161,165
+P2P: cli_channels:
+Daemonize..
+
+2024-11-12 10:22:29,173 - __main__ - INFO - Waiting for connection...
+2024-11-12 10:22:34,178 - __main__ - INFO - Attempt 1: Current SSID = 
+2024-11-12 10:22:39,183 - __main__ - INFO - Attempt 2: Current SSID = 
+2024-11-12 10:22:44,186 - __main__ - INFO - Attempt 3: Current SSID = 
+2024-11-12 10:22:49,191 - __main__ - INFO - Attempt 4: Current SSID = 
+2024-11-12 10:22:54,196 - __main__ - INFO - Attempt 5: Current SSID = 
+2024-11-12 10:22:59,202 - __main__ - INFO - Attempt 6: Current SSID = 
+2024-11-12 10:22:59,203 - __main__ - ERROR - Connection failed: Connection timeout
+2024-11-12 10:22:59,205 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:22:59] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:24:14,299 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 10:24:14,531 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 10:24:14,532 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 10:24:14,565 - __main__ - INFO - SoundManager initialized
+2024-11-12 10:24:14,571 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+2024-11-12 10:24:14,640 - __main__ - INFO - Starting Wi-Fi hotspot...
+2024-11-12 10:24:14,641 - __main__ - INFO - Starting WiFi hotspot...
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 10:24:14,656 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+2024-11-12 10:24:14,656 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 10:26:57,351 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 10:26:57,353 - __main__ - INFO - Created test configuration
+2024-11-12 10:26:59,429 - __main__ - INFO - Starting wpa_supplicant...
+2024-11-12 10:26:59,582 - __main__ - INFO - wpa_supplicant output: wpa_supplicant v2.10
+random: getrandom() support available
+Successfully initialized wpa_supplicant
+Initializing interface 'wlan0' conf '/tmp/tmpksy4d314' driver 'default' ctrl_interface 'N/A' bridge 'N/A'
+Configuration file '/tmp/tmpksy4d314' -> '/tmp/tmpksy4d314'
+Reading configuration file '/tmp/tmpksy4d314'
+ctrl_interface='DIR=/var/run/wpa_supplicant GROUP=netdev'
+update_config=1
+country='CH'
+Priority group 0
+   id=0 ssid='Salt_2GHz_D8261F'
+nl80211: Using driver-based roaming
+nl80211: Supported cipher 00-0f-ac:1
+nl80211: Supported cipher 00-0f-ac:5
+nl80211: Supported cipher 00-0f-ac:2
+nl80211: Supported cipher 00-0f-ac:4
+nl80211: Supported cipher 00-0f-ac:6
+nl80211: Using driver-based off-channel TX
+nl80211: Supported vendor command: vendor_id=0x1018 subcmd=1
+nl80211: Use separate P2P group interface (driver advertised support)
+nl80211: Enable multi-channel concurrent (driver advertised support)
+nl80211: use P2P_DEVICE support
+nl80211: key_mgmt=0xd0f enc=0x10f auth=0x7 flags=0x3a04fac4 rrm_flags=0x0 probe_resp_offloads=0x0 max_stations=0 max_remain_on_chan=5000 max_scan_ssids=10
+nl80211: interface wlan0 in phy phy0
+nl80211: Set mode ifindex 3 iftype 2 (STATION)
+nl80211: Subscribe to mgmt frames with non-AP handle 0x559944a480
+nl80211: Register frame type=0xb0 (WLAN_FC_STYPE_AUTH) nl_handle=0x559944a480 match=0300 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=0104 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=040a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=040b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=040c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=040d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=090a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=090b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=090c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=090d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=0409506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=7f506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=0409506f9a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=0800 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=0801 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=12 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=06 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=0a07 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=0a11 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=0a0b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=0a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=1101 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=1102 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=0505 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=0500 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=1301 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=1305 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x559944a480 match=7e506f9a1a multicast=0
+rfkill: initial event: idx=1 type=1 op=0 soft=0 hard=0
+netlink: Operstate: ifindex=3 linkmode=1 (userspace-control), operstate=5 (IF_OPER_DORMANT)
+Add interface wlan0 to a new radio phy0
+nl80211: Regulatory information - country=CH (DFS-ETSI)
+nl80211: 2400-2483 @ 40 MHz 20 mBm
+nl80211: 5150-5250 @ 80 MHz 23 mBm (no outdoor)
+nl80211: 5250-5350 @ 80 MHz 20 mBm (no outdoor) (DFS)
+nl80211: 5470-5725 @ 160 MHz 26 mBm (DFS)
+nl80211: 5725-5875 @ 80 MHz 13 mBm
+nl80211: 57000-66000 @ 2160 MHz 40 mBm
+nl80211: Added 802.11b mode based on 802.11g information
+nl80211: Mode IEEE 802.11g: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484[DISABLED]
+nl80211: Mode IEEE 802.11a: 5170 5180 5190 5200 5210 5220 5230 5240 5260[RADAR] 5280[RADAR] 5300[RADAR] 5320[RADAR] 5500[RADAR] 5520[RADAR] 5540[RADAR] 5560[RADAR] 5580[RADAR] 5600[RADAR] 5620[RADAR] 5640[RADAR] 5660[RADAR]
+nl80211: Mode IEEE 802.11b: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484[DISABLED]
+wlan0: Own MAC address: 2c:cf:67:67:8b:21
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=0 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=1 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=2 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=3 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=4 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=5 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wlan0: RSN: flushing PMKID list in the driver
+nl80211: Flush PMKIDs
+TDLS: TDLS operation not supported by driver
+TDLS: Driver uses internal link setup
+TDLS: Driver does not support TDLS channel switching
+wlan0: WPS: UUID based on MAC address: 0441057d-7610-5294-96c3-75bf98ded93a
+ENGINE: Loading builtin engines
+ENGINE: Loading builtin engines
+EAPOL: SUPP_PAE entering state DISCONNECTED
+EAPOL: Supplicant port status: Unauthorized
+nl80211: Skip set_supp_port(unauthorized) while not associated
+EAPOL: KEY_RX entering state NO_KEY_RECEIVE
+EAPOL: SUPP_BE entering state INITIALIZE
+EAP: EAP entering state DISABLED
+ctrl_interface_group=106 (from group name 'netdev')
+MBO: Update non-preferred channels, non_pref_chan=N/A
+wlan0: Added interface wlan0
+wlan0: State: DISCONNECTED -> DISCONNECTED
+nl80211: Set wlan0 operstate 0->0 (DORMANT)
+netlink: Operstate: ifindex=3 linkmode=-1 (no change), operstate=5 (IF_OPER_DORMANT)
+nl80211: Create interface iftype 10 (P2P_DEVICE)
+nl80211: New P2P Device interface p2p-dev-wlan0 (0x3) created
+Initializing interface 'p2p-dev-wlan0' conf '/tmp/tmpksy4d314' driver 'nl80211' ctrl_interface 'DIR=/var/run/wpa_supplicant GROUP=netdev' bridge 'N/A'
+Configuration file '/tmp/tmpksy4d314' -> '/tmp/tmpksy4d314'
+Reading configuration file '/tmp/tmpksy4d314'
+ctrl_interface='DIR=/var/run/wpa_supplicant GROUP=netdev'
+update_config=1
+country='CH'
+Priority group 0
+   id=0 ssid='Salt_2GHz_D8261F'
+nl80211: Using driver-based roaming
+nl80211: Supported cipher 00-0f-ac:1
+nl80211: Supported cipher 00-0f-ac:5
+nl80211: Supported cipher 00-0f-ac:2
+nl80211: Supported cipher 00-0f-ac:4
+nl80211: Supported cipher 00-0f-ac:6
+nl80211: Using driver-based off-channel TX
+nl80211: Supported vendor command: vendor_id=0x1018 subcmd=1
+nl80211: Use separate P2P group interface (driver advertised support)
+nl80211: Enable multi-channel concurrent (driver advertised support)
+nl80211: use P2P_DEVICE support
+nl80211: key_mgmt=0xd0f enc=0x10f auth=0x7 flags=0x3a04fac4 rrm_flags=0x0 probe_resp_offloads=0x0 max_stations=0 max_remain_on_chan=5000 max_scan_ssids=10
+nl80211: interface p2p-dev-wlan0 in phy phy0
+nl80211: Set mode ifindex 0 iftype 10 (P2P_DEVICE)
+nl80211: Failed to set interface 0 to mode 10: -22 (Invalid argument)
+nl80211: Subscribe to mgmt frames with non-AP handle 0x55994bc960
+nl80211: Register frame type=0xb0 (WLAN_FC_STYPE_AUTH) nl_handle=0x55994bc960 match=0300 multicast=0
+nl80211: kernel reports: Registration to specific type not supported
+nl80211: Register frame command failed (type=176): ret=-22 (Invalid argument)
+nl80211: Register frame match - hexdump(len=2): 03 00
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=0104 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=040a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=040b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=040c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=040d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=090a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=090b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=090c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=090d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=0409506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=7f506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=0409506f9a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=0800 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=0801 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=12 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=06 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=0a07 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=0a11 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=0a0b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=0a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=1101 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=1102 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=0505 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=0500 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=1301 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=1305 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x55994bc960 match=7e506f9a1a multicast=0
+nl80211: Use (wlan0) to initialize P2P Device rfkill
+rfkill: initial event: idx=1 type=1 op=0 soft=0 hard=0
+nl80211: Start P2P Device p2p-dev-wlan0 (0x3): Success
+Add interface p2p-dev-wlan0 to existing radio phy0
+nl80211: Regulatory information - country=CH (DFS-ETSI)
+nl80211: 2400-2483 @ 40 MHz 20 mBm
+nl80211: 5150-5250 @ 80 MHz 23 mBm (no outdoor)
+nl80211: 5250-5350 @ 80 MHz 20 mBm (no outdoor) (DFS)
+nl80211: 5470-5725 @ 160 MHz 26 mBm (DFS)
+nl80211: 5725-5875 @ 80 MHz 13 mBm
+nl80211: 57000-66000 @ 2160 MHz 40 mBm
+nl80211: Added 802.11b mode based on 802.11g information
+nl80211: Mode IEEE 802.11g: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484[DISABLED]
+nl80211: Mode IEEE 802.11a: 5170 5180 5190 5200 5210 5220 5230 5240 5260[RADAR] 5280[RADAR] 5300[RADAR] 5320[RADAR] 5500[RADAR] 5520[RADAR] 5540[RADAR] 5560[RADAR] 5580[RADAR] 5600[RADAR] 5620[RADAR] 5640[RADAR] 5660[RADAR]
+nl80211: Mode IEEE 802.11b: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484[DISABLED]
+p2p-dev-wlan0: Own MAC address: 2e:cf:67:67:8b:21
+p2p-dev-wlan0: RSN: flushing PMKID list in the driver
+nl80211: Flush PMKIDs
+p2p-dev-wlan0: State: DISCONNECTED -> INACTIVE
+p2p-dev-wlan0: WPS: UUID from the first interface: 0441057d-7610-5294-96c3-75bf98ded93a
+ENGINE: Loading builtin engines
+ENGINE: Loading builtin engines
+EAPOL: SUPP_PAE entering state DISCONNECTED
+EAPOL: Supplicant port status: Unauthorized
+nl80211: Skip set_supp_port(unauthorized) while not associated
+EAPOL: KEY_RX entering state NO_KEY_RECEIVE
+EAPOL: SUPP_BE entering state INITIALIZE
+EAP: EAP entering state DISABLED
+Using existing control interface directory.
+ctrl_interface_group=106 (from group name 'netdev')
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=13): 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d
+P2P: Add operating class 115
+P2P: Channels - hexdump(len=4): 24 28 2c 30
+P2P: Add operating class 116
+P2P: Channels - hexdump(len=2): 24 2c
+P2P: Add operating class 117
+P2P: Channels - hexdump(len=2): 28 30
+P2P: Add operating class 124
+P2P: Channels - hexdump(len=4): 95 99 9d a1
+P2P: Add operating class 125
+P2P: Channels - hexdump(len=5): 95 99 9d a1 a5
+P2P: Add operating class 126
+P2P: Channels - hexdump(len=2): 95 9d
+P2P: Add operating class 127
+P2P: Channels - hexdump(len=2): 99 a1
+P2P: Add operating class 128
+P2P: Channels - hexdump(len=8): 24 28 2c 30 95 99 9d a1
+P2P: Add operating class 130
+P2P: Channels - hexdump(len=9): 24 28 2c 30 95 99 9d a1 a5
+P2P: Own listen channel: 81:6
+P2P: Random operating channel: 81:6
+P2P: initialized
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11,12,13 115:36,40,44,48 116:36,44 117:40,48 124:149,153,157,161 125:149,153,157,161,165 126:149,157 127:153,161 128:36,40,44,48,149,153,157,161 130:36,40,44,48,149,153,157,161,165
+P2P: cli_channels:
+MBO: Update non-preferred channels, non_pref_chan=N/A
+p2p-dev-wlan0: Added interface p2p-dev-wlan0
+p2p-dev-wlan0: State: INACTIVE -> DISCONNECTED
+nl80211: Set p2p-dev-wlan0 operstate 0->0 (DORMANT)
+netlink: Operstate: ifindex=0 linkmode=-1 (no change), operstate=5 (IF_OPER_DORMANT)
+p2p-dev-wlan0: Determining shared radio frequencies (max len 2)
+p2p-dev-wlan0: Shared frequencies (len=0): completed iteration
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=13): 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d
+P2P: Add operating class 115
+P2P: Channels - hexdump(len=4): 24 28 2c 30
+P2P: Add operating class 116
+P2P: Channels - hexdump(len=2): 24 2c
+P2P: Add operating class 117
+P2P: Channels - hexdump(len=2): 28 30
+P2P: Add operating class 124
+P2P: Channels - hexdump(len=4): 95 99 9d a1
+P2P: Add operating class 125
+P2P: Channels - hexdump(len=5): 95 99 9d a1 a5
+P2P: Add operating class 126
+P2P: Channels - hexdump(len=2): 95 9d
+P2P: Add operating class 127
+P2P: Channels - hexdump(len=2): 99 a1
+P2P: Add operating class 128
+P2P: Channels - hexdump(len=8): 24 28 2c 30 95 99 9d a1
+P2P: Add operating class 130
+P2P: Channels - hexdump(len=9): 24 28 2c 30 95 99 9d a1 a5
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11,12,13 115:36,40,44,48 116:36,44 117:40,48 124:149,153,157,161 125:149,153,157,161,165 126:149,157 127:153,161 128:36,40,44,48,149,153,157,161 130:36,40,44,48,149,153,157,161,165
+P2P: cli_channels:
+Daemonize..
+
+2024-11-12 10:26:59,582 - __main__ - INFO - Waiting for connection...
+2024-11-12 10:27:04,587 - __main__ - INFO - Attempt 1: Current SSID = 
+2024-11-12 10:27:09,593 - __main__ - INFO - Attempt 2: Current SSID = 
+2024-11-12 10:27:14,596 - __main__ - INFO - Attempt 3: Current SSID = 
+2024-11-12 10:27:19,601 - __main__ - INFO - Attempt 4: Current SSID = 
+2024-11-12 10:27:24,606 - __main__ - INFO - Attempt 5: Current SSID = 
+2024-11-12 10:27:29,611 - __main__ - INFO - Attempt 6: Current SSID = 
+2024-11-12 10:27:29,612 - __main__ - ERROR - Connection failed: Connection timeout
+2024-11-12 10:27:29,645 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:27:29] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:27:58,256 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 10:27:58,447 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 10:27:58,447 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 10:27:58,479 - __main__ - INFO - SoundManager initialized
+2024-11-12 10:27:58,485 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 10:27:58,530 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 10:27:58,530 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 10:30:14,032 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:30:14] "GET /ping HTTP/1.1" 200 -
+2024-11-12 10:30:14,310 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:30:14] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:30:14,943 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:30:14] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 10:30:18,345 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 10:30:18,346 - __main__ - INFO - AP mode status: False
+2024-11-12 10:30:18,347 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:30:18] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 10:31:30,953 - __main__ - INFO - Received signal 15
+2024-11-12 10:31:30,953 - __main__ - INFO - Starting cleanup...
+2024-11-12 10:31:30,954 - __main__ - INFO - Stopping stream
+2024-11-12 10:31:30,956 - __main__ - INFO - Received signal 15
+2024-11-12 10:31:30,957 - __main__ - INFO - Starting cleanup...
+2024-11-12 10:31:30,957 - __main__ - INFO - Stopping stream
+2024-11-12 10:33:02,025 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 10:33:02,120 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 10:33:02,121 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 10:33:02,142 - __main__ - INFO - SoundManager initialized
+2024-11-12 10:33:02,143 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 10:33:02,195 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 10:33:02,195 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 10:33:29,567 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:33:29] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:33:29,610 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:33:29] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 10:33:33,017 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 10:33:33,017 - __main__ - INFO - AP mode status: False
+2024-11-12 10:33:33,018 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:33:33] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 10:33:45,388 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 10:33:45,390 - __main__ - INFO - Backed up current configuration
+2024-11-12 10:33:45,392 - __main__ - INFO - Created test configuration
+2024-11-12 10:33:52,581 - __main__ - ERROR - Connection failed: Failed to connect to network
+2024-11-12 10:33:52,581 - __main__ - INFO - Restoring original connection...
+2024-11-12 10:33:54,616 - __main__ - ERROR - Failed to restore configuration: [Errno 13] Permission denied: '/etc/wpa_supplicant/wpa_supplicant.conf'
+2024-11-12 10:33:54,619 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:33:54] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:36:07,479 - __main__ - INFO - Received signal 15
+2024-11-12 10:36:07,479 - __main__ - INFO - Starting cleanup...
+2024-11-12 10:36:07,480 - __main__ - INFO - Stopping stream
+2024-11-12 10:36:07,483 - __main__ - INFO - Received signal 15
+2024-11-12 10:36:07,483 - __main__ - INFO - Starting cleanup...
+2024-11-12 10:36:07,483 - __main__ - INFO - Stopping stream
+2024-11-12 10:36:07,485 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 10:36:08,485 - __main__ - INFO - Cleanup completed
+2024-11-12 10:36:09,971 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 10:36:10,058 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 10:36:10,059 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 10:36:10,080 - __main__ - INFO - SoundManager initialized
+2024-11-12 10:36:10,082 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 10:36:10,132 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 10:36:10,132 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 10:36:22,245 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:36:22] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:36:22,307 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:36:22] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 10:36:25,630 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 10:36:25,630 - __main__ - INFO - AP mode status: False
+2024-11-12 10:36:25,632 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:36:25] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 10:36:40,812 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 10:36:40,817 - __main__ - INFO - Current connection: Salt_5GHz_D8261F
+2024-11-12 10:36:40,818 - __main__ - INFO - Backed up current configuration
+2024-11-12 10:36:40,821 - __main__ - INFO - Created test configuration
+2024-11-12 10:36:40,821 - __main__ - INFO - Stopping current wpa_supplicant...
+2024-11-12 10:36:42,855 - __main__ - INFO - Starting wpa_supplicant with new config...
+2024-11-12 10:36:43,010 - __main__ - INFO - wpa_supplicant output: wpa_supplicant v2.10
+random: getrandom() support available
+Successfully initialized wpa_supplicant
+Initializing interface 'wlan0' conf '/tmp/tmpejjrjwq7' driver 'default' ctrl_interface 'N/A' bridge 'N/A'
+Configuration file '/tmp/tmpejjrjwq7' -> '/tmp/tmpejjrjwq7'
+Reading configuration file '/tmp/tmpejjrjwq7'
+ctrl_interface='DIR=/var/run/wpa_supplicant GROUP=netdev'
+update_config=1
+country='CH'
+Priority group 0
+   id=0 ssid='Salt_2GHz_D8261F'
+nl80211: Using driver-based roaming
+nl80211: Supported cipher 00-0f-ac:1
+nl80211: Supported cipher 00-0f-ac:5
+nl80211: Supported cipher 00-0f-ac:2
+nl80211: Supported cipher 00-0f-ac:4
+nl80211: Supported cipher 00-0f-ac:6
+nl80211: Using driver-based off-channel TX
+nl80211: Supported vendor command: vendor_id=0x1018 subcmd=1
+nl80211: Use separate P2P group interface (driver advertised support)
+nl80211: Enable multi-channel concurrent (driver advertised support)
+nl80211: use P2P_DEVICE support
+nl80211: key_mgmt=0xd0f enc=0x10f auth=0x7 flags=0x3a04fac4 rrm_flags=0x0 probe_resp_offloads=0x0 max_stations=0 max_remain_on_chan=5000 max_scan_ssids=10
+nl80211: interface wlan0 in phy phy0
+nl80211: Set mode ifindex 3 iftype 2 (STATION)
+nl80211: Subscribe to mgmt frames with non-AP handle 0x558a8f7480
+nl80211: Register frame type=0xb0 (WLAN_FC_STYPE_AUTH) nl_handle=0x558a8f7480 match=0300 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=0104 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=040a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=040b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=040c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=040d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=090a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=090b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=090c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=090d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=0409506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=7f506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=0409506f9a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=0800 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=0801 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=12 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=06 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=0a07 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=0a11 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=0a0b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=0a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=1101 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=1102 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=0505 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=0500 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=1301 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=1305 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a8f7480 match=7e506f9a1a multicast=0
+rfkill: initial event: idx=1 type=1 op=0 soft=0 hard=0
+netlink: Operstate: ifindex=3 linkmode=1 (userspace-control), operstate=5 (IF_OPER_DORMANT)
+Add interface wlan0 to a new radio phy0
+nl80211: Regulatory information - country=CH (DFS-ETSI)
+nl80211: 2400-2483 @ 40 MHz 20 mBm
+nl80211: 5150-5250 @ 80 MHz 23 mBm (no outdoor)
+nl80211: 5250-5350 @ 80 MHz 20 mBm (no outdoor) (DFS)
+nl80211: 5470-5725 @ 160 MHz 26 mBm (DFS)
+nl80211: 5725-5875 @ 80 MHz 13 mBm
+nl80211: 57000-66000 @ 2160 MHz 40 mBm
+nl80211: Added 802.11b mode based on 802.11g information
+nl80211: Mode IEEE 802.11g: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484[DISABLED]
+nl80211: Mode IEEE 802.11a: 5170 5180 5190 5200 5210 5220 5230 5240 5260[RADAR] 5280[RADAR] 5300[RADAR] 5320[RADAR] 5500[RADAR] 5520[RADAR] 5540[RADAR] 5560[RADAR] 5580[RADAR] 5600[RADAR] 5620[RADAR] 5640[RADAR] 5660[RADAR]
+nl80211: Mode IEEE 802.11b: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484[DISABLED]
+wlan0: Own MAC address: 2c:cf:67:67:8b:21
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=0 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=1 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=2 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=3 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=4 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=3 (wlan0) alg=0 addr=(nil) key_idx=5 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wlan0: RSN: flushing PMKID list in the driver
+nl80211: Flush PMKIDs
+TDLS: TDLS operation not supported by driver
+TDLS: Driver uses internal link setup
+TDLS: Driver does not support TDLS channel switching
+wlan0: WPS: UUID based on MAC address: 0441057d-7610-5294-96c3-75bf98ded93a
+ENGINE: Loading builtin engines
+ENGINE: Loading builtin engines
+EAPOL: SUPP_PAE entering state DISCONNECTED
+EAPOL: Supplicant port status: Unauthorized
+nl80211: Skip set_supp_port(unauthorized) while not associated
+EAPOL: KEY_RX entering state NO_KEY_RECEIVE
+EAPOL: SUPP_BE entering state INITIALIZE
+EAP: EAP entering state DISABLED
+ctrl_interface_group=106 (from group name 'netdev')
+MBO: Update non-preferred channels, non_pref_chan=N/A
+wlan0: Added interface wlan0
+wlan0: State: DISCONNECTED -> DISCONNECTED
+nl80211: Set wlan0 operstate 0->0 (DORMANT)
+netlink: Operstate: ifindex=3 linkmode=-1 (no change), operstate=5 (IF_OPER_DORMANT)
+nl80211: Create interface iftype 10 (P2P_DEVICE)
+nl80211: New P2P Device interface p2p-dev-wlan0 (0x5) created
+Initializing interface 'p2p-dev-wlan0' conf '/tmp/tmpejjrjwq7' driver 'nl80211' ctrl_interface 'DIR=/var/run/wpa_supplicant GROUP=netdev' bridge 'N/A'
+Configuration file '/tmp/tmpejjrjwq7' -> '/tmp/tmpejjrjwq7'
+Reading configuration file '/tmp/tmpejjrjwq7'
+ctrl_interface='DIR=/var/run/wpa_supplicant GROUP=netdev'
+update_config=1
+country='CH'
+Priority group 0
+   id=0 ssid='Salt_2GHz_D8261F'
+nl80211: Using driver-based roaming
+nl80211: Supported cipher 00-0f-ac:1
+nl80211: Supported cipher 00-0f-ac:5
+nl80211: Supported cipher 00-0f-ac:2
+nl80211: Supported cipher 00-0f-ac:4
+nl80211: Supported cipher 00-0f-ac:6
+nl80211: Using driver-based off-channel TX
+nl80211: Supported vendor command: vendor_id=0x1018 subcmd=1
+nl80211: Use separate P2P group interface (driver advertised support)
+nl80211: Enable multi-channel concurrent (driver advertised support)
+nl80211: use P2P_DEVICE support
+nl80211: key_mgmt=0xd0f enc=0x10f auth=0x7 flags=0x3a04fac4 rrm_flags=0x0 probe_resp_offloads=0x0 max_stations=0 max_remain_on_chan=5000 max_scan_ssids=10
+nl80211: interface p2p-dev-wlan0 in phy phy0
+nl80211: Set mode ifindex 0 iftype 10 (P2P_DEVICE)
+nl80211: Failed to set interface 0 to mode 10: -22 (Invalid argument)
+nl80211: Subscribe to mgmt frames with non-AP handle 0x558a969960
+nl80211: Register frame type=0xb0 (WLAN_FC_STYPE_AUTH) nl_handle=0x558a969960 match=0300 multicast=0
+nl80211: kernel reports: Registration to specific type not supported
+nl80211: Register frame command failed (type=176): ret=-22 (Invalid argument)
+nl80211: Register frame match - hexdump(len=2): 03 00
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=0104 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=040a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=040b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=040c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=040d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=090a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=090b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=090c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=090d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=0409506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=7f506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=0409506f9a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=0800 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=0801 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=12 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=06 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=0a07 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=0a11 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=0a0b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=0a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=1101 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=1102 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=0505 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=0500 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=1301 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=1305 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0x558a969960 match=7e506f9a1a multicast=0
+nl80211: Use (wlan0) to initialize P2P Device rfkill
+rfkill: initial event: idx=1 type=1 op=0 soft=0 hard=0
+nl80211: Start P2P Device p2p-dev-wlan0 (0x5): Success
+Add interface p2p-dev-wlan0 to existing radio phy0
+nl80211: Regulatory information - country=CH (DFS-ETSI)
+nl80211: 2400-2483 @ 40 MHz 20 mBm
+nl80211: 5150-5250 @ 80 MHz 23 mBm (no outdoor)
+nl80211: 5250-5350 @ 80 MHz 20 mBm (no outdoor) (DFS)
+nl80211: 5470-5725 @ 160 MHz 26 mBm (DFS)
+nl80211: 5725-5875 @ 80 MHz 13 mBm
+nl80211: 57000-66000 @ 2160 MHz 40 mBm
+nl80211: Added 802.11b mode based on 802.11g information
+nl80211: Mode IEEE 802.11g: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484[DISABLED]
+nl80211: Mode IEEE 802.11a: 5170 5180 5190 5200 5210 5220 5230 5240 5260[RADAR] 5280[RADAR] 5300[RADAR] 5320[RADAR] 5500[RADAR] 5520[RADAR] 5540[RADAR] 5560[RADAR] 5580[RADAR] 5600[RADAR] 5620[RADAR] 5640[RADAR] 5660[RADAR]
+nl80211: Mode IEEE 802.11b: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484[DISABLED]
+p2p-dev-wlan0: Own MAC address: 2e:cf:67:67:8b:21
+p2p-dev-wlan0: RSN: flushing PMKID list in the driver
+nl80211: Flush PMKIDs
+p2p-dev-wlan0: State: DISCONNECTED -> INACTIVE
+p2p-dev-wlan0: WPS: UUID from the first interface: 0441057d-7610-5294-96c3-75bf98ded93a
+ENGINE: Loading builtin engines
+ENGINE: Loading builtin engines
+EAPOL: SUPP_PAE entering state DISCONNECTED
+EAPOL: Supplicant port status: Unauthorized
+nl80211: Skip set_supp_port(unauthorized) while not associated
+EAPOL: KEY_RX entering state NO_KEY_RECEIVE
+EAPOL: SUPP_BE entering state INITIALIZE
+EAP: EAP entering state DISABLED
+Using existing control interface directory.
+ctrl_interface_group=106 (from group name 'netdev')
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=13): 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d
+P2P: Add operating class 115
+P2P: Channels - hexdump(len=4): 24 28 2c 30
+P2P: Add operating class 116
+P2P: Channels - hexdump(len=2): 24 2c
+P2P: Add operating class 117
+P2P: Channels - hexdump(len=2): 28 30
+P2P: Add operating class 124
+P2P: Channels - hexdump(len=4): 95 99 9d a1
+P2P: Add operating class 125
+P2P: Channels - hexdump(len=5): 95 99 9d a1 a5
+P2P: Add operating class 126
+P2P: Channels - hexdump(len=2): 95 9d
+P2P: Add operating class 127
+P2P: Channels - hexdump(len=2): 99 a1
+P2P: Add operating class 128
+P2P: Channels - hexdump(len=8): 24 28 2c 30 95 99 9d a1
+P2P: Add operating class 130
+P2P: Channels - hexdump(len=9): 24 28 2c 30 95 99 9d a1 a5
+P2P: Own listen channel: 81:6
+P2P: Random operating channel: 81:6
+P2P: initialized
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11,12,13 115:36,40,44,48 116:36,44 117:40,48 124:149,153,157,161 125:149,153,157,161,165 126:149,157 127:153,161 128:36,40,44,48,149,153,157,161 130:36,40,44,48,149,153,157,161,165
+P2P: cli_channels:
+MBO: Update non-preferred channels, non_pref_chan=N/A
+p2p-dev-wlan0: Added interface p2p-dev-wlan0
+p2p-dev-wlan0: State: INACTIVE -> DISCONNECTED
+nl80211: Set p2p-dev-wlan0 operstate 0->0 (DORMANT)
+netlink: Operstate: ifindex=0 linkmode=-1 (no change), operstate=5 (IF_OPER_DORMANT)
+p2p-dev-wlan0: Determining shared radio frequencies (max len 2)
+p2p-dev-wlan0: Shared frequencies (len=0): completed iteration
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=13): 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d
+P2P: Add operating class 115
+P2P: Channels - hexdump(len=4): 24 28 2c 30
+P2P: Add operating class 116
+P2P: Channels - hexdump(len=2): 24 2c
+P2P: Add operating class 117
+P2P: Channels - hexdump(len=2): 28 30
+P2P: Add operating class 124
+P2P: Channels - hexdump(len=4): 95 99 9d a1
+P2P: Add operating class 125
+P2P: Channels - hexdump(len=5): 95 99 9d a1 a5
+P2P: Add operating class 126
+P2P: Channels - hexdump(len=2): 95 9d
+P2P: Add operating class 127
+P2P: Channels - hexdump(len=2): 99 a1
+P2P: Add operating class 128
+P2P: Channels - hexdump(len=8): 24 28 2c 30 95 99 9d a1
+P2P: Add operating class 130
+P2P: Channels - hexdump(len=9): 24 28 2c 30 95 99 9d a1 a5
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11,12,13 115:36,40,44,48 116:36,44 117:40,48 124:149,153,157,161 125:149,153,157,161,165 126:149,157 127:153,161 128:36,40,44,48,149,153,157,161 130:36,40,44,48,149,153,157,161,165
+P2P: cli_channels:
+Daemonize..
+
+2024-11-12 10:36:43,010 - __main__ - INFO - Connection verification attempt 1/3
+2024-11-12 10:36:48,013 - __main__ - INFO - Current SSID: 
+2024-11-12 10:36:48,013 - __main__ - INFO - Connection verification attempt 2/3
+2024-11-12 10:36:53,018 - __main__ - INFO - Current SSID: 
+2024-11-12 10:36:53,018 - __main__ - INFO - Connection verification attempt 3/3
+2024-11-12 10:36:58,021 - __main__ - INFO - Current SSID: 
+2024-11-12 10:36:58,022 - __main__ - ERROR - Connection failed: Failed to connect to Salt_2GHz_D8261F after 3 attempts
+2024-11-12 10:36:58,022 - __main__ - INFO - Restoring original connection...
+2024-11-12 10:37:00,046 - __main__ - ERROR - Failed to restore configuration: [Errno 13] Permission denied: '/etc/wpa_supplicant/wpa_supplicant.conf'
+2024-11-12 10:37:00,047 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:37:00] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:39:02,540 - __main__ - INFO - Received signal 15
+2024-11-12 10:39:02,540 - __main__ - INFO - Starting cleanup...
+2024-11-12 10:39:02,541 - __main__ - INFO - Stopping stream
+2024-11-12 10:39:02,542 - __main__ - INFO - Received signal 15
+2024-11-12 10:39:02,542 - __main__ - INFO - Starting cleanup...
+2024-11-12 10:39:02,542 - __main__ - INFO - Stopping stream
+2024-11-12 10:39:02,545 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 10:39:03,545 - __main__ - INFO - Cleanup completed
+  File "/home/radio/internetRadio/main.py", line 408
+    except Exception as e:
+SyntaxError: expected 'except' or 'finally' block
+  File "/home/radio/internetRadio/main.py", line 414
+    except Exception as e:
+SyntaxError: expected 'except' or 'finally' block
+2024-11-12 10:44:29,050 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 10:44:29,141 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 10:44:29,142 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 10:44:29,162 - __main__ - INFO - SoundManager initialized
+2024-11-12 10:44:29,164 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 10:44:29,213 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 10:44:29,214 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 10:47:59,238 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:47:59] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:47:59,309 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:47:59] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 10:48:02,535 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 10:48:02,535 - __main__ - INFO - AP mode status: False
+2024-11-12 10:48:02,537 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:48:02] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 10:48:13,010 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 10:48:13,042 - __main__ - INFO - Backed up current configuration
+2024-11-12 10:48:13,044 - __main__ - INFO - Created test configuration
+2024-11-12 10:48:13,044 - __main__ - INFO - Stopping network services...
+Failed to stop dhcpcd.service: Unit dhcpcd.service not loaded.
+2024-11-12 10:48:15,209 - __main__ - INFO - Testing new configuration...
+2024-11-12 10:48:25,531 - __main__ - INFO - Connection verification attempt 1/3
+2024-11-12 10:48:30,534 - __main__ - INFO - Current SSID: Salt_2GHz_D8261F
+2024-11-12 10:48:30,534 - __main__ - INFO - Successfully connected to Salt_2GHz_D8261F
+2024-11-12 10:48:30,552 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:48:30] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:49:17,685 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 10:49:17,865 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 10:49:17,865 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 10:49:17,898 - __main__ - INFO - SoundManager initialized
+2024-11-12 10:49:17,904 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+2024-11-12 10:49:17,941 - __main__ - INFO - Starting Wi-Fi hotspot...
+2024-11-12 10:49:17,941 - __main__ - INFO - Starting WiFi hotspot...
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 10:49:17,955 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+2024-11-12 10:49:17,955 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 10:51:30,109 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:51:30] "GET /ping HTTP/1.1" 200 -
+2024-11-12 10:51:30,763 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:51:30] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:51:30,825 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:51:30] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 10:51:34,407 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 10:51:34,408 - __main__ - INFO - AP mode status: False
+2024-11-12 10:51:34,410 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:51:34] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 10:54:52,122 - __main__ - INFO - Received signal 15
+2024-11-12 10:54:52,123 - __main__ - INFO - Starting cleanup...
+2024-11-12 10:54:52,123 - __main__ - INFO - Stopping stream
+2024-11-12 10:54:52,125 - __main__ - INFO - Received signal 15
+2024-11-12 10:54:52,125 - __main__ - INFO - Starting cleanup...
+2024-11-12 10:54:52,125 - __main__ - INFO - Stopping stream
+2024-11-12 10:55:00,080 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:55:00] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:55:00,110 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:55:00] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 10:55:03,529 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 10:55:03,530 - __main__ - INFO - AP mode status: False
+2024-11-12 10:55:03,531 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:55:03] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 10:55:12,739 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 10:55:12,759 - __main__ - INFO - Backed up current configuration
+2024-11-12 10:55:12,761 - __main__ - INFO - Created test configuration
+2024-11-12 10:55:12,761 - __main__ - INFO - Stopping network services...
+2024-11-12 10:55:14,982 - __main__ - INFO - Testing new configuration...
+2024-11-12 10:55:22,432 - __main__ - INFO - Connection verification attempt 1/3
+2024-11-12 10:55:27,438 - __main__ - INFO - Current SSID: Salt_2GHz_D8261F
+2024-11-12 10:55:27,438 - __main__ - INFO - Successfully connected to Salt_2GHz_D8261F
+2024-11-12 10:55:27,477 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:55:27] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:56:23,469 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 10:56:23,557 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 10:56:23,558 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 10:56:23,578 - __main__ - INFO - SoundManager initialized
+2024-11-12 10:56:23,580 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 10:56:23,628 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.20:5000
+2024-11-12 10:56:23,629 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 10:57:05,986 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 10:57:06,246 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 10:57:06,247 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 10:57:06,280 - __main__ - INFO - SoundManager initialized
+2024-11-12 10:57:06,286 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+2024-11-12 10:57:06,342 - __main__ - INFO - Starting Wi-Fi hotspot...
+2024-11-12 10:57:06,342 - __main__ - INFO - Starting WiFi hotspot...
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 10:57:06,358 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+2024-11-12 10:57:06,358 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 10:58:30,080 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:58:30] "GET /ping HTTP/1.1" 200 -
+2024-11-12 10:58:30,345 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:58:30] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 10:58:30,427 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:58:30] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 10:58:33,954 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 10:58:33,954 - __main__ - INFO - AP mode status: False
+2024-11-12 10:58:33,956 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 10:58:33] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:01:09,033 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:01:09] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:01:09,056 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:01:09] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:01:12,362 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 11:01:12,362 - __main__ - INFO - AP mode status: False
+2024-11-12 11:01:12,363 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:01:12] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:01:49,544 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 11:01:49,548 - __main__ - INFO - Current connection: Salt_5GHz_D8261F
+2024-11-12 11:01:49,550 - __main__ - INFO - Created test configuration
+2024-11-12 11:01:49,550 - __main__ - INFO - Testing new configuration...
+FAIL
+2024-11-12 11:01:49,580 - __main__ - INFO - Connection verification attempt 1/3
+2024-11-12 11:01:54,582 - __main__ - INFO - Current SSID: Salt_5GHz_D8261F
+OK
+2024-11-12 11:01:54,598 - __main__ - INFO - Connection verification attempt 2/3
+2024-11-12 11:01:59,604 - __main__ - INFO - Current SSID: Salt_5GHz_D8261F
+OK
+2024-11-12 11:01:59,637 - __main__ - INFO - Connection verification attempt 3/3
+2024-11-12 11:02:04,640 - __main__ - INFO - Current SSID: Salt_5GHz_D8261F
+OK
+2024-11-12 11:02:04,656 - __main__ - ERROR - Failed to connect to Salt_2GHz_D8261F after 3 attempts
+OK
+2024-11-12 11:02:04,672 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:02:04] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:05:40,259 - __main__ - INFO - Received signal 15
+2024-11-12 11:05:40,260 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:05:40,260 - __main__ - INFO - Stopping stream
+2024-11-12 11:05:40,261 - __main__ - INFO - Received signal 15
+2024-11-12 11:05:40,262 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:05:40,262 - __main__ - INFO - Stopping stream
+2024-11-12 11:05:40,267 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 11:05:41,268 - __main__ - INFO - Cleanup completed
+2024-11-12 11:05:42,739 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 11:05:42,836 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 11:05:42,837 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 11:05:42,847 - __main__ - INFO - SoundManager initialized
+2024-11-12 11:05:42,850 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+2024-11-12 11:05:42,912 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 11:05:42,912 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 11:05:50,074 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:05:50] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:05:50,106 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:05:50] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:05:53,375 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 11:05:53,376 - __main__ - INFO - AP mode status: False
+2024-11-12 11:05:53,377 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:05:53] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:06:01,892 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 11:06:01,895 - __main__ - INFO - Current connection: Salt_5GHz_D8261F
+2024-11-12 11:06:01,917 - __main__ - INFO - Created test configuration
+2024-11-12 11:06:01,917 - __main__ - INFO - Stopping network services...
+Failed to stop dhcpcd.service: Unit dhcpcd.service not loaded.
+2024-11-12 11:06:04,110 - __main__ - INFO - Starting network services...
+Failed to start dhcpcd.service: Unit dhcpcd.service not found.
+2024-11-12 11:06:09,218 - __main__ - INFO - Connection verification attempt 1/3
+2024-11-12 11:06:14,223 - __main__ - INFO - Current SSID: 
+2024-11-12 11:06:14,223 - __main__ - INFO - Connection verification attempt 2/3
+2024-11-12 11:06:19,226 - __main__ - INFO - Current SSID: 
+2024-11-12 11:06:19,226 - __main__ - INFO - Connection verification attempt 3/3
+2024-11-12 11:06:24,228 - __main__ - INFO - Current SSID: Salt_5GHz_D8261F
+2024-11-12 11:06:24,229 - __main__ - ERROR - Failed to connect to Salt_2GHz_D8261F, restoring backup
+Failed to stop dhcpcd.service: Unit dhcpcd.service not loaded.
+Failed to start dhcpcd.service: Unit dhcpcd.service not found.
+2024-11-12 11:06:31,537 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:06:31] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:08:15,037 - __main__ - INFO - Received signal 15
+2024-11-12 11:08:15,038 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:08:15,039 - __main__ - INFO - Stopping stream
+2024-11-12 11:08:15,040 - __main__ - INFO - Received signal 15
+2024-11-12 11:08:15,040 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:08:15,041 - __main__ - INFO - Stopping stream
+2024-11-12 11:08:15,045 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 11:08:16,045 - __main__ - INFO - Cleanup completed
+2024-11-12 11:08:17,497 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 11:08:17,593 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 11:08:17,594 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 11:08:17,606 - __main__ - INFO - SoundManager initialized
+2024-11-12 11:08:17,608 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 11:08:17,667 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 11:08:17,667 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 11:08:23,577 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:08:23] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:08:46,782 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:08:46] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:08:50,237 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 11:08:50,237 - __main__ - INFO - AP mode status: False
+2024-11-12 11:08:50,238 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:08:50] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:08:57,620 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 11:08:57,704 - __main__ - INFO - Current connection: preconfigured
+lo
+2024-11-12 11:08:57,761 - __main__ - INFO - Adding new connection for Salt_2GHz_D8261F
+2024-11-12 11:08:57,831 - __main__ - INFO - Activating connection to Salt_2GHz_D8261F
+2024-11-12 11:09:12,235 - __main__ - INFO - Connection verification attempt 1/3
+2024-11-12 11:09:17,280 - __main__ - INFO - Current SSID: Salt_2GHz_D8261F
+lo
+2024-11-12 11:09:17,280 - __main__ - INFO - Successfully connected to Salt_2GHz_D8261F
+2024-11-12 11:09:17,282 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:09:17] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:09:33,744 - __main__ - INFO - Initiating device reboot...
+2024-11-12 11:09:33,756 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 11:09:33,758 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:09:33] "POST /wifi/reboot HTTP/1.1" 200 -
+2024-11-12 11:09:33,841 - __main__ - INFO - Current connection: Salt_2GHz_D8261F
+lo
+2024-11-12 11:09:33,926 - __main__ - INFO - Adding new connection for Salt_2GHz_D8261F
+2024-11-12 11:09:34,124 - __main__ - INFO - Activating connection to Salt_2GHz_D8261F
+2024-11-12 11:09:35,975 - __main__ - INFO - Received signal 15
+2024-11-12 11:09:35,975 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:09:35,976 - __main__ - INFO - Stopping stream
+2024-11-12 11:09:35,989 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 11:09:36,016 - __main__ - INFO - Connection verification attempt 1/3
+2024-11-12 11:09:36,063 - __main__ - INFO - Received signal 15
+2024-11-12 11:09:36,064 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:09:36,064 - __main__ - INFO - Stopping stream
+2024-11-12 11:09:36,069 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 11:09:37,069 - __main__ - INFO - Cleanup completed
+2024-11-12 11:09:52,062 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 11:09:52,354 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 11:09:52,354 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 11:09:52,516 - __main__ - INFO - SoundManager initialized
+2024-11-12 11:09:52,523 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+2024-11-12 11:09:52,569 - __main__ - INFO - Starting Wi-Fi hotspot...
+2024-11-12 11:09:52,570 - __main__ - INFO - Starting WiFi hotspot...
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 11:09:52,587 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://127.0.0.1:5000
+2024-11-12 11:09:52,587 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 11:11:36,088 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:11:36] "GET /ping HTTP/1.1" 200 -
+2024-11-12 11:11:36,367 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:11:36] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:11:36,440 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:11:36] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:11:39,974 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 11:11:39,974 - __main__ - INFO - AP mode status: False
+2024-11-12 11:11:39,976 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:11:39] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:44:15,366 - __main__ - INFO - Received signal 15
+2024-11-12 11:44:15,366 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:44:15,367 - __main__ - INFO - Stopping stream
+2024-11-12 11:44:15,369 - __main__ - INFO - Received signal 15
+2024-11-12 11:44:15,369 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:44:15,370 - __main__ - INFO - Stopping stream
+2024-11-12 11:44:20,631 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:44:20] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:44:20,660 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:44:20] "GET /static/css/styles.css HTTP/1.1" 200 -
+2024-11-12 11:44:24,142 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 11:44:24,143 - __main__ - INFO - AP mode status: False
+2024-11-12 11:44:24,144 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:44:24] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:44:26,318 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:44:26] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:44:26,625 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:44:26] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:44:30,268 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 11:44:30,269 - __main__ - INFO - AP mode status: False
+2024-11-12 11:44:30,270 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:44:30] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:45:44,105 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:45:44] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:45:44,134 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:45:44] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:45:46,583 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 11:45:46,686 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 11:45:46,687 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 11:45:46,698 - __main__ - INFO - SoundManager initialized
+2024-11-12 11:45:46,701 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 11:45:46,761 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 11:45:46,762 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 11:45:51,399 - __main__ - INFO - Received signal 15
+2024-11-12 11:45:51,399 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:45:51,401 - __main__ - INFO - Received signal 15
+2024-11-12 11:45:51,401 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:45:51,402 - __main__ - INFO - Stopping stream
+2024-11-12 11:45:51,404 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 11:45:52,405 - __main__ - INFO - Cleanup completed
+2024-11-12 11:45:56,723 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 11:45:56,822 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 11:45:56,823 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 11:45:56,833 - __main__ - INFO - SoundManager initialized
+2024-11-12 11:45:56,836 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 11:45:56,895 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 11:45:56,895 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 11:46:11,114 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:46:11] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:46:11,164 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:46:11] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:46:14,652 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 11:46:14,652 - __main__ - INFO - AP mode status: False
+2024-11-12 11:46:14,654 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:46:14] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:46:29,389 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:46:29] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:46:29,417 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:46:29] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:46:32,848 - __main__ - INFO - hostapd service not found - not in AP mode
+2024-11-12 11:46:32,848 - __main__ - INFO - AP mode status: False
+2024-11-12 11:46:32,849 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:46:32] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:47:43,549 - __main__ - INFO - Received signal 15
+2024-11-12 11:47:43,550 - __main__ - INFO - Received signal 15
+2024-11-12 11:47:43,551 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:47:43,551 - __main__ - INFO - Stopping stream
+2024-11-12 11:47:43,553 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 11:47:44,553 - __main__ - INFO - Cleanup completed
+2024-11-12 11:47:45,953 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 11:47:46,052 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 11:47:46,052 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 11:47:46,061 - __main__ - INFO - SoundManager initialized
+2024-11-12 11:47:46,064 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 11:47:46,124 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 11:47:46,124 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 11:47:50,466 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:47:50] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:47:50,526 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:47:50] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:47:50,611 - __main__ - INFO - Current network: preconfigured
+2024-11-12 11:47:50,612 - __main__ - ERROR - Error in wifi_scan: name 'get_wifi_networks' is not defined
+2024-11-12 11:47:50,613 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:47:50] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:48:28,527 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:48:28] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:48:28,558 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:48:28] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:48:28,864 - __main__ - INFO - Current network: preconfigured
+2024-11-12 11:48:28,864 - __main__ - ERROR - Error in wifi_scan: name 'get_wifi_networks' is not defined
+2024-11-12 11:48:28,866 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:48:28] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:49:12,826 - __main__ - INFO - Received signal 15
+2024-11-12 11:49:12,827 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:49:12,827 - __main__ - INFO - Stopping stream
+2024-11-12 11:49:12,828 - __main__ - INFO - Received signal 15
+2024-11-12 11:49:12,828 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:49:12,828 - __main__ - INFO - Stopping stream
+2024-11-12 11:49:46,626 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:49:46] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:49:46,704 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:49:46] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:49:46,928 - __main__ - INFO - Current network: preconfigured
+2024-11-12 11:49:46,928 - __main__ - ERROR - Error in wifi_scan: name 'get_wifi_networks' is not defined
+2024-11-12 11:49:46,929 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:49:46] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:49:52,750 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:49:52] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:49:52,777 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:49:52] "GET /static/css/styles.css HTTP/1.1" 200 -
+2024-11-12 11:49:53,089 - __main__ - INFO - Current network: preconfigured
+2024-11-12 11:49:53,090 - __main__ - ERROR - Error in wifi_scan: name 'get_wifi_networks' is not defined
+2024-11-12 11:49:53,091 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:49:53] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:49:53,107 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:49:53] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-11-12 11:50:44,054 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 11:50:44,162 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 11:50:44,163 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 11:50:44,174 - __main__ - INFO - SoundManager initialized
+2024-11-12 11:50:44,177 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 11:50:44,238 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 11:50:44,238 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 11:51:49,372 - __main__ - INFO - Received signal 15
+2024-11-12 11:51:49,372 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:51:49,372 - __main__ - INFO - Stopping stream
+2024-11-12 11:51:49,374 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 11:51:49,376 - __main__ - INFO - Received signal 15
+2024-11-12 11:51:49,377 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:51:49,377 - __main__ - INFO - Stopping stream
+2024-11-12 11:51:49,378 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 11:51:50,379 - __main__ - INFO - Cleanup completed
+2024-11-12 11:51:51,717 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 11:51:51,814 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 11:51:51,815 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 11:51:51,825 - __main__ - INFO - SoundManager initialized
+2024-11-12 11:51:51,828 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 11:51:51,889 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 11:51:51,889 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 11:51:54,371 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:51:54] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:51:54,409 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:51:54] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:51:54,591 - __main__ - INFO - Current network: preconfigured
+2024-11-12 11:51:57,858 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60']
+2024-11-12 11:51:57,858 - __main__ - INFO - Available networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60']
+2024-11-12 11:51:57,871 - __main__ - INFO - hostapd service inactive
+2024-11-12 11:51:57,872 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:51:57] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:52:04,364 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:52:04] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:52:04,393 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:52:04] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:52:04,693 - __main__ - INFO - Current network: preconfigured
+2024-11-12 11:52:07,988 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'Skynet5G', 'UPC8791472', 'DIRECT-2E-HP OfficeJet 4650']
+2024-11-12 11:52:07,988 - __main__ - INFO - Available networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'Skynet5G', 'UPC8791472', 'DIRECT-2E-HP OfficeJet 4650']
+2024-11-12 11:52:08,001 - __main__ - INFO - hostapd service inactive
+2024-11-12 11:52:08,002 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:52:08] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:52:56,545 - __main__ - INFO - Current network: preconfigured
+2024-11-12 11:52:59,807 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'visitor-81759', 'WN-AB7C60', 'Skynet5G', 'UPC8791472', 'DIRECT-2E-HP OfficeJet 4650', 'FotokiteFactory', 'FotokiteTech']
+2024-11-12 11:52:59,807 - __main__ - INFO - Available networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'visitor-81759', 'WN-AB7C60', 'Skynet5G', 'UPC8791472', 'DIRECT-2E-HP OfficeJet 4650', 'FotokiteFactory', 'FotokiteTech']
+2024-11-12 11:52:59,819 - __main__ - INFO - hostapd service inactive
+2024-11-12 11:52:59,820 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:52:59] "GET /wifi-scan HTTP/1.1" 200 -

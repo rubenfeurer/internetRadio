@@ -342,3 +342,110 @@ button:active {
     box-shadow: none;
     color:white;
 }
+
+/* WiFi Settings Specific Styles */
+.network-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.network-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.network-item.active {
+    background-color: #e2f3ff;
+    border-left: 4px solid #3498db;
+}
+
+.network-item .current-label {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #28a745;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+}
+
+.network-form {
+    display: none;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.scan-status {
+    display: none;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.connection-status {
+    display: none;
+    margin: 10px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.connecting-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.status-message {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.error-message {
+    color: #dc3545;
+}
+
+.success-message {
+    color: #28a745;
+}
+
+.ap-mode-notice {
+    margin
