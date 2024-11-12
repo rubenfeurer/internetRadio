@@ -40,33 +40,56 @@
     <script>
         let currentNetwork = '';
         
-        function createNetworkItem(network, isConnected) {
+        function createNetworkItem(network, isConnected, isSaved) {
             const li = document.createElement('li');
             li.className = 'network-item' + (isConnected ? ' active' : '');
             
             const networkName = document.createElement('div');
+            networkName.className = 'network-name';
             networkName.textContent = network;
-            li.appendChild(networkName);
+            
+            const labelsContainer = document.createElement('div');
+            labelsContainer.className = 'labels-container';
+            
+            if (isSaved) {
+                const savedLabel = document.createElement('span');
+                savedLabel.className = 'saved-label';
+                savedLabel.textContent = 'Saved';
+                labelsContainer.appendChild(savedLabel);
+            }
             
             if (isConnected) {
                 const currentLabel = document.createElement('span');
                 currentLabel.className = 'current-label';
                 currentLabel.textContent = 'Connected';
-                li.appendChild(currentLabel);
+                labelsContainer.appendChild(currentLabel);
             }
+            
+            li.appendChild(networkName);
+            li.appendChild(labelsContainer);
             
             const form = document.createElement('form');
             form.className = 'network-form';
-            form.innerHTML = `
-                <input type="password" placeholder="Enter password" required>
-                <button type="submit">Connect</button>
-            `;
+            
+            // Only show password field if not saved
+            if (!isSaved) {
+                form.innerHTML = `
+                    <input type="password" placeholder="Enter password" required>
+                    <button type="submit">Connect</button>
+                `;
+            } else {
+                form.innerHTML = `
+                    <button type="submit">Connect</button>
+                `;
+            }
             
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const formData = new FormData();
                 formData.append('ssid', network);
-                formData.append('password', this.querySelector('input').value);
+                if (!isSaved) {
+                    formData.append('password', this.querySelector('input').value);
+                }
                 submitConnection(formData);
             });
             
@@ -99,7 +122,8 @@
                         data.networks.forEach(network => {
                             if (network !== 'InternetRadio') {
                                 const isConnected = network === currentNetwork;
-                                networkList.appendChild(createNetworkItem(network, isConnected));
+                                const isSaved = data.saved_networks.includes(network);
+                                networkList.appendChild(createNetworkItem(network, isConnected, isSaved));
                             }
                         });
                         
@@ -117,7 +141,11 @@
             const connectionDetails = document.getElementById('connectionDetails');
             const ssid = formData.get('ssid');
             
+            // Show connecting status immediately
             connectionStatus.style.display = 'block';
+            statusMessage.textContent = `Connecting to ${ssid}...`;
+            statusMessage.className = 'status-message';
+            connectionDetails.textContent = 'Please wait while establishing connection...';
             
             fetch('/wifi_settings', {
                 method: 'POST',
@@ -126,13 +154,18 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    statusMessage.textContent = `Successfully connected to ${ssid}! Device needs to be rebooted.`;
+                    statusMessage.textContent = `Successfully connected to ${ssid}!`;
                     statusMessage.className = 'status-message success-message';
                     
+                    // Update network list to show new connection
+                    updateNetworks();
+                    
+                    // Show reboot option
                     const rebootButton = document.createElement('button');
                     rebootButton.textContent = 'Reboot Device';
                     rebootButton.onclick = function() {
                         if (confirm('Are you sure you want to reboot the device?')) {
+                            statusMessage.textContent = 'Preparing to reboot...';
                             fetch('/wifi/reboot', { 
                                 method: 'POST',
                                 headers: {'Content-Type': 'application/json'}
@@ -148,24 +181,40 @@
                                         connectionDetails.textContent = `Please wait ${seconds} seconds...`;
                                         if (seconds <= 0) {
                                             clearInterval(countdown);
-                                            connectionDetails.textContent = 'You can now reconnect.';
+                                            connectionDetails.textContent = 'You can now reconnect to the radio.';
+                                            // Final network refresh
+                                            updateNetworks();
                                         }
                                     }, 1000);
+                                } else {
+                                    statusMessage.textContent = 'Reboot failed';
+                                    connectionDetails.textContent = 'Please try rebooting manually.';
                                 }
+                            })
+                            .catch(error => {
+                                console.error('Reboot error:', error);
+                                statusMessage.textContent = 'Reboot failed';
+                                connectionDetails.textContent = 'Please try rebooting manually.';
                             });
                         }
                     };
                     connectionDetails.innerHTML = '';
                     connectionDetails.appendChild(rebootButton);
                 } else {
-                    statusMessage.textContent = data.message || 'Connection failed';
+                    statusMessage.textContent = data.message || `Failed to connect to ${ssid}`;
                     statusMessage.className = 'status-message error-message';
+                    connectionDetails.textContent = 'Please check the password and try again.';
+                    // Update network list to show current state
+                    updateNetworks();
                 }
             })
             .catch(error => {
                 console.error('Connection error:', error);
-                statusMessage.textContent = 'Connection error';
+                statusMessage.textContent = `Error connecting to ${ssid}`;
                 statusMessage.className = 'status-message error-message';
+                connectionDetails.textContent = 'Please try again in a few moments.';
+                // Update network list to show current state
+                updateNetworks();
             });
         }
 

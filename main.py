@@ -419,28 +419,25 @@ def create_app(stream_manager):
     @app.route('/wifi-scan')
     def wifi_scan():
         try:
-            # Get current connection using nmcli
-            current = subprocess.run(
-                ['nmcli', '-t', '-f', 'NAME,DEVICE', 'connection', 'show', '--active'],
-                capture_output=True, text=True
-            )
-            current_network = None
-            if current.stdout:
-                # Extract network name from nmcli output (format: name:device)
-                current_network = current.stdout.strip().split(':')[0]
+            # Get current connection
+            iwgetid_result = subprocess.run(['iwgetid', '-r'], 
+                                          capture_output=True, text=True)
+            current_network = iwgetid_result.stdout.strip() if iwgetid_result.stdout else None
             
-            logger.info(f"Current network: {current_network}")
+            # Get available and saved networks
+            available_networks = get_wifi_networks()
+            saved_networks = get_saved_networks()
             
-            # Get available networks
-            networks = get_wifi_networks()
-            logger.info(f"Available networks: {networks}")
-            
-            return jsonify({
+            response_data = {
                 'status': 'complete',
-                'networks': networks,
+                'networks': available_networks,
+                'saved_networks': saved_networks,
                 'current_network': current_network,
                 'ap_mode': is_in_ap_mode()
-            })
+            }
+            
+            logger.info(f"Sending response: {response_data}")
+            return jsonify(response_data)
         except Exception as e:
             logger.error(f"Error in wifi_scan: {e}")
             return jsonify({
@@ -690,6 +687,33 @@ def get_wifi_networks():
         
     except Exception as e:
         logger.error(f"Error getting networks: {e}")
+        return []
+
+def get_saved_networks():
+    """Get list of saved WiFi networks"""
+    try:
+        # Get all connections directly
+        result = subprocess.run(
+            ['sudo', 'nmcli', '-t', 'connection', 'show'],
+            capture_output=True, text=True
+        )
+        
+        logger.info(f"Raw nmcli output: {result.stdout}")
+        
+        # Filter for wifi connections
+        saved = []
+        for line in result.stdout.strip().split('\n'):
+            if ':802-11-wireless:' in line:  # Check for WiFi connections
+                name = line.split(':')[0]
+                if name not in ['InternetRadio', 'Hotspot', 'preconfigured']:
+                    saved.append(name)
+                    logger.info(f"Added {name} to saved networks")
+        
+        logger.info(f"Final saved networks list: {saved}")
+        return saved
+    except Exception as e:
+        logger.error(f"Error getting saved networks: {e}")
+        logger.error(f"Exception details: {str(e)}")
         return []
 
 def main():

@@ -9483,3 +9483,662 @@ Connected to pigpiod successfully
 2024-11-12 11:52:59,807 - __main__ - INFO - Available networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'visitor-81759', 'WN-AB7C60', 'Skynet5G', 'UPC8791472', 'DIRECT-2E-HP OfficeJet 4650', 'FotokiteFactory', 'FotokiteTech']
 2024-11-12 11:52:59,819 - __main__ - INFO - hostapd service inactive
 2024-11-12 11:52:59,820 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:52:59] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:53:31,747 - __main__ - INFO - Received signal 15
+2024-11-12 11:53:31,747 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:53:31,748 - __main__ - INFO - Stopping stream
+2024-11-12 11:53:31,750 - __main__ - INFO - Received signal 15
+2024-11-12 11:53:31,751 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:53:31,751 - __main__ - INFO - Stopping stream
+2024-11-12 11:53:33,740 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:53:33] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:53:34,048 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:53:34] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:53:34,463 - __main__ - INFO - Current network: preconfigured
+2024-11-12 11:53:37,700 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'visitor-81759', 'mzv-46205', 'DIRECT-2E-HP OfficeJet 4650', 'Salt_2GHz_9AA844', 'qwp-69288', 'Surfs_up_1', 'FotokiteFactory', 'FotokiteTech', 'Aenima', 'Aenexi']
+2024-11-12 11:53:37,700 - __main__ - INFO - Available networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'visitor-81759', 'mzv-46205', 'DIRECT-2E-HP OfficeJet 4650', 'Salt_2GHz_9AA844', 'qwp-69288', 'Surfs_up_1', 'FotokiteFactory', 'FotokiteTech', 'Aenima', 'Aenexi']
+2024-11-12 11:53:37,712 - __main__ - INFO - hostapd service inactive
+2024-11-12 11:53:37,713 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:53:37] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:53:44,964 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:53:44] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:53:45,276 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:53:45] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:53:45,695 - __main__ - INFO - Current network: preconfigured
+2024-11-12 11:53:48,955 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'UETLIBERG', 'Salt_5GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'visitor-81759', 'mzv-46205', 'DIRECT-2E-HP OfficeJet 4650', 'Salt_2GHz_9AA844', 'qwp-69288', 'Surfs_up_1', 'Aenima', 'Aenexi']
+2024-11-12 11:53:48,955 - __main__ - INFO - Available networks: ['Salt_2GHz_D8261F', 'UETLIBERG', 'Salt_5GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'visitor-81759', 'mzv-46205', 'DIRECT-2E-HP OfficeJet 4650', 'Salt_2GHz_9AA844', 'qwp-69288', 'Surfs_up_1', 'Aenima', 'Aenexi']
+2024-11-12 11:53:48,967 - __main__ - INFO - hostapd service inactive
+2024-11-12 11:53:48,968 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:53:48] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:53:54,603 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:53:54] "GET / HTTP/1.1" 200 -
+2024-11-12 11:53:54,808 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:53:54] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:53:55,390 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:53:55] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-12 11:53:56,169 - __main__ - INFO - Stream status: playing=False, stream=None
+2024-11-12 11:53:56,170 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:53:56] "GET /stream-status HTTP/1.1" 200 -
+2024-11-12 11:55:03,017 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 11:55:03,116 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 11:55:03,116 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 11:55:03,127 - __main__ - INFO - SoundManager initialized
+2024-11-12 11:55:03,129 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 11:55:03,192 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 11:55:03,192 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 11:55:13,690 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:55:13] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:55:13,731 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:55:13] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:55:13,979 - __main__ - INFO - iwgetid output: 'Salt_5GHz_D8261F
+'
+2024-11-12 11:55:13,980 - __main__ - INFO - nmcli output: 'preconfigured:wlan0
+lo:lo
+'
+2024-11-12 11:55:13,980 - __main__ - INFO - Current network determined as: 'Salt_5GHz_D8261F'
+2024-11-12 11:55:16,482 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:55:16] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 11:55:17,233 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'UETLIBERG', 'Salt_5GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'visitor-81759', 'mzv-46205', 'Salt_2GHz_9AA844', 'qwp-69288', 'Surfs_up_1', 'DIRECT-2E-HP OfficeJet 4650', 'Aenexi', 'Aenima', 'KerichtHome']
+2024-11-12 11:55:17,234 - __main__ - INFO - Available networks: ['Salt_2GHz_D8261F', 'UETLIBERG', 'Salt_5GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'visitor-81759', 'mzv-46205', 'Salt_2GHz_9AA844', 'qwp-69288', 'Surfs_up_1', 'DIRECT-2E-HP OfficeJet 4650', 'Aenexi', 'Aenima', 'KerichtHome']
+2024-11-12 11:55:17,256 - __main__ - INFO - hostapd service inactive
+2024-11-12 11:55:17,256 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'UETLIBERG', 'Salt_5GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'visitor-81759', 'mzv-46205', 'Salt_2GHz_9AA844', 'qwp-69288', 'Surfs_up_1', 'DIRECT-2E-HP OfficeJet 4650', 'Aenexi', 'Aenima', 'KerichtHome'], 'current_network': 'Salt_5GHz_D8261F', 'ap_mode': False}
+2024-11-12 11:55:17,258 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:55:17] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:57:26,371 - __main__ - INFO - Received signal 15
+2024-11-12 11:57:26,372 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:57:26,372 - __main__ - INFO - Stopping stream
+2024-11-12 11:57:26,372 - __main__ - INFO - Received signal 15
+2024-11-12 11:57:26,372 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:57:26,373 - __main__ - INFO - Stopping stream
+2024-11-12 11:57:26,376 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 11:57:27,376 - __main__ - INFO - Cleanup completed
+2024-11-12 11:57:28,734 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 11:57:28,830 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 11:57:28,830 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 11:57:28,840 - __main__ - INFO - SoundManager initialized
+2024-11-12 11:57:28,844 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 11:57:28,903 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 11:57:28,904 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 11:57:30,758 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:57:30] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 11:57:30,801 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:57:30] "GET /static/css/styles.css HTTP/1.1" 200 -
+2024-11-12 11:57:34,040 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'visitor-81759', 'pab-81759', 'Skynet5G', 'Salt_2GHz_9AA844', 'UPC8791472', 'DIRECT-2E-HP OfficeJet 4650', 'Surfs_up_1', 'KerichtHome']
+2024-11-12 11:57:34,098 - __main__ - INFO - Saved networks: []
+2024-11-12 11:57:34,109 - __main__ - INFO - hostapd service inactive
+2024-11-12 11:57:34,109 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'visitor-81759', 'pab-81759', 'Skynet5G', 'Salt_2GHz_9AA844', 'UPC8791472', 'DIRECT-2E-HP OfficeJet 4650', 'Surfs_up_1', 'KerichtHome'], 'saved_networks': [], 'current_network': 'Salt_5GHz_D8261F', 'ap_mode': False}
+2024-11-12 11:57:34,110 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:57:34] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 11:58:26,216 - __main__ - INFO - Received signal 15
+2024-11-12 11:58:26,216 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:58:26,217 - __main__ - INFO - Stopping stream
+2024-11-12 11:58:26,221 - __main__ - INFO - Received signal 15
+2024-11-12 11:58:26,222 - __main__ - INFO - Starting cleanup...
+2024-11-12 11:58:26,222 - __main__ - INFO - Stopping stream
+2024-11-12 11:58:36,223 - __main__ - ERROR - Cleanup error: Thread failed to die within 10 seconds
+2024-11-12 11:58:37,649 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 11:58:37,745 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 11:58:37,745 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 11:58:37,758 - __main__ - INFO - SoundManager initialized
+2024-11-12 11:58:37,760 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 11:58:37,822 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 11:58:37,822 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 11:59:00,734 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_9AA844
+2024-11-12 11:59:00,826 - __main__ - INFO - Current connection: preconfigured
+lo
+2024-11-12 11:59:00,911 - __main__ - INFO - Adding new connection for Salt_2GHz_9AA844
+2024-11-12 11:59:00,983 - __main__ - INFO - Activating connection to Salt_2GHz_9AA844
+2024-11-12 11:59:26,610 - __main__ - INFO - Connection verification attempt 1/3
+2024-11-12 11:59:31,664 - __main__ - INFO - Current SSID: lo
+2024-11-12 11:59:31,664 - __main__ - INFO - Connection verification attempt 2/3
+2024-11-12 11:59:36,710 - __main__ - INFO - Current SSID: preconfigured
+lo
+2024-11-12 11:59:36,710 - __main__ - INFO - Connection verification attempt 3/3
+2024-11-12 11:59:41,788 - __main__ - INFO - Current SSID: preconfigured
+lo
+2024-11-12 11:59:41,788 - __main__ - ERROR - Failed to connect to Salt_2GHz_9AA844, restoring previous connection
+2024-11-12 11:59:41,789 - __main__ - INFO - Reconnecting to preconfigured
+lo
+Error: unknown connection 'preconfigured
+lo'.
+Connection 'Salt_2GHz_9AA844' (36b9d01f-47f5-4174-9e69-cbc372f4ad2a) successfully deleted.
+2024-11-12 11:59:41,911 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 11:59:41] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:00:46,598 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_9AA844
+2024-11-12 12:00:46,682 - __main__ - INFO - Current connection: preconfigured
+lo
+2024-11-12 12:00:46,759 - __main__ - INFO - Adding new connection for Salt_2GHz_9AA844
+2024-11-12 12:00:46,832 - __main__ - INFO - Activating connection to Salt_2GHz_9AA844
+2024-11-12 12:01:10,012 - __main__ - INFO - Connection verification attempt 1/3
+2024-11-12 12:01:15,059 - __main__ - INFO - Current SSID: lo
+2024-11-12 12:01:15,060 - __main__ - INFO - Connection verification attempt 2/3
+2024-11-12 12:01:20,107 - __main__ - INFO - Current SSID: preconfigured
+lo
+2024-11-12 12:01:20,108 - __main__ - INFO - Connection verification attempt 3/3
+2024-11-12 12:01:25,173 - __main__ - INFO - Current SSID: preconfigured
+lo
+2024-11-12 12:01:25,174 - __main__ - ERROR - Failed to connect to Salt_2GHz_9AA844, restoring previous connection
+2024-11-12 12:01:25,175 - __main__ - INFO - Reconnecting to preconfigured
+lo
+Error: unknown connection 'preconfigured
+lo'.
+Connection 'Salt_2GHz_9AA844' (e3aeef8c-d85c-49e3-8aa8-24147e19f4b5) successfully deleted.
+2024-11-12 12:01:25,322 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:01:25] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:02:09,738 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:02:09] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:02:09,851 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:02:09] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:02:13,181 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'UETLIBERG', 'Salt_5GHz_D8261F', 'Surfs_up_2', 'mzv-46205', 'Skynet2.4G', 'DIRECT-2E-HP OfficeJet 4650', 'Skynet5G', 'pab-81759', 'Surfs_up_1', 'Salt_2GHz_9AA844', 'hrc-23816', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:02:13,239 - __main__ - INFO - Saved networks: []
+2024-11-12 12:02:13,251 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:02:13,251 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'UETLIBERG', 'Salt_5GHz_D8261F', 'Surfs_up_2', 'mzv-46205', 'Skynet2.4G', 'DIRECT-2E-HP OfficeJet 4650', 'Skynet5G', 'pab-81759', 'Surfs_up_1', 'Salt_2GHz_9AA844', 'hrc-23816', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': [], 'current_network': 'Salt_5GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:02:13,253 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:02:13] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:02:28,643 - __main__ - INFO - Attempting to connect to network: Salt_2GHz_D8261F
+2024-11-12 12:02:28,732 - __main__ - INFO - Current connection: preconfigured
+lo
+2024-11-12 12:02:28,813 - __main__ - INFO - Adding new connection for Salt_2GHz_D8261F
+2024-11-12 12:02:28,888 - __main__ - INFO - Activating connection to Salt_2GHz_D8261F
+2024-11-12 12:02:43,397 - __main__ - INFO - Connection verification attempt 1/3
+2024-11-12 12:02:48,502 - __main__ - INFO - Current SSID: Salt_2GHz_D8261F
+lo
+2024-11-12 12:02:48,502 - __main__ - INFO - Successfully connected to Salt_2GHz_D8261F
+2024-11-12 12:02:48,504 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:02:48] "POST /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:03:42,032 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:03:42] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:03:42,065 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:03:42] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:03:45,949 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'WN-AB7C60', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'TomManiac', 'Surfs_up_1', 'FotokiteFactory', 'KerichtHome']
+2024-11-12 12:03:46,007 - __main__ - INFO - Saved networks: []
+2024-11-12 12:03:46,020 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:03:46,020 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'WN-AB7C60', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'TomManiac', 'Surfs_up_1', 'FotokiteFactory', 'KerichtHome'], 'saved_networks': [], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:03:46,021 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:03:46] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:06:16,116 - __main__ - INFO - Received signal 15
+2024-11-12 12:06:16,117 - __main__ - INFO - Starting cleanup...
+2024-11-12 12:06:16,117 - __main__ - INFO - Stopping stream
+2024-11-12 12:06:16,121 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 12:06:18,488 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 12:06:18,586 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 12:06:18,587 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 12:06:18,597 - __main__ - INFO - SoundManager initialized
+2024-11-12 12:06:18,600 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 12:06:18,662 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 12:06:18,662 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 12:06:21,672 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:06:21] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:06:21,711 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:06:21] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:06:25,514 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet5G', 'WN-AB7C60', 'Surfs_up_1']
+2024-11-12 12:06:25,611 - __main__ - INFO - Saved networks: []
+2024-11-12 12:06:25,622 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:06:25,623 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet5G', 'WN-AB7C60', 'Surfs_up_1'], 'saved_networks': [], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:06:25,624 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:06:25] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:07:12,865 - __main__ - INFO - Received signal 15
+2024-11-12 12:07:12,866 - __main__ - INFO - Starting cleanup...
+2024-11-12 12:07:12,867 - __main__ - INFO - Stopping stream
+2024-11-12 12:07:12,869 - __main__ - INFO - Received signal 15
+2024-11-12 12:07:12,869 - __main__ - INFO - Starting cleanup...
+2024-11-12 12:07:12,870 - __main__ - INFO - Stopping stream
+2024-11-12 12:07:12,873 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 12:07:13,873 - __main__ - INFO - Cleanup completed
+2024-11-12 12:07:15,207 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 12:07:15,303 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 12:07:15,303 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 12:07:15,312 - __main__ - INFO - SoundManager initialized
+2024-11-12 12:07:15,315 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 12:07:15,374 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 12:07:15,374 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 12:07:16,916 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:07:16] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:07:17,073 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:07:17] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:07:20,799 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:07:20,855 - __main__ - INFO - Found saved networks: []
+2024-11-12 12:07:20,867 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:07:20,867 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': [], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:07:20,868 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:07:20] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:07:24,897 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:07:24] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:07:24,928 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:07:24] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:07:28,895 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'visitor-81759', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:07:28,980 - __main__ - INFO - Found saved networks: []
+2024-11-12 12:07:28,993 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:07:28,993 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'visitor-81759', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': [], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:07:28,994 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:07:28] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:07:36,739 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:07:36] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:07:36,761 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:07:36] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:07:40,602 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'visitor-81759', 'pab-81759', 'Skynet5G', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:07:40,689 - __main__ - INFO - Found saved networks: []
+2024-11-12 12:07:40,701 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:07:40,701 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'visitor-81759', 'pab-81759', 'Skynet5G', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': [], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:07:40,702 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:07:40] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:08:26,645 - __main__ - INFO - Received signal 15
+2024-11-12 12:08:26,646 - __main__ - INFO - Starting cleanup...
+2024-11-12 12:08:26,646 - __main__ - INFO - Stopping stream
+2024-11-12 12:08:26,652 - __main__ - INFO - Received signal 15
+2024-11-12 12:08:26,653 - __main__ - INFO - Starting cleanup...
+2024-11-12 12:08:26,653 - __main__ - INFO - Stopping stream
+2024-11-12 12:08:31,248 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:08:31] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:08:31,267 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:08:31] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:08:34,928 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'DIRECT-2E-HP OfficeJet 4650', 'visitor-81759', 'pab-81759', 'Skynet5G', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:08:34,986 - __main__ - INFO - Found saved networks: []
+2024-11-12 12:08:34,999 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:08:34,999 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'DIRECT-2E-HP OfficeJet 4650', 'visitor-81759', 'pab-81759', 'Skynet5G', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': [], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:08:35,000 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:08:35] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:08:36,654 - __main__ - ERROR - Cleanup error: Thread failed to die within 10 seconds
+2024-11-12 12:08:38,037 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 12:08:38,135 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 12:08:38,135 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 12:08:38,147 - __main__ - INFO - SoundManager initialized
+2024-11-12 12:08:38,149 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 12:08:38,209 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 12:08:38,210 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 12:08:38,230 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:08:38] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:08:42,945 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'WN-AB7C60', 'DIRECT-2E-HP OfficeJet 4650', 'Skynet5G', 'TomManiac', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:08:43,031 - __main__ - INFO - Raw nmcli wifi output: 
+2024-11-12 12:08:43,032 - __main__ - INFO - Final saved networks list: []
+2024-11-12 12:08:43,047 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:08:43,048 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'WN-AB7C60', 'DIRECT-2E-HP OfficeJet 4650', 'Skynet5G', 'TomManiac', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': [], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:08:43,050 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:08:43] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:09:32,606 - __main__ - INFO - Received signal 15
+2024-11-12 12:09:32,607 - __main__ - INFO - Starting cleanup...
+2024-11-12 12:09:32,607 - __main__ - INFO - Stopping stream
+2024-11-12 12:09:32,608 - __main__ - INFO - Received signal 15
+2024-11-12 12:09:32,609 - __main__ - INFO - Starting cleanup...
+2024-11-12 12:09:32,609 - __main__ - INFO - Stopping stream
+2024-11-12 12:09:32,611 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 12:09:33,611 - __main__ - INFO - Cleanup completed
+2024-11-12 12:09:34,975 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 12:09:35,073 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 12:09:35,074 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 12:09:35,084 - __main__ - INFO - SoundManager initialized
+2024-11-12 12:09:35,087 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 12:09:35,146 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 12:09:35,146 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 12:09:38,140 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:09:38] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:09:38,180 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:09:38] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:09:42,020 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'Salt_2GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'DIRECT-2E-HP OfficeJet 4650', 'Skynet5G', 'TomManiac', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:09:42,100 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:09:42,101 - __main__ - INFO - Final saved networks list: []
+2024-11-12 12:09:42,113 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:09:42,114 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'Salt_2GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'DIRECT-2E-HP OfficeJet 4650', 'Skynet5G', 'TomManiac', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': [], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:09:42,115 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:09:42] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:09:45,086 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:09:45] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:09:45,107 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:09:45] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:09:50,029 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'Skynet5G', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:09:50,108 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:09:50,108 - __main__ - INFO - Final saved networks list: []
+2024-11-12 12:09:50,120 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:09:50,121 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'Skynet5G', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': [], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:09:50,121 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:09:50] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:10:27,603 - __main__ - INFO - Received signal 15
+2024-11-12 12:10:27,604 - __main__ - INFO - Starting cleanup...
+2024-11-12 12:10:27,604 - __main__ - INFO - Stopping stream
+2024-11-12 12:10:27,607 - __main__ - INFO - Received signal 15
+2024-11-12 12:10:27,607 - __main__ - INFO - Starting cleanup...
+2024-11-12 12:10:27,608 - __main__ - INFO - Stopping stream
+2024-11-12 12:10:27,610 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 12:10:28,611 - __main__ - INFO - Cleanup completed
+2024-11-12 12:10:30,030 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 12:10:30,128 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 12:10:30,128 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 12:10:30,138 - __main__ - INFO - SoundManager initialized
+2024-11-12 12:10:30,142 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 12:10:30,202 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 12:10:30,203 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 12:10:35,345 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:10:35] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:10:35,422 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:10:35] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:10:39,254 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'DIRECT-2E-HP OfficeJet 4650', 'Skynet5G', 'visitor-81759', 'Salt_2GHz_9AA844', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:10:39,312 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:10:39,312 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:10:39,312 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:10:39,312 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 12:10:39,325 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:10:39,325 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'DIRECT-2E-HP OfficeJet 4650', 'Skynet5G', 'visitor-81759', 'Salt_2GHz_9AA844', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:10:39,326 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:10:39] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:10:44,262 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:10:44] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:10:44,289 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:10:44] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:10:48,161 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'DIRECT-2E-HP OfficeJet 4650', 'Skynet5G', 'visitor-81759', 'Salt_2GHz_9AA844', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:10:48,224 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:10:48,224 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:10:48,225 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:10:48,225 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 12:10:48,237 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:10:48,238 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'DIRECT-2E-HP OfficeJet 4650', 'Skynet5G', 'visitor-81759', 'Salt_2GHz_9AA844', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:10:48,239 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:10:48] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:11:55,244 - __main__ - INFO - Received signal 15
+2024-11-12 12:11:55,245 - __main__ - INFO - Starting cleanup...
+2024-11-12 12:11:55,245 - __main__ - INFO - Stopping stream
+2024-11-12 12:11:55,248 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 12:11:57,635 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 12:11:57,733 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 12:11:57,734 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 12:11:57,745 - __main__ - INFO - SoundManager initialized
+2024-11-12 12:11:57,747 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 12:11:57,806 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 12:11:57,806 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 12:11:59,936 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:11:59] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:12:00,008 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:00] "GET /static/css/styles.css HTTP/1.1" 200 -
+2024-11-12 12:12:03,848 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'DIRECT-2E-HP OfficeJet 4650', 'Skynet5G', 'visitor-81759', 'pab-81759', 'Salt_2GHz_9AA844', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:12:03,947 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:12:03,948 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:12:03,948 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:12:03,948 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 12:12:03,960 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:12:03,960 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'DIRECT-2E-HP OfficeJet 4650', 'Skynet5G', 'visitor-81759', 'pab-81759', 'Salt_2GHz_9AA844', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:12:03,961 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:03] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:12:10,740 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:10] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:12:10,763 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:10] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:12:14,700 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'Salt_2GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'Skynet5G', 'pab-81759', 'Surfs_up_1', 'DIRECT-2E-HP OfficeJet 4650']
+2024-11-12 12:12:14,768 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:12:14,769 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:12:14,769 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:12:14,769 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 12:12:14,782 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:12:14,782 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'Salt_2GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'Skynet5G', 'pab-81759', 'Surfs_up_1', 'DIRECT-2E-HP OfficeJet 4650'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:12:14,783 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:14] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:12:25,340 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:25] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:12:25,441 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:25] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:12:29,236 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'Skynet5G', 'pab-81759', 'DIRECT-2E-HP OfficeJet 4650', 'Salt_2GHz_9AA844', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:12:29,293 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:12:29,294 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:12:29,294 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:12:29,294 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 12:12:29,306 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:12:29,307 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'Skynet5G', 'pab-81759', 'DIRECT-2E-HP OfficeJet 4650', 'Salt_2GHz_9AA844', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:12:29,308 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:29] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:12:52,299 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:52] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:12:52,330 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:52] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:12:53,905 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:53] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:12:54,245 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:54] "GET /static/css/styles.css HTTP/1.1" 200 -
+2024-11-12 12:12:54,597 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:54] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-11-12 12:12:56,265 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'visitor-81759', 'Skynet5G', 'pab-81759', 'DIRECT-2E-HP OfficeJet 4650', 'Salt_2GHz_9AA844', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:12:56,268 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'visitor-81759', 'Skynet5G', 'pab-81759', 'DIRECT-2E-HP OfficeJet 4650', 'Salt_2GHz_9AA844', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:12:56,333 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:12:56,334 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:12:56,334 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:12:56,334 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 12:12:56,345 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:12:56,345 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:12:56,345 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:12:56,345 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 12:12:56,351 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:12:56,351 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'visitor-81759', 'Skynet5G', 'pab-81759', 'DIRECT-2E-HP OfficeJet 4650', 'Salt_2GHz_9AA844', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:12:56,355 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:56] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:12:56,361 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:12:56,362 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'visitor-81759', 'Skynet5G', 'pab-81759', 'DIRECT-2E-HP OfficeJet 4650', 'Salt_2GHz_9AA844', 'Surfs_up_1', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:12:56,363 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:56] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:12:58,274 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:58] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:12:58,583 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:58] "GET /static/css/styles.css HTTP/1.1" 200 -
+2024-11-12 12:12:58,929 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:12:58] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-11-12 12:13:04,252 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'visitor-81759', 'DIRECT-2E-HP OfficeJet 4650', 'Salt_2GHz_9AA844', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:13:04,315 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:13:04,315 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:13:04,315 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:13:04,316 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 12:13:04,328 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:13:04,328 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'WN-AB7C60', 'visitor-81759', 'DIRECT-2E-HP OfficeJet 4650', 'Salt_2GHz_9AA844', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:13:04,329 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:13:04] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:13:35,656 - __main__ - INFO - Received signal 15
+2024-11-12 12:13:35,656 - __main__ - INFO - Starting cleanup...
+2024-11-12 12:13:35,656 - __main__ - INFO - Stopping stream
+2024-11-12 12:13:35,658 - __main__ - INFO - Received signal 15
+2024-11-12 12:13:35,659 - __main__ - INFO - Starting cleanup...
+2024-11-12 12:13:35,659 - __main__ - INFO - Stopping stream
+2024-11-12 12:13:35,661 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/shutdown.wav'
+2024-11-12 12:13:36,661 - __main__ - INFO - Cleanup completed
+2024-11-12 12:13:38,031 - __main__ - INFO - Initializing StreamManager...
+2024-11-12 12:13:38,129 - __main__ - INFO - StreamManager initialized with streams: {'link1': 'https://radio.garden/api/ara/content/listen/lQ5fQGJj/channel.mp3', 'link2': 'https://radio.garden/api/ara/content/listen/vXgwtZfQ/channel.mp3', 'link3': 'https://radio.garden/api/ara/content/listen/FyvsuKJE/channel.mp3'}
+2024-11-12 12:13:38,130 - __main__ - INFO - Initializing SoundManager...
+2024-11-12 12:13:38,138 - __main__ - INFO - SoundManager initialized
+2024-11-12 12:13:38,141 - __main__ - ERROR - Error playing sound: Unable to open file '/home/radio/internetRadio/sounds/boot.wav'
+pygame 2.1.2 (SDL 2.26.5, Python 3.11.2)
+Hello from the pygame community. https://www.pygame.org/contribute.html
+Initializing pigpio...
+Connected to pigpiod successfully
+
+=== INITIALIZATION START ===
+ * Serving Flask app 'main'
+ * Debug mode: off
+2024-11-12 12:13:38,200 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.16:5000
+2024-11-12 12:13:38,200 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2024-11-12 12:13:38,768 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:13:38] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:13:38,805 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:13:38] "GET /static/css/styles.css HTTP/1.1" 200 -
+2024-11-12 12:13:39,252 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:13:39] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-11-12 12:13:42,678 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'visitor-81759', 'Surfs_up_1', 'DIRECT-2E-HP OfficeJet 4650', 'KerichtHome', 'UPC87914725GHz']
+2024-11-12 12:13:42,775 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:13:42,776 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:13:42,776 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:13:42,776 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 12:13:42,788 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:13:42,788 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'visitor-81759', 'Surfs_up_1', 'DIRECT-2E-HP OfficeJet 4650', 'KerichtHome', 'UPC87914725GHz'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:13:42,789 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:13:42] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:13:44,740 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:13:44] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:13:44,770 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:13:44] "GET /static/css/styles.css HTTP/1.1" 200 -
+2024-11-12 12:13:45,097 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:13:45] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-11-12 12:13:50,744 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'Skynet5G', 'DIRECT-2E-HP OfficeJet 4650', 'Surfs_up_1', 'KerichtHome', 'UPC87914725GHz']
+2024-11-12 12:13:50,824 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:13:50,825 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:13:50,825 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:13:50,825 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 12:13:50,837 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:13:50,837 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'Skynet5G', 'DIRECT-2E-HP OfficeJet 4650', 'Surfs_up_1', 'KerichtHome', 'UPC87914725GHz'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:13:50,838 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:13:50] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:13:52,049 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:13:52] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:14:32,539 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:14:32] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:14:32,850 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:14:32] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:14:36,849 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'Surfs_up_1', 'DIRECT-2E-HP OfficeJet 4650', 'KerichtHome', 'UPC87914725GHz']
+2024-11-12 12:14:36,945 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:14:36,946 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:14:36,946 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:14:36,946 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 12:14:36,961 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:14:36,962 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'Surfs_up_1', 'DIRECT-2E-HP OfficeJet 4650', 'KerichtHome', 'UPC87914725GHz'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:14:36,962 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:14:36] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:14:43,816 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:14:43] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:14:44,134 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:14:44] "GET /static/css/styles.css HTTP/1.1" 200 -
+2024-11-12 12:14:44,477 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:14:44] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-11-12 12:14:48,205 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'Surfs_up_1', 'DIRECT-2E-HP OfficeJet 4650']
+2024-11-12 12:14:48,304 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:14:48,304 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:14:48,304 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:14:48,304 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 12:14:48,315 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:14:48,316 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'UETLIBERG', 'Salt_2GHz_D8261F', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'Surfs_up_1', 'DIRECT-2E-HP OfficeJet 4650'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:14:48,317 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:14:48] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:14:55,704 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:14:55] "GET / HTTP/1.1" 200 -
+2024-11-12 12:14:55,750 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:14:55] "GET /static/css/styles.css HTTP/1.1" 200 -
+2024-11-12 12:14:55,771 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:14:55] "[33mGET /button-events HTTP/1.1[0m" 404 -
+2024-11-12 12:14:55,831 - __main__ - INFO - Stream status: playing=False, stream=None
+2024-11-12 12:14:55,832 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:14:55] "GET /stream-status HTTP/1.1" 200 -
+2024-11-12 12:14:55,834 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:14:55] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-11-12 12:14:57,107 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:14:57] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:14:57,149 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:14:57] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-12 12:15:00,804 - __main__ - INFO - Found networks: ['Salt_5GHz_D8261F', 'Salt_2GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'Surfs_up_1', 'DIRECT-2E-HP OfficeJet 4650', 'UPC87914725GHz']
+2024-11-12 12:15:00,901 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:15:00,901 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:15:00,901 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:15:00,901 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 12:15:00,913 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:15:00,913 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_5GHz_D8261F', 'Salt_2GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'Skynet2.4G', 'pab-81759', 'Skynet5G', 'Surfs_up_1', 'DIRECT-2E-HP OfficeJet 4650', 'UPC87914725GHz'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:15:00,914 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:15:00] "GET /wifi-scan HTTP/1.1" 200 -
+2024-11-12 12:15:39,599 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:15:39] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-12 12:15:39,912 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:15:39] "GET /static/css/styles.css HTTP/1.1" 200 -
+2024-11-12 12:15:40,299 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:15:40] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2024-11-12 12:15:44,025 - __main__ - INFO - Found networks: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'pab-81759', 'Skynet2.4G', 'Skynet5G', 'DIRECT-2E-HP OfficeJet 4650', 'Surfs_up_1', 'Salt_2GHz_9AA844', 'UPC87914725GHz', 'KerichtHome']
+2024-11-12 12:15:44,111 - __main__ - INFO - Raw nmcli output: Salt_2GHz_D8261F:66cd9abb-8b03-4371-b088-addf1c4681ac:802-11-wireless:wlan0
+lo:9d9f04a6-04e5-4c20-9ebf-0089c21110c2:loopback:lo
+Hotspot:f815578d-bd33-47c1-b3a8-6998815b2bd1:802-11-wireless:
+preconfigured:84a8ed88-6277-42e9-9e50-8e8f6c583730:802-11-wireless:
+Salt_5GHz_D8261F:0afe3022-fdca-4880-9f7e-a0c78b0985d7:802-11-wireless:
+Wired connection 1:d5ce7973-f25b-33c5-bc00-50dc57c4800d:802-3-ethernet:
+
+2024-11-12 12:15:44,111 - __main__ - INFO - Added Salt_2GHz_D8261F to saved networks
+2024-11-12 12:15:44,111 - __main__ - INFO - Added Salt_5GHz_D8261F to saved networks
+2024-11-12 12:15:44,111 - __main__ - INFO - Final saved networks list: ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F']
+2024-11-12 12:15:44,123 - __main__ - INFO - hostapd service inactive
+2024-11-12 12:15:44,123 - __main__ - INFO - Sending response: {'status': 'complete', 'networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F', 'UETLIBERG', 'Surfs_up_2', 'pab-81759', 'Skynet2.4G', 'Skynet5G', 'DIRECT-2E-HP OfficeJet 4650', 'Surfs_up_1', 'Salt_2GHz_9AA844', 'UPC87914725GHz', 'KerichtHome'], 'saved_networks': ['Salt_2GHz_D8261F', 'Salt_5GHz_D8261F'], 'current_network': 'Salt_2GHz_D8261F', 'ap_mode': False}
+2024-11-12 12:15:44,124 - werkzeug - INFO - 192.168.1.6 - - [12/Nov/2024 12:15:44] "GET /wifi-scan HTTP/1.1" 200 -
