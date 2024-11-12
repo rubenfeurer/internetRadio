@@ -317,6 +317,15 @@ def create_app(stream_manager):
     def wifi_settings():
         if request.method == 'POST':
             try:
+                # If we're in AP mode, disable it before connecting
+                if is_in_ap_mode():
+                    if not disable_ap_mode():
+                        return jsonify({
+                            'status': 'error',
+                            'message': 'Failed to disable AP mode'
+                        })
+                    time.sleep(2)  # Give services time to restart
+                
                 ssid = request.form.get('ssid')
                 password = request.form.get('password')
                 
@@ -673,6 +682,51 @@ def create_app(stream_manager):
                 'message': str(e)
             }), 500
 
+    @app.route('/forget_network', methods=['POST'])
+    def forget_network_route():
+        try:
+            data = request.get_json()
+            if not data or 'ssid' not in data:
+                return jsonify({'status': 'error', 'message': 'SSID is required'}), 400
+                
+            ssid = data['ssid']
+            logger.info(f"Attempting to forget network: {ssid}")
+            
+            # First check if we're currently connected to this network
+            current_connection = subprocess.run(
+                ['nmcli', '-t', '-f', 'NAME,TYPE,DEVICE', 'connection', 'show', '--active'],
+                capture_output=True,
+                text=True
+            )
+            
+            is_current = any(ssid in line and 'wifi' in line for line in current_connection.stdout.split('\n'))
+            
+            # If it's the current connection, disconnect first
+            if is_current:
+                logger.info(f"Disconnecting from current network: {ssid}")
+                subprocess.run(['sudo', 'nmcli', 'device', 'disconnect', 'wlan0'],
+                             capture_output=True)
+                time.sleep(1)
+            
+            # Delete the connection
+            result = subprocess.run(
+                ['sudo', 'nmcli', 'connection', 'delete', ssid],
+                capture_output=True,
+                text=True
+            )
+            
+            if result.returncode == 0:
+                logger.info(f"Successfully forgot network: {ssid}")
+                return jsonify({'status': 'success'})
+            else:
+                error_msg = result.stderr.strip() or "Unknown error occurred"
+                logger.error(f"Failed to forget network {ssid}: {error_msg}")
+                return jsonify({'status': 'error', 'message': error_msg}), 400
+                
+        except Exception as e:
+            logger.error(f"Error in forget_network route: {str(e)}")
+            return jsonify({'status': 'error', 'message': str(e)}), 500
+
     return app
 
 def restart_pi():
@@ -728,8 +782,9 @@ def get_wifi_networks():
 
 def get_saved_networks():
     try:
+        # Get all saved connections
         result = subprocess.run(
-            ['nmcli', '-t', '-f', 'NAME,TYPE,TIMESTAMP-REAL', 'connection', 'show'],
+            ['sudo', 'nmcli', '--fields', 'NAME,TYPE', 'connection', 'show'],
             capture_output=True,
             text=True
         )
@@ -737,24 +792,47 @@ def get_saved_networks():
         saved_networks = []
         if result.returncode == 0:
             for line in result.stdout.strip().split('\n'):
-                if line and 'wifi' in line:
-                    name = line.split(':')[0]
-                    # Check if this connection was ever successful
-                    check_status = subprocess.run(
-                        ['nmcli', '-t', '-f', 'GENERAL.STATE', 'connection', 'show', name],
-                        capture_output=True,
-                        text=True
-                    )
-                    if check_status.returncode == 0 and 'activated' in check_status.stdout.lower():
-                        saved_networks.append(name)
-                    else:
-                        # Clean up never-connected networks
-                        subprocess.run(['sudo', 'nmcli', 'connection', 'delete', name])
+                if 'wifi' in line.lower():  # Only get WiFi connections
+                    name = line.split()[0]  # Get the network name
+                    saved_networks.append(name)
         
+        logger.info(f"Found saved networks: {saved_networks}")
         return saved_networks
         
     except Exception as e:
         logger.error(f"Error getting saved networks: {str(e)}")
+        return []
+
+def get_network_status():
+    try:
+        # Get current connection
+        current = subprocess.run(
+            ['sudo', 'nmcli', '-t', '-f', 'NAME,TYPE,DEVICE', 'connection', 'show', '--active'],
+            capture_output=True,
+            text=True
+        )
+        
+        # Get saved networks
+        saved_networks = get_saved_networks()
+        
+        # Get all available networks
+        available = get_available_networks()
+        
+        # Mark networks as saved and/or current
+        for network in available:
+            network['saved'] = network['ssid'] in saved_networks
+            network['current'] = False
+            
+            if current.returncode == 0:
+                for conn in current.stdout.strip().split('\n'):
+                    if conn and network['ssid'] in conn and 'wifi' in conn:
+                        network['current'] = True
+        
+        logger.info(f"Network status: {available}")
+        return available
+        
+    except Exception as e:
+        logger.error(f"Error getting network status: {str(e)}")
         return []
 
 def setup_ap_mode():
@@ -850,22 +928,50 @@ def check_and_setup_network():
 
 def switch_to_ap_mode():
     try:
-        # Stop NetworkManager
+        logger.info("Starting AP mode setup...")
+        
+        # Stop potentially interfering services
         subprocess.run(['sudo', 'systemctl', 'stop', 'NetworkManager'])
+        subprocess.run(['sudo', 'systemctl', 'stop', 'wpa_supplicant'])
+        
+        # Ensure wireless interface is up and not blocked
+        subprocess.run(['sudo', 'rfkill', 'unblock', 'wifi'])
+        subprocess.run(['sudo', 'ifconfig', 'wlan0', 'up'])
         
         # Setup AP configuration
         if not setup_ap_mode():
+            logger.error("Failed to setup AP mode configuration")
             return False
             
-        # Start hostapd
+        # Configure network interface before starting services
+        subprocess.run(['sudo', 'ifconfig', 'wlan0', 'down'])
+        subprocess.run(['sudo', 'ifconfig', 'wlan0', '192.168.4.1', 'netmask', '255.255.255.0'])
+        subprocess.run(['sudo', 'ifconfig', 'wlan0', 'up'])
+        
+        # Configure and start DHCP server
+        dnsmasq_config = """
+interface=wlan0
+dhcp-range=192.168.4.2,192.168.4.20,255.255.255.0,24h
+address=/#/192.168.4.1
+"""
+        with open('/etc/dnsmasq.conf', 'w') as f:
+            f.write(dnsmasq_config)
+        
+        # Start services in correct order
+        subprocess.run(['sudo', 'systemctl', 'restart', 'dnsmasq'])
+        time.sleep(2)  # Give dnsmasq time to start
         subprocess.run(['sudo', 'systemctl', 'restart', 'hostapd'])
         
-        # Configure network interface
-        subprocess.run(['sudo', 'ifconfig', 'wlan0', '192.168.4.1', 'netmask', '255.255.255.0'])
+        # Verify services are running
+        hostapd_status = subprocess.run(['systemctl', 'is-active', 'hostapd'], 
+                                      capture_output=True, text=True)
+        dnsmasq_status = subprocess.run(['systemctl', 'is-active', 'dnsmasq'], 
+                                      capture_output=True, text=True)
         
-        # Start DHCP server
-        subprocess.run(['sudo', 'systemctl', 'restart', 'dnsmasq'])
-        
+        if hostapd_status.stdout.strip() != 'active' or dnsmasq_status.stdout.strip() != 'active':
+            logger.error("Failed to start AP mode services")
+            return False
+            
         logger.info("AP mode activated successfully")
         return True
         
@@ -877,24 +983,10 @@ def connect_to_network(ssid, password=None):
     try:
         logger.info(f"Attempting to connect to network: {ssid}")
         
-        # First check if this is a saved connection
-        check_saved = subprocess.run(
-            ['nmcli', '-t', '-f', 'NAME', 'connection', 'show'],
-            capture_output=True,
-            text=True
-        )
+        # Delete any existing connection with this SSID
+        subprocess.run(['sudo', 'nmcli', 'connection', 'delete', ssid], 
+                      capture_output=True)
         
-        # If connection exists but never succeeded, delete it
-        if ssid in check_saved.stdout:
-            check_status = subprocess.run(
-                ['nmcli', '-t', '-f', 'GENERAL.STATE', 'connection', 'show', ssid],
-                capture_output=True,
-                text=True
-            )
-            if 'activated' not in check_status.stdout.lower():
-                logger.info(f"Removing failed connection for {ssid}")
-                subprocess.run(['sudo', 'nmcli', 'connection', 'delete', ssid])
-
         # Attempt to connect
         if password:
             result = subprocess.run(
@@ -909,19 +1001,94 @@ def connect_to_network(ssid, password=None):
                 text=True
             )
 
-        if result.returncode == 0:
+        if result.returncode == 0 and verify_connection(ssid):
             logger.info(f"Successfully connected to {ssid}")
             return {'status': 'success'}
         else:
             error_msg = result.stderr.strip() or "Failed to connect"
             logger.error(f"Failed to connect to {ssid}: {error_msg}")
-            # Clean up failed connection
-            subprocess.run(['sudo', 'nmcli', 'connection', 'delete', ssid])
             return {'status': 'error', 'message': error_msg}
 
     except Exception as e:
         logger.error(f"Error in connect_to_network: {str(e)}")
         return {'status': 'error', 'message': str(e)}
+
+def should_enable_ap_mode():
+    try:
+        # Check if we're already in AP mode
+        if is_in_ap_mode():
+            return False
+            
+        # Check for any active WiFi connection
+        wifi_status = subprocess.run(['iwgetid'], capture_output=True, text=True)
+        if wifi_status.returncode == 0 and wifi_status.stdout.strip():
+            return False
+            
+        # Check saved networks
+        saved_networks = get_saved_networks()
+        if not saved_networks:
+            logger.info("No saved networks found")
+            return True
+            
+        # Try scanning for saved networks
+        available = get_available_networks()
+        available_ssids = [net['ssid'] for net in available]
+        
+        for saved in saved_networks:
+            if saved in available_ssids:
+                return False
+                
+        logger.info("No saved networks in range")
+        return True
+        
+    except Exception as e:
+        logger.error(f"Error checking AP mode status: {str(e)}")
+        return True  # Default to AP mode on error
+
+def disable_ap_mode():
+    try:
+        logger.info("Disabling AP mode...")
+        
+        # Stop AP services
+        subprocess.run(['sudo', 'systemctl', 'stop', 'hostapd'])
+        subprocess.run(['sudo', 'systemctl', 'stop', 'dnsmasq'])
+        
+        # Reset interface
+        subprocess.run(['sudo', 'ifconfig', 'wlan0', 'down'])
+        subprocess.run(['sudo', 'ifconfig', 'wlan0', 'up'])
+        
+        # Restart network services
+        subprocess.run(['sudo', 'systemctl', 'restart', 'wpa_supplicant'])
+        subprocess.run(['sudo', 'systemctl', 'restart', 'NetworkManager'])
+        
+        logger.info("AP mode disabled")
+        return True
+        
+    except Exception as e:
+        logger.error(f"Error disabling AP mode: {str(e)}")
+        return False
+
+def verify_connection(ssid):
+    try:
+        # Check if connection exists and is active
+        result = subprocess.run(
+            ['sudo', 'nmcli', '-t', '-f', 'NAME,TYPE,DEVICE', 'connection', 'show', '--active'],
+            capture_output=True,
+            text=True
+        )
+        
+        if result.returncode == 0:
+            for line in result.stdout.strip().split('\n'):
+                if line and ssid in line and 'wifi' in line:
+                    logger.info(f"Verified connection to {ssid}")
+                    return True
+        
+        logger.warning(f"Could not verify connection to {ssid}")
+        return False
+        
+    except Exception as e:
+        logger.error(f"Error verifying connection: {str(e)}")
+        return False
 
 def main():
     try:

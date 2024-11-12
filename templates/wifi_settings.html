@@ -142,19 +142,7 @@
                 e.stopPropagation();
                 if (confirm(`Are you sure you want to forget network "${network}"?`)) {
                     try {
-                        const response = await fetch('/forget-network', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ ssid: network })
-                        });
-                        
-                        if (response.ok) {
-                            updateNetworks();
-                        } else {
-                            alert('Failed to forget network');
-                        }
+                        forgetNetwork(network);
                     } catch (error) {
                         console.error('Error:', error);
                         alert('Failed to forget network');
@@ -162,6 +150,36 @@
                 }
             });
             return forgetButton;
+        }
+
+        function forgetNetwork(ssid) {
+            fetch('/forget_network', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ssid: ssid })
+            })
+            .then(async response => {
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    return response.json();
+                } else {
+                    const text = await response.text();
+                    throw new Error(`Server returned invalid response: ${text.substring(0, 100)}...`);
+                }
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    updateNetworks();
+                } else {
+                    alert('Failed to forget network: ' + (data.message || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to forget network: ' + error);
+            });
         }
 
         function updateNetworks() {
