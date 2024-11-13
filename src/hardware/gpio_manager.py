@@ -1,14 +1,10 @@
 import logging
 from typing import Optional
 from gpiozero import Button, RotaryEncoder, LED, Device
-from gpiozero.pins.pigpio import PiGPIOFactory
-import pigpio
 
 class GPIOManager:
     def __init__(self):
         self.logger = logging.getLogger('hardware')
-        self.pi = None
-        self.factory = None
         self.led = None
         self.encoder = None
         self.button = None
@@ -23,16 +19,6 @@ class GPIOManager:
         """Initialize GPIO connections and setup devices"""
         try:
             self.logger.info("Initializing GPIO...")
-            
-            # Initialize pigpio
-            self.pi = pigpio.pi()
-            if not self.pi.connected:
-                self.logger.error("Failed to connect to pigpiod")
-                return False
-            
-            # Create pin factory
-            self.factory = PiGPIOFactory()
-            Device.pin_factory = self.factory
             
             # Initialize devices
             self.led = LED(self.LED_PIN)
@@ -59,8 +45,6 @@ class GPIOManager:
                 self.encoder.close()
             if self.button:
                 self.button.close()
-            if self.pi:
-                self.pi.stop()
             
             self.logger.info("GPIO cleanup completed")
             
@@ -93,3 +77,27 @@ class GPIOManager:
                 
         except Exception as e:
             self.logger.error("Error starting LED blink: %s", str(e))
+    
+    def led_on(self) -> None:
+        """Turn LED on"""
+        try:
+            if self.led:
+                self.led.on()
+        except Exception as e:
+            self.logger.error(f"Error turning LED on: {e}")
+    
+    def led_off(self) -> None:
+        """Turn LED off"""
+        try:
+            if self.led:
+                self.led.off()
+        except Exception as e:
+            self.logger.error(f"Error turning LED off: {e}")
+    
+    def led_blink(self, on_time: float = 1.0, off_time: float = 1.0) -> None:
+        """Make LED blink"""
+        try:
+            if self.led:
+                self.led.blink(on_time=on_time, off_time=off_time)
+        except Exception as e:
+            self.logger.error(f"Error setting LED blink: {e}")

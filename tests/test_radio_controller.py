@@ -137,7 +137,7 @@ class TestRadioController(unittest.TestCase):
         
         # Test monitoring when not playing
         self.radio.monitor()
-        self.mock_gpio.led_off.assert_called_once()
+        self.mock_gpio.set_led_state.assert_called_once_with(False)
         
         # Reset mock
         self.mock_gpio.reset_mock()
@@ -145,7 +145,7 @@ class TestRadioController(unittest.TestCase):
         # Test monitoring when playing
         self.radio.is_playing = True
         self.radio.monitor()
-        self.mock_gpio.led_blink.assert_called_once()
+        self.mock_gpio.start_led_blink.assert_called_once()
 
 if __name__ == '__main__':
     unittest.main()

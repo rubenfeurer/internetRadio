@@ -35,11 +35,7 @@ fi
 
 echo_step "Installing system dependencies..."
 apt-get update
-apt-get install -y python3-pip python3-venv pigpiod alsa-utils hostapd dnsmasq
-
-# Enable and start pigpiod
-systemctl enable pigpiod
-systemctl start pigpiod
+apt-get install -y python3-pip python3-venv alsa-utils hostapd dnsmasq
 
 # Verify radio user exists
 if ! id "radio" &>/dev/null; then
@@ -58,8 +54,7 @@ echo_step "Setting up service..."
 cat > /etc/systemd/system/internetradio.service << EOL
 [Unit]
 Description=Internet Radio Service
-After=network.target pigpiod.service
-Requires=pigpiod.service
+After=network.target
 
 [Service]
 Type=simple

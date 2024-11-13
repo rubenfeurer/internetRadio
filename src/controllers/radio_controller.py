@@ -112,9 +112,9 @@ class RadioController:
                 return
             
             if self.is_playing:
-                self.gpio_manager.led_blink()
+                self.gpio_manager.start_led_blink()
             else:
-                self.gpio_manager.led_off()
+                self.gpio_manager.set_led_state(False)
             
         except Exception as e:
             self.logger.error(f"Error in radio monitor: {e}")
