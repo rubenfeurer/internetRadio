@@ -34,14 +34,17 @@ class TestMain(unittest.TestCase):
         # Create logger mock
         self.logger_mock = Mock()
         
+        # Mock sys.exit to prevent actual exit
+        self.exit_mock = Mock()
+        
         # Set up patches
         self.patches = [
             patch('main.logger', self.logger_mock),
             patch('main.InternetRadio', return_value=self.radio_instance),
             patch('builtins.print'),  # Suppress print statements
             patch('main.signal.signal'),  # Don't register signal handlers
-            # Make sleep raise KeyboardInterrupt after first call
-            patch('main.time.sleep', side_effect=[None, KeyboardInterrupt])
+            patch('main.time.sleep', side_effect=[None, KeyboardInterrupt]),
+            patch('sys.exit', self.exit_mock)  # Prevent actual exit
         ]
         
         # Start all patches
@@ -109,6 +112,29 @@ class TestMain(unittest.TestCase):
         
         # Verify cleanup was called
         self.network_mock.cleanup.assert_called_once()
+    
+    def test_signal_handler(self):
+        """Test signal handler cleanup"""
+        import main
+        
+        # Set up global variables that signal handler uses
+        main.radio = self.radio_instance
+        main.network = self.network_mock
+        main.web = None  # Web controller not initialized in our tests
+        
+        # Call signal handler with SIGTERM
+        main.signal_handler(signal.SIGTERM, None)
+        
+        # Verify:
+        # 1. Logger recorded the signal
+        self.logger_mock.info.assert_any_call("Received signal 15 to terminate")
+        
+        # 2. Cleanup was called
+        self.network_mock.cleanup.assert_called_once()
+        self.radio_instance.cleanup.assert_called_once()
+        
+        # 3. System exit was called with 0
+        self.exit_mock.assert_called_once_with(0)
 
 if __name__ == '__main__':
     unittest.main() 
