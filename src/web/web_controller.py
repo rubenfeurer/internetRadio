@@ -10,11 +10,35 @@ class WebController:
     def __init__(self, radio_controller: RadioController, network_controller: NetworkController):
         self.logger = Logger(__name__)
         self.app = Flask(__name__, 
-                        template_folder='../../templates',
+                        template_folder='templates',
                         static_folder='../../static')
         self.radio = radio_controller
         self.network = network_controller
         self.setup_routes()
+        
+        # Add error handlers
+        self.setup_error_handlers()
+
+    def setup_error_handlers(self) -> None:
+        """Set up Flask error handlers"""
+        
+        @self.app.errorhandler(404)
+        def not_found_error(error):
+            return render_template('error.html', 
+                                error_code=404, 
+                                message="Page not found"), 404
+
+        @self.app.errorhandler(500)
+        def internal_error(error):
+            return render_template('error.html', 
+                                error_code=500, 
+                                message="Internal server error"), 500
+
+        @self.app.errorhandler(Exception)
+        def handle_exception(error):
+            return render_template('error.html',
+                                error_code=500,
+                                message="Internal server error"), 500
 
     def setup_routes(self) -> None:
         """Set up all Flask routes"""
@@ -29,7 +53,9 @@ class WebController:
                                     network_status=network_status)
             except Exception as e:
                 self.logger.error(f"Error rendering index: {e}")
-                return "Error loading page", 500
+                return render_template('error.html',
+                                    error_code=500,
+                                    message="Internal server error"), 500
 
         @self.app.route('/stream-select/<channel>')
         def stream_select(channel):
@@ -126,11 +152,53 @@ class WebController:
                 self.logger.error(f"Error getting stream status: {e}")
                 return jsonify({'error': str(e)}), 500
 
+        @self.app.route('/update-stream', methods=['POST'])
+        def update_stream():
+            """Update stream configuration"""
+            try:
+                channel = request.form.get('channel')
+                url = request.form.get('selected_link')
+                if not channel or not url:
+                    return jsonify({
+                        'success': False, 
+                        'error': 'Channel and URL required'
+                    }), 400
+                
+                success = self.radio.update_stream(channel, url)
+                return jsonify({'success': success})
+            except Exception as e:
+                self.logger.error(f"Error updating stream: {e}")
+                return jsonify({'success': False, 'error': str(e)}), 500
+
+        @self.app.route('/network-status')
+        def network_status():
+            """Get current network status"""
+            try:
+                status = self.network.get_connection_status()
+                return jsonify(status)
+            except Exception as e:
+                self.logger.error(f"Error getting network status: {e}")
+                return jsonify({'error': str(e)}), 500
+
     def start(self) -> None:
         """Start the Flask application in a separate thread"""
         self.logger.info("Starting web interface")
         web_thread = threading.Thread(
-            target=lambda: self.app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
+            target=lambda: self.app.run(
+                host='0.0.0.0', 
+                port=5000, 
+                debug=False, 
+                threaded=True,
+                use_reloader=False  # Prevent reloader thread in production
+            )
         )
         web_thread.daemon = True
         web_thread.start()
+        
+    def stop(self) -> None:
+        """Stop the Flask application"""
+        self.logger.info("Stopping web interface")
+        func = request.environ.get('werkzeug.server.shutdown')
+        if func is None:
+            raise RuntimeError('Not running with the Werkzeug Server')
+        func()

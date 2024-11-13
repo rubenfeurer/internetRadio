@@ -66,30 +66,40 @@ class TestRadioController(unittest.TestCase):
         self.mock_gpio.set_led_state.assert_called_with(False)
     
     def test_volume_control(self):
+        """Test volume control"""
         # Initialize
         self.radio.initialize()
         initial_volume = self.radio.current_volume
         print(f"Initial volume: {initial_volume}")
-        
+
         # Test volume up
         self.radio.volume_up()
-        expected_volume_up = initial_volume + 5
+        expected_volume_up = min(100, initial_volume + 5)
         print(f"Volume after up: {self.radio.current_volume}")
-        print(f"AudioManager instance: {self.mock_audio}")
-        print(f"set_volume method: {self.mock_audio.set_volume}")
-        print(f"set_volume calls: {self.mock_audio.set_volume.mock_calls}")
-        
+        print(f"Expected volume up: {expected_volume_up}")
+
         self.assertEqual(self.radio.current_volume, expected_volume_up)
         self.mock_audio.set_volume.assert_called_with(expected_volume_up)
-        
-        # Reset mock
-        self.mock_audio.set_volume.reset_mock()
-        
+
         # Test volume down
         self.radio.volume_down()
-        expected_volume_down = initial_volume
+        expected_volume_down = max(0, expected_volume_up - 5)
+        print(f"Volume after down: {self.radio.current_volume}")
+        print(f"Expected volume down: {expected_volume_down}")
+
         self.assertEqual(self.radio.current_volume, expected_volume_down)
         self.mock_audio.set_volume.assert_called_with(expected_volume_down)
+
+        # Test volume limits
+        # Test upper limit
+        self.radio.current_volume = 98
+        self.radio.volume_up()
+        self.assertEqual(self.radio.current_volume, 100)
+
+        # Test lower limit
+        self.radio.current_volume = 2
+        self.radio.volume_down()
+        self.assertEqual(self.radio.current_volume, 0)
 
 if __name__ == '__main__':
     unittest.main()

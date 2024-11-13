@@ -14327,3 +14327,16 @@ Wired connection 1      d5ce7973-f25b-33c5-bc00-50dc57c4800d  ethernet  --
 2024-11-13 00:12:41,105 - werkzeug - INFO - 192.168.1.5 - - [13/Nov/2024 00:12:41] "[33mGET /wifi-scan HTTP/1.1[0m" 404 -
 2024-11-13 00:12:41,113 - werkzeug - INFO - 192.168.1.5 - - [13/Nov/2024 00:12:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
 2024-11-13 00:12:43,815 - werkzeug - INFO - 192.168.1.5 - - [13/Nov/2024 00:12:43] "[33mGET /wifi-scan HTTP/1.1[0m" 404 -
+2024-11-13 00:20:50,241 - __main__ - INFO - Checking for saved networks...
+2024-11-13 00:20:50,331 - __main__ - INFO - Raw nmcli output: NAME                    UUID                                  TYPE      DEVICE 
+preconfigured           84a8ed88-6277-42e9-9e50-8e8f6c583730  wifi      wlan0  
+lo                      a56dec06-dbe2-4fd2-be5a-a4315c0d25ca  loopback  lo     
+Donatellos iPhone Mini  f7148ade-534a-480d-92f5-5d402816dc17  wifi      --     
+Hotspot                 f815578d-bd33-47c1-b3a8-6998815b2bd1  wifi      --     
+Wired connection 1      d5ce7973-f25b-33c5-bc00-50dc57c4800d  ethernet  --     
+
+2024-11-13 00:20:50,331 - __main__ - INFO - Found saved WiFi networks: ['preconfigured', 'Hotspot']
+2024-11-13 00:20:50,333 - werkzeug - INFO - 192.168.1.5 - - [13/Nov/2024 00:20:50] "GET /wifi_settings HTTP/1.1" 200 -
+2024-11-13 00:20:50,410 - werkzeug - INFO - 192.168.1.5 - - [13/Nov/2024 00:20:50] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-13 00:20:50,528 - werkzeug - INFO - 192.168.1.5 - - [13/Nov/2024 00:20:50] "[33mGET /wifi-scan HTTP/1.1[0m" 404 -
+2024-11-13 11:25:54,418 - werkzeug - INFO - 192.168.1.5 - - [13/Nov/2024 11:25:54] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -

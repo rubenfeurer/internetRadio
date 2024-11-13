@@ -1,0 +1,19 @@
+internetRadio/
+├── config/
+│   ├── radio.toml       # Application settings
+│   └── streams.toml     # Radio stream listings
+├── logs/
+├── scripts/
+├── sounds/
+├── src/
+│   ├── web/
+│   │   ├── templates/   # HTML templates
+│   │   ├── __init__.py
+│   │   └── web_controller.py
+│   └── ...
+├── static/
+├── tests/
+├── .gitignore
+├── main.py
+├── README.md
+└── runApp.sh

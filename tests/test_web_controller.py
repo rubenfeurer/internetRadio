@@ -150,5 +150,119 @@ class TestWebController(unittest.TestCase):
             data = json.loads(response.get_data(as_text=True))
             self.assertEqual(data['status'], 'error')
 
+    def test_404_error_handler(self):
+        """Test 404 error handler"""
+        with self.web.app.test_request_context('/nonexistent-page'):
+            response = self.client.get('/nonexistent-page')
+            self.assertEqual(response.status_code, 404)
+            self.assertIn(b'Error 404', response.data)
+            self.assertIn(b'Page not found', response.data)
+
+    def test_500_error_handler(self):
+        """Test 500 error handler"""
+        # Mock radio controller to raise an exception
+        self.mock_radio.get_default_streams.side_effect = Exception("Test error")
+        
+        with self.web.app.test_request_context('/'):
+            response = self.client.get('/')
+            self.assertEqual(response.status_code, 500)
+            self.assertIn(b'Error 500', response.data)
+            self.assertIn(b'Internal server error', response.data)
+
+    def test_network_status_route(self):
+        """Test network status endpoint"""
+        test_status = {
+            'is_connected': True,
+            'ssid': 'TestNetwork',
+            'ip_address': '192.168.1.100',
+            'signal_strength': -65
+        }
+        self.mock_network.get_connection_status.return_value = test_status
+        
+        with self.web.app.test_request_context('/network-status'):
+            response = self.client.get('/network-status')
+            self.assertEqual(response.status_code, 200)
+            data = json.loads(response.get_data(as_text=True))
+            self.assertEqual(data, test_status)
+
+    def test_network_status_error(self):
+        """Test network status endpoint error handling"""
+        self.mock_network.get_connection_status.side_effect = Exception("Network error")
+        
+        with self.web.app.test_request_context('/network-status'):
+            response = self.client.get('/network-status')
+            self.assertEqual(response.status_code, 500)
+            data = json.loads(response.get_data(as_text=True))
+            self.assertIn('error', data)
+
+    def test_update_stream_validation(self):
+        """Test update stream endpoint parameter validation"""
+        test_cases = [
+            ({}, 'Channel and URL required'),
+            ({'channel': 'link1'}, 'Channel and URL required'),
+            ({'selected_link': 'http://test.com'}, 'Channel and URL required')
+        ]
+        
+        for test_data, expected_error in test_cases:
+            with self.web.app.test_request_context('/update-stream', method='POST',
+                data=test_data):
+                response = self.client.post('/update-stream', data=test_data)
+                self.assertEqual(response.status_code, 400)
+                data = json.loads(response.get_data(as_text=True))
+                self.assertFalse(data['success'])
+                self.assertEqual(data['error'], expected_error)
+
+    def test_update_stream_success(self):
+        """Test successful stream update"""
+        self.mock_radio.update_stream.return_value = True
+        test_data = {
+            'channel': 'link1',
+            'selected_link': 'http://test.com/stream'
+        }
+        
+        with self.web.app.test_request_context('/update-stream', method='POST',
+            data=test_data):
+            response = self.client.post('/update-stream', data=test_data)
+            self.assertEqual(response.status_code, 200)
+            data = json.loads(response.get_data(as_text=True))
+            self.assertTrue(data['success'])
+            self.mock_radio.update_stream.assert_called_once_with(
+                'link1', 'http://test.com/stream'
+            )
+
+    def test_update_stream_failure(self):
+        """Test failed stream update"""
+        self.mock_radio.update_stream.return_value = False
+        test_data = {
+            'channel': 'link1',
+            'selected_link': 'http://test.com/stream'
+        }
+        
+        with self.web.app.test_request_context('/update-stream', method='POST',
+            data=test_data):
+            response = self.client.post('/update-stream', data=test_data)
+            self.assertEqual(response.status_code, 200)
+            data = json.loads(response.get_data(as_text=True))
+            self.assertFalse(data['success'])
+
+    def test_stop_method(self):
+        """Test web controller stop method"""
+        with self.web.app.test_request_context('/'):
+            mock_environ = {'werkzeug.server.shutdown': MagicMock()}
+            with patch('flask.request.environ', new=mock_environ):
+                self.web.stop()
+                mock_environ['werkzeug.server.shutdown'].assert_called_once()
+
+    def test_stop_method_error(self):
+        """Test web controller stop method when not running with Werkzeug"""
+        with self.web.app.test_request_context('/'):
+            with patch('flask.request.environ', new={}):
+                with self.assertRaises(RuntimeError) as context:
+                    self.web.stop()
+                self.assertEqual(
+                    str(context.exception),
+                    'Not running with the Werkzeug Server'
+                )
+
 if __name__ == '__main__':
     unittest.main() 

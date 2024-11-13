@@ -1,59 +1,83 @@
 import unittest
 import os
-import logging
+import shutil
+from pathlib import Path
+from src.utils.logger import Logger
 import tempfile
-import time
-from src.utils.logger import setup_logging, log_system_status
 
 class TestLogger(unittest.TestCase):
     def setUp(self):
-        # Create a temporary directory for test logs
-        self.temp_dir = tempfile.mkdtemp()
-        self.log_dir = self.temp_dir
+        self.test_log_dir = tempfile.mkdtemp()
+        self.log_file = os.path.join(self.test_log_dir, "radio.log")
         
+        # Clean start
+        if os.path.exists(self.test_log_dir):
+            shutil.rmtree(self.test_log_dir)
+        os.makedirs(self.test_log_dir)
+        
+        # Set logger to test mode
+        Logger.reset()
+        Logger.set_test_mode(self.test_log_dir)
+        self.logger = Logger("test")
+
     def tearDown(self):
-        # Clean up temporary files after tests
-        for file in os.listdir(self.temp_dir):
-            os.remove(os.path.join(self.temp_dir, file))
-        os.rmdir(self.temp_dir)
-    
+        try:
+            shutil.rmtree(self.test_log_dir)
+        except Exception as e:
+            print(f"Error during cleanup: {e}")
+        finally:
+            Logger.reset()
+
+    def test_logger_instance(self):
+        """Test logger singleton pattern"""
+        logger1 = Logger("test1")
+        logger2 = Logger("test2")
+        self.assertEqual(id(logger1), id(logger2))
+
     def test_log_files_created(self):
-        logger, network_logger = setup_logging(log_dir=self.log_dir)
-        
-        # Check if log files exist
-        self.assertTrue(os.path.exists(os.path.join(self.log_dir, 'app.log')))
-        self.assertTrue(os.path.exists(os.path.join(self.log_dir, 'network_debug.log')))
-    
+        """Test log file creation"""
+        self.assertTrue(os.path.exists(self.test_log_dir))
+        self.logger.info("Test message")
+        self.assertTrue(os.path.exists(self.log_file))
+
     def test_logging_works(self):
-        logger, network_logger = setup_logging(log_dir=self.log_dir)
-        test_message = "Test log message"
-        network_logger.info(test_message)
-        
-        # Give a small delay for file writing
-        time.sleep(0.1)
-        
-        with open(os.path.join(self.log_dir, 'network_debug.log'), 'r') as f:
+        """Test different log levels"""
+        test_messages = {
+            "debug": "Debug message",
+            "info": "Info message",
+            "warning": "Warning message",
+            "error": "Error message",
+            "critical": "Critical message"
+        }
+
+        # Write messages
+        self.logger.debug(test_messages["debug"])
+        self.logger.info(test_messages["info"])
+        self.logger.warning(test_messages["warning"])
+        self.logger.error(test_messages["error"])
+        self.logger.critical(test_messages["critical"])
+
+        # Read log file
+        with open(self.log_file, 'r') as f:
             log_content = f.read()
-            self.assertIn(test_message, log_content)
-    
-    def test_system_status_logging(self):
-        logger, _ = setup_logging(log_dir=self.log_dir)
-        success = log_system_status(log_dir=self.log_dir)
-        
-        # Give a small delay for file writing
-        time.sleep(0.1)
-        
-        # First check if the function succeeded
-        self.assertTrue(success, "System status logging failed")
-        
-        # Then check if system status was logged
-        with open(os.path.join(self.log_dir, 'app.log'), 'r') as f:
+
+        # Check messages (except debug, which is filtered by default INFO level)
+        for level, msg in test_messages.items():
+            if level != "debug":
+                self.assertIn(msg, log_content)
+
+    def test_log_level_change(self):
+        """Test dynamic log level change"""
+        # Set to DEBUG
+        Logger.set_level("DEBUG")
+        self.logger.debug("Debug test")
+
+        with open(self.log_file, 'r') as f:
             log_content = f.read()
-            self.assertTrue(
-                any(status in log_content for status in 
-                    ["Memory Status:", "Disk Space:", "Python Processes:"]),
-                f"System status not found in log content: {log_content}"
-            )
+            self.assertIn("Debug test", log_content)
+
+        # Set back to INFO
+        Logger.set_level("INFO")
 
 if __name__ == '__main__':
     unittest.main() 

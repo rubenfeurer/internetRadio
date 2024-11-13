@@ -71,6 +71,7 @@ class RadioController:
             if self.audio_manager.play_url(url):
                 self.is_playing = True
                 self.current_stream = url
+                self.gpio_manager.start_led_blink()
                 return True
             return False
         except Exception as e:
@@ -80,11 +81,11 @@ class RadioController:
     def stop_playback(self) -> bool:
         """Stop current playback"""
         try:
-            if self.audio_manager.stop():
-                self.is_playing = False
-                self.current_stream = None
-                return True
-            return False
+            self.audio_manager.stop()
+            self.is_playing = False
+            self.current_stream = None
+            self.gpio_manager.set_led_state(False)
+            return True
         except Exception as e:
             self.logger.error(f"Error stopping playback: {e}")
             return False
@@ -166,3 +167,19 @@ class RadioController:
                 self.current_stream = None
         except Exception as e:
             self.logger.error(f"Error monitoring radio state: {e}")
+
+    def volume_up(self):
+        """Increase volume by 5%"""
+        new_volume = min(100, self.current_volume + 5)
+        if self.audio_manager.set_volume(new_volume):
+            self.current_volume = new_volume
+            return True
+        return False
+
+    def volume_down(self):
+        """Decrease volume by 5%"""
+        new_volume = max(0, self.current_volume - 5)
+        if self.audio_manager.set_volume(new_volume):
+            self.current_volume = new_volume
+            return True
+        return False
