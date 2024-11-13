@@ -25,7 +25,7 @@ class Logger:
                 cls.setup_logging(cls._log_dir or os.path.join(os.getcwd(), 'logs'))
             logger = cls.get_logger(name)
             cls._loggers[name] = logger
-            return cls._instance
+            return logger
             
         return cls._instance
 

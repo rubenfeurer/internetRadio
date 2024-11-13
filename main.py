@@ -21,16 +21,32 @@ from src.controllers.radio_controller import RadioController
 from src.web.web_controller import WebController
 from src.utils.config_migration import ConfigMigration
 
-# Set up logging
-logger = Logger.setup_logging(
-    app_log_path='/home/radio/internetRadio/logs/app.log',
-    network_log_path='/home/radio/internetRadio/logs/network_debug.log'
-)
-
-def cleanup(radio, network, web):
-    """Clean up resources before exit"""
-    logger.info("Cleaning up resources...")
+# At the top of the file, after imports
+def setup_logging():
+    """Initialize logging configuration"""
     try:
+        print("Setting up logging...")  # Debug print
+        Logger.setup_logging(
+            app_log_path='/home/radio/internetRadio/logs/app.log',
+            network_log_path='/home/radio/internetRadio/logs/network_debug.log'
+        )
+        logger = Logger('main')
+        print(f"Logger created: {logger}")  # Debug print
+        return logger
+    except Exception as e:
+        print(f"Failed to setup logging: {e}")
+        import traceback
+        print(traceback.format_exc())  # Print full traceback
+        return None
+
+# Global logger instance
+logger = setup_logging()
+print(f"Global logger initialized: {logger}")  # Debug print
+
+def cleanup(radio=None, network=None, web=None):
+    """Clean up resources"""
+    try:
+        logger.info("Cleaning up resources...")
         if web:
             web.stop()
         if radio:
@@ -48,6 +64,8 @@ def signal_handler(signum, frame):
 
 class InternetRadio:
     def __init__(self):
+        self.logger = logger
+        
         # Initialize configuration migration
         config_dir = Path(__file__).parent / 'config'
         migration = ConfigMigration(config_dir)
@@ -57,7 +75,6 @@ class InternetRadio:
         # Initialize managers
         self.config_manager = ConfigManager()
         self.stream_manager = StreamManager()
-        self.logger = Logger(__name__)
 
         # Initialize hardware components with config
         self.audio = AudioManager(
@@ -121,11 +138,12 @@ def main():
     web = None
     
     try:
-        # Set up signal handlers
-        signal.signal(signal.SIGTERM, signal_handler)
-        signal.signal(signal.SIGINT, signal_handler)
-
-        # Initialize controllers
+        print("Starting main function...")  # Debug print
+        if logger is None:
+            print("Logger not initialized properly")
+            return 1
+        
+        print("Initializing InternetRadio...")  # Debug print
         radio = InternetRadio()
         network = radio.network_controller
         
@@ -156,7 +174,9 @@ def main():
                 logger.error(f"Error in main loop: {e}")
 
     except Exception as e:
-        logger.error(f"Main error: {e}")
+        print(f"Critical error in main: {e}")  # Debug print
+        import traceback
+        print(traceback.format_exc())  # Print full traceback
         return 1
     finally:
         cleanup(radio, network, web)

@@ -39,4 +39,6 @@ echo "pigpiod is running"
 
 echo "Starting Python application..."
 cd /home/radio/internetRadio
-python3 main.py 2>&1 | tee -a /home/radio/internetRadio/logs/app.log
+
+# Use exec to replace shell with Python process
+exec python3 main.py >> /home/radio/internetRadio/logs/app.log 2>&1
