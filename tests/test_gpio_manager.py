@@ -4,14 +4,11 @@ from src.hardware.gpio_manager import GPIOManager
 
 class TestGPIOManager(unittest.TestCase):
     @patch('src.hardware.gpio_manager.LED')
-    @patch('src.hardware.gpio_manager.PiGPIOFactory')
-    def setUp(self, mock_factory_class, mock_led_class):
+    def setUp(self, mock_led_class):
         # Setup mocks
-        self.mock_factory = MagicMock()
         self.mock_led = MagicMock()
         
         # Configure mock returns
-        mock_factory_class.return_value = self.mock_factory
         mock_led_class.return_value = self.mock_led
         
         # Create GPIO manager
