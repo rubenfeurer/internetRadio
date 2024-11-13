@@ -94,6 +94,7 @@ internetRadio/
 
 ## Testing
 
+### Running Tests
 Run the test suite:
 ```bash
 python3 -m pytest tests/ -v
@@ -102,7 +103,37 @@ python3 -m pytest tests/ -v
 Run specific tests:
 ```bash
 python3 -m pytest tests/test_audio_manager.py -v
+python3 -m pytest tests/test_main.py -v
 ```
+
+### Test Coverage
+Current test coverage includes:
+
+#### Main Application (test_main.py)
+- Network initialization scenarios
+- Radio controller initialization
+- WiFi connection handling
+- Signal handling and cleanup
+- Resource management
+
+#### Audio System (test_audio_manager.py)
+- Hardware audio configuration
+- Volume control
+- Stream playback
+- Resource cleanup
+
+### Running Tests with Coverage Report
+```bash
+python3 -m pytest --cov=src tests/ --cov-report=term-missing
+```
+
+### Test Development
+Tests follow these principles:
+- Test-Driven Development (TDD)
+- Single Responsibility
+- Proper resource cleanup
+- Mocking of hardware dependencies
+- Isolation between test cases
 
 ## Service Management
 
