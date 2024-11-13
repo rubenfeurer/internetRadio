@@ -35,7 +35,7 @@ fi
 
 echo_step "Installing system dependencies..."
 apt-get update
-apt-get install -y python3-pip python3-venv alsa-utils hostapd dnsmasq
+apt-get install -y python3-pip python3-venv alsa-utils hostapd dnsmasq vlc
 
 # Verify radio user exists
 if ! id "radio" &>/dev/null; then
@@ -94,7 +94,9 @@ echo_step "Setting up directories and permissions..."
 mkdir -p "$PROJECT_DIR/logs"
 mkdir -p "$PROJECT_DIR/config"
 mkdir -p "$PROJECT_DIR/streams"
+mkdir -p "$PROJECT_DIR/sounds"
 touch "$PROJECT_DIR/logs/radio.log"
+touch "$PROJECT_DIR/logs/app.log"
 chown -R radio:radio "$PROJECT_DIR"
 chmod 755 "$PROJECT_DIR"
 chmod +x "$PROJECT_DIR/scripts/runApp.sh"
@@ -111,4 +113,15 @@ if systemctl is-active --quiet internetradio; then
     echo -e "${GREEN}Service is running successfully${NC}"
 else
     echo_error "Service failed to start. Check logs with: journalctl -u internetradio"
-fi 
+fi
+
+echo_step "Configuring ALSA..."
+cat > /etc/asound.conf << EOL
+defaults.pcm.card 2
+defaults.pcm.device 0
+defaults.ctl.card 2
+EOL
+
+echo_step "Testing audio configuration..."
+su - radio -c "amixer -c 2 sset 'PCM' unmute"
+su - radio -c "amixer -c 2 sset 'PCM' 100%" 

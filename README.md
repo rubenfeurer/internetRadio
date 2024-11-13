@@ -1,307 +1,153 @@
-# Internet Radio Project
+# Internet Radio for Raspberry Pi
 
-## Overview
-A Raspberry Pi-based Internet Radio project with physical controls (buttons, encoder) and web interface. The project uses Python for the backend, Flask for the web interface, and handles both WiFi and Access Point modes.
+A Python-based internet radio player designed for Raspberry Pi, featuring GPIO controls, web interface, and automatic WiFi/Access Point management.
 
-## Current State
-- All core components implemented and tested
-- Full test coverage achieved (75 passing tests)
-- Components integrated and verified:
-  - WebController (implemented with tests)
-  - RadioController (implemented with tests)
-  - NetworkController (implemented with tests)
-  - Logger (implemented with tests)
-  - StreamManager (implemented with tests)
+## Hardware Requirements
 
-## Project Structure
-internetRadio/
-├── config/
-│   ├── default.toml      # Default configurations
-│   └── streams.toml      # Radio stream configurations
-├── logs/                 # Application logs
-├── src/
-│   ├── audio/
-│   │   └── audio_manager.py
-│   ├── controllers/
-│   │   ├── radio_controller.py
-│   │   ├── network_controller.py
-│   │   └── web_controller.py
-│   ├── hardware/
-│   │   └── gpio_manager.py
-│   ├── models/
-│   │   └── radio_stream.py
-│   ├── network/
-│   │   ├── wifi_manager.py
-│   │   └── ap_manager.py
-│   ├── utils/
-│   │   ├── logger.py
-│   │   ├── config_manager.py
-│   │   └── stream_manager.py
-│   └── web/
-│       └── templates/
-├── static/
-│   └── css/
-├── templates/
-│   ├── index.html
-│   ├── stream_select.html
-│   └── wifi_settings.html
-├── tests/
-│   ├── integration/
-│   │   └── test_system_integration.py
-│   ├── test_audio_manager.py
-│   ├── test_gpio_manager.py
-│   └── ... (other test files)
-├── main.py
-└── runApp.sh
+- Raspberry Pi (tested on Pi 3B+ and Pi 4)
+- LED (connected to GPIO17)
+- Rotary Encoder (connected to GPIO22, GPIO23)
+- Push Button (connected to GPIO27)
+- Audio output (bcm2835 Headphones - card 2)
 
-## Dependencies
-- Python 3.11+
-- Flask
-- pigpio
-- VLC
-- toml
-- Network management tools (iwconfig, ifconfig)
+## Software Requirements
 
-## Installation
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   pip install flask pigpio python-vlc toml
-   ```
-3. Start pigpiod service:
-   ```bash
-   sudo systemctl enable pigpiod
-   sudo systemctl start pigpiod
-   ```
-
-## Running the Application
+### System Dependencies
 ```bash
-chmod +x runApp.sh
-./runApp.sh
+sudo apt-get update
+sudo apt-get install -y python3-pip python3-venv alsa-utils hostapd dnsmasq vlc
 ```
 
-## Core Components
+### Python Dependencies
+```requirements.txt
+gpiozero
+flask
+python-vlc
+toml
+requests
+netifaces
+pytest
+```
 
-### RadioController
-Manages audio playback, GPIO interactions, and stream handling.
-- Status: Fully implemented and tested
-- Features:
-  - Stream playback control
-  - Volume control
-  - Physical button handling
-  - LED status indication
-  - Stream configuration management
+## Installation
 
-### WebController
-Handles web interface and API endpoints.
-- Status: Fully implemented and tested
-- Features:
-  - Stream selection/control
-  - WiFi configuration
-  - Status monitoring
-  - API endpoints for all functions
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/internetRadio.git
+cd internetRadio
+```
 
-### NetworkController
-Manages network connectivity and AP mode.
-- Status: Fully implemented and tested
-- Features:
-  - WiFi scanning/connection
-  - AP mode management
-  - Network status monitoring
-  - Automatic fallback to AP mode
+2. Set up ALSA configuration:
+```bash
+sudo bash -c 'echo -e "defaults.pcm.card 2\ndefaults.pcm.device 0\ndefaults.ctl.card 2" > /etc/asound.conf'
+```
 
-### Logger
-Handles application logging.
-- Status: Fully implemented and tested
-- Features:
-  - Singleton pattern
-  - Multiple log files
-  - Dynamic log levels
-  - Test mode support
+3. Run the installation script:
+```bash
+sudo ./scripts/install.sh
+```
 
-## Hardware Setup
-- Raspberry Pi (tested on Pi 4)
-- Rotary Encoder (Volume control)
-- Push Buttons (Stream control)
-- LED (Status indicator)
-- Audio output (3.5mm jack or HDMI)
+## Features
 
-## Configuration
-### streams.toml format:
-```toml
-[[links]]
-name = "Stream Name"
-url = "http://stream.url"
-country = "Country"
-location = "Location"
-description = "Optional description"
-genre = "Optional genre"
-language = "Optional language"
-bitrate = 128  # Optional bitrate
+- [x] Audio System
+  - [x] Hardware audio configuration (bcm2835)
+  - [x] Volume control via ALSA
+  - [x] VLC media player integration
+  - [x] Sound file playback
+  - [x] Stream playback
+- [ ] Web interface for control and configuration
+- [ ] GPIO controls
+  - [ ] LED status
+  - [ ] Rotary encoder for volume
+  - [ ] Button for play/pause
+- [ ] Network Management
+  - [ ] WiFi connection
+  - [ ] Access Point fallback
+- [ ] System monitoring
+
+## GPIO Pin Configuration
+
+- LED: GPIO17
+- Rotary Encoder: GPIO22 (A), GPIO23 (B)
+- Push Button: GPIO27
+
+## Directory Structure
+
+```
+internetRadio/
+├── config/             # Configuration files
+├── logs/              # Application logs
+├── scripts/           # Installation and maintenance scripts
+│   ├── install.sh     # Installation script
+│   ├── health_check.sh # System health monitoring
+├── sounds/            # System sound files
+├── src/               # Source code
+│   ├── audio/         # Audio playback management ✓
+│   ├── controllers/   # Main controllers
+│   ├── hardware/      # GPIO management
+│   ├── network/       # Network management
+│   ├── utils/         # Utilities
+│   └── web/           # Web interface
+├── static/            # Web static files
+└── tests/             # Unit and integration tests
 ```
 
 ## Testing
-- 75 passing tests covering all components
-- Integration tests implemented
-- Test coverage includes:
-  - Unit tests for all components
-  - Integration tests for system flow
-  - Error handling scenarios
-  - Network fallback scenarios
 
-## Production Notes
-- Currently uses Flask development server
-- For production:
-  1. Consider using Gunicorn or uWSGI
-  2. Set up systemd service
-  3. Configure proper logging rotation
-  4. Implement proper security measures
-
-## Error Recovery
-- Automatic network fallback to AP mode
-- Hardware component reinitializing
-- Logging for debugging
-- Graceful error handling
-
-## Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request
-
-## License
-MIT License
-
-## API Endpoints
-
-### Stream Control
-- `GET /stream-status` - Get current stream playback status
-- `POST /play-stream` - Start playing a stream (body: `url`)
-- `POST /stop-stream` - Stop current stream playback
-- `POST /update-stream` - Update stream configuration (body: `channel`, `selected_link`)
-
-### WiFi Management
-- `GET /wifi-scan` - Scan for available WiFi networks
-- `POST /connect` - Connect to WiFi network (body: `ssid`, `password`)
-- `POST /forget_network` - Remove saved network (body: `ssid`)
-- `GET /network-status` - Get current network status
-
-### Web Interface Routes
-- `GET /` - Main interface
-- `GET /stream_select/<channel>` - Stream selection page
-- `GET /wifi_settings` - WiFi configuration page
-- `GET /wifi_debug` - Network debugging information
-
-## Using the Services
-
-### Web Interface
-1. Access the radio interface:
-   - If connected to WiFi: `http://<raspberry-pi-ip>:5000`
-   - In AP mode: Connect to "InternetRadio" network, then visit `http://192.168.4.1:5000`
-
-2. Stream Control:
-   - Click stream buttons to play/pause
-   - Use "Select Stream" to change radio stations
-   - Physical buttons correspond to web interface buttons
-
-3. WiFi Setup:
-   - Click "WiFi Settings" to manage connections
-   - Available networks are automatically scanned
-   - Saved networks show "Saved" label
-   - Current connection shows "Connected" label
-
-### Physical Controls
-1. Buttons:
-   - Button 1-3: Play/pause corresponding streams
-   - Long press: Stop current playback
-   - Double press: Next stream in current channel
-
-2. Rotary Encoder:
-   - Rotate clockwise: Volume up
-   - Rotate counter-clockwise: Volume down
-   - Press: Mute/unmute
-
-3. LED Indicators:
-   - Solid: Connected to WiFi
-   - Fast blink: AP mode active
-   - Slow blink: Playing stream
-   - Off: No network connection
-
-## Running Tests
-
-### Unit Tests
-Run all tests:
+Run the test suite:
 ```bash
 python3 -m pytest tests/ -v
 ```
 
-Run specific test file:
+Run specific tests:
 ```bash
-python3 -m pytest tests/test_logger.py -v
+python3 -m pytest tests/test_audio_manager.py -v
 ```
 
-Run tests with coverage:
+## Service Management
+
 ```bash
-python3 -m pytest tests/ --cov=src/
+# Start the service
+sudo systemctl start internetradio
+
+# Stop the service
+sudo systemctl stop internetradio
+
+# Check status
+sudo systemctl status internetradio
+
+# View logs
+journalctl -u internetradio
 ```
 
-### Integration Tests
-Run integration tests:
+## Health Check
+
+Run the system health check:
 ```bash
-python3 -m pytest tests/integration/ -v
+sudo bash scripts/health_check.sh
 ```
 
-## Scripts and Utilities
+## Troubleshooting
 
-### runApp.sh
-Main application startup script:
+### Audio Issues
+1. Check ALSA configuration:
 ```bash
-chmod +x runApp.sh
-./runApp.sh
+cat /etc/asound.conf
 ```
-Features:
-- Creates log directories
-- Sets initial audio volume
-- Starts pigpiod daemon
-- Launches main application
-- Redirects output to logs
+2. Verify audio device:
+```bash
+amixer -c 2 controls
+amixer -c 2 sget 'PCM'
+```
+3. Test audio:
+```bash
+aplay -l  # List audio devices
+aplay /usr/share/sounds/alsa/Front_Center.wav  # Test playback
+```
 
-### Development Scripts
-1. `tests/integration/test_system_integration.py`:
-   - Full system integration tests
-   - Tests component interactions
-   - Verifies startup/shutdown sequences
-
-2. `src/utils/config_migration.py`:
-   - Handles configuration file updates
-   - Migrates old settings
-   - Validates configuration format
-
-3. `src/utils/logger.py`:
-   - Manages application logging
-   - Supports multiple log files
-   - Handles log rotation
-
-### Configuration Files
-1. `config/default.toml`:
-   ```toml
-   [audio]
-   default_volume = 70
-   volume_step = 5
-
-   [network]
-   ap_ssid = "InternetRadio"
-   ap_password = "radiopassword"
-   ```
-
-2. `streams/default.toml`:
-   ```toml
-   [[links]]
-   name = "Example Radio"
-   url = "http://example.com/stream"
-   country = "Example Country"
-   ```
-
-### Log Files
-- `logs/app.log`: Main application logs
-- `logs/radio.log`: Stream playback logs
-- `logs/wifi.log`: Network connection logs
+### DNS Issues
+If DNS resolution stops working:
+1. Check if /etc/resolv.conf exists and contains correct nameservers
+2. Verify file permissions: `ls -la /etc/resolv.conf`
+3. Check if file is immutable: `lsattr /etc/resolv.conf`
+4. Run WiFiManager's configure_dns() method to reset configuration
