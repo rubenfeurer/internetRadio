@@ -88,23 +88,13 @@ fi
 
 # Check required services
 echo -e "\n=== Services Status ==="
-
-# Check pigpiod
-if systemctl is-active --quiet pigpiod; then
-    echo_ok "pigpiod service is running"
-else
-    echo_error "pigpiod service is not running"
-    echo_info "Try: sudo systemctl restart pigpiod"
-fi
-
-# Check internetradio service
 if systemctl is-active --quiet internetradio; then
     echo_ok "internetradio service is running"
     uptime=$(systemctl show internetradio --property=ActiveEnterTimestamp | cut -d'=' -f2)
     echo_info "Service uptime since: $uptime"
 else
     echo_error "internetradio service is not running"
-    echo_info "Check: sudo systemctl status internetradio"
+    echo_info "Try: sudo systemctl restart internetradio"
 fi
 
 # Check network
@@ -131,19 +121,34 @@ fi
 
 # Check audio
 echo -e "\n=== Audio Status ==="
+# First try to restore ALSA settings
+sudo alsactl restore >/dev/null 2>&1
+sleep 1  # Give audio system time to initialize
+
 if amixer sget 'Master' >/dev/null 2>&1; then
-    echo_ok "Audio system is working"
-    volume=$(amixer sget 'Master' | grep 'Right:' | awk -F'[][]' '{ print $2 }')
-    echo_info "Current volume: $volume"
+    # Try to unmute and set volume
+    sudo amixer sset 'Master' unmute >/dev/null 2>&1
+    sudo amixer sset 'Master' 100% >/dev/null 2>&1
     
-    # Check sound files
-    if [ ! -f "$PROJECT_DIR/sounds/boot.wav" ]; then
-        echo_error "Missing sound file: boot.wav"
-        echo_info "Run: sudo cp $PROJECT_DIR/sounds/default/boot.wav $PROJECT_DIR/sounds/"
+    # Check again after setup
+    if volume=$(amixer sget 'Master' | grep 'Playback' | awk -F'[][]' '{ print $2 }'); then
+        echo_ok "Audio system is working"
+        echo_info "Current volume: $volume"
+        
+        # Check VLC installation
+        if command -v vlc >/dev/null 2>&1; then
+            echo_ok "VLC is installed"
+        else
+            echo_error "VLC is not installed"
+            echo_info "Try: sudo apt-get install vlc"
+        fi
+    else
+        echo_error "Audio mixer control not responding"
+        echo_info "Try: sudo alsa force-reload"
     fi
 else
     echo_error "Audio system not responding"
-    echo_info "Try: sudo alsactl restore"
+    echo_info "Try: sudo alsa force-reload"
 fi
 
 # Check log files and permissions

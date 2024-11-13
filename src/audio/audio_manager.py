@@ -1,6 +1,7 @@
 import logging
 import vlc
 import os
+import subprocess
 from typing import Optional
 
 class AudioManager:
@@ -16,7 +17,23 @@ class AudioManager:
         """Initialize VLC instance and media player"""
         try:
             self.logger.info("Initializing AudioManager...")
-            self.instance = vlc.Instance('--no-xlib')
+            
+            # Initialize system audio
+            try:
+                # Set system volume for bcm2835 Headphones (card 2)
+                result = subprocess.run(
+                    ['amixer', '-c', '2', 'sset', 'Master', '100%'],
+                    capture_output=True,
+                    text=True
+                )
+                if result.returncode != 0:
+                    self.logger.warning("Failed to set Master volume for bcm2835 Headphones")
+                    
+            except Exception as e:
+                self.logger.error(f"Error setting system volume: {e}")
+            
+            # Initialize VLC with specific audio output
+            self.instance = vlc.Instance('--no-xlib --aout=alsa')
             self.player = self.instance.media_player_new()
             self.set_volume(self.current_volume)
             self.logger.info("AudioManager initialized successfully")

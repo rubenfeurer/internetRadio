@@ -7,7 +7,20 @@ set -e
 mkdir -p /home/radio/internetRadio/logs
 
 echo "Setting up audio..."
-amixer sset 'Master' 100% || echo "Warning: Could not set audio volume"
+# Try to restore ALSA settings first
+sudo alsactl restore || echo "Warning: Could not restore ALSA settings"
+sleep 1  # Give audio system time to initialize
+
+# Try to unmute and set volume
+sudo amixer sset 'Master' unmute || echo "Warning: Could not unmute Master"
+sudo amixer sset 'Master' 100% || echo "Warning: Could not set Master volume"
+
+# Verify audio setup
+if ! amixer sget 'Master' >/dev/null 2>&1; then
+    echo "Warning: Audio system not responding, trying force-reload..."
+    sudo alsa force-reload
+    sleep 2
+fi
 
 echo "Checking Python environment..."
 which python3

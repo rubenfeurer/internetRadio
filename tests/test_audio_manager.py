@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, patch, MagicMock
 import os
 from src.audio.audio_manager import AudioManager
 
@@ -31,7 +31,7 @@ class TestAudioManager(unittest.TestCase):
             result = self.audio_manager.initialize()
             
             self.assertTrue(result)
-            mock_vlc.assert_called_once_with('--no-xlib')
+            mock_vlc.assert_called_once_with('--no-xlib --aout=alsa')
             mock_instance.media_player_new.assert_called_once()
 
     def test_initialize_failure(self):
@@ -122,4 +122,26 @@ class TestAudioManager(unittest.TestCase):
 
     def test_stop(self):
         self.audio_manager.stop()
-        self.audio_manager.player.stop.assert_called_once() 
+        self.audio_manager.player.stop.assert_called_once()
+
+    @patch('subprocess.run')
+    def test_initialize_bcm2835_audio(self, mock_run):
+        """Test bcm2835 Headphones audio initialization"""
+        # Setup
+        mock_run.return_value = MagicMock(returncode=0)
+        with patch('vlc.Instance') as mock_vlc:
+            mock_instance = Mock()
+            mock_instance.media_player_new.return_value = Mock()
+            mock_vlc.return_value = mock_instance
+            
+            # Test
+            result = self.audio_manager.initialize()
+            
+            # Verify
+            self.assertTrue(result)
+            mock_run.assert_called_once_with(
+                ['amixer', '-c', '2', 'sset', 'Master', '100%'],
+                capture_output=True,
+                text=True
+            )
+            mock_vlc.assert_called_once_with('--no-xlib --aout=alsa')
