@@ -5,16 +5,16 @@ import json
 from ..controllers.network_controller import NetworkController
 from ..controllers.radio_controller import RadioController
 from ..utils.logger import Logger
+from threading import Thread
 
 class WebController:
-    def __init__(self, radio_controller: RadioController, network_controller: NetworkController):
-        self.logger = Logger(__name__)
-        self.app = Flask(__name__, 
-                        template_folder='templates',
-                        static_folder='../../static')
+    def __init__(self, radio_controller=None, network_controller=None):
+        self.logger = Logger.get_logger(__name__)
         self.radio = radio_controller
         self.network = network_controller
-        self.setup_routes()
+        self.app = Flask(__name__)
+        self.thread = None  # Initialize thread attribute
+        self._setup_routes()
         
         # Add error handlers
         self.setup_error_handlers()
@@ -40,7 +40,7 @@ class WebController:
                                 error_code=500,
                                 message="Internal server error"), 500
 
-    def setup_routes(self) -> None:
+    def _setup_routes(self) -> None:
         """Set up all Flask routes"""
         
         @self.app.route('/')
@@ -182,19 +182,14 @@ class WebController:
 
     def start(self) -> None:
         """Start the Flask application in a separate thread"""
-        self.logger.info("Starting web interface")
-        web_thread = threading.Thread(
-            target=lambda: self.app.run(
-                host='0.0.0.0', 
-                port=5000, 
-                debug=False, 
-                threaded=True,
-                use_reloader=False  # Prevent reloader thread in production
-            )
-        )
-        web_thread.daemon = True
-        web_thread.start()
-        
+        logger = Logger.get_logger(__name__)
+        logger.debug("Starting web interface")
+        if not self.thread or not self.thread.is_alive():
+            self.thread = Thread(target=self._run)
+            self.thread.daemon = True
+            self.thread.start()
+            logger.info("Web interface started")
+
     def stop(self) -> None:
         """Stop the Flask application"""
         self.logger.info("Stopping web interface")

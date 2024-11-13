@@ -56,40 +56,28 @@ class Logger:
         logging.getLogger().setLevel(logging.INFO)
 
     @classmethod
-    def setup_logging(cls, log_dir: str, level: str = "INFO") -> None:
+    def setup_logging(cls, log_dir: str, level: str = "DEBUG") -> None:
         """Set up logging configuration"""
-        if cls._initialized:
-            cls.reset()
-
+        cls.reset()
         os.makedirs(log_dir, exist_ok=True)
         cls._log_dir = log_dir
         
-        # Set up formatter
         formatter = logging.Formatter(
             '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
         )
-
-        # Create and configure handlers
-        file_handlers = {
-            'app': os.path.join(log_dir, 'app.log'),
-            'radio': os.path.join(log_dir, 'radio.log'),
-            'wifi': os.path.join(log_dir, 'wifi.log')
-        }
-
-        # Create handlers and set formatter
-        for name, path in file_handlers.items():
-            handler = logging.FileHandler(path, mode='w')  # Use 'w' mode to clear file
-            handler.setFormatter(formatter)
-            cls._handlers[name] = handler
-
-        # Set up root logger
-        root_logger = logging.getLogger()
-        root_logger.setLevel(getattr(logging, level.upper()))
         
-        # Add handlers to root logger
-        for handler in cls._handlers.values():
-            if handler not in root_logger.handlers:
-                root_logger.addHandler(handler)
+        # Create handlers with proper log levels
+        handlers = {
+            'app': (os.path.join(log_dir, 'app.log'), logging.DEBUG),
+            'radio': (os.path.join(log_dir, 'radio.log'), logging.INFO),
+            'wifi': (os.path.join(log_dir, 'wifi.log'), logging.INFO)
+        }
+        
+        for name, (path, log_level) in handlers.items():
+            handler = logging.FileHandler(path)
+            handler.setFormatter(formatter)
+            handler.setLevel(log_level)
+            cls._handlers[name] = handler
         
         cls._initialized = True
 
@@ -101,9 +89,15 @@ class Logger:
         
         if name not in cls._loggers:
             logger = logging.getLogger(name)
-            logger.propagate = True  # Ensure messages propagate to root logger
-            cls._loggers[name] = logger
+            logger.setLevel(logging.DEBUG)
             
+            # Add handlers if not already added
+            for handler in cls._handlers.values():
+                if handler not in logger.handlers:
+                    logger.addHandler(handler)
+            
+            cls._loggers[name] = logger
+        
         return cls._loggers[name]
 
     @classmethod
