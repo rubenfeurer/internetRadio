@@ -3,6 +3,28 @@
 # Set up error handling
 set -e
 
+# Add check for required commands
+for cmd in vcgencmd free df systemctl iwgetid iwconfig ping amixer grep; do
+    if ! command -v $cmd &> /dev/null; then
+        echo "Error: Required command '$cmd' not found"
+        exit 1
+    fi
+done
+
+# Add log rotation check
+check_log_rotation() {
+    local log_file=$1
+    local max_size=$((10*1024*1024))  # 10MB in bytes
+    
+    if [ -f "$log_file" ]; then
+        size=$(stat -f%z "$log_file" 2>/dev/null || stat -c%s "$log_file")
+        if [ "$size" -gt "$max_size" ]; then
+            echo_warn "Log file $log_file is larger than 10MB ($((size/1024/1024))MB)"
+            echo_info "Consider rotating logs: mv $log_file ${log_file}.old"
+        fi
+    fi
+}
+
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -130,6 +152,11 @@ log_dir="$PROJECT_DIR/logs"
 if [ -d "$log_dir" ]; then
     log_size=$(du -sh "$log_dir" | cut -f1)
     echo_ok "Log directory size: $log_size"
+    
+    # Check individual log files
+    for log_file in "$log_dir"/*.log; do
+        check_log_rotation "$log_file"
+    done
     
     # Check permissions
     log_perms=$(stat -c "%a" "$log_dir")
