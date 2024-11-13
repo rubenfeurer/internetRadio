@@ -33,7 +33,7 @@ class TestNetworkController(unittest.TestCase):
         # Configure class mocks
         self.mock_wifi_class.return_value = self.mock_wifi
         self.mock_ap_class.return_value = self.mock_ap
-        self.mock_logger_class.return_value = self.mock_logger
+        self.mock_logger_class.get_logger.return_value = self.mock_logger
         
         # Configure success returns
         self.mock_wifi.initialize.return_value = True
@@ -177,9 +177,17 @@ class TestNetworkController(unittest.TestCase):
             stdout="Test output"
         )
         
+        # Create a mock logger instance
+        mock_logger_instance = MagicMock()
+        self.mock_logger_class.get_logger.return_value = mock_logger_instance
+        
+        # Create a new NetworkController instance to use the mock logger
+        from src.controllers.network_controller import NetworkController
+        network = NetworkController()
+        
         # Test
-        self.network.log_network_status()
+        network.log_network_status()
         
         # Verify
         self.assertEqual(mock_run.call_count, 6)  # Six different commands
-        self.mock_logger.info.assert_called()
+        mock_logger_instance.info.assert_called()  # Check the instance's info method

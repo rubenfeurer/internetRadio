@@ -9,26 +9,76 @@ import os
 class RadioController:
     def __init__(self, audio_manager=None, gpio_manager=None, stream_manager=None):
         self.logger = Logger.get_logger(__name__)
+        self.logger.debug("Initializing RadioController")
         self.audio_manager = audio_manager or AudioManager()
         self.gpio_manager = gpio_manager or GPIOManager()
         self.stream_manager = stream_manager or StreamManager()
         self.current_volume = 50  # Default volume
-        self.logger.debug("Initializing RadioController")
+        self.initialized = False
+        self.is_playing = False
 
     def initialize(self) -> bool:
-        """Initialize radio controller"""
+        """Initialize the controller and its dependencies"""
         try:
-            self.audio_manager.initialize()
-            self.gpio_manager.initialize()
-            self.audio_manager.set_volume(self.current_volume)
+            if self.audio_manager:
+                self.audio_manager.initialize()
+            if self.gpio_manager:
+                self.gpio_manager.initialize()
+            self.initialized = True
             return True
         except Exception as e:
-            self.logger.error(f"Failed to initialize radio: {e}")
+            self.logger.error(f"Error initializing RadioController: {e}")
             return False
 
-    def start_stream(self, stream_name: str) -> bool:
+    def start_playback(self, url: str) -> bool:
         """Start playing a stream"""
-        stream = self.stream_manager.get_stream(stream_name)
-        if stream and 'url' in stream:
-            return self.audio_manager.play_url(stream['url'])
-        return False
+        try:
+            if not self.initialized:
+                self.logger.error("RadioController not initialized")
+                return False
+            if not self.audio_manager:
+                self.logger.error("No audio manager available")
+                return False
+            success = self.audio_manager.play_url(url)
+            if success:
+                self.is_playing = True
+                self.gpio_manager.start_led_blink()
+            return success
+        except Exception as e:
+            self.logger.error(f"Error starting playback: {e}")
+            return False
+
+    def stop_playback(self) -> None:
+        """Stop current playback"""
+        if self.audio_manager:
+            self.audio_manager.stop()
+        if self.gpio_manager:
+            self.gpio_manager.set_led_state(False)
+        self.is_playing = False
+
+    def volume_up(self) -> None:
+        """Increase volume"""
+        if not self.initialized or not self.audio_manager:
+            self.logger.error("RadioController not initialized or no audio manager")
+            return
+        self.current_volume = min(100, self.current_volume + 5)
+        if self.audio_manager:
+            self.audio_manager.set_volume(self.current_volume)
+
+    def volume_down(self) -> None:
+        """Decrease volume"""
+        if not self.initialized or not self.audio_manager:
+            self.logger.error("RadioController not initialized or no audio manager")
+            return
+        self.current_volume = max(0, self.current_volume - 5)
+        if self.audio_manager:
+            self.audio_manager.set_volume(self.current_volume)
+
+    def cleanup(self) -> None:
+        """Cleanup resources"""
+        if self.audio_manager:
+            self.audio_manager.cleanup()
+        if self.gpio_manager:
+            self.gpio_manager.cleanup()
+        self.initialized = False
+        self.is_playing = False

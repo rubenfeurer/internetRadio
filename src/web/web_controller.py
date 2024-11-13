@@ -197,3 +197,10 @@ class WebController:
         if func is None:
             raise RuntimeError('Not running with the Werkzeug Server')
         func()
+
+    def _run(self) -> None:
+        """Run the Flask application"""
+        try:
+            self.app.run(host='0.0.0.0', port=5000)
+        except Exception as e:
+            self.logger.error(f"Error running web interface: {e}")
