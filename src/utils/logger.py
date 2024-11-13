@@ -56,9 +56,16 @@ class Logger:
         logging.getLogger().setLevel(logging.INFO)
 
     @classmethod
-    def setup_logging(cls, log_dir: str, level: str = "DEBUG") -> None:
+    def setup_logging(cls, log_dir: str = None, app_log_path: str = None, network_log_path: str = None, level: str = "DEBUG") -> None:
         """Set up logging configuration"""
         cls.reset()
+        
+        # Determine log directory
+        if app_log_path:
+            log_dir = os.path.dirname(app_log_path)
+        elif log_dir is None:
+            log_dir = os.path.join(os.getcwd(), 'logs')
+        
         os.makedirs(log_dir, exist_ok=True)
         cls._log_dir = log_dir
         
@@ -68,9 +75,9 @@ class Logger:
         
         # Create handlers with proper log levels
         handlers = {
-            'app': (os.path.join(log_dir, 'app.log'), logging.DEBUG),
+            'app': (app_log_path or os.path.join(log_dir, 'app.log'), logging.DEBUG),
             'radio': (os.path.join(log_dir, 'radio.log'), logging.INFO),
-            'wifi': (os.path.join(log_dir, 'wifi.log'), logging.INFO)
+            'wifi': (network_log_path or os.path.join(log_dir, 'wifi.log'), logging.INFO)
         }
         
         for name, (path, log_level) in handlers.items():

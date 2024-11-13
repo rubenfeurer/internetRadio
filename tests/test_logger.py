@@ -9,11 +9,11 @@ class TestLogger(unittest.TestCase):
     def setUp(self):
         """Set up test environment"""
         self.test_log_dir = tempfile.mkdtemp()
-        self.log_file = os.path.join(self.test_log_dir, 'radio.log')
+        self.app_log_path = os.path.join(self.test_log_dir, 'app.log')
         
         # Reset and initialize logger
         Logger.reset()
-        Logger.setup_logging(self.test_log_dir)
+        Logger.setup_logging(app_log_path=self.app_log_path)
         
         # Get logger instance
         self.logger = Logger.get_logger('test')
@@ -36,7 +36,7 @@ class TestLogger(unittest.TestCase):
         """Test log file creation"""
         self.assertTrue(os.path.exists(self.test_log_dir))
         self.logger.info("Test message")
-        self.assertTrue(os.path.exists(self.log_file))
+        self.assertTrue(os.path.exists(self.app_log_path))
 
     def test_logging_works(self):
         """Test different log levels"""
@@ -56,7 +56,7 @@ class TestLogger(unittest.TestCase):
         self.logger.critical(test_messages["critical"])
 
         # Read log file
-        with open(self.log_file, 'r') as f:
+        with open(self.app_log_path, 'r') as f:
             log_content = f.read()
 
         # Check messages (except debug, which is filtered by default INFO level)
@@ -70,7 +70,7 @@ class TestLogger(unittest.TestCase):
         Logger.set_level("DEBUG")
         self.logger.debug("Debug test")
 
-        with open(self.log_file, 'r') as f:
+        with open(self.app_log_path, 'r') as f:
             log_content = f.read()
             self.assertIn("Debug test", log_content)
 

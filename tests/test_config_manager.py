@@ -15,7 +15,7 @@ class TestConfigManager(unittest.TestCase):
         
         # Set logger to test mode with DEBUG level
         Logger.reset()
-        Logger.setup_logging(self.log_dir, "DEBUG")
+        Logger.setup_logging(log_dir=self.log_dir, level="DEBUG")
         
         # Create test config
         self.test_config = {
