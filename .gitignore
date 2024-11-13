@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 *.so
 .Python
+env/
 build/
 develop-eggs/
 dist/
@@ -24,10 +25,21 @@ wheels/
 logs/
 *.log
 
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
 # Environment
 .env
 .venv
-env/
 venv/
 ENV/
 
@@ -37,15 +49,8 @@ ENV/
 *.swp
 *.swo
 
-# OS
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
 # Project specific
-config/*.json
-!config/default.json
+config/*.toml
+!config/default.toml
+streams/*.toml
+!streams/default.toml
