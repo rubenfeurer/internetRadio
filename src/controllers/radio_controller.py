@@ -103,3 +103,18 @@ class RadioController:
             
         except Exception as e:
             self.logger.error(f"Error setting LED state: {e}")
+
+    def monitor(self) -> None:
+        """Monitor radio state and update LED accordingly"""
+        try:
+            if not self.gpio_manager:
+                self.logger.error("GPIO manager not initialized")
+                return
+            
+            if self.is_playing:
+                self.gpio_manager.led_blink()
+            else:
+                self.gpio_manager.led_off()
+            
+        except Exception as e:
+            self.logger.error(f"Error in radio monitor: {e}")

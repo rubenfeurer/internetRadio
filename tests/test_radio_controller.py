@@ -129,6 +129,23 @@ class TestRadioController(unittest.TestCase):
         self.radio.gpio_manager = None
         self.radio.set_led_state(blink=True)
         mock_logger.error.assert_called_with("GPIO manager not initialized")
+    
+    def test_monitor(self):
+        """Test radio monitoring functionality"""
+        # Initialize
+        self.radio.initialize()
+        
+        # Test monitoring when not playing
+        self.radio.monitor()
+        self.mock_gpio.led_off.assert_called_once()
+        
+        # Reset mock
+        self.mock_gpio.reset_mock()
+        
+        # Test monitoring when playing
+        self.radio.is_playing = True
+        self.radio.monitor()
+        self.mock_gpio.led_blink.assert_called_once()
 
 if __name__ == '__main__':
     unittest.main()
