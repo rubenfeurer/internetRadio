@@ -54,7 +54,8 @@ echo_step "Setting up service..."
 cat > /etc/systemd/system/internetradio.service << EOL
 [Unit]
 Description=Internet Radio Service
-After=network.target
+After=network.target sound.target
+Wants=sound.target
 
 [Service]
 Type=simple
@@ -73,13 +74,9 @@ ExecStartPre=/bin/chmod 700 /run/user/1000
 ExecStart=/home/radio/internetRadio/runApp.sh
 
 # Add restart controls
-Restart=on-failure
+Restart=always
 RestartSec=5
-StartLimitInterval=60
-StartLimitBurst=3
-
-# Add stopping controls
-TimeoutStopSec=10
+TimeoutStopSec=20
 KillMode=mixed
 
 # Add logging
@@ -101,8 +98,56 @@ chown -R radio:radio "$PROJECT_DIR"
 chmod 755 "$PROJECT_DIR"
 chmod +x "$PROJECT_DIR/scripts/runApp.sh"
 
-echo_step "Enabling and starting service..."
+echo_step "Configuring DNS settings..."
+rm -f /etc/resolv.conf
+echo "nameserver 8.8.8.8" | tee /etc/resolv.conf
+echo "nameserver 8.8.4.4" | tee -a /etc/resolv.conf
+chmod 644 /etc/resolv.conf
+chattr +i /etc/resolv.conf
+
+# Configure systemd-networkd to not override DNS
+mkdir -p /etc/systemd/network/
+cat > /etc/systemd/network/25-wireless.network << EOL
+[Match]
+Name=wlan0
+
+[Network]
+DHCP=yes
+DNSDefaultRoute=no
+
+[DHCP]
+UseDNS=no
+EOL
+
+echo_step "Setting up log rotation..."
+cat > /etc/logrotate.d/internetradio << EOL
+/home/radio/internetRadio/logs/*.log {
+    daily
+    rotate 7
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 644 radio radio
+    size 100M
+}
+EOL
+
+echo_step "Configuring ALSA..."
+cat > /etc/asound.conf << EOL
+defaults.pcm.card 2
+defaults.pcm.device 0
+defaults.ctl.card 2
+EOL
+
+echo_step "Testing audio configuration..."
+su - radio -c "amixer -c 2 sset 'PCM' unmute"
+su - radio -c "amixer -c 2 sset 'PCM' 100%"
+
+echo_step "Enabling and starting services..."
 systemctl daemon-reload
+systemctl restart systemd-networkd
+systemctl restart wpa_supplicant
 systemctl enable internetradio
 systemctl restart internetradio
 
@@ -114,14 +159,3 @@ if systemctl is-active --quiet internetradio; then
 else
     echo_error "Service failed to start. Check logs with: journalctl -u internetradio"
 fi
-
-echo_step "Configuring ALSA..."
-cat > /etc/asound.conf << EOL
-defaults.pcm.card 2
-defaults.pcm.device 0
-defaults.ctl.card 2
-EOL
-
-echo_step "Testing audio configuration..."
-su - radio -c "amixer -c 2 sset 'PCM' unmute"
-su - radio -c "amixer -c 2 sset 'PCM' 100%" 
