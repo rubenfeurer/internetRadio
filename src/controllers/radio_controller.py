@@ -82,3 +82,24 @@ class RadioController:
             self.gpio_manager.cleanup()
         self.initialized = False
         self.is_playing = False
+
+    def set_led_state(self, blink: bool = False, on_time: float = 1.0, off_time: float = 1.0) -> None:
+        """Set LED state for status indication
+        
+        Args:
+            blink (bool): Whether LED should blink
+            on_time (float): Time in seconds LED should stay on during blink
+            off_time (float): Time in seconds LED should stay off during blink
+        """
+        try:
+            if not self.gpio_manager:
+                self.logger.error("GPIO manager not initialized")
+                return
+            
+            if blink:
+                self.gpio_manager.led_blink(on_time=on_time, off_time=off_time)
+            else:
+                self.gpio_manager.led_on()
+            
+        except Exception as e:
+            self.logger.error(f"Error setting LED state: {e}")

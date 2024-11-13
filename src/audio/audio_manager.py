@@ -4,11 +4,12 @@ import os
 from typing import Optional
 
 class AudioManager:
-    def __init__(self):
+    def __init__(self, default_volume: int = 50, volume_step: int = 5):
         self.logger = logging.getLogger('audio')
         self.instance: Optional[vlc.Instance] = None
         self.player: Optional[vlc.MediaPlayer] = None
-        self.current_volume: int = 50  # Default volume (0-100)
+        self.current_volume: int = default_volume  # Use the passed default volume
+        self.volume_step: int = volume_step  # Store volume step
         self.sounds_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'sounds')
     
     def initialize(self) -> bool:

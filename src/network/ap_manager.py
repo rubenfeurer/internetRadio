@@ -5,10 +5,10 @@ import os
 from typing import Dict, Optional
 
 class APManager:
-    def __init__(self):
+    def __init__(self, ssid: str = "InternetRadio", password: str = "password"):
         self.logger = logging.getLogger('network')
-        self.ap_ssid = "InternetRadio"
-        self.ap_password = "raspberry"
+        self.ssid = ssid
+        self.password = password
         self.hostapd_conf_path = "/etc/hostapd/hostapd.conf"
         self.dnsmasq_conf_path = "/etc/dnsmasq.conf"
     
@@ -114,4 +114,41 @@ class APManager:
             
         except Exception as e:
             self.logger.error(f"Error starting services: {str(e)}")
-            return False 
+            return False
+    
+    def start(self, ssid: str, password: str) -> bool:
+        """Start AP mode with given credentials"""
+        self.ssid = ssid
+        self.password = password
+        return self.setup_ap_mode()
+    
+    def stop(self) -> bool:
+        """Stop AP mode"""
+        try:
+            subprocess.run(["sudo", "systemctl", "stop", "hostapd"])
+            subprocess.run(["sudo", "systemctl", "stop", "dnsmasq"])
+            return True
+        except Exception as e:
+            self.logger.error(f"Error stopping AP mode: {str(e)}")
+            return False
+    
+    def is_active(self) -> bool:
+        """Check if AP mode is active"""
+        return self.is_ap_mode_active()
+    
+    def get_ip(self) -> str:
+        """Get AP IP address"""
+        return "192.168.4.1"
+    
+    def cleanup(self) -> None:
+        """Cleanup AP resources"""
+        self.stop()
+    
+    def initialize(self) -> bool:
+        """Initialize AP Manager"""
+        try:
+            self.logger.info("Initializing AP Manager...")
+            return True
+        except Exception as e:
+            self.logger.error(f"Error initializing AP Manager: {str(e)}")
+            return False

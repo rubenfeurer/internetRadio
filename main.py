@@ -66,11 +66,13 @@ class InternetRadio:
     def __init__(self):
         self.logger = logger
         
-        # Initialize configuration migration
-        config_dir = Path(__file__).parent / 'config'
-        migration = ConfigMigration(config_dir)
-        if migration.migrate():
-            self.logger.info("Configuration migrated successfully")
+        try:
+            # Initialize configuration migration
+            config_dir = Path(__file__).parent / 'config'
+            migration = ConfigMigration(config_dir)
+            migration.migrate()
+        except Exception as e:
+            self.logger.warning(f"Config migration failed: {e}, using default config")
 
         # Initialize managers
         self.config_manager = ConfigManager()
@@ -145,14 +147,27 @@ def main():
         
         print("Initializing InternetRadio...")  # Debug print
         radio = InternetRadio()
-        network = radio.network_controller
+        print("InternetRadio initialized")  # Debug print
         
-        if not radio.radio_controller.initialize() or not network.initialize():
-            logger.error("Failed to initialize controllers")
+        network = radio.network_controller
+        print("Network controller assigned")  # Debug print
+        
+        print("Initializing controllers...")  # Debug print
+        if not radio.radio_controller.initialize():
+            print("Failed to initialize radio controller")  # Debug print
+            logger.error("Failed to initialize radio controller")
+            return 1
+            
+        if not network.initialize():
+            print("Failed to initialize network controller")  # Debug print
+            logger.error("Failed to initialize network controller")
             return 1
 
+        print("Controllers initialized")  # Debug print
+        
         # Try to connect to saved networks
         wifi_connected = network.check_and_setup_network()
+        print(f"WiFi connected: {wifi_connected}")  # Debug print
         
         if wifi_connected:
             logger.info("Connected to WiFi network")
@@ -161,6 +176,7 @@ def main():
             logger.info("Could not connect to any networks, maintaining AP mode...")
             radio.radio_controller.set_led_state(blink=True, on_time=0.5, off_time=0.5)
 
+        print("Entering main loop...")  # Debug print
         # Main loop
         while True:
             try:
@@ -172,11 +188,16 @@ def main():
                 time.sleep(5)
             except Exception as e:
                 logger.error(f"Error in main loop: {e}")
+                print(f"Error in main loop: {e}")  # Debug print
 
     except Exception as e:
         print(f"Critical error in main: {e}")  # Debug print
         import traceback
-        print(traceback.format_exc())  # Print full traceback
+        traceback_str = traceback.format_exc()
+        print(traceback_str)  # Debug print
+        if logger:
+            logger.error(f"Critical error in main: {e}")
+            logger.error(traceback_str)
         return 1
     finally:
         cleanup(radio, network, web)

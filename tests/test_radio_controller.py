@@ -100,6 +100,35 @@ class TestRadioController(unittest.TestCase):
         self.radio.current_volume = 2
         self.radio.volume_down()
         self.assertEqual(self.radio.current_volume, 0)
+    
+    def test_set_led_state(self):
+        """Test LED state control"""
+        # Initialize
+        self.radio.initialize()
+        
+        # Configure logger mock
+        mock_logger = MagicMock()
+        self.radio.logger = mock_logger
+        
+        # Test solid LED
+        self.radio.set_led_state(blink=False)
+        self.mock_gpio.led_on.assert_called_once()
+        self.mock_gpio.led_blink.assert_not_called()
+        
+        # Reset mock
+        self.mock_gpio.reset_mock()
+        
+        # Test blinking LED
+        on_time = 3.0
+        off_time = 2.0
+        self.radio.set_led_state(blink=True, on_time=on_time, off_time=off_time)
+        self.mock_gpio.led_blink.assert_called_once_with(on_time=on_time, off_time=off_time)
+        self.mock_gpio.led_on.assert_not_called()
+        
+        # Test error handling when GPIO not initialized
+        self.radio.gpio_manager = None
+        self.radio.set_led_state(blink=True)
+        mock_logger.error.assert_called_with("GPIO manager not initialized")
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,19 +1,34 @@
-internetRadio/
-├── config/
-│   ├── radio.toml       # Application settings
-│   └── streams.toml     # Radio stream listings
-├── logs/
-├── scripts/
-├── sounds/
-├── src/
-│   ├── web/
-│   │   ├── templates/   # HTML templates
-│   │   ├── __init__.py
-│   │   └── web_controller.py
-│   └── ...
-├── static/
-├── tests/
-├── .gitignore
-├── main.py
-├── README.md
-└── runApp.sh
+version = 2
+
+[audio]
+default_volume = 50
+volume_step = 5
+sounds_enabled = true
+
+[network]
+ap_ssid = "InternetRadio"
+ap_password = "Radio123"
+ap_channel = 6
+connection_timeout = 30
+scan_interval = 300
+
+[gpio]
+led_pin = 18
+
+[gpio.button_pins]
+play = 17
+next = 27
+prev = 22
+vol_up = 23
+vol_down = 24
+debounce_time = 200
+
+[web]
+port = 5000
+host = "0.0.0.0"
+debug = false
+
+[logging]
+level = "INFO"
+format = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+file = "logs/radio.log"

@@ -166,3 +166,11 @@ class WiFiManager:
         except Exception as e:
             self.logger.error(f"Error disconnecting: {e}")
             return False
+
+    def cleanup(self) -> None:
+        """Cleanup WiFi resources"""
+        try:
+            self.logger.info("Cleaning up WiFi Manager resources...")
+            # Add any necessary cleanup code here
+        except Exception as e:
+            self.logger.error(f"Error during WiFi Manager cleanup: {e}")
