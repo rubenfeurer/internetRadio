@@ -21,13 +21,23 @@ class AudioManager:
             # Initialize system audio
             try:
                 # Set system volume for bcm2835 Headphones (card 2)
+                # First unmute PCM
                 result = subprocess.run(
-                    ['amixer', '-c', '2', 'sset', 'Master', '100%'],
+                    ['amixer', '-c', '2', 'sset', 'PCM', 'unmute'],
                     capture_output=True,
                     text=True
                 )
-                if result.returncode != 0:
-                    self.logger.warning("Failed to set Master volume for bcm2835 Headphones")
+                if result.returncode == 0:
+                    # Then set volume to 100%
+                    result = subprocess.run(
+                        ['amixer', '-c', '2', 'sset', 'PCM', '100%'],
+                        capture_output=True,
+                        text=True
+                    )
+                    if result.returncode != 0:
+                        self.logger.warning("Failed to set PCM volume for bcm2835 Headphones")
+                else:
+                    self.logger.warning("Failed to unmute PCM for bcm2835 Headphones")
                     
             except Exception as e:
                 self.logger.error(f"Error setting system volume: {e}")

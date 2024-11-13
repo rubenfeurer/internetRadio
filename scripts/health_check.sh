@@ -121,34 +121,53 @@ fi
 
 # Check audio
 echo -e "\n=== Audio Status ==="
-# First try to restore ALSA settings
-sudo alsactl restore >/dev/null 2>&1
-sleep 1  # Give audio system time to initialize
 
-if amixer sget 'Master' >/dev/null 2>&1; then
-    # Try to unmute and set volume
-    sudo amixer sset 'Master' unmute >/dev/null 2>&1
-    sudo amixer sset 'Master' 100% >/dev/null 2>&1
+# Check bcm2835 Headphones (card 2)
+if aplay -l | grep -q "bcm2835 Headphones"; then
+    echo_ok "Audio hardware detected (bcm2835 Headphones)"
     
-    # Check again after setup
-    if volume=$(amixer sget 'Master' | grep 'Playback' | awk -F'[][]' '{ print $2 }'); then
-        echo_ok "Audio system is working"
-        echo_info "Current volume: $volume"
-        
-        # Check VLC installation
-        if command -v vlc >/dev/null 2>&1; then
-            echo_ok "VLC is installed"
+    # Check ALSA configuration
+    if [ -f "/etc/asound.conf" ]; then
+        if grep -q "defaults.pcm.card 2" /etc/asound.conf; then
+            echo_ok "ALSA configuration is correct"
+            
+            # Check PCM volume control
+            if amixer -c 2 sget 'PCM' >/dev/null 2>&1; then
+                volume=$(amixer -c 2 sget 'PCM' | grep 'Playback' | awk -F'[][]' '{ print $2 }')
+                if [ ! -z "$volume" ]; then
+                    echo_ok "Volume control working"
+                    echo_info "Current volume: $volume"
+                else
+                    echo_warn "Volume control needs unmuting"
+                    echo_info "Run: sudo amixer -c 2 sset 'PCM' unmute && sudo amixer -c 2 sset 'PCM' 100%"
+                fi
+            else
+                echo_warn "Volume control not accessible"
+                echo_info "Try: sudo modprobe snd_bcm2835"
+            fi
         else
-            echo_error "VLC is not installed"
-            echo_info "Try: sudo apt-get install vlc"
+            echo_warn "ALSA configuration needs updating"
         fi
     else
-        echo_error "Audio mixer control not responding"
-        echo_info "Try: sudo alsa force-reload"
+        echo_warn "Missing ALSA configuration"
+    fi
+    
+    # Check VLC
+    if command -v vlc >/dev/null 2>&1; then
+        echo_ok "VLC is installed"
+    else
+        echo_error "VLC is not installed"
+    fi
+    
+    # Check sound files
+    if [ -d "/home/radio/internetRadio/sounds" ] && [ -f "/home/radio/internetRadio/sounds/boot.wav" ]; then
+        echo_ok "Sound files present"
+    else
+        echo_warn "Missing sound files"
     fi
 else
-    echo_error "Audio system not responding"
-    echo_info "Try: sudo alsa force-reload"
+    echo_error "Audio hardware not detected"
+    echo_info "Try: sudo modprobe snd_bcm2835"
 fi
 
 # Check log files and permissions

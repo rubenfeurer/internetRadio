@@ -139,8 +139,15 @@ class TestAudioManager(unittest.TestCase):
             
             # Verify
             self.assertTrue(result)
-            mock_run.assert_called_once_with(
-                ['amixer', '-c', '2', 'sset', 'Master', '100%'],
+            # First call should unmute PCM
+            mock_run.assert_any_call(
+                ['amixer', '-c', '2', 'sset', 'PCM', 'unmute'],
+                capture_output=True,
+                text=True
+            )
+            # Second call should set volume to 100%
+            mock_run.assert_any_call(
+                ['amixer', '-c', '2', 'sset', 'PCM', '100%'],
                 capture_output=True,
                 text=True
             )
