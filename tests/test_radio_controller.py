@@ -229,6 +229,21 @@ class TestRadioController(unittest.TestCase):
         self.assertFalse(result)
         self.assertFalse(self.radio.initialized)
         self.mock_logger.error.assert_called_once_with("Error initializing RadioController: Audio init failed")
+    
+    def test_set_volume_direct(self):
+        """Test direct volume setting"""
+        # Setup mock
+        mock_audio = MagicMock()
+        self.radio.audio_manager = mock_audio
+        
+        # Test
+        self.radio.initialize()
+        self.radio.set_volume(75)
+        
+        # Verify
+        mock_audio.set_volume.assert_called_once_with(75)
+        mock_audio.current_volume = 75  # Mock the volume property
+        self.assertEqual(self.radio.audio_manager.current_volume, 75)
 
 if __name__ == '__main__':
     unittest.main()

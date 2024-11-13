@@ -55,6 +55,8 @@ sudo ./scripts/install.sh
   - [x] VLC media player integration
   - [x] Sound file playback
   - [x] Stream playback
+  - [x] Direct volume control
+  - [x] Error handling and logging
 - [ ] Web interface for control and configuration
 - [ ] GPIO controls
   - [ ] LED status
@@ -118,9 +120,13 @@ Current test coverage includes:
 
 #### Audio System (test_audio_manager.py)
 - Hardware audio configuration
-- Volume control
+- Volume control and boundaries
 - Stream playback
+- Sound file playback
+- Error handling and logging
 - Resource cleanup
+- ALSA error suppression
+- Direct volume control
 
 ### Running Tests with Coverage Report
 ```bash

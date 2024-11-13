@@ -171,10 +171,16 @@ class WiFiManager:
     def cleanup(self) -> None:
         """Cleanup WiFi resources"""
         try:
-            self.logger.info("Cleaning up WiFi Manager resources...")
-            # Add any necessary cleanup code here
+            self.logger.info("Cleaning up WiFi resources...")
+            # Stop wpa_supplicant if running
+            subprocess.run(["sudo", "systemctl", "stop", "wpa_supplicant"], 
+                         check=False)
+            # Reset interface if needed
+            subprocess.run(["sudo", "ifconfig", "wlan0", "down"], 
+                         check=False)
+            self.logger.info("WiFi cleanup completed")
         except Exception as e:
-            self.logger.error(f"Error during WiFi Manager cleanup: {e}")
+            self.logger.error(f"Error during WiFi cleanup: {str(e)}")
 
     def configure_dns(self) -> bool:
         """Configure DNS servers with direct resolv.conf management"""
@@ -228,6 +234,12 @@ class WiFiManager:
             socket.gethostbyname('google.com')
             self.logger.info("DNS resolution working")
             return True
+        except socket.gaierror as e:
+            self.logger.error(f"DNS resolution failed: {e}")
+            return False
+        except Exception as e:
+            self.logger.error(f"Error checking DNS: {e}")
+            return False
         except socket.gaierror as e:
             self.logger.error(f"DNS resolution failed: {e}")
             return False

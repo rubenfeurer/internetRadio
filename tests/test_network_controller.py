@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import logging
+import subprocess
 
 class TestNetworkController(unittest.TestCase):
     def setUp(self):
@@ -209,3 +210,26 @@ class TestNetworkController(unittest.TestCase):
         self.mock_wifi.connect_to_network.assert_called_once_with("Network1", None)
         self.mock_wifi.configure_dns.assert_called_once()
         self.mock_wifi.check_dns_resolution.assert_called_once()
+    
+    @patch('subprocess.run')
+    def test_check_internet_connection(self, mock_run):
+        """Test internet connection check with fallback hosts"""
+        # Test successful connection to first host
+        mock_run.return_value = MagicMock(returncode=0)
+        self.assertTrue(self.network.check_internet_connection())
+        mock_run.assert_called_once()
+        
+        # Test fallback to second host
+        mock_run.reset_mock()
+        mock_run.side_effect = [
+            subprocess.CalledProcessError(1, 'ping'),  # First host fails
+            MagicMock(returncode=0)  # Second host succeeds
+        ]
+        self.assertTrue(self.network.check_internet_connection())
+        self.assertEqual(mock_run.call_count, 2)
+        
+        # Test all hosts fail
+        mock_run.reset_mock()
+        mock_run.side_effect = subprocess.CalledProcessError(1, 'ping')
+        self.assertFalse(self.network.check_internet_connection())
+        self.assertEqual(mock_run.call_count, 3)  # Should try all three hosts

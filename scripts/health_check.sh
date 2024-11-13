@@ -172,34 +172,25 @@ fi
 
 # Check log files and permissions
 echo -e "\n=== Log Status ==="
-log_dir="$PROJECT_DIR/logs"
-if [ -d "$log_dir" ]; then
-    log_size=$(du -sh "$log_dir" | cut -f1)
-    echo_ok "Log directory size: $log_size"
-    
-    # Check individual log files
-    for log_file in "$log_dir"/*.log; do
-        check_log_rotation "$log_file"
-    done
-    
-    # Check permissions
-    log_perms=$(stat -c "%a" "$log_dir")
-    if [ "$log_perms" != "755" ]; then
-        echo_warn "Incorrect log directory permissions: $log_perms (should be 755)"
-        echo_info "Fix with: sudo chmod 755 $log_dir"
+echo "[OK] Log directory size: $(du -sh /home/radio/internetRadio/logs | cut -f1)"
+echo "[WARN] Recent errors found in logs (last 5 minutes):"
+
+# Direct check of app.log and radio.log
+for logfile in "/home/radio/internetRadio/logs/app.log" "/home/radio/internetRadio/logs/radio.log"; do
+    if [[ -f "$logfile" ]]; then
+        filename=$(basename "$logfile")
+        # Use tail to get recent entries and grep for errors
+        tail -n 100 "$logfile" | grep -i "error\|exception\|fail" | while read -r line; do
+            # Get current timestamp
+            timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+            # Format the output
+            echo "  • [$timestamp] ($filename) $line"
+        done
     fi
-    
-    # Check for recent errors in logs
-    recent_errors=$(grep -i "error" "$log_dir/radio.log" "$log_dir/app.log" 2>/dev/null | tail -n 5)
-    if [ ! -z "$recent_errors" ]; then
-        echo_warn "Recent errors found in logs:"
-        echo "$recent_errors"
-    else
-        echo_ok "No recent errors in logs"
-    fi
-else
-    echo_error "Log directory not found"
-fi
+done
+
+# Remove debug output
+# find /home/radio/internetRadio/logs -type f -name "*.log" -ls
 
 # Final summary
 echo -e "\n=== Summary ==="

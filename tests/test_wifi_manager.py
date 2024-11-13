@@ -6,6 +6,19 @@ import os
 
 class TestWiFiManager(unittest.TestCase):
     def setUp(self):
+        """Set up test fixtures"""
+        # Create logger mock with proper call tracking
+        self.logger_mock = MagicMock()
+        self.logger_mock.info = MagicMock()
+        self.logger_mock.error = MagicMock()
+        
+        # Patch the logger
+        patcher = patch('logging.getLogger')
+        mock_logger = patcher.start()
+        mock_logger.return_value = self.logger_mock
+        self.addCleanup(patcher.stop)
+        
+        # Create WiFiManager instance
         self.wifi_manager = WiFiManager()
     
     @patch('subprocess.run')
@@ -137,6 +150,21 @@ Wired connection 1   d5ce7973-f25b-33c5-bc00-50dc57c4800d  ethernet  --     """
         # Test failed DNS resolution
         mock_gethostbyname.side_effect = socket.gaierror
         self.assertFalse(self.wifi_manager.check_dns_resolution())
+    
+    @patch('subprocess.run')
+    def test_cleanup(self, mock_run):
+        """Test WiFi cleanup"""
+        # Configure mock
+        mock_run.return_value = MagicMock(returncode=0)
+        
+        # Execute cleanup
+        self.wifi_manager.cleanup()
+        
+        # Verify
+        calls = mock_run.call_args_list
+        self.assertTrue(any('wpa_supplicant' in str(call) for call in calls))
+        self.assertTrue(any('wlan0' in str(call) for call in calls))
+        self.logger_mock.info.assert_any_call("Cleaning up WiFi resources...")
 
 if __name__ == '__main__':
     unittest.main() 

@@ -4,6 +4,7 @@ from flask import Flask
 from src.controllers.radio_controller import RadioController
 from src.controllers.network_controller import NetworkController
 from src.web.web_controller import WebController
+import os
 
 class TestSystemIntegration(unittest.TestCase):
     def setUp(self):
@@ -52,10 +53,16 @@ class TestSystemIntegration(unittest.TestCase):
             # Verify button setup
             self.mocks['Button'].assert_called()
             
+            # Verify audio environment variables
+            self.assertEqual(os.environ.get('ALSA_IGNORE_UCM'), '1')
+            self.assertEqual(os.environ.get('AUDIODEV'), 'hw:2,0')
+            
+            # Verify VLC initialization
+            self.mocks['vlc.Instance'].assert_called_with('--no-xlib --aout=alsa')
+            
             # Cleanup
             radio.cleanup()
             network.cleanup()
-            # Don't call web.stop() as it's not needed in test context
     
     def test_system_shutdown(self):
         """Test system shutdown sequence"""
@@ -72,12 +79,35 @@ class TestSystemIntegration(unittest.TestCase):
             # Test cleanup
             radio.cleanup()
             network.cleanup()
-            # Don't call web.stop() as it's not needed in test context
             
             # Verify cleanup calls
             self.mocks['LED'].return_value.close.assert_called()
             self.mocks['Button'].return_value.close.assert_called()
             self.mocks['RotaryEncoder'].return_value.close.assert_called()
+            
+            # Verify VLC cleanup
+            vlc_instance = self.mocks['vlc.Instance'].return_value
+            if hasattr(vlc_instance, 'release'):
+                vlc_instance.release.assert_called()
+    
+    def test_audio_system_integration(self):
+        """Test audio system integration"""
+        with self.app.test_request_context():
+            radio = RadioController()
+            self.assertTrue(radio.initialize())
+            
+            # Test volume control
+            radio.set_volume(75)
+            self.assertEqual(radio.audio_manager.current_volume, 75)
+            
+            # Mock file existence check
+            with patch('os.path.isfile', return_value=True):
+                # Test sound playback
+                radio.audio_manager.play_sound('test.wav')
+                vlc_player = self.mocks['vlc.Instance'].return_value.media_player_new.return_value
+                vlc_player.play.assert_called()
+            
+            radio.cleanup()
     
     def tearDown(self):
         """Clean up after tests"""

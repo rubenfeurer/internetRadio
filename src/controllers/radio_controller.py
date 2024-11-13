@@ -118,3 +118,12 @@ class RadioController:
             
         except Exception as e:
             self.logger.error(f"Error in radio monitor: {e}")
+
+    def set_volume(self, volume: int) -> None:
+        """Set audio volume directly
+        
+        Args:
+            volume (int): Volume level (0-100)
+        """
+        if self.audio_manager:
+            self.audio_manager.set_volume(volume)

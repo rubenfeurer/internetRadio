@@ -148,7 +148,27 @@ class APManager:
         """Initialize AP Manager"""
         try:
             self.logger.info("Initializing AP Manager...")
+            
+            # Check if hostapd is installed
+            subprocess.run(["which", "hostapd"], check=True, capture_output=True)
+            
+            # Check if dnsmasq is installed
+            subprocess.run(["which", "dnsmasq"], check=True, capture_output=True)
+            
+            # Check configuration files
+            if not os.path.exists(self.hostapd_conf_path):
+                self.logger.error("hostapd configuration file missing")
+                return False
+            
+            if not os.path.exists(self.dnsmasq_conf_path):
+                self.logger.error("dnsmasq configuration file missing")
+                return False
+            
             return True
+            
+        except FileNotFoundError as e:
+            self.logger.error(f"Required dependency missing: {str(e)}")
+            return False
         except Exception as e:
             self.logger.error(f"Error initializing AP Manager: {str(e)}")
             return False

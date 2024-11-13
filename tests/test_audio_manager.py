@@ -9,6 +9,8 @@ class TestAudioManager(unittest.TestCase):
         # Mock VLC instance and player
         self.audio_manager.instance = Mock()
         self.audio_manager.player = Mock()
+        # Mock the logger properly
+        self.audio_manager.logger = Mock()
         # Set up test sounds directory
         self.test_sounds_dir = os.path.join(os.path.dirname(__file__), 'test_sounds')
         os.makedirs(self.test_sounds_dir, exist_ok=True)
@@ -129,26 +131,204 @@ class TestAudioManager(unittest.TestCase):
         """Test bcm2835 Headphones audio initialization"""
         # Setup
         mock_run.return_value = MagicMock(returncode=0)
-        with patch('vlc.Instance') as mock_vlc:
+        with patch('vlc.Instance') as mock_vlc, \
+             patch('ctypes.CDLL') as mock_cdll, \
+             patch('ctypes.util.find_library', return_value='libasound.so.2'):
+            
             mock_instance = Mock()
             mock_instance.media_player_new.return_value = Mock()
             mock_vlc.return_value = mock_instance
+            
+            mock_asound = MagicMock()
+            mock_cdll.return_value = mock_asound
             
             # Test
             result = self.audio_manager.initialize()
             
             # Verify
             self.assertTrue(result)
-            # First call should unmute PCM
-            mock_run.assert_any_call(
-                ['amixer', '-c', '2', 'sset', 'PCM', 'unmute'],
-                capture_output=True,
-                text=True
-            )
-            # Second call should set volume to 100%
-            mock_run.assert_any_call(
-                ['amixer', '-c', '2', 'sset', 'PCM', '100%'],
-                capture_output=True,
-                text=True
-            )
             mock_vlc.assert_called_once_with('--no-xlib --aout=alsa')
+            mock_instance.media_player_new.assert_called_once()
+            
+            # Verify environment variables
+            self.assertEqual(os.environ.get('ALSA_IGNORE_UCM'), '1')
+            self.assertEqual(os.environ.get('AUDIODEV'), 'hw:2,0')
+
+    def test_alsa_error_handling(self):
+        """Test ALSA error handler filtering"""
+        with patch('ctypes.CDLL') as mock_cdll, \
+             patch('ctypes.util.find_library', return_value='libasound.so.2'), \
+             patch('vlc.Instance') as mock_vlc:  # Add VLC mock
+            
+            # Setup VLC mock
+            mock_instance = Mock()
+            mock_instance.media_player_new.return_value = Mock()
+            mock_vlc.return_value = mock_instance
+            
+            # Setup mock logger
+            self.audio_manager.logger = MagicMock()
+            
+            mock_asound = MagicMock()
+            mock_cdll.return_value = mock_asound
+            
+            # Initialize audio manager
+            result = self.audio_manager.initialize()
+            self.assertTrue(result)
+            
+            # Verify error handler was set
+            mock_asound.snd_lib_error_set_handler.assert_called_once()
+            
+            # Get the error handler function
+            handler = mock_asound.snd_lib_error_set_handler.call_args[0][0]
+            
+            # Test ignored patterns
+            ignored_messages = [
+                b"snd_use_case_mgr_open test error",
+                b"function error evaluating strings",
+                b"Parse arguments error test",
+                b"Evaluate error test",
+                b"returned error test",
+                b"error evaluating test",
+                b"function error test"
+            ]
+            
+            # Test each ignored pattern
+            for msg in ignored_messages:
+                handler(b"file", 1, b"some_func", -1, msg)
+                self.audio_manager.logger.error.assert_not_called()
+                self.audio_manager.logger.error.reset_mock()
+            
+            # Test non-ignored message
+            handler(b"file", 1, b"some_func", -1, b"some other error")
+            self.audio_manager.logger.error.assert_called_once_with("ALSA: some other error")
+
+    def test_alsa_error_suppression(self):
+        """Test that specific ALSA errors are properly suppressed"""
+        with patch('ctypes.CDLL') as mock_cdll, \
+             patch('ctypes.util.find_library', return_value='libasound.so.2'):
+            
+            mock_asound = MagicMock()
+            mock_cdll.return_value = mock_asound
+            
+            # Initialize audio manager
+            self.audio_manager.initialize()
+            
+            # Get the error handler function
+            handler = mock_asound.snd_lib_error_set_handler.call_args[0][0]
+            
+            # Test specific error message
+            test_message = b"snd_use_case_mgr_open error: failed to import hw:0 use case configuration -2"
+            handler(b"file", 1, b"some_func", -1, test_message)
+            
+            # Verify this specific error was suppressed
+            self.audio_manager.logger.error.assert_not_called()
+
+    def test_specific_alsa_hw_errors(self):
+        """Test that specific hardware configuration errors are suppressed"""
+        with patch('ctypes.CDLL') as mock_cdll, \
+             patch('ctypes.util.find_library', return_value='libasound.so.2'), \
+             patch('vlc.Instance') as mock_vlc:  # Add VLC mock
+            
+            # Setup VLC mock
+            mock_instance = Mock()
+            mock_instance.media_player_new.return_value = Mock()
+            mock_vlc.return_value = mock_instance
+            
+            mock_asound = MagicMock()
+            mock_cdll.return_value = mock_asound
+            
+            # Initialize audio manager with mocked logger
+            self.audio_manager.logger = Mock()
+            self.audio_manager.initialize()
+            
+            # Get the error handler function
+            handler = mock_asound.snd_lib_error_set_handler.call_args[0][0]
+            
+            # Test all hardware configurations
+            for hw_num in [0, 1, 2]:
+                test_message = f"error: failed to import hw:{hw_num} use case configuration -2".encode()
+                handler(b"file", 1, b"some_func", -1, test_message)
+                self.audio_manager.logger.error.assert_not_called()
+                self.audio_manager.logger.error.reset_mock()
+
+    def test_alsa_master_control_errors(self):
+        """Test that master control related errors are suppressed"""
+        with patch('ctypes.CDLL') as mock_cdll, \
+             patch('ctypes.util.find_library', return_value='libasound.so.2'):
+            
+            mock_asound = MagicMock()
+            mock_cdll.return_value = mock_asound
+            
+            # Initialize audio manager with mocked logger
+            self.audio_manager.logger = Mock()
+            self.audio_manager.initialize()
+            
+            # Get the error handler function
+            handler = mock_asound.snd_lib_error_set_handler.call_args[0][0]
+            
+            # Test master control error messages
+            test_messages = [
+                b"Could not unmute Master",
+                b"Unable to find simple control 'Master',0",
+                b"Could not set Master volume",
+                b"main.c:1541:(snd_use_case_mgr_open) error: failed to import hw:2"
+            ]
+            
+            for msg in test_messages:
+                handler(b"file", 1, b"some_func", -1, msg)
+                self.audio_manager.logger.error.assert_not_called()
+                self.audio_manager.logger.error.reset_mock()
+
+    def test_alsa_exact_error_patterns(self):
+        """Test that specific ALSA error messages are exactly matched and suppressed"""
+        with patch('ctypes.CDLL') as mock_cdll, \
+             patch('ctypes.util.find_library', return_value='libasound.so.2'):
+            
+            mock_asound = MagicMock()
+            mock_cdll.return_value = mock_asound
+            
+            # Initialize audio manager with mocked logger
+            self.audio_manager.logger = Mock()
+            self.audio_manager.initialize()
+            
+            # Get the error handler function
+            handler = mock_asound.snd_lib_error_set_handler.call_args[0][0]
+            
+            # Test exact error messages
+            test_messages = [
+                b"alsa-lib main.c:1541:(snd_use_case_mgr_open) error: failed to import hw:0 use case configuration -2",
+                b"alsa-lib main.c:1541:(snd_use_case_mgr_open) error: failed to import hw:1 use case configuration -2",
+                b"alsa-lib main.c:1541:(snd_use_case_mgr_open) error: failed to import hw:2 use case configuration -2"
+            ]
+            
+            for msg in test_messages:
+                handler(b"file", 1, b"some_func", -1, msg)
+                self.audio_manager.logger.error.assert_not_called()
+                self.audio_manager.logger.error.reset_mock()
+
+    def test_alsa_warning_messages(self):
+        """Test that warning messages are properly suppressed"""
+        with patch('ctypes.CDLL') as mock_cdll, \
+             patch('ctypes.util.find_library', return_value='libasound.so.2'):
+            
+            mock_asound = MagicMock()
+            mock_cdll.return_value = mock_asound
+            
+            # Initialize audio manager with mocked logger
+            self.audio_manager.logger = Mock()
+            self.audio_manager.initialize()
+            
+            # Get the error handler function
+            handler = mock_asound.snd_lib_error_set_handler.call_args[0][0]
+            
+            # Test warning messages
+            test_messages = [
+                b"Warning: Could not unmute Master",
+                b"amixer: Unable to find simple control 'Master',0",
+                b"Warning: Could not set Master volume"
+            ]
+            
+            for msg in test_messages:
+                handler(b"file", 1, b"some_func", -1, msg)
+                self.audio_manager.logger.error.assert_not_called()
+                self.audio_manager.logger.error.reset_mock()

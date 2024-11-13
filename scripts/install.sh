@@ -120,6 +120,8 @@ UseDNS=no
 EOL
 
 echo_step "Setting up log rotation..."
+
+# Create logrotate configuration
 cat > /etc/logrotate.d/internetradio << EOL
 /home/radio/internetRadio/logs/*.log {
     daily
@@ -130,8 +132,25 @@ cat > /etc/logrotate.d/internetradio << EOL
     notifempty
     create 644 radio radio
     size 100M
+    postrotate
+        systemctl reload internetradio >/dev/null 2>&1 || true
+    endscript
 }
 EOL
+
+# Create log directory if it doesn't exist
+mkdir -p /home/radio/internetRadio/logs
+
+# Set correct permissions
+chown -R radio:radio /home/radio/internetRadio/logs
+chmod 755 /home/radio/internetRadio/logs
+chmod 644 /home/radio/internetRadio/logs/*.log 2>/dev/null || true
+
+# Force initial log rotation if needed
+if [ -f /home/radio/internetRadio/logs/app.log ] && [ $(stat -f%z /home/radio/internetRadio/logs/app.log 2>/dev/null || stat -c%s /home/radio/internetRadio/logs/app.log) -gt 104857600 ]; then
+    echo_step "Rotating large log files..."
+    logrotate -f /etc/logrotate.d/internetradio
+fi
 
 echo_step "Configuring ALSA..."
 cat > /etc/asound.conf << EOL

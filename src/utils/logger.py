@@ -2,6 +2,23 @@ import logging
 import os
 from typing import Optional, Dict
 
+class AlsaFilter(logging.Filter):
+    """Filter out ALSA-related messages"""
+    def filter(self, record):
+        if hasattr(record, 'msg'):
+            patterns = [
+                "snd_use_case_mgr_open",
+                "failed to import hw:",
+                "Could not unmute Master",
+                "Unable to find simple control",
+                "Could not set Master volume",
+                "Warning: Could not",
+                "amixer: Unable to find",
+                "alsa-lib"
+            ]
+            return not any(pattern in str(record.msg) for pattern in patterns)
+        return True
+
 class Logger:
     _instance = None
     _initialized = False
@@ -102,6 +119,10 @@ class Logger:
             for handler in cls._handlers.values():
                 if handler not in logger.handlers:
                     logger.addHandler(handler)
+            
+            # Add ALSA filter
+            alsa_filter = AlsaFilter()
+            logger.addFilter(alsa_filter)
             
             cls._loggers[name] = logger
         

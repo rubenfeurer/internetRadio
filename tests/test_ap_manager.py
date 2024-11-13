@@ -4,6 +4,19 @@ from src.network.ap_manager import APManager
 
 class TestAPManager(unittest.TestCase):
     def setUp(self):
+        """Set up test fixtures"""
+        # Create logger mock with proper call tracking
+        self.logger_mock = MagicMock()
+        self.logger_mock.info = MagicMock()
+        self.logger_mock.error = MagicMock()
+        
+        # Patch the logger
+        patcher = patch('logging.getLogger')
+        mock_logger = patcher.start()
+        mock_logger.return_value = self.logger_mock
+        self.addCleanup(patcher.stop)
+        
+        # Create AP Manager instance
         self.ap_manager = APManager()
     
     @patch('subprocess.run')
@@ -100,6 +113,53 @@ class TestAPManager(unittest.TestCase):
         
         mock_run.side_effect = mock_status
         self.assertFalse(self.ap_manager.is_ap_mode_active())
+    
+    @patch('subprocess.run')
+    def test_initialize_success(self, mock_run):
+        """Test successful initialization of AP Manager"""
+        # Mock successful command checks
+        mock_run.return_value = MagicMock(returncode=0)
+        
+        result = self.ap_manager.initialize()
+        self.assertTrue(result)
+        # Verify logging
+        self.logger_mock.info.assert_any_call("Initializing AP Manager...")
+    
+    @patch('subprocess.run')
+    def test_initialize_failure(self, mock_run):
+        """Test initialization failure of AP Manager"""
+        # Mock command failure
+        mock_run.side_effect = Exception("Test error")
+        
+        result = self.ap_manager.initialize()
+        self.assertFalse(result)
+        # Verify error logging
+        self.logger_mock.error.assert_any_call("Error initializing AP Manager: Test error")
+    
+    @patch('subprocess.run')
+    def test_initialize_checks_dependencies(self, mock_run):
+        """Test that initialize checks for required dependencies"""
+        # Mock successful command checks
+        mock_run.return_value = MagicMock(returncode=0)
+        
+        result = self.ap_manager.initialize()
+        
+        # Verify hostapd and dnsmasq checks
+        calls = mock_run.call_args_list
+        self.assertTrue(any('hostapd' in str(call) for call in calls))
+        self.assertTrue(any('dnsmasq' in str(call) for call in calls))
+        self.assertTrue(result)
+    
+    @patch('subprocess.run')
+    def test_initialize_missing_dependencies(self, mock_run):
+        """Test initialization with missing dependencies"""
+        # Mock command not found
+        mock_run.side_effect = FileNotFoundError("Command not found")
+        
+        result = self.ap_manager.initialize()
+        self.assertFalse(result)
+        # Verify error logging
+        self.logger_mock.error.assert_any_call("Required dependency missing: Command not found")
 
 if __name__ == '__main__':
     unittest.main() 
