@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock, call
 import logging
+from src.controllers.radio_controller import RadioController
 
 class TestRadioController(unittest.TestCase):
     @patch('src.controllers.radio_controller.AudioManager')
@@ -25,7 +26,6 @@ class TestRadioController(unittest.TestCase):
         self.mock_audio.play_url.return_value = True
         
         # Import and create RadioController
-        from src.controllers.radio_controller import RadioController
         self.radio = RadioController()
         
         # Store classes for test methods
@@ -146,6 +146,89 @@ class TestRadioController(unittest.TestCase):
         self.radio.is_playing = True
         self.radio.monitor()
         self.mock_gpio.start_led_blink.assert_called_once()
+    
+    def test_initialize_without_managers(self):
+        """Test initialization when managers are not provided"""
+        radio = RadioController()
+        self.assertIsNotNone(radio.audio_manager)
+        self.assertIsNotNone(radio.gpio_manager)
+        self.assertIsNotNone(radio.stream_manager)
+        self.assertEqual(radio.current_volume, 50)
+        self.assertFalse(radio.initialized)
+        self.assertFalse(radio.is_playing)
+    
+    def test_initialize_with_custom_managers(self):
+        """Test initialization with custom managers"""
+        custom_audio = MagicMock()
+        custom_gpio = MagicMock()
+        custom_stream = MagicMock()
+        
+        radio = RadioController(
+            audio_manager=custom_audio,
+            gpio_manager=custom_gpio,
+            stream_manager=custom_stream
+        )
+        
+        self.assertEqual(radio.audio_manager, custom_audio)
+        self.assertEqual(radio.gpio_manager, custom_gpio)
+        self.assertEqual(radio.stream_manager, custom_stream)
+    
+    def test_error_handling_playback(self):
+        """Test error handling during playback"""
+        self.radio.initialize()
+        
+        # Reset the mock to clear any previous calls
+        self.mock_logger.reset_mock()
+        
+        # Configure the audio mock to raise an exception
+        self.mock_audio.play_url.side_effect = Exception("Test error")
+        
+        # Set the logger directly on the radio controller
+        self.radio.logger = self.mock_logger
+        
+        result = self.radio.start_playback("http://test.com")
+        
+        # Verify results
+        self.assertFalse(result)
+        self.assertFalse(self.radio.is_playing)
+        self.mock_logger.error.assert_called_once_with("Error starting playback: Test error")
+    
+    def test_volume_boundaries(self):
+        """Test volume boundaries and step size"""
+        self.radio.initialize()
+        
+        # Test upper boundary
+        self.radio.current_volume = 95
+        self.radio.volume_up()  # Should cap at 100
+        self.assertEqual(self.radio.current_volume, 100)
+        
+        # Test lower boundary
+        self.radio.current_volume = 3
+        self.radio.volume_down()  # Should cap at 0
+        self.assertEqual(self.radio.current_volume, 0)
+        
+        # Test step size
+        self.radio.current_volume = 50
+        self.radio.volume_up()
+        self.assertEqual(self.radio.current_volume, 55)  # 5% increment
+    
+    def test_initialize_failure(self):
+        """Test initialization failure handling"""
+        # Configure mocks to simulate failure
+        self.mock_audio.initialize.side_effect = Exception("Audio init failed")
+        
+        # Reset logger mock
+        self.mock_logger.reset_mock()
+        
+        # Set logger directly
+        self.radio.logger = self.mock_logger
+        
+        result = self.radio.initialize()
+        
+        # Verify results
+        self.assertFalse(result)
+        self.assertFalse(self.radio.initialized)
+        self.mock_logger.error.assert_called_once_with("Error initializing RadioController: Audio init failed")
 
 if __name__ == '__main__':
     unittest.main()
