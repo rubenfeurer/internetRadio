@@ -1,6 +1,8 @@
 import unittest
 from unittest.mock import patch, MagicMock
 from src.network.wifi_manager import WiFiManager
+import socket
+import os
 
 class TestWiFiManager(unittest.TestCase):
     def setUp(self):
@@ -103,6 +105,38 @@ Wired connection 1   d5ce7973-f25b-33c5-bc00-50dc57c4800d  ethernet  --     """
         # Test failed initialization
         mock_run.side_effect = Exception("Failed to initialize")
         self.assertFalse(self.wifi_manager.initialize())
+    
+    @patch('subprocess.run')
+    @patch('os.path.islink')
+    def test_configure_dns(self, mock_islink, mock_run):
+        """Test DNS configuration"""
+        # Setup
+        mock_islink.return_value = True
+        mock_run.return_value = MagicMock(returncode=0)
+        
+        # Test
+        self.assertTrue(self.wifi_manager.configure_dns())
+        
+        # Verify
+        self.assertEqual(mock_run.call_count, 3)  # rm, echo, chmod
+        mock_run.assert_any_call(['sudo', 'rm', '/etc/resolv.conf'], 
+                                capture_output=True, text=True)
+        mock_run.assert_any_call(
+            ['sudo', 'bash', '-c', 'echo "nameserver 8.8.8.8\nnameserver 8.8.4.4\n" > /etc/resolv.conf'],
+            capture_output=True, text=True)
+        mock_run.assert_any_call(['sudo', 'chmod', '644', '/etc/resolv.conf'], 
+                                capture_output=True, text=True)
+    
+    @patch('socket.gethostbyname')
+    def test_check_dns_resolution(self, mock_gethostbyname):
+        """Test DNS resolution check"""
+        # Test successful DNS resolution
+        mock_gethostbyname.return_value = '142.250.180.78'
+        self.assertTrue(self.wifi_manager.check_dns_resolution())
+        
+        # Test failed DNS resolution
+        mock_gethostbyname.side_effect = socket.gaierror
+        self.assertFalse(self.wifi_manager.check_dns_resolution())
 
 if __name__ == '__main__':
     unittest.main() 

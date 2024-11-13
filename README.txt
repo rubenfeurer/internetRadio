@@ -103,3 +103,12 @@ journalctl -u internetradio
 ## Contributing
 
 [Your Contributing Guidelines Here] 
+
+## Troubleshooting
+
+### DNS Issues
+If DNS resolution stops working:
+1. Check if /etc/resolv.conf exists and contains correct nameservers
+2. Verify file permissions: `ls -la /etc/resolv.conf`
+3. Check if file is immutable: `lsattr /etc/resolv.conf`
+4. Run WiFiManager's configure_dns() method to reset configuration 

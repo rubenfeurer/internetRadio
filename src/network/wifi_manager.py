@@ -2,6 +2,7 @@ import subprocess
 import logging
 import time
 from typing import List, Dict, Optional
+import os
 
 class WiFiManager:
     def __init__(self):
@@ -174,3 +175,62 @@ class WiFiManager:
             # Add any necessary cleanup code here
         except Exception as e:
             self.logger.error(f"Error during WiFi Manager cleanup: {e}")
+
+    def configure_dns(self) -> bool:
+        """Configure DNS servers with direct resolv.conf management"""
+        try:
+            self.logger.info("Configuring DNS servers...")
+            dns_config = "nameserver 8.8.8.8\nnameserver 8.8.4.4\n"
+            
+            # Check if resolv.conf exists and is a symlink
+            if os.path.islink('/etc/resolv.conf'):
+                self.logger.info("Removing resolv.conf symlink...")
+                result = subprocess.run(
+                    ['sudo', 'rm', '/etc/resolv.conf'],
+                    capture_output=True,
+                    text=True
+                )
+                if result.returncode != 0:
+                    self.logger.error(f"Failed to remove symlink: {result.stderr}")
+                    return False
+            
+            # Write new resolv.conf
+            result = subprocess.run(
+                ['sudo', 'bash', '-c', f'echo "{dns_config}" > /etc/resolv.conf'],
+                capture_output=True,
+                text=True
+            )
+            if result.returncode != 0:
+                self.logger.error(f"Failed to write DNS config: {result.stderr}")
+                return False
+            
+            # Set proper permissions
+            result = subprocess.run(
+                ['sudo', 'chmod', '644', '/etc/resolv.conf'],
+                capture_output=True,
+                text=True
+            )
+            if result.returncode != 0:
+                self.logger.error(f"Failed to set permissions: {result.stderr}")
+                return False
+            
+            self.logger.info("DNS servers configured successfully")
+            return True
+        except Exception as e:
+            self.logger.error(f"Error configuring DNS: {e}")
+            return False
+
+    def check_dns_resolution(self) -> bool:
+        """Check if DNS resolution is working"""
+        try:
+            self.logger.info("Checking DNS resolution...")
+            import socket
+            socket.gethostbyname('google.com')
+            self.logger.info("DNS resolution working")
+            return True
+        except socket.gaierror as e:
+            self.logger.error(f"DNS resolution failed: {e}")
+            return False
+        except Exception as e:
+            self.logger.error(f"Error checking DNS: {e}")
+            return False

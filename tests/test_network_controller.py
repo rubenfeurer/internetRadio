@@ -140,7 +140,7 @@ class TestNetworkController(unittest.TestCase):
         self.assertEqual(status['ip_address'], "192.168.4.1")
         self.assertEqual(status['wifi_connected'], False)
         self.assertIsNone(status['current_ssid'])
-
+    
     def test_cleanup(self):
         """Test network cleanup"""
         # Setup
@@ -154,7 +154,7 @@ class TestNetworkController(unittest.TestCase):
         self.mock_ap.stop.assert_called_once()
         self.mock_wifi.cleanup.assert_called_once()
         self.mock_ap.cleanup.assert_called_once()
-
+    
     def test_monitor_network(self):
         """Test network monitoring"""
         # Setup
@@ -167,7 +167,7 @@ class TestNetworkController(unittest.TestCase):
         # Verify
         self.mock_ap.is_active.assert_called_once()
         self.mock_ap.start.assert_called_once()
-
+    
     @patch('subprocess.run')
     def test_log_network_status(self, mock_run):
         """Test network status logging"""
@@ -191,3 +191,21 @@ class TestNetworkController(unittest.TestCase):
         # Verify
         self.assertEqual(mock_run.call_count, 6)  # Six different commands
         mock_logger_instance.info.assert_called()  # Check the instance's info method
+    
+    def test_check_and_setup_network_with_dns(self):
+        """Test network setup with DNS configuration"""
+        # Setup
+        self.mock_wifi.get_saved_networks.return_value = ["Network1"]
+        self.mock_wifi.connect_to_network.return_value = True
+        self.mock_wifi.configure_dns.return_value = True
+        self.mock_wifi.check_dns_resolution.return_value = True
+        
+        # Test
+        result = self.network.check_and_setup_network()
+        
+        # Verify
+        self.assertTrue(result)
+        self.mock_wifi.get_saved_networks.assert_called_once()
+        self.mock_wifi.connect_to_network.assert_called_once_with("Network1", None)
+        self.mock_wifi.configure_dns.assert_called_once()
+        self.mock_wifi.check_dns_resolution.assert_called_once()

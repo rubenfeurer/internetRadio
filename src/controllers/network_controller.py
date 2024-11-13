@@ -53,7 +53,16 @@ class NetworkController:
         if saved_networks:
             for network in saved_networks:
                 if self.wifi_manager.connect_to_network(network, None):
-                    return True
+                    # Add DNS configuration after successful connection
+                    if self.wifi_manager.configure_dns():
+                        if self.wifi_manager.check_dns_resolution():
+                            self.logger.info("Network setup complete with DNS")
+                            return True
+                        else:
+                            self.logger.warning("DNS resolution check failed")
+                    else:
+                        self.logger.warning("DNS configuration failed")
+                    return True  # Return true even if DNS fails, as we're connected
         return self.start_ap_mode("DefaultAP", "password")
 
     def start_ap_mode(self, ssid: str, password: str) -> bool:
