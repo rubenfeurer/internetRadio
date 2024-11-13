@@ -7,26 +7,24 @@ import tempfile
 
 class TestLogger(unittest.TestCase):
     def setUp(self):
+        """Set up test environment"""
         self.test_log_dir = tempfile.mkdtemp()
-        self.log_file = os.path.join(self.test_log_dir, "radio.log")
+        self.log_file = os.path.join(self.test_log_dir, 'radio.log')
         
-        # Clean start
-        if os.path.exists(self.test_log_dir):
-            shutil.rmtree(self.test_log_dir)
-        os.makedirs(self.test_log_dir)
-        
-        # Set logger to test mode
+        # Reset and initialize logger
         Logger.reset()
-        Logger.set_test_mode(self.test_log_dir)
-        self.logger = Logger("test")
+        Logger.setup_logging(self.test_log_dir)
+        
+        # Get logger instance
+        self.logger = Logger.get_logger('test')
 
     def tearDown(self):
-        try:
-            shutil.rmtree(self.test_log_dir)
-        except Exception as e:
-            print(f"Error during cleanup: {e}")
-        finally:
-            Logger.reset()
+        """Clean up test environment"""
+        Logger.reset()
+        if os.path.exists(self.test_log_dir):
+            for file in os.listdir(self.test_log_dir):
+                os.remove(os.path.join(self.test_log_dir, file))
+            os.rmdir(self.test_log_dir)
 
     def test_logger_instance(self):
         """Test logger singleton pattern"""

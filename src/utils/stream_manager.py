@@ -1,36 +1,44 @@
-import toml
-from pathlib import Path
-from typing import List, Dict, Optional
-from dataclasses import dataclass
-from ..utils.logger import Logger
 import os
-
-@dataclass
-class RadioStream:
-    name: str
-    url: str
-    country: str
-    location: str
+import toml
+from dataclasses import asdict
+from typing import List, Optional, Dict, Any
+from src.models.radio_stream import RadioStream
+from src.utils.logger import Logger
 
 class StreamManager:
     def __init__(self, config_dir: str = None):
-        self.logger = Logger(__name__)
-        self.config_dir = Path(config_dir) if config_dir else Path(__file__).parent.parent.parent / 'config'
-        self.streams_file = self.config_dir / 'streams.toml'
+        """Initialize StreamManager"""
+        self.logger = Logger.get_logger(__name__)
+        self.config_dir = config_dir or os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config')
+        self.streams_file = os.path.join(self.config_dir, 'streams.toml')
         self.streams: List[RadioStream] = []
         self._load_streams()
+
+    def _convert_dict_to_stream(self, data: Dict[str, Any]) -> RadioStream:
+        """Convert dictionary to RadioStream object"""
+        return RadioStream(
+            name=data.get('name', ''),
+            url=data.get('url', ''),
+            country=data.get('country', ''),
+            location=data.get('location', ''),
+            description=data.get('description'),
+            genre=data.get('genre'),
+            language=data.get('language'),
+            bitrate=data.get('bitrate')
+        )
 
     def _load_streams(self) -> None:
         """Load streams from TOML file"""
         try:
-            with open(self.streams_file) as f:
-                data = toml.load(f)
-                self.streams = [
-                    RadioStream(**stream) for stream in data.get('links', [])
-                ]
-            self.logger.info(f"Loaded {len(self.streams)} streams")
+            if os.path.exists(self.streams_file):
+                with open(self.streams_file, 'r') as f:
+                    data = toml.load(f)
+                    self.streams = [self._convert_dict_to_stream(stream) 
+                                  for stream in data.get('links', [])]
+            else:
+                self.streams = []
         except Exception as e:
-            self.logger.error(f"Error loading streams: {e}")
+            self.logger.error(f"Error loading streams: {str(e)}")
             self.streams = []
 
     def get_all_streams(self) -> List[RadioStream]:
@@ -52,80 +60,34 @@ class StreamManager:
     def add_stream(self, stream: RadioStream) -> bool:
         """Add new stream"""
         try:
-            if not self.get_stream_by_name(stream.name):
-                self.streams.append(stream)
-                return self._save_streams()
-            return False
+            if not isinstance(stream, RadioStream):
+                raise ValueError("Invalid stream object")
+            self.streams.append(stream)
+            return self.save_streams()
         except Exception as e:
-            self.logger.error(f"Error adding stream: {e}")
+            self.logger.error(f"Error adding stream: {str(e)}")
             return False
 
     def remove_stream(self, name: str) -> bool:
         """Remove stream by name"""
         try:
-            initial_length = len(self.streams)
+            original_length = len(self.streams)
             self.streams = [s for s in self.streams if s.name != name]
-            if len(self.streams) < initial_length:
-                return self._save_streams()
+            if len(self.streams) < original_length:
+                return self.save_streams()
             return False
         except Exception as e:
-            self.logger.error(f"Error removing stream: {e}")
-            return False
-
-    def _save_streams(self) -> bool:
-        """Save streams to TOML file"""
-        try:
-            data = {
-                'links': [
-                    {
-                        'name': s.name,
-                        'url': s.url,
-                        'country': s.country,
-                        'location': s.location
-                    } for s in self.streams
-                ]
-            }
-            with open(self.streams_file, 'w') as f:
-                toml.dump(data, f)
-            return True
-        except Exception as e:
-            self.logger.error(f"Error saving streams: {e}")
+            self.logger.error(f"Error removing stream: {str(e)}")
             return False
 
     def save_streams(self) -> bool:
-        """Save streams to file"""
+        """Save streams to TOML file"""
         try:
-            # Ensure directory exists
-            os.makedirs(os.path.dirname(self.streams_file), exist_ok=True)
-            
-            # Prepare data structure
-            data = {
-                'links': [
-                    {
-                        'name': stream.name,
-                        'url': stream.url,
-                        'country': getattr(stream, 'country', ''),
-                        'location': getattr(stream, 'location', '')
-                    }
-                    for stream in self.streams
-                ]
-            }
-            
-            self.logger.debug(f"Saving streams to {self.streams_file}: {data}")
-            
-            # Save to file
             with open(self.streams_file, 'w') as f:
-                toml.dump(data, f)
-            
-            # Verify save was successful
-            if not os.path.exists(self.streams_file):
-                self.logger.error("Failed to create streams file")
-                return False
-            
-            self.logger.info(f"Successfully saved {len(self.streams)} streams")
+                toml.dump({'links': [asdict(s) for s in self.streams]}, f)
             return True
         except Exception as e:
-            self.logger.error(f"Failed to save streams: {e}")
+            self.logger.error(f"Error saving streams: {str(e)}")
             return False
 
     def load_streams(self) -> bool:

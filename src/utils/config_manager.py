@@ -4,6 +4,7 @@ from typing import Dict, Any, Optional
 from dataclasses import dataclass
 from .logger import Logger
 import os
+import logging
 
 @dataclass
 class AudioConfig:
@@ -25,43 +26,35 @@ class LoggingConfig:
 
 class ConfigManager:
     def __init__(self, config_dir: str = None):
-        self.logger = Logger(__name__)
-        self.config_dir = Path(config_dir) if config_dir else Path(__file__).parent.parent.parent / 'config'
-        self.radio_file = self.config_dir / 'radio.toml'
-        
-        # Initialize with defaults
-        self.audio = AudioConfig()
-        self.network = NetworkConfig()
-        self.logging = LoggingConfig()
-        
+        """Initialize ConfigManager"""
+        self.logger = Logger.get_logger(__name__)
+        self.config_dir = config_dir or os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config')
         self._load_config()
 
     def _load_config(self) -> None:
         """Load configuration from TOML file"""
         try:
             config_data = {}
-            
+    
             # Load default config first
-            default_config_path = self.config_dir / 'default.toml'
-            if default_config_path.exists():
-                with open(default_config_path) as f:
-                    config_data = toml.load(f)
-                    self.logger.debug(f"Loaded default config: {config_data}")
-
-            # Override with user config if exists
-            if self.radio_file.exists():
-                with open(self.radio_file) as f:
-                    user_data = toml.load(f)
-                    self.logger.debug(f"Loaded user config: {user_data}")
-                    self._merge_config_data(config_data, user_data)
-                    self.logger.debug(f"Merged config: {config_data}")
-            
-            # Update instance attributes
+            default_config_path = os.path.join(self.config_dir, 'default.toml')
+            if os.path.exists(default_config_path):
+                with open(default_config_path, 'r') as f:
+                    config_data.update(toml.load(f))
+    
+            # Load user config and override defaults
+            user_config_path = os.path.join(self.config_dir, 'radio.toml')
+            if os.path.exists(user_config_path):
+                with open(user_config_path, 'r') as f:
+                    config_data.update(toml.load(f))
+    
             self._update_from_dict(config_data)
-            self.logger.debug(f"Final config state: audio.default_volume={self.audio.default_volume}")
+            
         except Exception as e:
-            self.logger.error(f"Error loading configuration: {e}")
-            raise
+            if hasattr(self, 'logger'):
+                self.logger.error(f"Error loading config: {str(e)}")
+            else:
+                print(f"Error loading config: {str(e)}")
 
     def _merge_config_data(self, base: dict, override: dict) -> None:
         """Deep merge configuration dictionaries"""
@@ -71,8 +64,8 @@ class ConfigManager:
             else:
                 base[key] = value
 
-    def _save_config(self) -> bool:
-        """Save current configuration to file"""
+    def save_config(self) -> bool:
+        """Save configuration to file"""
         try:
             config_data = {
                 'audio': {
@@ -91,13 +84,13 @@ class ConfigManager:
                 }
             }
             
-            self.logger.debug(f"Saving config: {config_data}")
-            os.makedirs(os.path.dirname(self.radio_file), exist_ok=True)
-            with open(self.radio_file, 'w') as f:
+            config_path = os.path.join(self.config_dir, 'radio.toml')
+            with open(config_path, 'w') as f:
                 toml.dump(config_data, f)
             return True
+            
         except Exception as e:
-            self.logger.error(f"Error saving configuration: {e}")
+            self.logger.error(f"Error saving config: {str(e)}")
             return False
 
     def update_audio_config(self, **kwargs) -> bool:
@@ -106,9 +99,9 @@ class ConfigManager:
             for key, value in kwargs.items():
                 if hasattr(self.audio, key):
                     setattr(self.audio, key, value)
-            return self._save_config()
+            return self.save_config()
         except Exception as e:
-            self.logger.error(f"Error updating audio config: {e}")
+            self.logger.error(f"Error updating audio config: {str(e)}")
             return False
 
     def update_network_config(self, **kwargs) -> bool:
@@ -117,9 +110,9 @@ class ConfigManager:
             for key, value in kwargs.items():
                 if hasattr(self.network, key):
                     setattr(self.network, key, value)
-            return self._save_config()
+            return self.save_config()
         except Exception as e:
-            self.logger.error(f"Error updating network config: {e}")
+            self.logger.error(f"Error updating network config: {str(e)}")
             return False
 
     def add_saved_network(self, network: Dict[str, Any]) -> bool:
@@ -129,7 +122,7 @@ class ConfigManager:
                 self.network.saved_networks = []
             if network not in self.network.saved_networks:
                 self.network.saved_networks.append(network)
-                return self._save_config()
+                return self.save_config()
             return False
         except Exception as e:
             self.logger.error(f"Error adding saved network: {e}")
@@ -156,7 +149,7 @@ class ConfigManager:
             
             # If network was found and removed
             if len(self.network.saved_networks) < initial_count:
-                if self._save_config():
+                if self.save_config():
                     self.logger.info(f"Successfully removed network: {ssid}")
                     return True
                 
@@ -172,34 +165,35 @@ class ConfigManager:
             # Initialize audio config
             if not hasattr(self, 'audio'):
                 self.audio = type('AudioConfig', (), {})()
-            
+    
             audio_config = config_data.get('audio', {})
             self.audio.default_volume = audio_config.get('default_volume', 50)
             self.audio.volume_step = audio_config.get('volume_step', 5)
             self.audio.sounds_enabled = audio_config.get('sounds_enabled', True)
-
+    
             # Initialize network config
             if not hasattr(self, 'network'):
                 self.network = type('NetworkConfig', (), {})()
-            
+    
             network_config = config_data.get('network', {})
             self.network.saved_networks = network_config.get('saved_networks', [])
             self.network.ap_ssid = network_config.get('ap_ssid', 'InternetRadio')
             self.network.ap_password = network_config.get('ap_password', 'radio123')
             self.network.connection_timeout = network_config.get('connection_timeout', 30)
-
+    
             # Initialize logging config
             if not hasattr(self, 'logging'):
                 self.logging = type('LoggingConfig', (), {})()
-            
+    
             logging_config = config_data.get('logging', {})
             self.logging.level = logging_config.get('level', 'INFO')
-            
-            # Apply logging level using the correct method
+    
+            # Apply logging level
             if hasattr(self, 'logger'):
-                self.logger.set_level(self.logging.level)
+                logging.getLogger().setLevel(self.logging.level)
 
-            self.logger.debug(f"Updated config: audio={vars(self.audio)}, network={vars(self.network)}, logging={vars(self.logging)}")
         except Exception as e:
-            self.logger.error(f"Error updating from dict: {e}")
-            raise
+            if hasattr(self, 'logger'):
+                self.logger.error(f"Error updating config: {str(e)}")
+            else:
+                print(f"Error updating config: {str(e)}")

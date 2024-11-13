@@ -1,5 +1,6 @@
 import logging
 import vlc
+import os
 from typing import Optional
 
 class AudioManager:
@@ -8,6 +9,7 @@ class AudioManager:
         self.instance: Optional[vlc.Instance] = None
         self.player: Optional[vlc.MediaPlayer] = None
         self.current_volume: int = 50  # Default volume (0-100)
+        self.sounds_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'sounds')
     
     def initialize(self) -> bool:
         """Initialize VLC instance and media player"""
@@ -78,4 +80,38 @@ class AudioManager:
             self.logger.info("AudioManager cleanup completed")
             
         except Exception as e:
-            self.logger.error("Error during cleanup: %s", str(e)) 
+            self.logger.error("Error during cleanup: %s", str(e))
+    
+    def play_sound(self, sound_file: str) -> bool:
+        """Play a local sound file"""
+        try:
+            if not self.instance or not self.player:
+                self.logger.error("AudioManager not initialized")
+                return False
+            
+            # Construct full path
+            sound_path = os.path.join(self.sounds_dir, sound_file)
+            
+            # Check if file exists
+            if not os.path.isfile(sound_path):
+                self.logger.error(f"Sound file not found: {sound_path}")
+                return False
+                
+            # Create media from file
+            media = self.instance.media_new_path(sound_path)
+            if not media:
+                self.logger.error(f"Failed to create media for {sound_path}")
+                return False
+                
+            self.player.set_media(media)
+            result = self.player.play()
+            
+            if result == -1:
+                self.logger.error(f"Failed to play sound: {sound_path}")
+                return False
+                
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Error playing sound: {str(e)}")
+            return False 
