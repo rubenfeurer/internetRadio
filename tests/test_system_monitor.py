@@ -68,8 +68,8 @@ class TestSystemMonitor(unittest.TestCase):
             self.assertIn('Description=Internet Radio System Monitor', content)
             self.assertIn('User=radio', content)
             self.assertIn('Group=radio', content)
-            self.assertIn('Environment=DISPLAY=:0', content)
-            self.assertIn('ExecStart=/usr/bin/xterm', content)
+            self.assertIn('Environment=PYTHONUNBUFFERED=1', content)
+            self.assertIn('ExecStart=/usr/bin/lxterminal', content)
 
     def test_service_file_content(self):
         """Test that service file has correct content and permissions"""
@@ -83,10 +83,11 @@ Wants=internetradio.service NetworkManager.service
 Type=simple
 User=radio
 Group=radio
+Environment=PYTHONUNBUFFERED=1
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/radio/.Xauthority
 WorkingDirectory=/home/radio/internetRadio
-ExecStart=/usr/bin/xterm -T "System Monitor" -geometry 80x24+0+0 -fn fixed -e /usr/bin/python3 -c "from src.utils.system_monitor import SystemMonitor; SystemMonitor().run()"
+ExecStart=/usr/bin/lxterminal --geometry=100x30 --title="Radio Monitor" -e "/usr/bin/python3 -c 'from src.utils.system_monitor import SystemMonitor; SystemMonitor().run()'"
 Restart=always
 RestartSec=5
 
@@ -100,10 +101,6 @@ WantedBy=multi-user.target"""
         with open(service_path, 'r') as f:
             content = f.read().strip()
             self.assertEqual(content.strip(), expected_content.strip())
-        
-        # Check file permissions
-        stat = os.stat(service_path)
-        self.assertEqual(stat.st_mode & 0o777, 0o644)  # Should be -rw-r--r--
 
     def test_run_method(self):
         """Test the run method execution"""

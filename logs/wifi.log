@@ -13616,3 +13616,957 @@
 2024-11-14 18:10:15,553 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
 2024-11-14 18:10:15,566 - src.utils.system_monitor - WARNING - Current station file not found
 2024-11-14 18:10:15,589 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:17,636 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:17,660 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:17,694 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:19,740 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:19,755 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:19,777 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:21,812 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:21,831 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:21,858 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:23,897 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:23,917 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:23,942 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:25,981 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:25,996 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:26,020 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:28,064 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:28,081 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:28,101 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:30,144 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:30,157 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:30,179 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:32,217 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:32,231 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:32,254 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:34,290 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:34,310 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:34,335 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:36,378 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:36,393 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:36,417 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:38,454 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:38,474 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:38,500 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:40,531 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:40,546 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:40,567 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:42,606 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:42,620 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:42,642 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:44,680 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:44,693 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:44,715 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:46,751 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:46,765 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:46,786 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:48,817 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:48,830 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:48,851 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:50,884 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:50,904 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:50,929 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:52,969 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:52,992 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:53,014 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:55,045 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:55,063 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:55,092 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:57,131 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:57,144 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:57,167 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:10:59,209 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:10:59,222 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:10:59,244 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:01,281 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:01,294 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:01,316 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:03,354 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:03,369 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:03,399 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:05,444 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:05,457 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:05,480 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:07,522 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:07,539 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:07,566 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:09,604 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:09,618 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:09,639 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:11,676 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:11,693 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:11,720 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:13,757 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:13,771 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:13,791 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:15,827 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:15,851 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:15,874 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:17,908 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:17,923 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:17,955 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:19,991 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:20,007 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:20,028 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:22,060 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:22,075 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:22,095 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:24,131 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:24,148 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:24,186 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:26,227 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:26,240 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:26,262 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:28,296 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:28,310 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:28,333 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:30,372 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:30,385 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:30,408 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:32,444 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:32,460 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:32,484 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:34,528 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:34,543 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:34,567 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:36,608 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:36,623 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:36,646 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:38,683 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:38,700 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:38,724 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:40,766 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:40,780 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:40,802 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:42,834 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:42,854 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:42,877 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:44,912 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:44,930 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:44,955 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:47,002 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:47,017 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:47,044 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:49,087 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:49,108 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:49,130 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:51,162 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:51,176 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:51,198 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:53,232 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:53,246 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:53,266 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:55,300 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:55,314 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:55,335 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:57,371 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:57,389 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:57,414 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:11:59,457 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:11:59,475 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:11:59,495 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:01,531 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:01,549 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:01,581 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:03,615 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:03,631 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:03,659 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:05,704 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:05,719 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:05,740 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:07,803 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:07,819 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:07,842 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:09,877 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:09,891 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:09,911 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:11,950 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:11,963 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:11,983 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:14,019 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:14,035 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:14,057 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:16,107 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:16,119 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:16,144 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:18,183 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:18,198 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:18,221 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:20,261 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:20,282 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:20,304 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:22,341 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:22,355 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:22,377 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:24,412 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:24,562 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:24,583 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:26,613 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:26,628 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:26,650 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:28,681 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:28,694 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:28,714 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:30,748 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:30,761 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:30,782 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:32,817 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:32,830 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:32,859 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:34,900 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:34,918 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:34,943 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:36,983 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:37,006 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:37,029 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:39,063 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:39,078 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:39,102 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:41,136 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:41,151 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:41,175 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:43,212 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:43,226 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:43,249 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:45,285 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:45,299 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:45,325 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:47,365 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:47,379 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:47,406 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:49,447 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:49,462 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:49,489 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:51,528 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:51,543 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:51,567 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:53,608 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:53,625 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:53,647 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:55,689 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:55,704 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:55,728 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:57,769 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:57,785 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:57,813 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:12:59,846 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:12:59,862 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:12:59,885 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:01,917 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:01,932 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:01,953 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:03,990 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:04,012 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:04,034 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:06,067 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:06,082 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:06,105 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:08,148 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:08,162 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:08,183 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:10,216 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:10,230 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:10,251 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:12,286 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:12,302 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:12,327 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:14,368 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:14,382 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:14,406 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:16,441 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:16,459 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:16,480 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:18,512 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:18,532 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:18,564 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:20,603 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:20,619 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:20,640 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:22,674 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:22,688 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:22,710 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:24,748 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:24,766 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:24,790 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:26,824 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:26,841 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:26,863 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:28,899 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:28,920 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:28,944 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:30,981 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:30,999 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:31,019 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:33,056 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:33,072 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:33,096 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:35,135 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:36,801 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:36,833 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:37,139 - src.utils.system_monitor - INFO - SystemMonitor initialized
+2024-11-14 18:13:38,140 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:38,155 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:38,175 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:40,202 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:40,219 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:40,248 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:42,280 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:42,298 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:42,322 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:44,351 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:44,366 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:44,389 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:46,419 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:46,434 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:46,459 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:48,492 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:48,506 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:48,526 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:50,554 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:50,568 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:50,588 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:52,615 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:52,629 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:52,649 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:13:54,676 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:56,613 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:56,946 - src.utils.system_monitor - INFO - SystemMonitor initialized
+2024-11-14 18:13:57,947 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:13:57,962 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:13:57,983 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:00,010 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:00,023 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:00,054 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:02,085 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:02,099 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:02,122 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:04,149 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:04,163 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:04,184 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:06,211 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:06,225 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:06,247 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:08,275 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:08,289 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:08,314 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:10,355 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:10,369 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:10,397 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:11,915 - src.utils.system_monitor - INFO - SystemMonitor initialized
+2024-11-14 18:14:12,917 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:12,932 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:12,953 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:14,980 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:14,995 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:15,018 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:17,047 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:17,060 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:17,084 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:19,113 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:19,127 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:19,151 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:21,181 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:21,195 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:21,218 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:23,247 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:23,267 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:23,291 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:25,326 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:25,340 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:25,363 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:27,392 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:27,409 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:27,437 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:29,468 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:29,485 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:29,514 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:31,547 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:31,561 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:31,583 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:33,610 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:33,624 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:33,646 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:35,673 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:35,698 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:35,729 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:37,756 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:37,774 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:37,795 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:39,825 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:39,843 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:39,863 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:41,901 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:41,914 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:41,935 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:43,963 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:43,981 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:44,009 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:46,044 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:46,062 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:46,089 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:48,125 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:48,139 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:48,160 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:50,188 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:50,203 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:50,224 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:52,255 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:52,269 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:52,289 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:54,316 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:54,332 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:54,354 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:56,387 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:56,401 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:56,421 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:14:58,448 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:14:58,461 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:14:58,483 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:00,512 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:00,530 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:00,554 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:02,583 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:02,610 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:02,644 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:04,685 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:04,700 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:04,724 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:06,757 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:06,771 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:06,792 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:08,819 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:08,833 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:08,862 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:10,891 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:10,905 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:10,928 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:12,958 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:12,992 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:13,027 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:15,067 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:15,293 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:15,322 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:18,995 - src.utils.system_monitor - INFO - SystemMonitor initialized
+2024-11-14 18:15:19,996 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:20,010 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:20,039 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:22,071 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:22,086 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:22,111 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:24,152 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:24,169 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:24,194 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:26,234 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:26,250 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:26,271 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:28,299 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:28,313 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:28,338 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:30,377 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:30,393 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:30,418 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:32,451 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:32,466 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:32,487 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:34,520 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:34,536 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:34,558 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:36,592 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:36,607 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:36,636 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:38,663 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:38,678 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:38,699 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:40,729 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:40,743 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:40,764 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:42,794 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:42,809 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:42,829 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:44,856 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:44,873 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:44,901 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:46,932 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:46,948 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:46,974 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:49,012 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:49,027 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:49,049 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:51,084 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:51,101 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:51,128 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:53,171 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:53,187 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:53,209 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:55,245 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:55,259 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:55,279 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:57,307 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:57,320 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:57,344 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:15:59,380 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:15:59,399 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:15:59,424 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:01,454 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:01,468 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:01,490 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:03,521 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:03,539 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:03,559 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:05,586 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:05,604 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:05,624 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:07,652 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:07,673 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:07,703 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:09,731 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:09,745 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:09,766 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:11,796 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:11,811 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:11,831 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:13,866 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:13,879 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:13,901 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:15,929 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:15,943 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:15,963 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:17,992 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:18,005 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:18,027 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:20,055 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:20,069 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:20,090 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:22,118 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:22,131 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:22,153 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:24,189 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:24,204 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:24,226 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:26,254 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:26,268 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:26,289 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:28,316 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:28,333 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:28,362 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:30,398 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:30,412 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:30,437 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:32,467 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:32,482 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:32,503 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:34,532 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:34,547 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:34,570 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:36,596 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:36,614 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:36,635 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:38,664 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:38,679 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:38,700 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:40,733 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:40,746 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:40,769 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:42,796 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:42,812 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:42,833 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:44,864 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:44,881 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:44,904 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:46,938 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:46,954 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:46,976 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:48,829 - src.utils.config_manager - INFO - Successfully removed network TestNetwork and saved config
+2024-11-14 18:16:49,004 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:49,036 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:49,085 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:51,132 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:51,151 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:51,174 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:53,205 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:53,231 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:53,262 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:55,311 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:55,331 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:55,353 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:57,388 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:57,405 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:57,432 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:16:59,466 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:16:59,480 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:16:59,501 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:01,532 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:01,547 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:01,569 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:03,600 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:03,612 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:03,811 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:05,842 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:05,856 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:05,876 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:07,906 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:07,921 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:07,943 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:09,972 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:09,986 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:10,007 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:12,036 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:12,055 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:12,079 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:14,115 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:14,133 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:14,161 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:16,197 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:16,211 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:16,234 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:18,283 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:18,300 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:18,327 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:20,361 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:20,375 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:20,397 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:22,438 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:22,453 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:22,482 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:24,513 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:24,529 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:24,561 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:26,592 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:26,607 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:26,633 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:28,673 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:28,688 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:28,716 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:30,758 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:30,772 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:30,794 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:32,822 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:32,837 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:32,862 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:34,897 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:34,912 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:34,943 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:36,986 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:37,000 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:37,024 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:39,056 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:40,343 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:40,363 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:42,391 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:42,405 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:42,428 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:44,460 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:44,475 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:44,495 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:46,535 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:46,550 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:46,573 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:48,621 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:48,636 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:48,661 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:50,697 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:50,712 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:50,737 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:52,776 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:52,793 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:52,815 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:54,845 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:54,859 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:54,880 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:56,910 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:56,929 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:56,957 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:17:58,990 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:17:59,006 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:17:59,026 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:01,060 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:01,073 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:01,095 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:03,122 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:03,137 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:03,161 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:05,192 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:05,207 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:05,231 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:07,266 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:07,281 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:07,301 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:09,332 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:09,346 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:09,369 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:11,399 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:11,414 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:11,439 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:13,478 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:13,492 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:13,515 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:15,546 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:15,561 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:15,586 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:17,632 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:17,648 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:17,672 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:19,715 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:19,730 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:19,753 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:21,791 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:21,806 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:21,830 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:23,879 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:23,897 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:23,918 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:25,953 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:25,967 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:25,988 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:28,017 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:28,034 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:28,060 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:30,100 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:30,115 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:30,136 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:32,181 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:32,196 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:32,217 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:34,245 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:34,263 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:34,283 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:36,311 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:36,329 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:36,358 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:38,404 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:38,425 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:38,446 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:40,489 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:40,503 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:40,524 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:42,560 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:42,574 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:42,595 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:44,625 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:44,638 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:44,659 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:46,687 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:46,701 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:46,723 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:48,758 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:48,779 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:48,842 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:50,869 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:50,886 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:50,911 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:52,960 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:52,976 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:53,004 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:55,045 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:55,060 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:55,084 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:57,116 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:57,131 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:57,156 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:18:59,183 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:18:59,197 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:18:59,224 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:01,251 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:01,265 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:01,286 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:03,320 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:03,334 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:03,355 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:05,386 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:05,400 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:05,421 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:07,454 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:07,474 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:07,498 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:09,534 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:09,551 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:09,574 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:11,612 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:11,627 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:11,649 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:13,683 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:13,699 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:13,721 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:15,752 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:15,769 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:15,790 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:17,828 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:17,845 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:17,878 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:19,906 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:19,920 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:19,952 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:21,979 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:21,994 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:22,015 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:24,046 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:25,421 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:25,441 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:27,469 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:27,482 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:27,505 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:29,533 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:29,549 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:29,571 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:31,605 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:31,620 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:31,640 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:33,687 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:33,703 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:33,723 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:35,752 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:35,770 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:35,802 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:37,839 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:37,859 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:37,881 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:39,909 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:39,927 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:39,959 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:41,989 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:42,013 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:42,031 - src.utils.system_monitor - INFO - SystemMonitor initialized
+2024-11-14 18:19:42,058 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:43,176 - src.utils.system_monitor - INFO - SystemMonitor initialized
+2024-11-14 18:19:44,119 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:44,133 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:44,153 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:46,182 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:46,197 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:46,220 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:48,253 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:48,270 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:48,294 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:50,332 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:50,351 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:50,372 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:52,399 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:52,415 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:52,436 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:54,464 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:54,478 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:54,498 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:56,526 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:56,541 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:56,562 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:19:58,590 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:19:58,604 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:19:58,625 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:00,674 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:00,689 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:00,711 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:02,739 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:02,756 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:02,778 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:04,817 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:04,830 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:04,851 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:06,881 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:06,897 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:06,923 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:08,951 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:08,966 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:08,991 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:11,033 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:11,053 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:11,074 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:13,104 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:13,120 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:13,140 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:15,168 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:15,185 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:15,210 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:17,245 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:17,262 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:17,283 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:19,310 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:19,324 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:19,346 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:21,375 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:21,389 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:21,410 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:23,440 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:23,454 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:23,474 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:25,504 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:25,518 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:25,539 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:26,843 - src.utils.system_monitor - INFO - SystemMonitor initialized
+2024-11-14 18:20:27,567 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:27,588 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:27,617 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:28,027 - src.utils.system_monitor - INFO - SystemMonitor initialized
+2024-11-14 18:20:29,658 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:29,672 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:29,693 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:31,721 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:31,738 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:31,765 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:33,804 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:33,822 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:33,842 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:35,872 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:35,898 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:35,926 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:37,971 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:37,993 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:38,014 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:40,041 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:40,057 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:40,078 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:42,118 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:42,132 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:42,155 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:44,183 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:44,196 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:44,218 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:46,247 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:46,261 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:46,293 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:48,320 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:48,334 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:48,355 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:50,384 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:50,399 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:50,425 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:52,462 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:52,476 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:52,497 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:54,525 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:54,539 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:54,567 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:56,600 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:56,618 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:56,640 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:20:58,672 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:20:58,686 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:20:58,706 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:21:00,735 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:21:00,751 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:21:00,772 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:21:01,953 - src.utils.config_manager - INFO - Successfully removed network TestNetwork and saved config
+2024-11-14 18:21:02,799 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:21:02,822 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:21:02,858 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:21:04,897 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:21:05,688 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:21:05,717 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:21:07,763 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:21:07,786 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:21:07,827 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:21:09,884 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:21:09,957 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:21:10,007 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:21:12,047 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:21:12,069 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:21:12,100 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:21:14,133 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:21:14,151 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:21:14,172 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:21:16,202 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:21:16,219 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:21:16,240 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 18:21:18,268 - src.utils.system_monitor - ERROR - Network info collection error: 'WiFiManager' object has no attribute 'get_connection_info'
+2024-11-14 18:21:18,288 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 18:21:18,316 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.

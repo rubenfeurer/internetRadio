@@ -7,10 +7,11 @@ Wants=internetradio.service NetworkManager.service
 Type=simple
 User=radio
 Group=radio
+Environment=PYTHONUNBUFFERED=1
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/radio/.Xauthority
 WorkingDirectory=/home/radio/internetRadio
-ExecStart=/usr/bin/xterm -T "System Monitor" -geometry 80x24+0+0 -fn fixed -e /usr/bin/python3 -c "from src.utils.system_monitor import SystemMonitor; SystemMonitor().run()"
+ExecStart=/usr/bin/lxterminal --geometry=100x30 --title="Radio Monitor" -e "/usr/bin/python3 -c 'from src.utils.system_monitor import SystemMonitor; SystemMonitor().run()'"
 Restart=always
 RestartSec=5
 
