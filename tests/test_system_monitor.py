@@ -3,6 +3,8 @@ from unittest.mock import Mock, patch, mock_open
 import psutil
 from src.utils.system_monitor import SystemMonitor
 import os
+from unittest.mock import MagicMock
+import subprocess
 
 class TestSystemMonitor(unittest.TestCase):
     def setUp(self):
@@ -64,6 +66,40 @@ class TestSystemMonitor(unittest.TestCase):
             self.assertIn('Environment=DISPLAY=:0', content)
             self.assertIn('ExecStart=/usr/bin/xterm', content)
 
+    def test_service_file_content(self):
+        """Test that service file has correct content and permissions"""
+        service_path = '/etc/systemd/system/radiomonitor.service'
+        expected_content = """[Unit]
+Description=Internet Radio System Monitor
+After=internetradio.service
+Wants=internetradio.service
+
+[Service]
+Type=simple
+User=radio
+Group=radio
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/radio/.Xauthority
+WorkingDirectory=/home/radio/internetRadio
+ExecStart=/usr/bin/xterm -T "System Monitor" -geometry 80x24+0+0 -e /usr/bin/python3 -c "from src.utils.system_monitor import SystemMonitor; SystemMonitor().run()"
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target"""
+        
+        # Check if file exists
+        self.assertTrue(os.path.exists(service_path))
+        
+        # Check file content
+        with open(service_path, 'r') as f:
+            content = f.read().strip()
+            self.assertEqual(content.strip(), expected_content.strip())
+        
+        # Check file permissions
+        stat = os.stat(service_path)
+        self.assertEqual(stat.st_mode & 0o777, 0o644)  # Should be -rw-r--r--
+
     def test_run_method(self):
         """Test the run method execution"""
         with patch.object(self.monitor, 'display_metrics') as mock_display:
@@ -86,19 +122,22 @@ class TestSystemMonitor(unittest.TestCase):
 
     def test_network_metrics(self):
         """Test network metrics collection"""
-        with patch('subprocess.check_output') as mock_cmd:
-            with patch('socket.socket') as mock_socket:
-                # Mock WiFi SSID
-                mock_cmd.return_value = b'SSID: MyNetwork\n'
-                # Mock internet connection
-                mock_socket.return_value.connect.return_value = None
-                
-                metrics = self.monitor.collect_network_metrics()
-                
-                self.assertIn('wifi_ssid', metrics)
-                self.assertIn('internet_connected', metrics)
-                self.assertEqual(metrics['wifi_ssid'], 'MyNetwork')
-                self.assertTrue(metrics['internet_connected'])
+        # Create a mock WiFiManager
+        mock_wifi = MagicMock()
+        mock_wifi.is_client_mode.return_value = True
+        mock_wifi.is_ap_mode.return_value = False
+        mock_wifi.get_current_network.return_value = "MyNetwork"
+        mock_wifi.check_internet_connection.return_value = True
+        
+        # Inject the mock into SystemMonitor
+        self.monitor.wifi_manager = mock_wifi
+        
+        metrics = self.monitor.collect_network_metrics()
+        
+        self.assertIn('wifi_ssid', metrics)
+        self.assertIn('internet_connected', metrics)
+        self.assertEqual(metrics['wifi_ssid'], 'MyNetwork')
+        self.assertTrue(metrics['internet_connected'])
 
     def test_radio_status(self):
         """Test radio service status check"""
@@ -136,3 +175,63 @@ class TestSystemMonitor(unittest.TestCase):
             events = self.monitor.get_system_events()
             self.assertIsInstance(events, list)
             self.assertLessEqual(len(events), 5)  # Last 5 events
+
+    def test_enhanced_network_metrics(self):
+        """Test enhanced network metrics collection using WiFiManager"""
+        # Create a mock WiFiManager
+        mock_wifi = MagicMock()
+        mock_wifi.is_client_mode.return_value = True
+        mock_wifi.is_ap_mode.return_value = False
+        mock_wifi.get_current_network.return_value = "TestNetwork"
+        mock_wifi.check_internet_connection.return_value = True
+        
+        # Inject the mock into SystemMonitor
+        self.monitor.wifi_manager = mock_wifi
+        
+        # Test the metrics collection
+        metrics = self.monitor.collect_network_metrics()
+        
+        # Verify results
+        self.assertEqual(metrics['wifi_ssid'], 'TestNetwork')
+        self.assertTrue(metrics['internet_connected'])
+        self.assertTrue(metrics['is_client_mode'])
+        self.assertFalse(metrics['is_ap_mode'])
+
+    def test_mode_display(self):
+        """Test WiFi mode display formatting"""
+        # Create a mock WiFiManager
+        mock_wifi = MagicMock()
+        
+        # Test Client Mode
+        mock_wifi.is_client_mode.return_value = True
+        mock_wifi.is_ap_mode.return_value = False
+        self.monitor.wifi_manager = mock_wifi
+        metrics = self.monitor.collect_network_metrics()
+        self.assertEqual(metrics['mode'], 'Client')
+        
+        # Test AP Mode
+        mock_wifi.is_client_mode.return_value = False
+        mock_wifi.is_ap_mode.return_value = True
+        metrics = self.monitor.collect_network_metrics()
+        self.assertEqual(metrics['mode'], 'AP')
+        
+        # Test Unknown Mode
+        mock_wifi.is_client_mode.return_value = False
+        mock_wifi.is_ap_mode.return_value = False
+        metrics = self.monitor.collect_network_metrics()
+        self.assertEqual(metrics['mode'], 'Unknown')
+
+    def test_display_service(self):
+        """Test display service configuration"""
+        with patch('subprocess.run') as mock_run:
+            # Test xterm availability
+            mock_run.return_value = MagicMock(returncode=0)
+            self.assertTrue(os.path.exists('/usr/bin/xterm'))
+            
+            # Test font availability
+            mock_run.return_value = MagicMock(
+                returncode=0,
+                stdout="fixed"
+            )
+            result = subprocess.run(['xlsfonts'], capture_output=True, text=True)
+            self.assertIn('fixed', result.stdout)

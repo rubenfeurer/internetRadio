@@ -301,6 +301,50 @@ eth0    ethernet  unmanaged   --"""
             self.wifi_manager.enable_ap_mode()
             self.assertTrue(self.wifi_manager.is_ap_mode())
             self.assertFalse(self.wifi_manager.is_client_mode())
+    
+    def test_mode_detection(self):
+        """Test WiFi mode detection"""
+        with patch('subprocess.run') as mock_run:
+            # Mock client mode
+            mock_run.return_value = MagicMock(
+                returncode=0,
+                stdout="""DEVICE  TYPE      STATE      CONNECTION
+wlan0   wifi      managed   MyNetwork
+eth0    ethernet  unmanaged --"""
+            )
+            self.assertTrue(self.wifi_manager.is_client_mode())
+            self.assertFalse(self.wifi_manager.is_ap_mode())
+            
+            # Mock AP mode
+            mock_run.return_value = MagicMock(
+                returncode=0,
+                stdout="""DEVICE  TYPE      STATE      CONNECTION
+wlan0   wifi      unmanaged --
+eth0    ethernet  unmanaged --"""
+            )
+            mock_run.side_effect = [
+                MagicMock(returncode=0),  # hostapd active
+                MagicMock(stdout="active")
+            ]
+            self.assertFalse(self.wifi_manager.is_client_mode())
+            self.assertTrue(self.wifi_manager.is_ap_mode())
+    
+    def test_network_config(self):
+        """Test NetworkManager configuration file"""
+        config_path = "src/utils/network_configs/networkmanager.conf"
+        
+        # Test if config file exists
+        self.assertTrue(os.path.exists(config_path))
+        
+        # Test config content
+        with open(config_path, 'r') as f:
+            content = f.read()
+            self.assertIn('[main]', content)
+            self.assertIn('managed=true', content)
+            self.assertIn('wifi.scan-rand-mac-address=no', content)
+        
+        # Test config generation (not application)
+        self.assertTrue(self.wifi_manager.generate_network_config())
 
 if __name__ == '__main__':
     unittest.main() 

@@ -4,6 +4,7 @@ import time
 import subprocess
 import socket
 from src.utils.logger import Logger
+from src.network.wifi_manager import WiFiManager
 
 class SystemMonitor:
     _instance = None
@@ -20,6 +21,7 @@ class SystemMonitor:
             
         self._initialized = True
         self.logger = Logger.get_logger(__name__)
+        self.wifi_manager = WiFiManager()
         
     def collect_metrics(self) -> dict:
         """Collect basic system metrics"""
@@ -38,24 +40,49 @@ class SystemMonitor:
             }
         
     def collect_network_metrics(self) -> dict:
-        """Collect network-related metrics"""
+        """Collect enhanced network-related metrics"""
         try:
-            # Get WiFi SSID - need to strip 'SSID: ' from output
-            ssid_output = subprocess.check_output(['iwgetid', '-r']).decode().strip()
-            ssid = ssid_output.replace('SSID: ', '')  # Remove the prefix if present
+            self.logger.debug("Checking WiFi modes...")
+            is_client = self.wifi_manager.is_client_mode()
+            self.logger.debug(f"Client mode: {is_client}")
+            is_ap = self.wifi_manager.is_ap_mode()
+            self.logger.debug(f"AP mode: {is_ap}")
             
-            # Check internet connection
-            socket.create_connection(("8.8.8.8", 53), timeout=3)
-            internet_connected = True
+            # Determine mode with logging
+            if is_client:
+                mode = 'Client'
+                ssid = self.wifi_manager.get_current_network()
+                self.logger.debug(f"Client mode detected, SSID: {ssid}")
+            elif is_ap:
+                mode = 'AP'
+                ssid = "AP Mode"
+                self.logger.debug("AP mode detected")
+            else:
+                mode = 'Unknown'
+                ssid = "Not connected"
+                self.logger.debug("No mode detected, setting to Unknown")
+                
+            internet = self.wifi_manager.check_internet_connection()
+            self.logger.debug(f"Internet connected: {internet}")
+            
+            metrics = {
+                'wifi_ssid': ssid or "Not connected",
+                'internet_connected': internet,
+                'is_client_mode': is_client,
+                'is_ap_mode': is_ap,
+                'mode': mode
+            }
+            self.logger.debug(f"Network metrics: {metrics}")
+            return metrics
         except Exception as e:
             self.logger.error(f"Network metrics error: {e}")
-            ssid = "Not connected"
-            internet_connected = False
-            
-        return {
-            'wifi_ssid': ssid,
-            'internet_connected': internet_connected
-        }
+            return {
+                'wifi_ssid': "Error",
+                'internet_connected': False,
+                'is_client_mode': False,
+                'is_ap_mode': False,
+                'mode': 'Error'
+            }
 
     def check_radio_service(self) -> dict:
         """Check radio service status"""
@@ -126,6 +153,7 @@ class SystemMonitor:
         print(f"Temperature: {temp}°C")
         print("\n=== Network Status ===")
         print(f"WiFi Network: {network['wifi_ssid']}")
+        print(f"Mode: {'Client' if network['is_client_mode'] else 'AP' if network['is_ap_mode'] else 'Unknown'}")
         print(f"Internet Connected: {'Yes' if network['internet_connected'] else 'No'}")
         print("\n=== Radio Status ===")
         print(f"Service Running: {'Yes' if radio['is_running'] else 'No'}")

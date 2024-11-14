@@ -5,6 +5,7 @@ from typing import List, Dict, Optional, Any
 import os
 from src.utils.config_manager import ConfigManager
 import socket
+import shutil
 
 class WiFiManager:
     def __init__(self):
@@ -446,31 +447,150 @@ class WiFiManager:
         """Check if WiFi is in client mode"""
         try:
             cmd = ["nmcli", "device", "status"]
-            result = subprocess.run(cmd, capture_output=True, text=True)
+            result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+            self.logger.debug(f"Client mode check output: {result.stdout}")
             
-            if result.returncode != 0:
-                self.logger.error("Failed to check client mode status")
-                return False
-                
-            # Check if wlan0 is present AND in managed state AND not unmanaged
+            # Check if wlan0 is present AND in managed state AND connected
             lines = result.stdout.split('\n')
             for line in lines:
                 if 'wlan0' in line:
-                    return 'managed' in line.lower() and 'unmanaged' not in line.lower()
+                    is_managed = 'managed' in line.lower()
+                    is_connected = not line.endswith('--')
+                    self.logger.debug(f"wlan0 found, managed: {is_managed}, connected: {is_connected}")
+                    return is_managed and is_connected
             return False
             
         except Exception as e:
             self.logger.error(f"Error checking client mode: {str(e)}")
             return False
-            
+
     def is_ap_mode(self) -> bool:
         """Check if WiFi is in AP mode"""
         try:
-            # Check if hostapd is running
-            cmd = ["systemctl", "is-active", "hostapd"]
-            result = subprocess.run(cmd, capture_output=True, text=True)
-            return result.returncode == 0
+            # Check if hostapd is running AND wlan0 is unmanaged
+            hostapd_cmd = ["systemctl", "is-active", "hostapd"]
+            hostapd_result = subprocess.run(hostapd_cmd, capture_output=True, text=True)
+            
+            nmcli_cmd = ["nmcli", "device", "status"]
+            nmcli_result = subprocess.run(nmcli_cmd, capture_output=True, text=True)
+            
+            is_hostapd_active = hostapd_result.returncode == 0
+            is_unmanaged = any('wlan0' in line and 'unmanaged' in line.lower() 
+                              for line in nmcli_result.stdout.split('\n'))
+            
+            self.logger.debug(f"AP mode check - hostapd: {is_hostapd_active}, unmanaged: {is_unmanaged}")
+            return is_hostapd_active and is_unmanaged
             
         except Exception as e:
             self.logger.error(f"Error checking AP mode: {str(e)}")
+            return False
+
+    def apply_network_config(self) -> bool:
+        """Apply NetworkManager configuration"""
+        try:
+            # Paths
+            config_path = "src/utils/network_configs/networkmanager.conf"
+            system_path = "/etc/NetworkManager/NetworkManager.conf"
+            backup_path = "/etc/NetworkManager/NetworkManager.conf.backup"
+            
+            # Check if config exists
+            if not os.path.exists(config_path):
+                self.logger.error(f"Config file not found: {config_path}")
+                return False
+            
+            # Create backup
+            if os.path.exists(system_path):
+                shutil.copy2(system_path, backup_path)
+                self.logger.info(f"Backup created: {backup_path}")
+            
+            # Copy new config
+            shutil.copy2(config_path, system_path)
+            os.chmod(system_path, 0o644)
+            self.logger.info("Network config updated")
+            
+            # Restart NetworkManager
+            subprocess.run(["sudo", "systemctl", "restart", "NetworkManager"], check=True)
+            self.logger.info("NetworkManager restarted")
+            
+            # Enable WiFi
+            subprocess.run(["sudo", "nmcli", "radio", "wifi", "on"], check=True)
+            subprocess.run(["sudo", "rfkill", "unblock", "wifi"], check=True)
+            self.logger.info("WiFi enabled")
+            
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Error applying network config: {e}")
+            return False
+
+    def generate_network_config(self) -> bool:
+        """Generate NetworkManager configuration file"""
+        try:
+            config_content = """[main]
+plugins=ifupdown,keyfile
+
+[ifupdown]
+managed=true
+
+[device]
+wifi.scan-rand-mac-address=no"""
+
+            config_path = "networkmanager.conf"
+            with open(config_path, 'w') as f:
+                f.write(config_content)
+            self.logger.info(f"Network config generated: {config_path}")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Error generating network config: {e}")
+            return False
+
+    def connect_wifi(self, ssid: str, password: str) -> bool:
+        """Connect to WiFi with proper service management"""
+        try:
+            # Stop services that might interfere
+            subprocess.run(['sudo', 'systemctl', 'stop', 'internetradio'], check=True)
+            subprocess.run(['sudo', 'systemctl', 'stop', 'radiomonitor'], check=True)
+            subprocess.run(['sudo', 'systemctl', 'stop', 'hostapd'], check=True)
+            
+            # Clean restart NetworkManager
+            subprocess.run(['sudo', 'systemctl', 'restart', 'NetworkManager'], check=True)
+            time.sleep(5)  # Wait for NetworkManager to be ready
+            
+            # Remove existing connection if any
+            subprocess.run(['sudo', 'nmcli', 'connection', 'delete', ssid], check=False)
+            
+            # Add connection with specific parameters
+            cmd = [
+                'sudo', 'nmcli', 'connection', 'add',
+                'type', 'wifi',
+                'con-name', ssid,
+                'ifname', 'wlan0',
+                'ssid', ssid,
+                'wifi-sec.key-mgmt', 'wpa-psk',
+                'wifi-sec.psk', password,
+                '802-11-wireless.band', 'a',
+                'ipv4.method', 'auto',
+                'connection.autoconnect', 'yes'
+            ]
+            subprocess.run(cmd, check=True)
+            
+            # Connect
+            subprocess.run(['sudo', 'nmcli', 'connection', 'up', ssid], check=True)
+            
+            # Verify connection
+            time.sleep(5)
+            result = subprocess.run(['nmcli', 'device', 'status'], 
+                                  capture_output=True, text=True)
+            
+            if 'wifi      connected' in result.stdout:
+                # Restart services
+                subprocess.run(['sudo', 'systemctl', 'start', 'internetradio'], check=True)
+                subprocess.run(['sudo', 'systemctl', 'start', 'radiomonitor'], check=True)
+                return True
+                
+            return False
+            
+        except Exception as e:
+            self.logger.error(f"Error connecting to WiFi: {e}")
             return False
