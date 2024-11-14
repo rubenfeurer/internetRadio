@@ -376,3 +376,101 @@ class WiFiManager:
                 
         except Exception as e:
             self.logger.error(f"Error maintaining networks: {str(e)}")
+
+    def check_internet_connection(self) -> bool:
+        """Check internet connectivity with multiple fallback hosts"""
+        test_hosts = [
+            ("8.8.8.8", 53),    # Google DNS
+            ("1.1.1.1", 53),    # Cloudflare DNS
+            ("208.67.222.222", 53)  # OpenDNS
+        ]
+        
+        for host, port in test_hosts:
+            try:
+                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                sock.settimeout(2)
+                result = sock.connect_ex((host, port))
+                sock.close()
+                
+                if result == 0:
+                    self.logger.info(f"Internet connection verified via {host}")
+                    return True
+                    
+            except Exception as e:
+                self.logger.error(f"Error checking connection to {host}: {e}")
+                continue
+                
+        self.logger.error("Failed to connect to any test hosts")
+        return False
+
+    def enable_client_mode(self) -> bool:
+        """Enable client mode and disable AP mode"""
+        try:
+            # First, stop AP mode if it's running
+            subprocess.run(["sudo", "systemctl", "stop", "hostapd"], check=False)
+            subprocess.run(["sudo", "systemctl", "stop", "dnsmasq"], check=False)
+            
+            # Enable NetworkManager control
+            subprocess.run(["sudo", "nmcli", "radio", "wifi", "on"], check=True)
+            subprocess.run(["sudo", "rfkill", "unblock", "wifi"], check=False)
+            
+            self.logger.info("Client mode enabled")
+            return True
+            
+        except subprocess.CalledProcessError as e:
+            self.logger.error(f"Failed to enable client mode: {str(e)}")
+            return False
+            
+    def enable_ap_mode(self) -> bool:
+        """Enable AP mode and disable client mode"""
+        try:
+            # First, disconnect from any networks
+            self.disconnect()
+            
+            # Stop NetworkManager control of wlan0 and disable WiFi
+            subprocess.run(["sudo", "nmcli", "radio", "wifi", "off"], check=True)
+            subprocess.run(["sudo", "nmcli", "device", "set", "wlan0", "managed", "no"], check=True)
+            
+            # Start AP services
+            subprocess.run(["sudo", "systemctl", "start", "hostapd"], check=True)
+            subprocess.run(["sudo", "systemctl", "start", "dnsmasq"], check=True)
+            
+            self.logger.info("AP mode enabled")
+            return True
+            
+        except subprocess.CalledProcessError as e:
+            self.logger.error(f"Failed to enable AP mode: {str(e)}")
+            return False
+
+    def is_client_mode(self) -> bool:
+        """Check if WiFi is in client mode"""
+        try:
+            cmd = ["nmcli", "device", "status"]
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            
+            if result.returncode != 0:
+                self.logger.error("Failed to check client mode status")
+                return False
+                
+            # Check if wlan0 is present AND in managed state AND not unmanaged
+            lines = result.stdout.split('\n')
+            for line in lines:
+                if 'wlan0' in line:
+                    return 'managed' in line.lower() and 'unmanaged' not in line.lower()
+            return False
+            
+        except Exception as e:
+            self.logger.error(f"Error checking client mode: {str(e)}")
+            return False
+            
+    def is_ap_mode(self) -> bool:
+        """Check if WiFi is in AP mode"""
+        try:
+            # Check if hostapd is running
+            cmd = ["systemctl", "is-active", "hostapd"]
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            return result.returncode == 0
+            
+        except Exception as e:
+            self.logger.error(f"Error checking AP mode: {str(e)}")
+            return False

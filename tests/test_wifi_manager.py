@@ -4,6 +4,7 @@ from src.network.wifi_manager import WiFiManager
 import socket
 import os
 from src.utils.config_manager import ConfigManager
+import subprocess
 
 class TestWiFiManager(unittest.TestCase):
     def setUp(self):
@@ -231,6 +232,75 @@ Wired connection 1   d5ce7973-f25b-33c5-bc00-50dc57c4800d  ethernet  --     """
             self.assertEqual(wifi_manager.ap_ssid, 'radiopi')
             self.assertEqual(wifi_manager.ap_password, 'Radio@1234')
             self.assertEqual(wifi_manager.ap_channel, 6)
+    
+    @patch('socket.socket')
+    def test_check_internet_connection(self, mock_socket):
+        """Test internet connectivity check with multiple hosts"""
+        # Setup mock socket
+        mock_sock = MagicMock()
+        mock_socket.return_value = mock_sock
+        
+        # Test successful connection
+        mock_sock.connect_ex.return_value = 0  # 0 means success
+        self.assertTrue(self.wifi_manager.check_internet_connection())
+        
+        # Verify socket was called with correct parameters
+        mock_sock.connect_ex.assert_called_with(("8.8.8.8", 53))
+        mock_sock.settimeout.assert_called_with(2)
+        
+        # Test failed connection
+        mock_sock.reset_mock()
+        mock_sock.connect_ex.return_value = 1  # Non-zero means failure
+        self.assertFalse(self.wifi_manager.check_internet_connection())
+        
+        # Test exception handling
+        mock_sock.reset_mock()
+        mock_sock.connect_ex.side_effect = Exception("Connection error")
+        self.assertFalse(self.wifi_manager.check_internet_connection())
+    
+    def test_exclusive_mode_operation(self):
+        """Test that WiFi can't be in both AP and Client mode simultaneously"""
+        with patch('subprocess.run') as mock_run:
+            def mock_command(cmd, *args, **kwargs):
+                # Mock nmcli device status for client mode check
+                if cmd[0] == "nmcli":
+                    return MagicMock(
+                        returncode=0,
+                        stdout="""DEVICE  TYPE      STATE        CONNECTION
+wlan0   wifi      managed     Salt_5GHz_D8261F
+eth0    ethernet  unmanaged   --"""
+                    )
+                # Mock systemctl for AP mode check
+                elif cmd[0] == "systemctl":
+                    return MagicMock(returncode=1)  # 1 means hostapd is not active
+                return MagicMock(returncode=0)
+                
+            mock_run.side_effect = mock_command
+            
+            # Test client mode
+            self.wifi_manager.enable_client_mode()
+            self.assertTrue(self.wifi_manager.is_client_mode())
+            self.assertFalse(self.wifi_manager.is_ap_mode())
+            
+            # Now mock AP mode
+            def mock_ap_command(cmd, *args, **kwargs):
+                if cmd[0] == "nmcli":
+                    return MagicMock(
+                        returncode=0,
+                        stdout="""DEVICE  TYPE      STATE        CONNECTION
+wlan0   wifi      unmanaged   --
+eth0    ethernet  unmanaged   --"""
+                    )
+                elif cmd[0] == "systemctl":
+                    return MagicMock(returncode=0)  # 0 means hostapd is active
+                return MagicMock(returncode=0)
+                
+            mock_run.side_effect = mock_ap_command
+            
+            # Test AP mode
+            self.wifi_manager.enable_ap_mode()
+            self.assertTrue(self.wifi_manager.is_ap_mode())
+            self.assertFalse(self.wifi_manager.is_client_mode())
 
 if __name__ == '__main__':
     unittest.main() 

@@ -340,6 +340,30 @@ If DNS resolution stops working:
 - `src/network/wifi_manager.py` - Manages WiFi connections
 - `src/network/ap_manager.py` - Handles Access Point mode operations
 
+### Network Connection Strategy
+The system uses a robust retry mechanism for network connections:
+- Maximum 10 retry attempts
+- 5-second delay for first 5 attempts
+- 60-second delay for subsequent attempts
+- Automatic fallback to AP mode if no networks available
+- DNS configuration verification
+- Internet connectivity check using multiple test hosts
+
+### Network Retry Logic
+```python
+# Example retry pattern
+retry_count = 0
+max_retries = 10
+delay = 5  # Initial delay in seconds
+
+while retry_count < max_retries:
+    if connection_successful:
+        break
+    delay = 60 if retry_count >= 5 else 5
+    time.sleep(delay)
+    retry_count += 1
+```
+
 ### Hardware Interface
 - `src/hardware/gpio_manager.py` - Manages GPIO pins and hardware interactions
 - `src/hardware/button_controller.py` - Handles button input

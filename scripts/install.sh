@@ -69,8 +69,17 @@ echo_step "Configuring DNS settings..."
 rm -f /etc/resolv.conf
 echo "nameserver 8.8.8.8" | tee /etc/resolv.conf
 echo "nameserver 8.8.4.4" | tee -a /etc/resolv.conf
+echo "nameserver 1.1.1.1" | tee -a /etc/resolv.conf
 chmod 644 /etc/resolv.conf
 chattr +i /etc/resolv.conf
+
+# Add DNS test after configuration
+echo_step "Testing DNS configuration..."
+if ping -c 1 -W 2 8.8.8.8 >/dev/null 2>&1; then
+    echo -e "${GREEN}DNS configuration successful${NC}"
+else
+    echo_warning "DNS configuration might have issues. Check network connectivity."
+fi
 
 # Configure systemd-networkd to not override DNS
 mkdir -p /etc/systemd/network/
