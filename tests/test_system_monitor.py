@@ -53,7 +53,7 @@ class TestSystemMonitor(unittest.TestCase):
 
     def test_service_file_exists(self):
         """Test that service file exists and has correct content"""
-        service_path = 'scripts/system_monitor.service'
+        service_path = 'services/radiomonitor.service'
         self.assertTrue(os.path.exists(service_path))
         
         with open(service_path, 'r') as f:
