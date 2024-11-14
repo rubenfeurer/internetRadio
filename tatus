@@ -1,19 +1,25 @@
-○ NetworkManager.service - Network Manager
-     Loaded: loaded (]8;;file://radiod/lib/systemd/system/NetworkManager.service/lib/systemd/system/NetworkManager.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
-     Active: inactive (dead) since Thu 2024-11-14 16:56:53 CET; 2min 36s ago
-   Duration: 31.908s
-       Docs: ]8;;man:NetworkManager(8)man:NetworkManager(8)]8;;
-    Process: 626 ExecStart=/usr/sbin/NetworkManager --no-daemon (code=exited, status=0/SUCCESS)
-   Main PID: 626 (code=exited, status=0/SUCCESS)
-        CPU: 285ms
+[0;1;32m●[0m internetradio.service - Internet Radio Service
+     Loaded: loaded (]8;;file://radiod/etc/systemd/system/internetradio.service/etc/systemd/system/internetradio.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Thu 2024-11-14 17:49:53 CET; 30s ago
+    Process: 22217 ExecStartPre=/bin/mkdir -p /run/user/1000 (code=exited, status=0/SUCCESS)
+    Process: 22218 ExecStartPre=/bin/chown radio:radio /run/user/1000 (code=exited, status=0/SUCCESS)
+    Process: 22219 ExecStartPre=/bin/chmod 700 /run/user/1000 (code=exited, status=0/SUCCESS)
+   Main PID: 22221 (runApp.sh)
+      Tasks: 10 (limit: 3909)
+        CPU: 21.546s
+     CGroup: /system.slice/internetradio.service
+             ├─[0;38;5;245m22221 /bin/bash /home/radio/internetRadio/runApp.sh[0m
+             ├─[0;38;5;245m22270 python3 main.py[0m
+             ├─[0;38;5;245m22271 grep -v -e snd_use_case_mgr_open -e "Could not unmute Master" -e "Unable to find simple control" -e "Could not set Master volume" -e "Warning: Could not" -e "amixer: Unable to find" -e "failed to import hw:" -e alsa-lib[0m
+             └─[0;38;5;245m22325 tail -f /home/radio/internetRadio/logs/app.log[0m
 
-Nov 14 16:56:25 radiod NetworkManager[626]: <info>  [1731599785.9532] dhcp4 (eth0): activation: beginning transaction (timeout in 45 seconds)
-Nov 14 16:56:53 radiod NetworkManager[626]: <info>  [1731599813.3236] caught SIGTERM, shutting down normally.
-Nov 14 16:56:53 radiod systemd[1]: Stopping NetworkManager.service - Network Manager...
-Nov 14 16:56:53 radiod NetworkManager[626]: <info>  [1731599813.3481] dhcp4 (eth0): canceled DHCP transaction
-Nov 14 16:56:53 radiod NetworkManager[626]: <info>  [1731599813.3482] dhcp4 (eth0): state changed no lease
-Nov 14 16:56:53 radiod NetworkManager[626]: <info>  [1731599813.3489] manager: startup complete
-Nov 14 16:56:53 radiod NetworkManager[626]: <info>  [1731599813.3492] device (wlan0): state change: unavailable -> unmanaged (reason 'unmanaged', sys-iface-state: 'managed')
-Nov 14 16:56:53 radiod NetworkManager[626]: <info>  [1731599813.9244] exiting (success)
-Nov 14 16:56:53 radiod systemd[1]: NetworkManager.service: Deactivated successfully.
-Nov 14 16:56:53 radiod systemd[1]: Stopped NetworkManager.service - Network Manager.
+Nov 14 17:50:01 radiod sudo[22355]: pam_unix(sudo:session): session closed for user root
+Nov 14 17:50:03 radiod sudo[22367]: [0;1;39m[0;1;31m[0;1;39m   radio : PWD=/home/radio/internetRadio ; USER=root ; COMMAND=/usr/bin/systemctl start hostapd[0m
+Nov 14 17:50:03 radiod sudo[22367]: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1000)
+Nov 14 17:50:03 radiod sudo[22367]: pam_unix(sudo:session): session closed for user root
+Nov 14 17:50:06 radiod sudo[22379]: [0;1;39m[0;1;31m[0;1;39m   radio : PWD=/home/radio/internetRadio ; USER=root ; COMMAND=/usr/bin/systemctl is-active hostapd[0m
+Nov 14 17:50:06 radiod sudo[22379]: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1000)
+Nov 14 17:50:06 radiod sudo[22379]: pam_unix(sudo:session): session closed for user root
+Nov 14 17:50:06 radiod sudo[22386]: [0;1;39m[0;1;31m[0;1;39m   radio : PWD=/home/radio/internetRadio ; USER=root ; COMMAND=/usr/bin/systemctl is-active dnsmasq[0m
+Nov 14 17:50:06 radiod sudo[22386]: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1000)
+Nov 14 17:50:06 radiod sudo[22386]: pam_unix(sudo:session): session closed for user root

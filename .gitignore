@@ -26,6 +26,12 @@ logs/
 *.log
 wifi.log
 *@*.log
+NetworkManager.log
+
+# Network configs
+NetworkManager/
+network-scripts/
+*.nmconnection
 
 # Unit test / coverage reports
 htmlcov/
@@ -56,3 +62,4 @@ config/*.toml
 !config/default.toml
 streams/*.toml
 !streams/default.toml
+NetworkManager.state

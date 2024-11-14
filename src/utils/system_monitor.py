@@ -41,26 +41,35 @@ class SystemMonitor:
             }
         
     def collect_network_metrics(self) -> dict:
-        """Collect network metrics"""
+        """Alias for collect_network_info for backward compatibility"""
+        return self.collect_network_info()
+        
+    def collect_network_info(self) -> dict:
+        """Collect network information with proper mode detection"""
         try:
-            # Get current network status
-            wifi_ssid = self.wifi_manager.get_current_network() or "Not connected"
-            is_client_mode = self.wifi_manager.is_client_mode()
-            is_ap_mode = self.wifi_manager.is_ap_mode()
-            internet_connected = self.wifi_manager.check_internet_connection()
+            wifi_info = self.wifi_manager.get_connection_info()
+            
+            # Determine mode based on NetworkManager status
+            mode = "unknown"
+            if wifi_info.get('ssid'):
+                mode = "client"
+            elif self.wifi_manager.is_ap_mode():
+                mode = "ap"
             
             return {
-                'wifi_ssid': wifi_ssid,
-                'is_client_mode': is_client_mode,
-                'is_ap_mode': is_ap_mode,
-                'internet_connected': internet_connected
+                'mode': mode,
+                'wifi_ssid': wifi_info.get('ssid', ''),
+                'ip': wifi_info.get('ip', ''),
+                'signal': wifi_info.get('signal', 0),
+                'internet_connected': self.wifi_manager.check_internet_connection()
             }
         except Exception as e:
-            self.logger.error(f"Network metrics collection error: {e}")
+            self.logger.error(f"Network info collection error: {e}")
             return {
-                'wifi_ssid': "Not connected",
-                'is_client_mode': False,
-                'is_ap_mode': False,
+                'mode': 'unknown',
+                'wifi_ssid': '',
+                'ip': '',
+                'signal': 0,
                 'internet_connected': False
             }
 
@@ -117,36 +126,75 @@ class SystemMonitor:
             return []
 
     def display_metrics(self):
-        """Display metrics in console"""
+        """Display metrics in console with color indicators"""
         try:
             metrics = self.collect_metrics()
-            network = self.collect_network_metrics()
+            network = self.collect_network_info()
             radio = self.check_radio_service()
             temp = self.get_system_temperature()
             volume = self.get_volume_level()
             events = self.get_system_events()
 
+            # ANSI color codes
+            RED = '\033[91m'
+            GREEN = '\033[92m'
+            YELLOW = '\033[93m'
+            NC = '\033[0m'  # No Color
+
             print("\033[2J\033[H")  # Clear screen
             print("=== System Monitor ===")
-            print(f"CPU Usage: {metrics['cpu_usage']}%")
-            print(f"Memory Usage: {metrics['memory_usage']}%")
-            print(f"Disk Usage: {metrics['disk_usage']}%")
-            print(f"Temperature: {temp}°C")
+            
+            # CPU with color based on usage
+            cpu_color = GREEN if metrics['cpu_usage'] < 70 else YELLOW if metrics['cpu_usage'] < 90 else RED
+            print(f"CPU Usage: {cpu_color}{metrics['cpu_usage']}%{NC}")
+            
+            # Memory with color
+            mem_color = GREEN if metrics['memory_usage'] < 70 else YELLOW if metrics['memory_usage'] < 90 else RED
+            print(f"Memory Usage: {mem_color}{metrics['memory_usage']}%{NC}")
+            
+            # Temperature with color
+            temp_color = GREEN if temp < 60 else YELLOW if temp < 70 else RED
+            print(f"Temperature: {temp_color}{temp}°C{NC}")
+            
             print("\n=== Network Status ===")
-            print(f"WiFi Network: {network['wifi_ssid']}")
-            print(f"Mode: {'Client' if network['is_client_mode'] else 'AP' if network['is_ap_mode'] else 'Unknown'}")
-            print(f"Internet Connected: {'Yes' if network['internet_connected'] else 'No'}")
+            # Network mode and status
+            mode_str = network['mode'] if network['mode'] != 'unknown' else f"{RED}unknown{NC}"
+            print(f"Mode: {mode_str}")
+            
+            # WiFi connection
+            wifi_color = GREEN if network['wifi_ssid'] else RED
+            print(f"WiFi Network: {wifi_color}{network['wifi_ssid'] or 'Not Connected'}{NC}")
+            
+            # Internet connection
+            internet_color = GREEN if network['internet_connected'] else RED
+            print(f"Internet Connected: {internet_color}{'Yes' if network['internet_connected'] else 'No'}{NC}")
+            
             print("\n=== Radio Status ===")
-            print(f"Service Running: {'Yes' if radio['is_running'] else 'No'}")
-            print(f"Current Station: {radio['current_station']}")
-            print(f"Volume Level: {volume}%")
+            # Service status
+            service_color = GREEN if radio['is_running'] else RED
+            print(f"Service Running: {service_color}{'Yes' if radio['is_running'] else 'No'}{NC}")
+            
+            # Current station
+            station_color = GREEN if radio['current_station'] else YELLOW
+            print(f"Current Station: {station_color}{radio['current_station'] or 'Unknown'}{NC}")
+            
+            # Volume level
+            volume_color = GREEN if volume > 0 else YELLOW
+            print(f"Volume Level: {volume_color}{volume}%{NC}")
+            
             print("\n=== Last Events ===")
             for event in events:
-                print(event)
+                if "error" in event.lower() or "fail" in event.lower():
+                    print(f"{RED}{event}{NC}")
+                elif "warning" in event.lower():
+                    print(f"{YELLOW}{event}{NC}")
+                else:
+                    print(event)
+            
             print("===================")
         except Exception as e:
             self.logger.error(f"Error displaying metrics: {e}")
-            print(f"Error displaying metrics: {e}")
+            print(f"{RED}Error displaying metrics: {e}{NC}")
 
     def run(self):
         """Main monitoring loop"""

@@ -1,0 +1,11 @@
+[0;1;32m●[0m radiomonitor.service - Internet Radio System Monitor
+     Loaded: loaded (]8;;file://radiod/etc/systemd/system/radiomonitor.service/etc/systemd/system/radiomonitor.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: [0;1;32mactive (running)[0m since Thu 2024-11-14 17:49:53 CET; 38s ago
+   Main PID: 22227 (xterm)
+      Tasks: 2 (limit: 3909)
+        CPU: 2.069s
+     CGroup: /system.slice/radiomonitor.service
+             ├─[0;38;5;245m22227 /usr/bin/xterm -T "System Monitor" -geometry 80x24+0+0 -fn fixed -e /usr/bin/python3 -c "from src.utils.system_monitor import SystemMonitor; SystemMonitor().run()"[0m
+             └─[0;38;5;245m22245 /usr/bin/python3 -c "from src.utils.system_monitor import SystemMonitor; SystemMonitor().run()"[0m
+
+Nov 14 17:49:53 radiod systemd[1]: Started radiomonitor.service - Internet Radio System Monitor.

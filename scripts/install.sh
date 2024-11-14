@@ -192,3 +192,51 @@ if [ -f "$PROJECT_DIR/sounds/test.wav" ]; then
 else
     echo_warning "Test sound file not found. Skipping audio test."
 fi
+
+# Add after NetworkManager installation
+echo_step "Configuring NetworkManager..."
+cat > /etc/NetworkManager/NetworkManager.conf << EOL
+[main]
+plugins=ifupdown,keyfile
+dns=default
+rc-manager=resolvconf
+
+[ifupdown]
+managed=true
+
+[device]
+wifi.scan-rand-mac-address=no
+
+[connection]
+wifi.powersave=0
+EOL
+
+# Set proper permissions
+chmod 644 /etc/NetworkManager/NetworkManager.conf
+chown root:root /etc/NetworkManager/NetworkManager.conf
+
+# Ensure NetworkManager state directory exists with proper permissions
+mkdir -p /var/lib/NetworkManager
+chmod 755 /var/lib/NetworkManager
+chown root:root /var/lib/NetworkManager
+
+# Disable conflicting services
+systemctl stop wpa_supplicant
+systemctl disable wpa_supplicant
+systemctl mask wpa_supplicant
+
+# Enable and restart NetworkManager
+systemctl enable NetworkManager
+systemctl restart NetworkManager
+
+# Add radio user to required groups
+usermod -a -G netdev,network radio
+
+# Wait for NetworkManager to be fully started
+sleep 5
+
+# Test NetworkManager status
+if ! systemctl is-active --quiet NetworkManager; then
+    echo_error "NetworkManager failed to start"
+    exit 1
+fi
