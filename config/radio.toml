@@ -6,8 +6,6 @@ volume_step = 5
 sounds_enabled = true
 
 [network]
-ap_ssid = "InternetRadio"
-ap_password = "Radio123"
 ap_channel = 6
 connection_timeout = 30
 scan_interval = 300
