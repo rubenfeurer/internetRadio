@@ -308,6 +308,17 @@ class ConfigManager:
             self.logger.error(f"Error saving config: {str(e)}")
             return False
 
+    def get_ap_credentials(self) -> tuple[str, str]:
+        """Get AP mode credentials from config
+        
+        Returns:
+            tuple[str, str]: SSID and password for AP mode
+        """
+        return (
+            self.network.ap_ssid,
+            self.network.ap_password
+        )
+
 DEFAULT_CONFIG = {
     'network': {
         'ap_settings': {

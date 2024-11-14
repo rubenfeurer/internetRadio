@@ -9,42 +9,36 @@ import shutil
 
 class TestConfigManager(unittest.TestCase):
     def setUp(self):
-        self.temp_dir = tempfile.mkdtemp()
-        self.config_dir = Path(self.temp_dir)
-        self.log_dir = os.path.join(self.temp_dir, 'logs')
-        
-        # Set logger to test mode with DEBUG level
-        Logger.reset()
-        Logger.setup_logging(log_dir=self.log_dir, level="DEBUG")
-        
+        """Set up test fixtures"""
         # Create test config
         self.test_config = {
+            'network': {
+                'ap_ssid': 'TestRadio',
+                'ap_password': 'TestPass',
+                'saved_networks': []
+            },
             'audio': {
-                'default_volume': 60,
+                'default_volume': 50,
                 'volume_step': 5,
                 'sounds_enabled': True
-            },
-            'network': {
-                'saved_networks': [
-                    {'ssid': 'TestNetwork', 'password': 'test123'}
-                ],
-                'ap_ssid': 'TestRadio',
-                'ap_password': 'test456',
-                'connection_timeout': 45
             },
             'logging': {
                 'level': 'DEBUG'
             }
         }
         
+        # Create config directory
+        self.temp_dir = tempfile.mkdtemp()
+        self.config_dir = Path(self.temp_dir)
+        
         # Ensure config directory exists
         os.makedirs(self.config_dir, exist_ok=True)
         
-        # Write test config
+        # Write test config to radio.toml
         with open(self.config_dir / 'radio.toml', 'w') as f:
             toml.dump(self.test_config, f)
         
-        # Initialize config manager
+        # Initialize config manager with test directory
         self.config_manager = ConfigManager(config_dir=str(self.config_dir))
         
     def tearDown(self):
@@ -57,8 +51,14 @@ class TestConfigManager(unittest.TestCase):
         
     def test_load_config(self):
         """Test loading configuration from file"""
-        self.assertEqual(self.config_manager.audio.default_volume, 60)
+        # Verify audio config
+        self.assertEqual(self.config_manager.audio.default_volume, 50)
+        
+        # Verify network config
         self.assertEqual(self.config_manager.network.ap_ssid, 'TestRadio')
+        self.assertEqual(self.config_manager.network.ap_password, 'TestPass')
+        
+        # Verify logging config
         self.assertEqual(self.config_manager.logging.level, 'DEBUG')
         
     def test_update_audio_config(self):
@@ -282,6 +282,21 @@ class TestConfigManager(unittest.TestCase):
         self.assertEqual(config_manager.audio.default_volume, 60)
         self.assertEqual(config_manager.audio.volume_step, 5)
         self.assertTrue(config_manager.audio.sounds_enabled)
+
+    def test_get_ap_credentials(self):
+        """Test getting AP credentials from config"""
+        # Setup - use update_network_config instead of direct assignment
+        self.config_manager.update_network_config(
+            ap_ssid='TestAP',
+            ap_password='TestPass'
+        )
+        
+        # Test
+        ssid, password = self.config_manager.get_ap_credentials()
+        
+        # Verify
+        self.assertEqual(ssid, 'TestAP')
+        self.assertEqual(password, 'TestPass')
 
 if __name__ == '__main__':
     unittest.main() 

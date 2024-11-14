@@ -573,3 +573,166 @@ This standardization ensures consistent behavior and reliable network management
    - DNS configuration needs immutable flag
    - Handle multiple network interfaces
    - Check AP mode dependencies
+
+## Function Documentation
+
+### RadioApp Class
+Main application class managing radio functionality and hardware controls.
+- Initializes radio, button, and encoder controllers
+- Handles hardware events (button press, rotation)
+- Manages volume control and station switching
+- Provides cleanup and monitoring capabilities
+
+#### Methods:
+- `initialize()`: Sets up all components and binds event handlers
+- `handle_button_press()`: Switches to next radio station
+- `handle_button_hold()`: Resets to first station
+- `handle_rotation(direction)`: Controls volume based on encoder rotation
+- `cleanup()`: Releases all hardware resources
+- `run()`: Executes main application loop
+
+### RadioController Class
+Controls radio playback and hardware interaction.
+- Manages audio playback
+- Controls LED indicators
+- Handles volume adjustments
+- Monitors radio state
+
+#### Methods:
+- `initialize()`: Sets up audio and GPIO managers
+- `start_playback(url)`: Begins streaming from URL
+- `stop_playback()`: Stops current stream
+- `volume_up/down()`: Adjusts volume level
+- `set_led_state(blink)`: Controls LED indicator
+- `monitor()`: Updates LED based on playback state
+
+### Logger Class
+Singleton logger managing application-wide logging.
+- Handles log file rotation
+- Filters ALSA-related messages
+- Manages multiple log streams
+- Provides debug/info/error logging
+
+#### Methods:
+- `setup_logging()`: Configures log files and formats
+- `get_logger(name)`: Returns named logger instance
+- `set_level(level)`: Updates logging verbosity
+- `reset()`: Cleans up logging state
+
+### Controllers
+
+#### ButtonController Class
+Manages hardware button interactions and event handling.
+- Initializes GPIO button with debounce
+- Handles press, hold, and release events
+- Manages callback registration
+- Provides cleanup for GPIO resources
+
+##### Methods:
+- `when_pressed(callback)`: Registers press event handler
+- `when_held(callback)`: Registers long-press event handler
+- `when_released(callback)`: Registers release event handler
+- `cleanup()`: Releases GPIO resources
+
+#### RotaryEncoderController Class
+Manages rotary encoder for volume and menu navigation.
+- Tracks encoder rotation steps
+- Handles clockwise/counterclockwise events
+- Provides debounced input handling
+- Manages rotation callbacks
+
+##### Methods:
+- `when_rotated(callback)`: Registers rotation event handler
+- `get_steps()`: Returns current step count
+- `reset_steps()`: Resets step counter
+- `cleanup()`: Releases encoder resources
+
+#### WebController Class
+Handles web interface and API endpoints.
+- Manages HTTP routes and requests
+- Handles network configuration
+- Controls stream playback
+- Provides system status
+
+##### Methods:
+- `index_route()`: Serves main web interface
+- `network_status()`: Returns current network state
+- `connect_wifi()`: Handles WiFi connection requests
+- `stream_control()`: Manages radio stream playback
+- `stop()`: Gracefully shuts down web server
+
+### Network Components
+
+#### WiFiManager Class
+Manages WiFi connections and network modes.
+- Handles network scanning and connections
+- Manages saved networks
+- Controls AP/Client mode switching
+- Configures DNS and network settings
+
+##### Methods:
+- `scan_networks()`: Returns available WiFi networks
+- `connect_to_network(ssid, password)`: Connects to specified network
+- `enable_ap_mode()`: Activates Access Point mode
+- `enable_client_mode()`: Switches to client mode
+- `check_internet_connection()`: Verifies connectivity
+- `configure_dns()`: Sets up DNS configuration
+- `cleanup()`: Releases network resources
+
+#### NetworkController Class
+High-level network management and coordination.
+- Coordinates WiFi and AP mode operations
+- Handles network state transitions
+- Manages connection retries
+- Provides network status monitoring
+
+##### Methods:
+- `initialize()`: Sets up network components
+- `check_and_setup_network()`: Ensures network connectivity
+- `get_connection_status()`: Returns current network state
+- `cleanup()`: Releases all network resources
+- `monitor()`: Continuously monitors network health
+
+#### APManager Class
+Manages Access Point mode configuration and operation.
+- Configures hostapd and dnsmasq
+- Handles AP mode activation/deactivation
+- Manages AP network settings
+- Provides AP status monitoring
+
+##### Methods:
+- `initialize()`: Sets up AP dependencies
+- `setup_ap_mode()`: Configures and starts AP
+- `stop_ap_mode()`: Disables AP mode
+- `is_ap_mode_active()`: Checks current AP state
+- `configure_interface()`: Sets up network interface
+
+### System Components
+
+#### StreamManager Class
+Manages radio stream sources and playback.
+- Handles stream URL management
+- Validates stream sources
+- Manages stream metadata
+- Provides stream switching logic
+
+##### Methods:
+- `load_streams()`: Loads stream configurations
+- `add_stream(url, name)`: Adds new stream source
+- `remove_stream(url)`: Removes stream from list
+- `get_next_stream()`: Returns next stream in rotation
+- `validate_stream(url)`: Checks stream validity
+
+#### ConfigManager Class
+Manages application configuration and settings.
+- Handles config file operations
+- Manages network settings
+- Controls audio configuration
+- Provides config validation
+
+##### Methods:
+- `load_config()`: Loads configuration from file
+- `save_config()`: Persists current configuration
+- `update_network_config()`: Updates network settings
+- `update_audio_config()`: Updates audio settings
+- `get_saved_networks()`: Returns saved network list

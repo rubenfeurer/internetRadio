@@ -112,7 +112,8 @@ class NetworkController:
         """Monitor network status"""
         if self.is_ap_mode:
             if not self.ap_manager.is_active():
-                self.ap_manager.start("DefaultAP", "password")
+                ap_ssid, ap_password = self.config_manager.get_ap_credentials()
+                self.ap_manager.start(ap_ssid, ap_password)
         else:
             self.wifi_manager.is_connected()
 

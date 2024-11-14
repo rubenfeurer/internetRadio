@@ -1,0 +1,19 @@
+○ NetworkManager.service - Network Manager
+     Loaded: loaded (]8;;file://radiod/lib/systemd/system/NetworkManager.service/lib/systemd/system/NetworkManager.service]8;;; [0;1;32menabled[0m; preset: [0;1;32menabled[0m)
+     Active: inactive (dead) since Thu 2024-11-14 16:56:53 CET; 2min 36s ago
+   Duration: 31.908s
+       Docs: ]8;;man:NetworkManager(8)man:NetworkManager(8)]8;;
+    Process: 626 ExecStart=/usr/sbin/NetworkManager --no-daemon (code=exited, status=0/SUCCESS)
+   Main PID: 626 (code=exited, status=0/SUCCESS)
+        CPU: 285ms
+
+Nov 14 16:56:25 radiod NetworkManager[626]: <info>  [1731599785.9532] dhcp4 (eth0): activation: beginning transaction (timeout in 45 seconds)
+Nov 14 16:56:53 radiod NetworkManager[626]: <info>  [1731599813.3236] caught SIGTERM, shutting down normally.
+Nov 14 16:56:53 radiod systemd[1]: Stopping NetworkManager.service - Network Manager...
+Nov 14 16:56:53 radiod NetworkManager[626]: <info>  [1731599813.3481] dhcp4 (eth0): canceled DHCP transaction
+Nov 14 16:56:53 radiod NetworkManager[626]: <info>  [1731599813.3482] dhcp4 (eth0): state changed no lease
+Nov 14 16:56:53 radiod NetworkManager[626]: <info>  [1731599813.3489] manager: startup complete
+Nov 14 16:56:53 radiod NetworkManager[626]: <info>  [1731599813.3492] device (wlan0): state change: unavailable -> unmanaged (reason 'unmanaged', sys-iface-state: 'managed')
+Nov 14 16:56:53 radiod NetworkManager[626]: <info>  [1731599813.9244] exiting (success)
+Nov 14 16:56:53 radiod systemd[1]: NetworkManager.service: Deactivated successfully.
+Nov 14 16:56:53 radiod systemd[1]: Stopped NetworkManager.service - Network Manager.

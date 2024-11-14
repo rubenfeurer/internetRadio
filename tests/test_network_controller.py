@@ -173,12 +173,17 @@ class TestNetworkController(unittest.TestCase):
         self.network.is_ap_mode = True
         self.mock_ap.is_active.return_value = False
         
+        # Mock config manager
+        mock_config = MagicMock()
+        mock_config.get_ap_credentials.return_value = ("TestAP", "TestPass")
+        self.network.config_manager = mock_config
+        
         # Test
         self.network.monitor_network()
         
         # Verify
         self.mock_ap.is_active.assert_called_once()
-        self.mock_ap.start.assert_called_once()
+        self.mock_ap.start.assert_called_once_with("TestAP", "TestPass")
     
     @patch('subprocess.run')
     def test_log_network_status(self, mock_run):
@@ -332,3 +337,21 @@ class TestNetworkController(unittest.TestCase):
                     call(5),  # First retry
                     call(5)   # Second retry
                 ], any_order=True)  # Order doesn't matter as long as both delays are 5
+    
+    def test_monitor_network_ap_mode_restart(self):
+        """Test network monitoring when AP mode needs restart"""
+        # Setup
+        self.network.is_ap_mode = True
+        self.mock_ap.is_active.return_value = False
+        
+        # Configure config manager mock
+        mock_config = MagicMock()
+        mock_config.get_ap_credentials.return_value = ("TestAP", "TestPass")
+        self.network.config_manager = mock_config
+        
+        # Test
+        self.network.monitor_network()
+        
+        # Verify
+        self.mock_ap.is_active.assert_called_once()
+        self.mock_ap.start.assert_called_once_with("TestAP", "TestPass")

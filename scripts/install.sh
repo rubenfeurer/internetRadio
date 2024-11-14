@@ -170,3 +170,25 @@ fi
 if ! su - radio -c "aplay -l | grep -q 'card 2'"; then
     echo_warning "Audio card 2 not found. Check audio device configuration."
 fi
+
+# Add after DNS configuration
+echo_step "Setting up log directories..."
+LOG_DIRS=(
+    "$PROJECT_DIR/logs/radio"
+    "$PROJECT_DIR/logs/network"
+    "$PROJECT_DIR/logs/system"
+)
+
+for dir in "${LOG_DIRS[@]}"; do
+    mkdir -p "$dir"
+    chown radio:radio "$dir"
+    chmod 755 "$dir"
+done
+
+# Add after audio configuration
+echo_step "Testing audio playback..."
+if [ -f "$PROJECT_DIR/sounds/test.wav" ]; then
+    su - radio -c "aplay -D plughw:2,0 $PROJECT_DIR/sounds/test.wav"
+else
+    echo_warning "Test sound file not found. Skipping audio test."
+fi
