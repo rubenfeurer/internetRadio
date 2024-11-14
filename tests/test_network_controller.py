@@ -1,7 +1,8 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, call
 import logging
 import subprocess
+import time
 
 class TestNetworkController(unittest.TestCase):
     def setUp(self):
@@ -233,3 +234,71 @@ class TestNetworkController(unittest.TestCase):
         mock_run.side_effect = subprocess.CalledProcessError(1, 'ping')
         self.assertFalse(self.network.check_internet_connection())
         self.assertEqual(mock_run.call_count, 3)  # Should try all three hosts
+    
+    def test_internet_connection_sound_notifications(self):
+        """Test sound notifications for internet connection status"""
+        # Setup
+        mock_audio_manager = MagicMock()
+        self.network.audio_manager = mock_audio_manager
+        
+        # Test successful connection
+        with patch('subprocess.run') as mock_run:
+            mock_run.return_value = MagicMock(returncode=0)
+            self.network.check_internet_connection()
+            mock_audio_manager.play_sound.assert_called_once_with('wifi.wav')
+        
+        # Test failed connection
+        mock_audio_manager.reset_mock()
+        with patch('subprocess.run') as mock_run:
+            mock_run.side_effect = subprocess.CalledProcessError(1, 'ping')
+            self.network.check_internet_connection()
+            mock_audio_manager.play_sound.assert_called_once_with('noWifi.wav')
+    
+    def test_check_and_setup_network_with_internet_check(self):
+        """Test network setup with internet connectivity verification"""
+        # Setup
+        self.mock_wifi.get_saved_networks.return_value = ["Network1"]
+        self.mock_wifi.connect_to_network.return_value = True
+        self.mock_wifi.configure_dns.return_value = True
+        self.mock_wifi.check_dns_resolution.return_value = True
+        
+        # Test case 1: WiFi connects and internet is available
+        with patch.object(self.network, 'check_internet_connection') as mock_check:
+            mock_check.return_value = True
+            result = self.network.check_and_setup_network()
+            
+            # Verify the result
+            self.assertTrue(result)
+            mock_check.assert_called_once()
+            self.mock_ap.start.assert_not_called()
+    
+    def test_check_and_setup_network_with_retries(self):
+        """Test network setup with retry mechanism"""
+        # Setup
+        self.mock_wifi.get_saved_networks.return_value = ["Network1"]
+        self.mock_wifi.connect_to_network.return_value = True  # Always succeed connection
+        self.mock_wifi.configure_dns.return_value = True
+        self.mock_wifi.check_dns_resolution.return_value = True
+        
+        # Mock check_internet_connection to fail twice then succeed
+        with patch.object(self.network, 'check_internet_connection') as mock_check:
+            mock_check.side_effect = [False, False, True]
+            
+            # Mock time.sleep to avoid actual delays in test
+            with patch('time.sleep') as mock_sleep:
+                result = self.network.check_and_setup_network()
+                
+                # Print actual calls for debugging
+                print(f"Actual sleep calls: {mock_sleep.mock_calls}")
+                print(f"Actual check calls: {mock_check.mock_calls}")
+                
+                # Verify the result
+                self.assertTrue(result)
+                self.assertEqual(mock_check.call_count, 3)  # Should be called three times
+                
+                # Verify sleep was called with correct delays
+                self.assertEqual(mock_sleep.call_count, 2)  # Should be called twice
+                mock_sleep.assert_has_calls([
+                    call(5),  # First retry
+                    call(5)   # Second retry
+                ], any_order=True)  # Order doesn't matter as long as both delays are 5

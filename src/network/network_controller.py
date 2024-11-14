@@ -1,3 +1,5 @@
+import time
+
 def check_internet_connection(self) -> bool:
     """Check internet connectivity with multiple fallback hosts"""
     test_hosts = [
@@ -14,9 +16,55 @@ def check_internet_connection(self) -> bool:
                 stderr=subprocess.DEVNULL,
                 check=True
             )
+            # Play success sound
+            if hasattr(self, 'sound_player'):
+                self.sound_player.play_sound('sounds/wifi.wav')
             return True
         except subprocess.CalledProcessError:
             continue
     
+    # Play failure sound
+    if hasattr(self, 'sound_player'):
+        self.sound_player.play_sound('sounds/noWifi.wav')
+    
     self.logger.error("Failed to connect to any test hosts")
     return False 
+
+def check_and_setup_network(self) -> bool:
+    """Check and setup network connection with retry mechanism"""
+    retry_count = 0
+    max_retries = 10
+    delay = 5
+    
+    while True:  # Changed to infinite loop with explicit breaks
+        # Check retry count first
+        if retry_count >= max_retries:
+            self.logger.error("Max retries reached")
+            return False
+            
+        saved_networks = self.wifi_manager.get_saved_networks()
+        if not saved_networks:
+            self.logger.error("No saved networks found")
+            return False
+        
+        # Try network setup
+        if (self.wifi_manager.connect_to_network(saved_networks[0], None) and 
+            self.wifi_manager.configure_dns() and 
+            self.wifi_manager.check_dns_resolution()):
+            
+            self.logger.info("Network setup complete with DNS")
+            
+            # Check internet connection
+            if self.check_internet_connection():
+                self.logger.info("Internet connection verified")
+                return True
+                
+            self.logger.warning("Internet check failed, will retry")
+        else:
+            self.logger.warning("Network setup failed, will retry")
+        
+        # Apply delay and increment retry count
+        delay = 60 if retry_count >= 5 else 5
+        self.logger.warning(f"Retrying in {delay} seconds (attempt {retry_count + 1}/{max_retries})")
+        time.sleep(delay)
+        retry_count += 1 

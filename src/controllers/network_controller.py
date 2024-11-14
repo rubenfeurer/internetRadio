@@ -2,15 +2,17 @@ from src.utils.logger import Logger
 from src.utils.config_manager import ConfigManager
 from src.network.wifi_manager import WiFiManager
 from src.network.ap_manager import APManager
+from src.audio.audio_manager import AudioManager
 import subprocess
 from typing import Optional
 
 class NetworkController:
-    def __init__(self, wifi_manager=None, ap_manager=None, config_manager=None):
+    def __init__(self, wifi_manager=None, ap_manager=None, config_manager=None, audio_manager=None):
         self.logger = Logger.get_logger(__name__)
         self.wifi_manager = wifi_manager or WiFiManager()
         self.ap_manager = ap_manager or APManager()
         self.config_manager = config_manager or ConfigManager()
+        self.audio_manager = audio_manager or AudioManager()
         self.is_ap_mode = False
         self.logger.debug("Initializing NetworkController")
 
@@ -57,12 +59,17 @@ class NetworkController:
                     if self.wifi_manager.configure_dns():
                         if self.wifi_manager.check_dns_resolution():
                             self.logger.info("Network setup complete with DNS")
-                            return True
+                            if self.check_internet_connection():
+                                self.logger.info("Internet connection verified")
+                                return True
+                            self.logger.warning("Internet connectivity check failed")
                         else:
                             self.logger.warning("DNS resolution check failed")
                     else:
                         self.logger.warning("DNS configuration failed")
-                    return True  # Return true even if DNS fails, as we're connected
+        
+        # If we get here, either no networks available or connection failed
+        self.logger.info("Falling back to AP mode")
         return self.start_ap_mode("DefaultAP", "password")
 
     def start_ap_mode(self, ssid: str, password: str) -> bool:
@@ -149,9 +156,14 @@ class NetworkController:
                     stderr=subprocess.DEVNULL,
                     check=True
                 )
+                if self.audio_manager:
+                    self.audio_manager.play_sound('wifi.wav')
                 return True
             except subprocess.CalledProcessError:
                 continue
+        
+        if self.audio_manager:
+            self.audio_manager.play_sound('noWifi.wav')
         
         self.logger.error("Failed to connect to any test hosts")
         return False
