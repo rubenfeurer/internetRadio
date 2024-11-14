@@ -43,7 +43,7 @@ python3 scripts/test_sounds.py
 ### System Dependencies
 ```bash
 sudo apt-get update
-sudo apt-get install -y python3-pip python3-venv alsa-utils hostapd dnsmasq vlc
+sudo apt-get install -y python3-pip python3-venv alsa-utils hostapd dnsmasq vlc xterm
 ```
 
 ### Python Dependencies
@@ -109,7 +109,12 @@ internetRadio/
 ├── logs/              # Application logs
 ├── scripts/           # Installation and maintenance scripts
 │   ├── install.sh     # Installation script
-│   ├── health_check.sh # System health monitoring
+│   └── health_check.sh # System health monitoring
+├── services/          # Service configuration files
+│   ├── internetradio.service  # Main radio service
+│   ├── radiomonitor.service   # System monitor service
+│   ├── logrotate.conf        # Log rotation config
+│   └── network.conf         # Network configuration
 ├── sounds/            # System sound files
 ├── src/               # Source code
 │   ├── audio/         # Audio playback management ✓
@@ -410,10 +415,10 @@ The system includes a real-time monitoring display that shows:
 - Disk Usage
 - Temperature
 - Network Status
-  - WiFi Network
-  - Internet Connection
+  - WiFi Network (Currently connected to)
+  - Internet Connection (Yes/No)
 - Radio Status
-  - Service Status
+  - Service Status (Running/Stopped)
   - Current Station
   - Volume Level
 - Last System Events
@@ -439,10 +444,18 @@ journalctl -u radiomonitor -f
 ```
 
 ### Monitor Display
-The monitor automatically launches in an xterm window and updates every second. The display shows:
+The monitor automatically launches in an xterm window and updates every second, showing:
 - System metrics in real-time
-- Network connectivity status
-- Radio playback information
+- Network connectivity status with current WiFi SSID
+- Internet connection status
+- Radio service status and playback information
 - Recent system events
 
 Note: Only one instance can run at a time (singleton pattern implemented).
+
+### Service Files
+All service configurations are stored in the `services/` directory:
+- `internetradio.service`: Main radio service configuration
+- `radiomonitor.service`: System monitor service configuration
+- `logrotate.conf`: Log rotation settings
+- `network.conf`: Network interface configuration

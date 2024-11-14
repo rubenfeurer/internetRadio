@@ -1,0 +1,33 @@
+[Unit]
+Description=Internet Radio Service
+After=network.target sound.target
+Wants=sound.target
+
+[Service]
+Type=simple
+User=radio
+Group=radio
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/radio/.Xauthority
+Environment=HOME=/home/radio
+Environment=XDG_RUNTIME_DIR=/run/user/1000
+WorkingDirectory=/home/radio/internetRadio
+
+# Setup runtime directory
+ExecStartPre=/bin/mkdir -p /run/user/1000
+ExecStartPre=/bin/chown radio:radio /run/user/1000
+ExecStartPre=/bin/chmod 700 /run/user/1000
+ExecStart=/home/radio/internetRadio/runApp.sh
+
+# Add restart controls
+Restart=always
+RestartSec=5
+TimeoutStopSec=20
+KillMode=mixed
+
+# Add logging
+StandardOutput=append:/home/radio/internetRadio/logs/radio.log
+StandardError=append:/home/radio/internetRadio/logs/radio.log
+
+[Install]
+WantedBy=multi-user.target 

@@ -51,41 +51,8 @@ su - radio -c "cd $PROJECT_DIR && python3 -m venv venv"
 su - radio -c "cd $PROJECT_DIR && source venv/bin/activate && pip install -r requirements.txt"
 
 echo_step "Setting up service..."
-cat > /etc/systemd/system/internetradio.service << EOL
-[Unit]
-Description=Internet Radio Service
-After=network.target sound.target
-Wants=sound.target
-
-[Service]
-Type=simple
-User=radio
-Group=radio
-Environment=DISPLAY=:0
-Environment=XAUTHORITY=/home/radio/.Xauthority
-Environment=HOME=/home/radio
-Environment=XDG_RUNTIME_DIR=/run/user/1000
-WorkingDirectory=/home/radio/internetRadio
-
-# Setup runtime directory
-ExecStartPre=/bin/mkdir -p /run/user/1000
-ExecStartPre=/bin/chown radio:radio /run/user/1000
-ExecStartPre=/bin/chmod 700 /run/user/1000
-ExecStart=/home/radio/internetRadio/runApp.sh
-
-# Add restart controls
-Restart=always
-RestartSec=5
-TimeoutStopSec=20
-KillMode=mixed
-
-# Add logging
-StandardOutput=append:/home/radio/internetRadio/logs/radio.log
-StandardError=append:/home/radio/internetRadio/logs/radio.log
-
-[Install]
-WantedBy=multi-user.target
-EOL
+cp services/internetradio.service /etc/systemd/system/
+chmod 644 /etc/systemd/system/internetradio.service
 
 echo_step "Setting up directories and permissions..."
 mkdir -p "$PROJECT_DIR/logs"
@@ -107,36 +74,12 @@ chattr +i /etc/resolv.conf
 
 # Configure systemd-networkd to not override DNS
 mkdir -p /etc/systemd/network/
-cat > /etc/systemd/network/25-wireless.network << EOL
-[Match]
-Name=wlan0
-
-[Network]
-DHCP=yes
-DNSDefaultRoute=no
-
-[DHCP]
-UseDNS=no
-EOL
+cp services/network.conf /etc/systemd/network/25-wireless.network
+chmod 644 /etc/systemd/network/25-wireless.network
 
 echo_step "Setting up log rotation..."
-
-# Create logrotate configuration
-cat > /etc/logrotate.d/internetradio << EOL
-/home/radio/internetRadio/logs/*.log {
-    daily
-    rotate 7
-    compress
-    delaycompress
-    missingok
-    notifempty
-    create 644 radio radio
-    size 100M
-    postrotate
-        systemctl reload internetradio >/dev/null 2>&1 || true
-    endscript
-}
-EOL
+cp services/logrotate.conf /etc/logrotate.d/internetradio
+chmod 644 /etc/logrotate.d/internetradio
 
 # Create log directory if it doesn't exist
 mkdir -p /home/radio/internetRadio/logs
@@ -171,29 +114,8 @@ systemctl enable internetradio
 systemctl restart internetradio
 
 echo_step "Setting up system monitor service..."
-cat > /etc/systemd/system/radiomonitor.service << EOL
-[Unit]
-Description=Internet Radio System Monitor
-After=internetradio.service
-Wants=internetradio.service
-
-[Service]
-Type=simple
-User=radio
-Group=radio
-Environment=DISPLAY=:0
-Environment=XAUTHORITY=/home/radio/.Xauthority
-WorkingDirectory=/home/radio/internetRadio
-ExecStart=/usr/bin/xterm -T "System Monitor" -geometry 80x24+0+0 -e /usr/bin/python3 -c "from src.utils.system_monitor import SystemMonitor; SystemMonitor().run()"
-Restart=always
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target
-EOL
-
-systemctl enable radiomonitor
-systemctl restart radiomonitor
+cp services/radiomonitor.service /etc/systemd/system/
+chmod 644 /etc/systemd/system/radiomonitor.service
 
 echo_step "Checking service status..."
 systemctl status internetradio --no-pager
