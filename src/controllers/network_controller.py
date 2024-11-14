@@ -4,6 +4,7 @@ from src.network.wifi_manager import WiFiManager
 from src.network.ap_manager import APManager
 from src.audio.audio_manager import AudioManager
 import subprocess
+import time
 from typing import Optional
 
 class NetworkController:
@@ -50,27 +51,48 @@ class NetworkController:
         return self.wifi_manager.connect_to_network(ssid, password)
 
     def check_and_setup_network(self) -> bool:
-        """Check and setup network connection"""
-        saved_networks = self.wifi_manager.get_saved_networks()
-        if saved_networks:
-            for network in saved_networks:
-                if self.wifi_manager.connect_to_network(network, None):
-                    # Add DNS configuration after successful connection
-                    if self.wifi_manager.configure_dns():
-                        if self.wifi_manager.check_dns_resolution():
-                            self.logger.info("Network setup complete with DNS")
-                            if self.check_internet_connection():
-                                self.logger.info("Internet connection verified")
-                                return True
-                            self.logger.warning("Internet connectivity check failed")
-                        else:
-                            self.logger.warning("DNS resolution check failed")
-                    else:
-                        self.logger.warning("DNS configuration failed")
+        """Check and setup network connection with retry mechanism"""
+        retry_count = 0
+        max_retries = 10
+        delay = 5
         
-        # If we get here, either no networks available or connection failed
-        self.logger.info("Falling back to AP mode")
-        return self.start_ap_mode("DefaultAP", "password")
+        while True:
+            if retry_count >= max_retries:
+                self.logger.error("Max retries reached")
+                return False
+            
+            saved_networks = self.wifi_manager.get_saved_networks()
+            if not saved_networks:
+                self.logger.warning("No saved networks found, starting AP mode")
+                # Start AP mode as fallback
+                if self.start_ap_mode("DefaultAP", "password"):
+                    return True
+                return False
+            
+            # Extract SSID from network object
+            network = saved_networks[0]
+            ssid = network['ssid'] if isinstance(network, dict) else network
+            
+            # Try network setup
+            if (self.wifi_manager.connect_to_network(ssid, None) and 
+                self.wifi_manager.configure_dns() and 
+                self.wifi_manager.check_dns_resolution()):
+                
+                self.logger.info("Network setup complete with DNS")
+                
+                # Check internet connection
+                if self.check_internet_connection():
+                    self.logger.info("Internet connection verified")
+                    return True
+                    
+                self.logger.warning("Internet check failed, will retry")
+            else:
+                self.logger.warning("Network setup failed, will retry")
+            
+            delay = 60 if retry_count >= 5 else 5
+            self.logger.warning(f"Retrying in {delay} seconds (attempt {retry_count + 1}/{max_retries})")
+            time.sleep(delay)
+            retry_count += 1
 
     def start_ap_mode(self, ssid: str, password: str) -> bool:
         """Start access point mode"""

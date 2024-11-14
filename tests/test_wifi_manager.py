@@ -36,6 +36,7 @@ class TestWiFiManager(unittest.TestCase):
     
     @patch('subprocess.run')
     def test_get_saved_networks(self, mock_run):
+        """Test getting saved networks"""
         # Mock the nmcli command output
         mock_run.return_value = MagicMock(
             returncode=0,
@@ -45,8 +46,18 @@ TestNetwork2         f815578d-bd33-47c1-b3a8-6998815b2bd1  wifi      --
 Wired connection 1   d5ce7973-f25b-33c5-bc00-50dc57c4800d  ethernet  --     """
         )
         
+        # Mock config manager to return saved networks
+        self.mock_config_instance.get_network_config.return_value = {
+            'saved_networks': [
+                {'ssid': 'TestNetwork1'},
+                {'ssid': 'TestNetwork2'}
+            ]
+        }
+        
         networks = self.wifi_manager.get_saved_networks()
-        self.assertEqual(networks, ['TestNetwork1', 'TestNetwork2'])
+        self.assertEqual(len(networks), 2)
+        self.assertTrue(any(n['ssid'] == 'TestNetwork1' for n in networks))
+        self.assertTrue(any(n['ssid'] == 'TestNetwork2' for n in networks))
     
     @patch('subprocess.run')
     def test_scan_networks(self, mock_run):

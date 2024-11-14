@@ -198,6 +198,14 @@ class ConfigManager:
             else:
                 print(f"Error updating config: {str(e)}")
 
+    def get_network_config(self) -> Dict[str, Any]:
+        """Get network configuration section"""
+        try:
+            return self.config.get('network', {})
+        except Exception as e:
+            self.logger.error(f"Error getting network config: {e}")
+            return {}
+
 DEFAULT_CONFIG = {
     'network': {
         'ap_settings': {

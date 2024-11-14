@@ -95,9 +95,13 @@ class TestNetworkController(unittest.TestCase):
         self.mock_ap.stop.assert_called_once()
     
     def test_network_setup(self):
+        """Test network setup with single network"""
         # Setup
-        self.mock_wifi.get_saved_networks.return_value = ["Network1", "Network2"]
+        test_network = {'ssid': 'Network1', 'password': None}
+        self.mock_wifi.get_saved_networks.return_value = [test_network]
         self.mock_wifi.connect_to_network.return_value = True
+        self.mock_wifi.configure_dns.return_value = True
+        self.mock_wifi.check_dns_resolution.return_value = True
         
         # Test
         result = self.network.check_and_setup_network()
@@ -105,7 +109,7 @@ class TestNetworkController(unittest.TestCase):
         # Verify
         self.assertTrue(result)
         self.mock_wifi.get_saved_networks.assert_called_once()
-        self.mock_wifi.connect_to_network.assert_called_once_with("Network1", None)
+        self.mock_wifi.connect_to_network.assert_called_once_with(test_network['ssid'], test_network['password'])
     
     def test_network_setup_fallback(self):
         # Setup
