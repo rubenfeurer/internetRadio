@@ -123,6 +123,17 @@ class TestConfigManager(unittest.TestCase):
         self.assertEqual(new_manager.audio.default_volume, 50)
         self.assertEqual(new_manager.network.ap_ssid, 'InternetRadio')
         self.assertEqual(new_manager.logging.level, 'INFO')
+        
+    def test_saved_networks_config(self):
+        """Test that saved networks are loaded correctly from config.toml"""
+        network_config = self.config_manager.get_network_config()
+        self.assertIsNotNone(network_config.get('saved_networks'))
+        saved_networks = network_config['saved_networks']
+        
+        # Verify our Salt network is in the config
+        salt_network = next((n for n in saved_networks if n['ssid'] == 'Salt_5GHz_D8261F'), None)
+        self.assertIsNotNone(salt_network)
+        self.assertEqual(salt_network['password'], 'GDk2hc2UQFV29tHSuR')
 
 if __name__ == '__main__':
     unittest.main() 

@@ -35,26 +35,20 @@ class ConfigManager:
         """Load configuration from TOML file"""
         try:
             config_data = {}
-    
-            # Load default config first
-            default_config_path = os.path.join(self.config_dir, 'default.toml')
-            if os.path.exists(default_config_path):
-                with open(default_config_path, 'r') as f:
-                    config_data.update(toml.load(f))
-    
-            # Load user config and override defaults
-            user_config_path = os.path.join(self.config_dir, 'radio.toml')
-            if os.path.exists(user_config_path):
-                with open(user_config_path, 'r') as f:
-                    config_data.update(toml.load(f))
-    
+            
+            # Load config.toml
+            config_path = os.path.join(self.config_dir, 'config.toml')
+            if os.path.exists(config_path):
+                with open(config_path, 'r') as f:
+                    config_data = toml.load(f)
+                    self.logger.debug(f"Loaded config from {config_path}: {config_data}")
+            else:
+                self.logger.warning(f"Config file not found at {config_path}")
+            
             self._update_from_dict(config_data)
             
         except Exception as e:
-            if hasattr(self, 'logger'):
-                self.logger.error(f"Error loading config: {str(e)}")
-            else:
-                print(f"Error loading config: {str(e)}")
+            self.logger.error(f"Error loading config: {str(e)}")
 
     def _merge_config_data(self, base: dict, override: dict) -> None:
         """Deep merge configuration dictionaries"""
@@ -201,9 +195,20 @@ class ConfigManager:
     def get_network_config(self) -> Dict[str, Any]:
         """Get network configuration section"""
         try:
-            return self.config.get('network', {})
+            # Add debug logging
+            self.logger.debug(f"Current working directory: {os.getcwd()}")
+            self.logger.debug(f"Config dir: {self.config_dir}")
+            self.logger.debug(f"Config file exists: {os.path.exists(os.path.join(self.config_dir, 'config.toml'))}")
+            
+            if hasattr(self, 'network'):
+                return {
+                    'saved_networks': self.network.saved_networks,
+                    'ap_ssid': self.network.ap_ssid,
+                    'ap_password': self.network.ap_password
+                }
+            return {}
         except Exception as e:
-            self.logger.error(f"Error getting network config: {e}")
+            self.logger.error(f"Error getting network config: {str(e)}")
             return {}
 
 DEFAULT_CONFIG = {
