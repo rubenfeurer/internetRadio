@@ -1,2 +1,141 @@
 2024-11-13 17:32:24,313 - src.web.web_controller - INFO - Stopping web interface
 2024-11-13 17:32:24,537 - src.web.web_controller - INFO - Stopping web interface
+2024-11-14 10:30:15,433 - src.utils.system_monitor - INFO - Launched system monitor display
+2024-11-14 10:32:08,493 - src.utils.system_monitor - INFO - Launched system monitor display
+2024-11-14 10:32:13,735 - src.utils.system_monitor - INFO - Launched system monitor display
+2024-11-14 10:32:19,038 - src.utils.system_monitor - INFO - Launched system monitor display
+2024-11-14 10:32:24,532 - src.utils.system_monitor - INFO - Launched system monitor display
+2024-11-14 10:32:30,045 - src.utils.system_monitor - INFO - Launched system monitor display
+2024-11-14 10:32:35,541 - src.utils.system_monitor - INFO - Launched system monitor display
+2024-11-14 10:32:41,034 - src.utils.system_monitor - INFO - Launched system monitor display
+2024-11-14 10:32:46,508 - src.utils.system_monitor - INFO - Launched system monitor display
+2024-11-14 10:32:52,047 - src.utils.system_monitor - INFO - Launched system monitor display
+2024-11-14 10:32:57,516 - src.utils.system_monitor - INFO - Launched system monitor display
+2024-11-14 10:33:03,019 - src.utils.system_monitor - INFO - Launched system monitor display
+2024-11-14 10:35:12,465 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:35:17,824 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:35:23,266 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:35:28,727 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:35:34,037 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:35:39,510 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:35:45,010 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:35:50,543 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:35:56,016 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:36:01,519 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:36:07,018 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:36:12,518 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:36:18,020 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:36:23,529 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:36:29,019 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:36:34,521 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:36:40,026 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:36:45,562 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:36:50,977 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:36:56,303 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:37:01,786 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:37:07,287 - src.utils.system_monitor - INFO - Launched system monitor in new terminal
+2024-11-14 10:40:25,549 - src.utils.system_monitor - INFO - Monitor stopped by user
+2024-11-14 10:41:16,085 - src.utils.system_monitor - ERROR - Error collecting metrics: Test error
+2024-11-14 10:41:16,092 - src.utils.system_monitor - INFO - Monitor stopped by user
+2024-11-14 10:46:01,959 - src.utils.system_monitor - ERROR - Radio service check error: [Errno 2] No such file or directory: '/tmp/current_station'
+2024-11-14 10:46:02,748 - src.utils.system_monitor - ERROR - Error collecting metrics: Test error
+2024-11-14 10:46:02,801 - src.utils.system_monitor - ERROR - Radio service check error: [Errno 2] No such file or directory: '/tmp/current_station'
+2024-11-14 10:46:02,815 - src.utils.system_monitor - INFO - Monitor stopped by user
+2024-11-14 10:46:02,835 - src.utils.system_monitor - ERROR - Volume reading error: list index out of range
+2024-11-14 10:46:48,267 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:47:41,473 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:47:41,544 - src.utils.system_monitor - ERROR - Error collecting metrics: Test error
+2024-11-14 10:47:41,578 - src.utils.system_monitor - INFO - Monitor stopped by user
+2024-11-14 10:47:41,600 - src.utils.system_monitor - ERROR - Volume reading error: list index out of range
+2024-11-14 10:48:20,373 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:20,391 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:22,436 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:22,461 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:24,526 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:24,543 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:26,593 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:26,614 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:28,683 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:28,723 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:30,788 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:30,805 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:32,854 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:32,871 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:34,933 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:34,967 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:37,034 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:37,051 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:39,098 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:39,115 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:41,157 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:41,175 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:43,220 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:43,239 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:45,284 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:45,301 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:47,363 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:47,394 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:49,461 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:49,478 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:51,525 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:51,542 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:53,606 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:53,645 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:55,707 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:55,725 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:57,772 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:57,789 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:48:59,854 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:48:59,888 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:01,969 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:02,002 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:04,061 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:04,078 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:06,124 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:06,141 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:08,187 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:08,204 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:10,254 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:10,271 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:12,324 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:12,347 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:14,421 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:14,460 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:16,529 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:16,546 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:18,592 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:18,610 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:20,673 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:20,712 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:22,780 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:22,797 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:24,842 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:24,860 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:26,905 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:26,923 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:28,968 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:28,985 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:31,031 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:31,048 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:33,093 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:33,111 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:35,155 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:35,172 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:37,217 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:37,234 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:39,279 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:39,297 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:41,343 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:41,361 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:43,408 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:43,425 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:45,470 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:45,488 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:47,531 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:47,551 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:49,600 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:49,618 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:51,664 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:51,682 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.
+2024-11-14 10:49:53,745 - src.utils.system_monitor - WARNING - Current station file not found
+2024-11-14 10:49:53,785 - src.utils.system_monitor - ERROR - Volume reading error: Command '['amixer', 'get', 'Master']' returned non-zero exit status 1.

@@ -35,7 +35,7 @@ fi
 
 echo_step "Installing system dependencies..."
 apt-get update
-apt-get install -y python3-pip python3-venv alsa-utils hostapd dnsmasq vlc
+apt-get install -y python3-pip python3-venv alsa-utils hostapd dnsmasq vlc xterm
 
 # Verify radio user exists
 if ! id "radio" &>/dev/null; then
@@ -169,6 +169,31 @@ systemctl restart systemd-networkd
 systemctl restart wpa_supplicant
 systemctl enable internetradio
 systemctl restart internetradio
+
+echo_step "Setting up system monitor service..."
+cat > /etc/systemd/system/radiomonitor.service << EOL
+[Unit]
+Description=Internet Radio System Monitor
+After=internetradio.service
+Wants=internetradio.service
+
+[Service]
+Type=simple
+User=radio
+Group=radio
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/radio/.Xauthority
+WorkingDirectory=/home/radio/internetRadio
+ExecStart=/usr/bin/xterm -T "System Monitor" -geometry 80x24+0+0 -e /usr/bin/python3 -c "from src.utils.system_monitor import SystemMonitor; SystemMonitor().run()"
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+systemctl enable radiomonitor
+systemctl restart radiomonitor
 
 echo_step "Checking service status..."
 systemctl status internetradio --no-pager

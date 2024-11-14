@@ -400,3 +400,49 @@ WiFi Mode ⟷ AP Mode
    └──────────┘
   (Auto-switching)
 ```
+
+## System Monitoring
+
+### Live System Monitor
+The system includes a real-time monitoring display that shows:
+- CPU Usage
+- Memory Usage
+- Disk Usage
+- Temperature
+- Network Status
+  - WiFi Network
+  - Internet Connection
+- Radio Status
+  - Service Status
+  - Current Station
+  - Volume Level
+- Last System Events
+
+### Dependencies
+The monitor requires:
+- xterm (installed automatically by install.sh)
+- Python system monitoring libraries (included in requirements.txt)
+
+### Monitor Service Management
+```bash
+# Start the monitor
+sudo systemctl start radiomonitor
+
+# Stop the monitor
+sudo systemctl stop radiomonitor
+
+# Check monitor status
+sudo systemctl status radiomonitor
+
+# View monitor logs
+journalctl -u radiomonitor -f
+```
+
+### Monitor Display
+The monitor automatically launches in an xterm window and updates every second. The display shows:
+- System metrics in real-time
+- Network connectivity status
+- Radio playback information
+- Recent system events
+
+Note: Only one instance can run at a time (singleton pattern implemented).
