@@ -235,3 +235,51 @@ WantedBy=multi-user.target"""
             )
             result = subprocess.run(['xlsfonts'], capture_output=True, text=True)
             self.assertIn('fixed', result.stdout)
+
+    def test_network_metrics_with_active_connection(self):
+        """Test network metrics collection with an active WiFi connection"""
+        # Create a mock WiFiManager
+        mock_wifi = MagicMock()
+        mock_wifi.is_client_mode.return_value = True
+        mock_wifi.is_ap_mode.return_value = False
+        mock_wifi.get_current_network.return_value = "Salt_5GHz_D8261F"
+        mock_wifi.check_internet_connection.return_value = True
+        
+        # Inject the mock into SystemMonitor
+        self.monitor.wifi_manager = mock_wifi
+        
+        # Test the metrics collection
+        metrics = self.monitor.collect_network_metrics()
+        
+        # Verify results
+        self.assertEqual(metrics['wifi_ssid'], 'Salt_5GHz_D8261F')
+        self.assertTrue(metrics['internet_connected'])
+        self.assertTrue(metrics['is_client_mode'])
+        self.assertFalse(metrics['is_ap_mode'])
+
+    def test_network_metrics_debug_logging(self):
+        """Test network metrics collection with debug logging"""
+        # Create a mock WiFiManager with debug logging
+        mock_wifi = MagicMock()
+        mock_wifi.is_client_mode.return_value = True
+        mock_wifi.is_ap_mode.return_value = False
+        mock_wifi.get_current_network.return_value = "Salt_5GHz_D8261F"
+        mock_wifi.check_internet_connection.return_value = True
+        
+        # Create a mock logger
+        mock_logger = MagicMock()
+        
+        # Inject the mocks into SystemMonitor
+        self.monitor.wifi_manager = mock_wifi
+        self.monitor.logger = mock_logger
+        
+        # Test the metrics collection
+        metrics = self.monitor.collect_network_metrics()
+        
+        # Verify debug logs were called
+        mock_logger.debug.assert_any_call("Checking WiFi modes...")
+        mock_logger.debug.assert_any_call("Client mode: True")
+        mock_logger.debug.assert_any_call("Client mode detected, SSID: Salt_5GHz_D8261F")
+        
+        # Verify metrics
+        self.assertEqual(metrics['wifi_ssid'], 'Salt_5GHz_D8261F')
