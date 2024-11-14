@@ -1,10 +1,11 @@
 import unittest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch, MagicMock, call
 from src.network.wifi_manager import WiFiManager
 import socket
 import os
 from src.utils.config_manager import ConfigManager
 import subprocess
+import time
 
 class TestWiFiManager(unittest.TestCase):
     def setUp(self):
@@ -60,24 +61,49 @@ Wired connection 1   d5ce7973-f25b-33c5-bc00-50dc57c4800d  ethernet  --     """
         self.assertTrue(any(n['ssid'] == 'TestNetwork1' for n in networks))
         self.assertTrue(any(n['ssid'] == 'TestNetwork2' for n in networks))
     
-    @patch('subprocess.run')
-    def test_scan_networks(self, mock_run):
-        # Mock the iwlist scan output
-        mock_run.return_value = MagicMock(
-            returncode=0,
-            stdout="""Cell 01 - Address: 00:11:22:33:44:55
-                    Quality=70/70  Signal level=-30 dBm  
-                    ESSID:"TestNetwork1"
-                  Cell 02 - Address: 11:22:33:44:55:66
-                    Quality=50/70  Signal level=-60 dBm  
-                    ESSID:"TestNetwork2"
-                """
-        )
-        
-        networks = self.wifi_manager.scan_networks()
-        self.assertEqual(len(networks), 2)
-        self.assertEqual(networks[0]['ssid'], 'TestNetwork1')
-        self.assertEqual(networks[1]['ssid'], 'TestNetwork2')
+    def test_scan_networks(self):
+        """Test network scanning using nmcli"""
+        with patch('subprocess.run') as mock_run:
+            # Mock nmcli wifi list output
+            mock_run.return_value = MagicMock(
+                returncode=0,
+                stdout="""IN-USE  SSID             MODE   CHAN  RATE        SIGNAL  BARS  SECURITY
+*       MyNetwork        Infra  11    130 Mbit/s  90      ▂▄▆█  WPA2
+        OtherNetwork     Infra  6     65 Mbit/s   75      ▂▄▆_  WPA1
+        OpenNetwork      Infra  1     54 Mbit/s   60      ▂▄__  --""",
+                text=True
+            )
+
+            networks = self.wifi_manager.scan_networks()
+
+            # Verify nmcli command
+            mock_run.assert_called_once_with(
+                ['nmcli', 'device', 'wifi', 'list', '--rescan', 'yes'],
+                capture_output=True,
+                text=True,
+                check=True
+            )
+
+            # Verify parsed networks
+            self.assertEqual(len(networks), 3)
+            self.assertEqual(networks[0], {
+                'ssid': 'MyNetwork',
+                'signal': '90',
+                'security': 'WPA2',
+                'in_use': True
+            })
+            self.assertEqual(networks[1], {
+                'ssid': 'OtherNetwork',
+                'signal': '75',
+                'security': 'WPA1',
+                'in_use': False
+            })
+            self.assertEqual(networks[2], {
+                'ssid': 'OpenNetwork',
+                'signal': '60',
+                'security': '--',
+                'in_use': False
+            })
     
     @patch('subprocess.run')
     def test_connect_to_network_success(self, mock_run):
@@ -268,11 +294,16 @@ Wired connection 1   d5ce7973-f25b-33c5-bc00-50dc57c4800d  ethernet  --     """
                         returncode=0,
                         stdout="""DEVICE  TYPE      STATE        CONNECTION
 wlan0   wifi      managed     Salt_5GHz_D8261F
-eth0    ethernet  unmanaged   --"""
+eth0    ethernet  unmanaged   --""",
+                        text=True
                     )
                 # Mock systemctl for AP mode check
-                elif cmd[0] == "systemctl":
-                    return MagicMock(returncode=1)  # 1 means hostapd is not active
+                elif cmd[0] == "systemctl" and cmd[1] == "is-active":
+                    return MagicMock(
+                        returncode=1,  # hostapd is not active
+                        stdout="inactive",
+                        text=True
+                    )
                 return MagicMock(returncode=0)
                 
             mock_run.side_effect = mock_command
@@ -289,10 +320,15 @@ eth0    ethernet  unmanaged   --"""
                         returncode=0,
                         stdout="""DEVICE  TYPE      STATE        CONNECTION
 wlan0   wifi      unmanaged   --
-eth0    ethernet  unmanaged   --"""
+eth0    ethernet  unmanaged   --""",
+                        text=True
                     )
-                elif cmd[0] == "systemctl":
-                    return MagicMock(returncode=0)  # 0 means hostapd is active
+                elif cmd[0] == "systemctl" and cmd[1] == "is-active":
+                    return MagicMock(
+                        returncode=0,  # hostapd is active
+                        stdout="active",
+                        text=True
+                    )
                 return MagicMock(returncode=0)
                 
             mock_run.side_effect = mock_ap_command
@@ -305,32 +341,37 @@ eth0    ethernet  unmanaged   --"""
     def test_mode_detection(self):
         """Test WiFi mode detection"""
         with patch('subprocess.run') as mock_run:
-            # Mock client mode
-            mock_run.return_value = MagicMock(
-                returncode=0,
-                stdout="""DEVICE  TYPE      STATE      CONNECTION
+            def mock_command(cmd, *args, **kwargs):
+                # For client mode check (nmcli)
+                if cmd[0] == "nmcli":
+                    return MagicMock(
+                        returncode=0,
+                        stdout="""DEVICE  TYPE      STATE      CONNECTION
 wlan0   wifi      managed   MyNetwork
-eth0    ethernet  unmanaged --"""
-            )
+eth0    ethernet  unmanaged --""",
+                        text=True
+                    )
+                # For AP mode check (systemctl)
+                elif cmd[0] == "systemctl" and cmd[1] == "is-active":
+                    return MagicMock(
+                        returncode=1,  # hostapd is not active
+                        stdout="inactive",
+                        text=True
+                    )
+                return MagicMock(returncode=0)
+                
+            mock_run.side_effect = mock_command
             self.assertTrue(self.wifi_manager.is_client_mode())
             self.assertFalse(self.wifi_manager.is_ap_mode())
-            
-            # Mock AP mode
-            mock_run.return_value = MagicMock(
-                returncode=0,
-                stdout="""DEVICE  TYPE      STATE      CONNECTION
-wlan0   wifi      unmanaged --
-eth0    ethernet  unmanaged --"""
-            )
-            mock_run.side_effect = [
-                MagicMock(returncode=0),  # hostapd active
-                MagicMock(stdout="active")
-            ]
-            self.assertFalse(self.wifi_manager.is_client_mode())
-            self.assertTrue(self.wifi_manager.is_ap_mode())
     
     def test_network_config(self):
         """Test NetworkManager configuration file"""
+        # Create the directory if it doesn't exist
+        os.makedirs("src/utils/network_configs", exist_ok=True)
+        
+        # Test config generation
+        self.assertTrue(self.wifi_manager.generate_network_config())
+        
         config_path = "src/utils/network_configs/networkmanager.conf"
         
         # Test if config file exists
@@ -342,9 +383,125 @@ eth0    ethernet  unmanaged --"""
             self.assertIn('[main]', content)
             self.assertIn('managed=true', content)
             self.assertIn('wifi.scan-rand-mac-address=no', content)
+    
+    @patch('src.network.wifi_manager.ConfigManager')
+    def test_save_network(self, mock_config_manager):
+        """Test saving a network to the configuration"""
+        # Arrange
+        mock_config_instance = MagicMock()
+        mock_config_manager.return_value = mock_config_instance
+        mock_config_instance.get_network_config.return_value = {
+            'saved_networks': []
+        }
+        mock_config_instance.save_network_config.return_value = True
         
-        # Test config generation (not application)
-        self.assertTrue(self.wifi_manager.generate_network_config())
+        # Act
+        result = self.wifi_manager.save_network("TestNetwork", "TestPassword123")
+        
+        # Assert
+        self.assertTrue(result)
+        mock_config_instance.save_network_config.assert_called_once()
+        saved_config = mock_config_instance.save_network_config.call_args[0][0]
+        self.assertIn('saved_networks', saved_config)
+        self.assertEqual(len(saved_config['saved_networks']), 1)
+        self.assertEqual(saved_config['saved_networks'][0]['ssid'], "TestNetwork")
+    
+    @patch('time.sleep')
+    @patch('subprocess.run')
+    @patch('src.network.wifi_manager.ConfigManager')
+    def test_connect_to_saved_network_with_retries(self, mock_config_manager, mock_run, mock_sleep):
+        """Test connecting to a saved network with retry mechanism"""
+        # Arrange
+        mock_config_instance = MagicMock()
+        mock_config_manager.return_value = mock_config_instance
+        mock_config_instance.get_network_config.return_value = {
+            'saved_networks': [{
+                'ssid': 'TestNetwork',
+                'password': 'TestPassword123'
+            }]
+        }
+        
+        # Mock connection attempts - fail twice, succeed on third try
+        failed_status = MagicMock(stdout='wifi      disconnected', returncode=0)
+        success_status = MagicMock(stdout='wifi      connected', returncode=0)
+        
+        mock_run.side_effect = [
+            # First attempt
+            MagicMock(returncode=0),  # Stop internetradio
+            MagicMock(returncode=0),  # Stop radiomonitor
+            MagicMock(returncode=0),  # Stop hostapd
+            MagicMock(returncode=0),  # NetworkManager restart
+            MagicMock(returncode=0),  # Delete connection
+            MagicMock(returncode=0),  # Add connection
+            failed_status,            # Status check fails
+            
+            # Second attempt
+            MagicMock(returncode=0),  # Stop internetradio
+            MagicMock(returncode=0),  # Stop radiomonitor
+            MagicMock(returncode=0),  # Stop hostapd
+            MagicMock(returncode=0),  # NetworkManager restart
+            MagicMock(returncode=0),  # Delete connection
+            MagicMock(returncode=0),  # Add connection
+            failed_status,            # Status check fails
+            
+            # Third attempt (success)
+            MagicMock(returncode=0),  # Stop internetradio
+            MagicMock(returncode=0),  # Stop radiomonitor
+            MagicMock(returncode=0),  # Stop hostapd
+            MagicMock(returncode=0),  # NetworkManager restart
+            MagicMock(returncode=0),  # Delete connection
+            MagicMock(returncode=0),  # Add connection
+            success_status            # Status check succeeds
+        ]
+        
+        # Act
+        result = self.wifi_manager.connect_to_saved_network('TestNetwork')
+        
+        # Assert
+        self.assertTrue(result)
+        self.assertEqual(mock_sleep.call_count, 2)  # Should sleep twice
+        mock_sleep.assert_has_calls([
+            call(5),  # First retry
+            call(5)   # Second retry
+        ])
+        
+        # Verify correct number of connection attempts
+        expected_calls = [
+            call(['sudo', 'systemctl', 'stop', 'internetradio'], check=False),
+            call(['sudo', 'systemctl', 'stop', 'radiomonitor'], check=False),
+            call(['sudo', 'systemctl', 'stop', 'hostapd'], check=False),
+            call(['sudo', 'systemctl', 'restart', 'NetworkManager']),
+            call(['sudo', 'nmcli', 'connection', 'delete', 'TestNetwork']),
+            call(['sudo', 'nmcli', 'device', 'wifi', 'connect', 'TestNetwork', 'password', 'TestPassword123']),
+            call(['nmcli', 'device', 'status'], capture_output=True, text=True)
+        ] * 3  # Three attempts
+        
+        # Verify all expected commands were called in order
+        mock_run.assert_has_calls(expected_calls, any_order=False)
+    
+    def test_is_ap_mode(self):
+        """Test AP mode detection"""
+        with patch('subprocess.run') as mock_run:
+            # Test when AP mode is active
+            mock_run.return_value = MagicMock(
+                returncode=0,  # hostapd is active
+                stdout="active"
+            )
+            self.assertTrue(self.wifi_manager.is_ap_mode())
+            
+            # Test when AP mode is inactive
+            mock_run.return_value = MagicMock(
+                returncode=1,  # hostapd is not active
+                stdout="inactive"
+            )
+            self.assertFalse(self.wifi_manager.is_ap_mode())
+            
+            # Verify correct command was called
+            mock_run.assert_called_with(
+                ['systemctl', 'is-active', 'hostapd'],
+                capture_output=True,
+                text=True
+            )
 
 if __name__ == '__main__':
     unittest.main() 

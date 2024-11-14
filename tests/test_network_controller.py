@@ -103,13 +103,19 @@ class TestNetworkController(unittest.TestCase):
         self.mock_wifi.configure_dns.return_value = True
         self.mock_wifi.check_dns_resolution.return_value = True
         
-        # Test
-        result = self.network.check_and_setup_network()
-        
-        # Verify
-        self.assertTrue(result)
-        self.mock_wifi.get_saved_networks.assert_called_once()
-        self.mock_wifi.connect_to_network.assert_called_once_with(test_network['ssid'], test_network['password'])
+        # Mock check_internet_connection
+        with patch.object(self.network, 'check_internet_connection', return_value=True):
+            # Mock time.sleep to avoid delays
+            with patch('time.sleep'):
+                # Test
+                result = self.network.check_and_setup_network()
+                
+                # Verify
+                self.assertTrue(result)
+                self.mock_wifi.get_saved_networks.assert_called_once()
+                self.mock_wifi.connect_to_network.assert_called_once_with(test_network['ssid'], test_network['password'])
+                self.mock_wifi.configure_dns.assert_called_once()
+                self.mock_wifi.check_dns_resolution.assert_called_once()
     
     def test_network_setup_fallback(self):
         # Setup
@@ -198,23 +204,43 @@ class TestNetworkController(unittest.TestCase):
         self.assertEqual(mock_run.call_count, 6)  # Six different commands
         mock_logger_instance.info.assert_called()  # Check the instance's info method
     
-    def test_check_and_setup_network_with_dns(self):
+    @patch('time.sleep')  # Prevent actual delays
+    @patch('subprocess.run')  # Mock subprocess calls
+    def test_check_and_setup_network_with_dns(self, mock_subprocess_run, mock_sleep):
         """Test network setup with DNS configuration"""
-        # Setup
-        self.mock_wifi.get_saved_networks.return_value = ["Network1"]
+        # Mock WiFiManager methods
+        self.mock_wifi.get_saved_networks.return_value = [{
+            'ssid': 'Network1'
+        }]
         self.mock_wifi.connect_to_network.return_value = True
         self.mock_wifi.configure_dns.return_value = True
         self.mock_wifi.check_dns_resolution.return_value = True
         
-        # Test
+        # Mock successful ping for internet check
+        mock_subprocess_run.return_value = MagicMock(returncode=0)
+        
+        # Execute
         result = self.network.check_and_setup_network()
         
-        # Verify
+        # Verify result
         self.assertTrue(result)
+        
+        # Verify method calls
         self.mock_wifi.get_saved_networks.assert_called_once()
-        self.mock_wifi.connect_to_network.assert_called_once_with("Network1", None)
+        self.mock_wifi.connect_to_network.assert_called_once_with('Network1', None)
         self.mock_wifi.configure_dns.assert_called_once()
         self.mock_wifi.check_dns_resolution.assert_called_once()
+        
+        # Verify no sleep was called (since everything succeeded first try)
+        mock_sleep.assert_not_called()
+        
+        # Verify ping was called for internet check
+        mock_subprocess_run.assert_called_with(
+            ['ping', '-c', '1', '-W', '2', '8.8.8.8'],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=True
+        )
     
     @patch('subprocess.run')
     def test_check_internet_connection(self, mock_run):

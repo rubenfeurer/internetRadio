@@ -35,7 +35,7 @@ fi
 
 echo_step "Installing system dependencies..."
 apt-get update
-apt-get install -y python3-pip python3-venv alsa-utils hostapd dnsmasq vlc xterm
+apt-get install -y python3-pip python3-venv alsa-utils hostapd dnsmasq vlc xterm network-manager
 
 # Verify radio user exists
 if ! id "radio" &>/dev/null; then

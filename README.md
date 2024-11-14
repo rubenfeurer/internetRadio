@@ -43,7 +43,7 @@ python3 scripts/test_sounds.py
 ### System Dependencies
 ```bash
 sudo apt-get update
-sudo apt-get install -y python3-pip python3-venv alsa-utils hostapd dnsmasq vlc xterm
+sudo apt-get install -y python3-pip python3-venv alsa-utils hostapd dnsmasq vlc xterm network-manager
 ```
 
 ### Python Dependencies
@@ -517,3 +517,13 @@ The CI pipeline:
 4. Wait for CI checks to pass
 5. Request review
 6. Merge only after approval and passing tests
+
+### Network Management Tools
+The system exclusively uses `nmcli` (NetworkManager Command Line Interface) for all network operations:
+- Network scanning: `nmcli device wifi list`
+- Connection management: `nmcli connection add/up/down`
+- WiFi operations: `nmcli radio wifi on/off`
+- Network status: `nmcli device status`
+- Saved networks: `nmcli connection show`
+
+This standardization ensures consistent behavior and reliable network management across different Raspberry Pi models and OS versions.
