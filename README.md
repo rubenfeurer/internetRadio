@@ -21,20 +21,16 @@ The system uses VLC for audio playback in two contexts:
    - Manages main audio output
    - Location: `src/audio/audio_manager.py`
 
-2. **System Sounds**
+2.  **System Sounds**
    - Uses the same AudioManager for consistency
-   - Plays notification sounds (wifi.wav, noWifi.wav, etc.)
+   - Plays notification sounds (success.wav, error.wav, etc.)
    - Handles system events and feedback
    - Sound files location: `sounds/`
 
 ### Sound Files
 System sound files are located in the `sounds/` directory:
-- `wifi.wav` - Played when WiFi connection is successful
-- `noWifi.wav` - Played when WiFi connection fails
-- `boot.wav` - Played during system startup
-- `error.wav` - Played when system errors occur
-- `shutdown.wav` - Played during system shutdown
-- `click.wav` - Played for user interface feedback
+- `success.wav` - Played when operations (like WiFi connection) are successful
+- `error.wav` - Played when operations fail
 
 ### Testing Sounds
 Test the audio system using:
@@ -355,3 +351,52 @@ If DNS resolution stops working:
 - `scripts/health_check.sh` - System health monitoring
 - `scripts/test_sounds.py` - Audio system testing
 - `runApp.sh` - Main service startup script
+
+## Network Management
+
+### Access Point (AP) Mode Triggers
+AP mode is automatically started in the following scenarios:
+
+1. **Initial Setup**
+   - When no WiFi networks are configured
+   - During first boot/installation
+   - When configuration file is missing/corrupted
+
+2. **Connection Failures**
+   - After multiple failed attempts to connect to saved WiFi networks
+   - When DNS resolution fails persistently
+   - When internet connectivity check fails repeatedly
+
+3. **Manual Triggers**
+   - Through web interface request
+   - Via GPIO button combination (long press)
+   - Through API endpoint call
+
+4. **Recovery Scenarios**
+   - After power failure with network issues
+   - When WiFi hardware issues are detected
+   - When network configuration becomes invalid
+
+### AP Mode Behavior
+When AP mode is activated:
+1. Creates "InternetRadio" WiFi network
+2. Assigns static IP (192.168.4.1)
+3. Starts DHCP server
+4. Enables web interface for configuration
+5. Plays audio notification
+6. Indicates status via LED
+
+### AP Mode Exit Conditions
+AP mode is deactivated when:
+1. Successfully connected to a configured WiFi network
+2. Manual exit through web interface
+3. System reboot after successful configuration
+4. Timeout period reached with valid network configuration
+
+### Network Mode State Machine
+```
+WiFi Mode ⟷ AP Mode
+   ↑          ↑
+   └──────────┘
+  (Auto-switching)
+```

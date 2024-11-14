@@ -16,16 +16,14 @@ def check_internet_connection(self) -> bool:
                 stderr=subprocess.DEVNULL,
                 check=True
             )
-            # Play success sound
-            if hasattr(self, 'sound_player'):
-                self.sound_player.play_sound('sounds/wifi.wav')
+            if self.audio_manager:
+                self.audio_manager.play_sound('success.wav')
             return True
         except subprocess.CalledProcessError:
             continue
     
-    # Play failure sound
-    if hasattr(self, 'sound_player'):
-        self.sound_player.play_sound('sounds/noWifi.wav')
+    if self.audio_manager:
+        self.audio_manager.play_sound('error.wav')
     
     self.logger.error("Failed to connect to any test hosts")
     return False 
