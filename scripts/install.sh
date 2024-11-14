@@ -140,3 +140,33 @@ HOOK_DIR="$PROJECT_DIR/.git/hooks"
 mkdir -p "$HOOK_DIR"
 cp scripts/git-hooks/pre-commit "$HOOK_DIR/pre-commit"
 chmod +x "$HOOK_DIR/pre-commit"
+
+# Ensure NetworkManager is running and enabled
+echo_step "Configuring NetworkManager..."
+systemctl enable NetworkManager
+systemctl start NetworkManager
+
+# Add radio user to netdev group for NetworkManager access
+usermod -a -G netdev radio
+
+# Create default config file if not exists
+if [ ! -f "$PROJECT_DIR/config/config.toml" ]; then
+    echo_step "Creating default config..."
+    cat > "$PROJECT_DIR/config/config.toml" << EOL
+[network]
+saved_networks = []
+ap_ssid = "InternetRadio"
+ap_password = "password123"
+
+[audio]
+volume = 50
+default_stream = ""
+EOL
+    chown radio:radio "$PROJECT_DIR/config/config.toml"
+    chmod 644 "$PROJECT_DIR/config/config.toml"
+fi
+
+# Test audio device availability
+if ! su - radio -c "aplay -l | grep -q 'card 2'"; then
+    echo_warning "Audio card 2 not found. Check audio device configuration."
+fi
