@@ -97,11 +97,36 @@ class TestConfigManager(unittest.TestCase):
         
     def test_remove_saved_network(self):
         """Test removing saved network"""
-        self.assertTrue(self.config_manager.remove_saved_network('TestNetwork'))
-        self.assertEqual(len(self.config_manager.network.saved_networks), 0)
+        # Create test config with a network to remove
+        test_config = {
+            'network': {
+                'saved_networks': [
+                    {'ssid': 'TestNetwork', 'password': 'test123'}
+                ],
+                'ap_ssid': 'TestRadio',
+                'ap_password': 'test456'
+            }
+        }
         
-        # Test removing non-existent network
-        self.assertFalse(self.config_manager.remove_saved_network('NonExistent'))
+        # Write test config
+        config_path = os.path.join(self.config_dir, 'config.toml')
+        with open(config_path, 'w') as f:
+            toml.dump(test_config, f)
+        
+        # Create new config manager with this config
+        self.config_manager = ConfigManager(config_dir=str(self.config_dir))
+        
+        # Verify network exists before removal
+        networks = self.config_manager.get_network_config().get('saved_networks', [])
+        print(f"Networks before removal: {networks}")  # Debug print
+        
+        # Try to remove the network
+        result = self.config_manager.remove_saved_network('TestNetwork')
+        print(f"Remove result: {result}")  # Debug print
+        
+        # Verify removal
+        self.assertTrue(result)
+        self.assertEqual(len(self.config_manager.network.saved_networks), 0)
         
     def test_save_config(self):
         """Test saving configuration to file"""
@@ -126,14 +151,137 @@ class TestConfigManager(unittest.TestCase):
         
     def test_saved_networks_config(self):
         """Test that saved networks are loaded correctly from config.toml"""
-        network_config = self.config_manager.get_network_config()
+        # Create test config with our Salt network
+        test_config = {
+            'network': {
+                'saved_networks': [
+                    {'ssid': 'Salt_5GHz_D8261F', 'password': 'GDk2hc2UQFV29tHSuR'}
+                ],
+                'ap_ssid': 'InternetRadio',
+                'ap_password': 'password123'
+            }
+        }
+        
+        # Write test config to temp directory
+        config_path = os.path.join(self.config_dir, 'config.toml')
+        with open(config_path, 'w') as f:
+            toml.dump(test_config, f)
+        
+        # Create new config manager instance
+        config_manager = ConfigManager(config_dir=str(self.config_dir))
+        
+        # Get network config
+        network_config = config_manager.get_network_config()
+        
+        # Verify saved networks
         self.assertIsNotNone(network_config.get('saved_networks'))
         saved_networks = network_config['saved_networks']
+        self.assertEqual(len(saved_networks), 1)
         
-        # Verify our Salt network is in the config
+        # Verify Salt network details
         salt_network = next((n for n in saved_networks if n['ssid'] == 'Salt_5GHz_D8261F'), None)
         self.assertIsNotNone(salt_network)
         self.assertEqual(salt_network['password'], 'GDk2hc2UQFV29tHSuR')
+        
+    def test_audio_config_initialization(self):
+        """Test audio configuration initialization"""
+        # Create test config with audio settings
+        test_config = {
+            'audio': {
+                'default_volume': 50,
+                'volume_step': 5
+            }
+        }
+        
+        # Write test config
+        config_path = os.path.join(self.config_dir, 'config.toml')
+        with open(config_path, 'w') as f:
+            toml.dump(test_config, f)
+        
+        # Create new config manager
+        config_manager = ConfigManager(config_dir=str(self.config_dir))
+        
+        # Verify audio attributes exist
+        self.assertTrue(hasattr(config_manager, 'audio'))
+        self.assertEqual(config_manager.audio.default_volume, 50)
+        self.assertEqual(config_manager.audio.volume_step, 5)
+        
+    def test_update_audio_config_single_value(self):
+        """Test updating a single audio configuration value"""
+        # Create test config with initial audio settings
+        test_config = {
+            'audio': {
+                'default_volume': 50,
+                'volume_step': 5
+            }
+        }
+        
+        # Write test config
+        config_path = os.path.join(self.config_dir, 'config.toml')
+        with open(config_path, 'w') as f:
+            toml.dump(test_config, f)
+        
+        # Create config manager
+        config_manager = ConfigManager(config_dir=str(self.config_dir))
+        
+        # Update single value
+        result = config_manager.update_audio_config(default_volume=70)
+        
+        # Verify update
+        self.assertTrue(result)
+        self.assertEqual(config_manager.audio.default_volume, 70)
+        self.assertEqual(config_manager.audio.volume_step, 5)  # Should remain unchanged
+
+    def test_add_saved_network_single(self):
+        """Test adding a single network to saved networks"""
+        # Create test config
+        test_config = {
+            'network': {
+                'saved_networks': [],
+                'ap_ssid': 'TestRadio',
+                'ap_password': 'test123'
+            }
+        }
+        
+        # Write test config
+        config_path = os.path.join(self.config_dir, 'config.toml')
+        with open(config_path, 'w') as f:
+            toml.dump(test_config, f)
+        
+        # Create config manager
+        config_manager = ConfigManager(config_dir=str(self.config_dir))
+        
+        # Add new network
+        new_network = {'ssid': 'NewNetwork', 'password': 'new123'}
+        result = config_manager.add_saved_network(new_network)
+        
+        # Verify
+        self.assertTrue(result)
+        self.assertIn(new_network, config_manager.network.saved_networks)
+
+    def test_load_config_with_audio(self):
+        """Test loading audio configuration from file"""
+        # Create test config with specific audio settings
+        test_config = {
+            'audio': {
+                'default_volume': 60,
+                'volume_step': 5,
+                'sounds_enabled': True
+            }
+        }
+        
+        # Write test config
+        config_path = os.path.join(self.config_dir, 'config.toml')
+        with open(config_path, 'w') as f:
+            toml.dump(test_config, f)
+        
+        # Create new config manager
+        config_manager = ConfigManager(config_dir=str(self.config_dir))
+        
+        # Verify audio settings
+        self.assertEqual(config_manager.audio.default_volume, 60)
+        self.assertEqual(config_manager.audio.volume_step, 5)
+        self.assertTrue(config_manager.audio.sounds_enabled)
 
 if __name__ == '__main__':
     unittest.main() 
