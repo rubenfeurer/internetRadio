@@ -289,12 +289,12 @@ Wired connection 1   d5ce7973-f25b-33c5-bc00-50dc57c4800d  ethernet  --     """
         with patch('subprocess.run') as mock_run:
             def mock_command(cmd, *args, **kwargs):
                 # Mock nmcli device status for client mode check
-                if cmd[0] == "nmcli":
+                if cmd[0] == "nmcli" and cmd[1] == "device" and cmd[2] == "status":
                     return MagicMock(
                         returncode=0,
-                        stdout="""DEVICE  TYPE      STATE        CONNECTION
-wlan0   wifi      managed     Salt_5GHz_D8261F
-eth0    ethernet  unmanaged   --""",
+                        stdout="""DEVICE  TYPE      STATE      CONNECTION
+wlan0   wifi      connected  Salt_5GHz_D8261F
+eth0    ethernet  unmanaged  --""",
                         text=True
                     )
                 # Mock systemctl for AP mode check
@@ -342,13 +342,13 @@ eth0    ethernet  unmanaged   --""",
         """Test WiFi mode detection"""
         with patch('subprocess.run') as mock_run:
             def mock_command(cmd, *args, **kwargs):
-                # For client mode check (nmcli)
-                if cmd[0] == "nmcli":
+                # For client mode check (nmcli device status)
+                if cmd[0] == "nmcli" and cmd[1] == "device" and cmd[2] == "status":
                     return MagicMock(
                         returncode=0,
                         stdout="""DEVICE  TYPE      STATE      CONNECTION
-wlan0   wifi      managed   MyNetwork
-eth0    ethernet  unmanaged --""",
+wlan0   wifi      connected  MyNetwork
+eth0    ethernet  unmanaged  --""",
                         text=True
                     )
                 # For AP mode check (systemctl)

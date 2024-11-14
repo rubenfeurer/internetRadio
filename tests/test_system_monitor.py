@@ -5,6 +5,9 @@ from src.utils.system_monitor import SystemMonitor
 import os
 from unittest.mock import MagicMock
 import subprocess
+from src.network.wifi_manager import WiFiManager
+from src.utils.logger import Logger
+from io import StringIO
 
 class TestSystemMonitor(unittest.TestCase):
     def setUp(self):
@@ -207,19 +210,22 @@ WantedBy=multi-user.target"""
         mock_wifi.is_ap_mode.return_value = False
         self.monitor.wifi_manager = mock_wifi
         metrics = self.monitor.collect_network_metrics()
-        self.assertEqual(metrics['mode'], 'Client')
+        self.assertTrue(metrics['is_client_mode'])
+        self.assertFalse(metrics['is_ap_mode'])
         
         # Test AP Mode
         mock_wifi.is_client_mode.return_value = False
         mock_wifi.is_ap_mode.return_value = True
         metrics = self.monitor.collect_network_metrics()
-        self.assertEqual(metrics['mode'], 'AP')
+        self.assertFalse(metrics['is_client_mode'])
+        self.assertTrue(metrics['is_ap_mode'])
         
         # Test Unknown Mode
         mock_wifi.is_client_mode.return_value = False
         mock_wifi.is_ap_mode.return_value = False
         metrics = self.monitor.collect_network_metrics()
-        self.assertEqual(metrics['mode'], 'Unknown')
+        self.assertFalse(metrics['is_client_mode'])
+        self.assertFalse(metrics['is_ap_mode'])
 
     def test_display_service(self):
         """Test display service configuration"""
@@ -276,10 +282,97 @@ WantedBy=multi-user.target"""
         # Test the metrics collection
         metrics = self.monitor.collect_network_metrics()
         
-        # Verify debug logs were called
-        mock_logger.debug.assert_any_call("Checking WiFi modes...")
-        mock_logger.debug.assert_any_call("Client mode: True")
-        mock_logger.debug.assert_any_call("Client mode detected, SSID: Salt_5GHz_D8261F")
-        
         # Verify metrics
         self.assertEqual(metrics['wifi_ssid'], 'Salt_5GHz_D8261F')
+        self.assertTrue(metrics['is_client_mode'])
+        self.assertFalse(metrics['is_ap_mode'])
+        self.assertTrue(metrics['internet_connected'])
+        
+        # Verify error logging works
+        mock_wifi.get_current_network.side_effect = Exception("Test error")
+        metrics = self.monitor.collect_network_metrics()
+        mock_logger.error.assert_called_with("Network metrics collection error: Test error")
+
+    def test_display_metrics_with_active_wifi(self):
+        """Test metrics display with active WiFi connection"""
+        # Mock all the metric collection methods
+        with patch.object(self.monitor, 'collect_metrics') as mock_metrics:
+            with patch.object(self.monitor, 'collect_network_metrics') as mock_network:
+                with patch.object(self.monitor, 'check_radio_service') as mock_radio:
+                    with patch.object(self.monitor, 'get_system_temperature') as mock_temp:
+                        with patch.object(self.monitor, 'get_volume_level') as mock_volume:
+                            with patch.object(self.monitor, 'get_system_events') as mock_events:
+                                # Set up mock returns
+                                mock_metrics.return_value = {
+                                    'cpu_usage': 6.1,
+                                    'memory_usage': 21.3,
+                                    'disk_usage': 22.9
+                                }
+                                mock_network.return_value = {
+                                    'wifi_ssid': 'Salt_5GHz_D8261F',
+                                    'is_client_mode': True,
+                                    'is_ap_mode': False,
+                                    'internet_connected': True
+                                }
+                                mock_radio.return_value = {
+                                    'is_running': True,
+                                    'current_station': 'Unknown'
+                                }
+                                mock_temp.return_value = 56.0
+                                mock_volume.return_value = 100
+                                mock_events.return_value = [
+                                    'Nov 14 16:26:35 radiod avahi-daemon[593]: Withdrawing address record for 192.168.1.16 on wlan0.',
+                                    'Nov 14 16:26:35 radiod avahi-daemon[593]: Registering new address record for 192.168.1.16 on wlan0.IPv4.',
+                                    'Nov 14 16:31:22 radiod avahi-daemon[593]: Withdrawing address record for 192.168.1.16 on wlan0.',
+                                    'Nov 14 16:31:22 radiod avahi-daemon[593]: Registering new address record for 192.168.1.16 on wlan0.IPv4.'
+                                ]
+                                
+                                # Capture stdout to verify output
+                                with patch('sys.stdout', new=StringIO()) as fake_out:
+                                    self.monitor.display_metrics()
+                                    output = fake_out.getvalue()
+                                    
+                                    # Verify key elements in output
+                                    self.assertIn('CPU Usage: 6.1%', output)
+                                    self.assertIn('Memory Usage: 21.3%', output)
+                                    self.assertIn('Disk Usage: 22.9%', output)
+                                    self.assertIn('Temperature: 56.0°C', output)
+                                    self.assertIn('WiFi Network: Salt_5GHz_D8261F', output)
+                                    self.assertIn('Mode: Client', output)
+                                    self.assertIn('Internet Connected: Yes', output)
+                                    self.assertIn('Service Running: Yes', output)
+                                    self.assertIn('Current Station: Unknown', output)
+                                    self.assertIn('Volume Level: 100%', output)
+
+    def test_collect_network_metrics_with_nmcli(self):
+        """Test network metrics collection using actual nmcli output"""
+        # Mock ConfigManager for WiFiManager initialization
+        with patch('src.network.wifi_manager.ConfigManager') as mock_config:
+            mock_config_instance = MagicMock()
+            mock_config.return_value = mock_config_instance
+            mock_config_instance.get_network_config.return_value = {
+                'ap_ssid': 'TestAP',
+                'ap_password': 'TestPass',
+                'ap_channel': 6
+            }
+            
+            # Create a mock WiFiManager
+            mock_wifi = MagicMock()
+            mock_wifi.get_current_network.return_value = "Salt_5GHz_D8261F"
+            mock_wifi.is_client_mode.return_value = True
+            mock_wifi.is_ap_mode.return_value = False
+            mock_wifi.check_internet_connection.return_value = True
+            
+            # Inject mock WiFiManager
+            self.monitor.wifi_manager = mock_wifi
+            
+            metrics = self.monitor.collect_network_metrics()
+            
+            # Print actual metrics for debugging
+            print(f"Collected metrics: {metrics}")
+            
+            # Verify metrics
+            self.assertEqual(metrics['wifi_ssid'], 'Salt_5GHz_D8261F')
+            self.assertTrue(metrics['is_client_mode'])
+            self.assertFalse(metrics['is_ap_mode'])
+            self.assertTrue(metrics['internet_connected'])

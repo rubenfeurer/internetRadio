@@ -453,24 +453,15 @@ class WiFiManager:
     def is_client_mode(self) -> bool:
         """Check if WiFi is in client mode"""
         try:
-            # Check network interface state using nmcli
+            # Check if any wifi connection is active
             result = subprocess.run(
                 ['nmcli', 'device', 'status'],
                 capture_output=True,
                 text=True
             )
             
-            # Client mode is active if:
-            # 1. wlan0 is in managed state
-            # 2. Has an active connection
-            lines = result.stdout.split('\n')
-            for line in lines:
-                if 'wlan0' in line and 'wifi' in line:
-                    is_managed = 'managed' in line
-                    has_connection = not line.strip().endswith('--')
-                    return is_managed and has_connection
-                    
-            return False
+            # Look for "wifi      connected" in the output
+            return 'wifi      connected' in result.stdout
             
         except Exception as e:
             self.logger.error(f"Error checking client mode: {e}")

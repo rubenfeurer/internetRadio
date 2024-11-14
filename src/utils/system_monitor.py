@@ -22,6 +22,7 @@ class SystemMonitor:
         self._initialized = True
         self.logger = Logger.get_logger(__name__)
         self.wifi_manager = WiFiManager()
+        self.logger.info("SystemMonitor initialized")
         
     def collect_metrics(self) -> dict:
         """Collect basic system metrics"""
@@ -40,48 +41,27 @@ class SystemMonitor:
             }
         
     def collect_network_metrics(self) -> dict:
-        """Collect enhanced network-related metrics"""
+        """Collect network metrics"""
         try:
-            self.logger.debug("Checking WiFi modes...")
-            is_client = self.wifi_manager.is_client_mode()
-            self.logger.debug(f"Client mode: {is_client}")
-            is_ap = self.wifi_manager.is_ap_mode()
-            self.logger.debug(f"AP mode: {is_ap}")
+            # Get current network status
+            wifi_ssid = self.wifi_manager.get_current_network() or "Not connected"
+            is_client_mode = self.wifi_manager.is_client_mode()
+            is_ap_mode = self.wifi_manager.is_ap_mode()
+            internet_connected = self.wifi_manager.check_internet_connection()
             
-            # Determine mode with logging
-            if is_client:
-                mode = 'Client'
-                ssid = self.wifi_manager.get_current_network()
-                self.logger.debug(f"Client mode detected, SSID: {ssid}")
-            elif is_ap:
-                mode = 'AP'
-                ssid = "AP Mode"
-                self.logger.debug("AP mode detected")
-            else:
-                mode = 'Unknown'
-                ssid = "Not connected"
-                self.logger.debug("No mode detected, setting to Unknown")
-                
-            internet = self.wifi_manager.check_internet_connection()
-            self.logger.debug(f"Internet connected: {internet}")
-            
-            metrics = {
-                'wifi_ssid': ssid or "Not connected",
-                'internet_connected': internet,
-                'is_client_mode': is_client,
-                'is_ap_mode': is_ap,
-                'mode': mode
-            }
-            self.logger.debug(f"Network metrics: {metrics}")
-            return metrics
-        except Exception as e:
-            self.logger.error(f"Network metrics error: {e}")
             return {
-                'wifi_ssid': "Error",
-                'internet_connected': False,
+                'wifi_ssid': wifi_ssid,
+                'is_client_mode': is_client_mode,
+                'is_ap_mode': is_ap_mode,
+                'internet_connected': internet_connected
+            }
+        except Exception as e:
+            self.logger.error(f"Network metrics collection error: {e}")
+            return {
+                'wifi_ssid': "Not connected",
                 'is_client_mode': False,
                 'is_ap_mode': False,
-                'mode': 'Error'
+                'internet_connected': False
             }
 
     def check_radio_service(self) -> dict:
@@ -138,32 +118,36 @@ class SystemMonitor:
 
     def display_metrics(self):
         """Display metrics in console"""
-        metrics = self.collect_metrics()
-        network = self.collect_network_metrics()
-        radio = self.check_radio_service()
-        temp = self.get_system_temperature()
-        volume = self.get_volume_level()
-        events = self.get_system_events()
+        try:
+            metrics = self.collect_metrics()
+            network = self.collect_network_metrics()
+            radio = self.check_radio_service()
+            temp = self.get_system_temperature()
+            volume = self.get_volume_level()
+            events = self.get_system_events()
 
-        print("\033[2J\033[H")  # Clear screen
-        print("=== System Monitor ===")
-        print(f"CPU Usage: {metrics['cpu_usage']}%")
-        print(f"Memory Usage: {metrics['memory_usage']}%")
-        print(f"Disk Usage: {metrics['disk_usage']}%")
-        print(f"Temperature: {temp}°C")
-        print("\n=== Network Status ===")
-        print(f"WiFi Network: {network['wifi_ssid']}")
-        print(f"Mode: {'Client' if network['is_client_mode'] else 'AP' if network['is_ap_mode'] else 'Unknown'}")
-        print(f"Internet Connected: {'Yes' if network['internet_connected'] else 'No'}")
-        print("\n=== Radio Status ===")
-        print(f"Service Running: {'Yes' if radio['is_running'] else 'No'}")
-        print(f"Current Station: {radio['current_station']}")
-        print(f"Volume Level: {volume}%")
-        print("\n=== Last Events ===")
-        for event in events:
-            print(event)
-        print("===================")
-        
+            print("\033[2J\033[H")  # Clear screen
+            print("=== System Monitor ===")
+            print(f"CPU Usage: {metrics['cpu_usage']}%")
+            print(f"Memory Usage: {metrics['memory_usage']}%")
+            print(f"Disk Usage: {metrics['disk_usage']}%")
+            print(f"Temperature: {temp}°C")
+            print("\n=== Network Status ===")
+            print(f"WiFi Network: {network['wifi_ssid']}")
+            print(f"Mode: {'Client' if network['is_client_mode'] else 'AP' if network['is_ap_mode'] else 'Unknown'}")
+            print(f"Internet Connected: {'Yes' if network['internet_connected'] else 'No'}")
+            print("\n=== Radio Status ===")
+            print(f"Service Running: {'Yes' if radio['is_running'] else 'No'}")
+            print(f"Current Station: {radio['current_station']}")
+            print(f"Volume Level: {volume}%")
+            print("\n=== Last Events ===")
+            for event in events:
+                print(event)
+            print("===================")
+        except Exception as e:
+            self.logger.error(f"Error displaying metrics: {e}")
+            print(f"Error displaying metrics: {e}")
+
     def run(self):
         """Main monitoring loop"""
         try:
@@ -172,3 +156,7 @@ class SystemMonitor:
                 time.sleep(1)
         except KeyboardInterrupt:
             self.logger.info("Monitor stopped by user")
+
+if __name__ == '__main__':
+    monitor = SystemMonitor()
+    monitor.run()
