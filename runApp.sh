@@ -27,6 +27,21 @@ python3 --version
 echo "Starting Python application..."
 cd /home/radio/internetRadio
 
+# Wait for NetworkManager to be fully started
+timeout=30
+while [ $timeout -gt 0 ]; do
+    if systemctl is-active --quiet NetworkManager; then
+        break
+    fi
+    sleep 1
+    ((timeout--))
+done
+
+if [ $timeout -eq 0 ]; then
+    echo "Error: NetworkManager failed to start"
+    exit 1
+fi
+
 # Start the application with error filtering and proper output handling
 exec python3 main.py 2> >(grep -v \
     -e "snd_use_case_mgr_open" \

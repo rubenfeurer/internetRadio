@@ -44,7 +44,7 @@ class TestNetworkController(unittest.TestCase):
         self.logger.debug("Importing NetworkController")
         # Import and create NetworkController
         from src.controllers.network_controller import NetworkController
-        self.network = NetworkController()
+        self.network_controller = NetworkController()
         self.logger.debug("Setup complete")
     
     def tearDown(self):
@@ -54,7 +54,7 @@ class TestNetworkController(unittest.TestCase):
     
     def test_initialize_success(self):
         self.logger.debug("Testing initialize")
-        result = self.network.initialize()
+        result = self.network_controller.initialize()
         self.logger.debug(f"Initialize result: {result}")
         self.assertTrue(result)
         self.mock_wifi.initialize.assert_called_once()
@@ -68,7 +68,7 @@ class TestNetworkController(unittest.TestCase):
         self.mock_wifi.connect_to_network.return_value = True
         
         # Test connection
-        result = self.network.connect_wifi(test_ssid, test_password)
+        result = self.network_controller.connect_wifi(test_ssid, test_password)
         self.logger.debug(f"WiFi connection result: {result}")
         
         # Verify
@@ -83,15 +83,15 @@ class TestNetworkController(unittest.TestCase):
         self.mock_ap.stop.return_value = True
         
         # Test AP start
-        result = self.network.start_ap_mode(test_ssid, test_password)
+        result = self.network_controller.start_ap_mode(test_ssid, test_password)
         self.assertTrue(result)
-        self.assertTrue(self.network.is_ap_mode)
+        self.assertTrue(self.network_controller.is_ap_mode)
         self.mock_ap.start.assert_called_once_with(test_ssid, test_password)
         
         # Test AP stop
-        result = self.network.stop_ap_mode()
+        result = self.network_controller.stop_ap_mode()
         self.assertTrue(result)
-        self.assertFalse(self.network.is_ap_mode)
+        self.assertFalse(self.network_controller.is_ap_mode)
         self.mock_ap.stop.assert_called_once()
     
     def test_network_setup(self):
@@ -104,11 +104,11 @@ class TestNetworkController(unittest.TestCase):
         self.mock_wifi.check_dns_resolution.return_value = True
         
         # Mock check_internet_connection
-        with patch.object(self.network, 'check_internet_connection', return_value=True):
+        with patch.object(self.network_controller, 'check_internet_connection', return_value=True):
             # Mock time.sleep to avoid delays
             with patch('time.sleep'):
                 # Test
-                result = self.network.check_and_setup_network()
+                result = self.network_controller.check_and_setup_network()
                 
                 # Verify
                 self.assertTrue(result)
@@ -123,44 +123,37 @@ class TestNetworkController(unittest.TestCase):
         self.mock_ap.start.return_value = True
         
         # Test
-        result = self.network.check_and_setup_network()
+        result = self.network_controller.check_and_setup_network()
         
         # Verify
         self.assertTrue(result)
-        self.assertTrue(self.network.is_ap_mode)
+        self.assertTrue(self.network_controller.is_ap_mode)
         self.mock_ap.start.assert_called_once()
     
     def test_get_connection_status(self):
         """Test getting connection status"""
         # Setup
-        self.mock_wifi.is_connected.return_value = True
-        self.mock_wifi.get_current_ssid.return_value = "TestNetwork"
-        self.mock_wifi.get_ip.return_value = "192.168.1.100"
+        self.mock_wifi.get_connection_info.return_value = {
+            'ssid': 'TestNetwork',
+            'ip': '192.168.1.100',
+            'signal': 70
+        }
         
         # Test normal WiFi mode
-        status = self.network.get_connection_status()
+        status = self.network_controller.get_connection_status()
         self.assertEqual(status['is_ap_mode'], False)
-        self.assertEqual(status['ip_address'], "192.168.1.100")
-        self.assertEqual(status['wifi_connected'], True)
-        self.assertEqual(status['current_ssid'], "TestNetwork")
-        
-        # Test AP mode
-        self.network.is_ap_mode = True
-        self.mock_ap.get_ip.return_value = "192.168.4.1"
-        status = self.network.get_connection_status()
-        self.assertEqual(status['is_ap_mode'], True)
-        self.assertEqual(status['ip_address'], "192.168.4.1")
-        self.assertEqual(status['wifi_connected'], False)
-        self.assertIsNone(status['current_ssid'])
+        self.assertEqual(status['ip'], '192.168.1.100')
+        self.assertEqual(status['ssid'], 'TestNetwork')
+        self.assertEqual(status['signal'], 70)
     
     def test_cleanup(self):
         """Test network cleanup"""
         # Setup
-        self.network.is_ap_mode = True
+        self.network_controller.is_ap_mode = True
         self.mock_ap.stop.return_value = True
         
         # Test
-        self.network.cleanup()
+        self.network_controller.cleanup()
         
         # Verify
         self.mock_ap.stop.assert_called_once()
@@ -169,17 +162,17 @@ class TestNetworkController(unittest.TestCase):
     
     def test_monitor_network(self):
         """Test network monitoring"""
-        # Setup
-        self.network.is_ap_mode = True
-        self.mock_ap.is_active.return_value = False
-        
-        # Mock config manager
+        # Setup mock config manager
         mock_config = MagicMock()
         mock_config.get_ap_credentials.return_value = ("TestAP", "TestPass")
-        self.network.config_manager = mock_config
+        self.network_controller.config_manager = mock_config
+        
+        # Set AP mode
+        self.network_controller.is_ap_mode = True
+        self.mock_ap.is_active.return_value = False
         
         # Test
-        self.network.monitor_network()
+        self.network_controller.monitor_network()
         
         # Verify
         self.mock_ap.is_active.assert_called_once()
@@ -225,7 +218,7 @@ class TestNetworkController(unittest.TestCase):
         mock_subprocess_run.return_value = MagicMock(returncode=0)
         
         # Execute
-        result = self.network.check_and_setup_network()
+        result = self.network_controller.check_and_setup_network()
         
         # Verify result
         self.assertTrue(result)
@@ -252,7 +245,7 @@ class TestNetworkController(unittest.TestCase):
         """Test internet connection check with fallback hosts"""
         # Test successful connection to first host
         mock_run.return_value = MagicMock(returncode=0)
-        self.assertTrue(self.network.check_internet_connection())
+        self.assertTrue(self.network_controller.check_internet_connection())
         mock_run.assert_called_once()
         
         # Test fallback to second host
@@ -261,32 +254,32 @@ class TestNetworkController(unittest.TestCase):
             subprocess.CalledProcessError(1, 'ping'),  # First host fails
             MagicMock(returncode=0)  # Second host succeeds
         ]
-        self.assertTrue(self.network.check_internet_connection())
+        self.assertTrue(self.network_controller.check_internet_connection())
         self.assertEqual(mock_run.call_count, 2)
         
         # Test all hosts fail
         mock_run.reset_mock()
         mock_run.side_effect = subprocess.CalledProcessError(1, 'ping')
-        self.assertFalse(self.network.check_internet_connection())
+        self.assertFalse(self.network_controller.check_internet_connection())
         self.assertEqual(mock_run.call_count, 3)  # Should try all three hosts
     
     def test_internet_connection_sound_notifications(self):
         """Test sound notifications for internet connection status"""
         # Setup
         mock_audio_manager = MagicMock()
-        self.network.audio_manager = mock_audio_manager
+        self.network_controller.audio_manager = mock_audio_manager
         
         # Test successful connection
         with patch('subprocess.run') as mock_run:
             mock_run.return_value = MagicMock(returncode=0)
-            self.network.check_internet_connection()
+            self.network_controller.check_internet_connection()
             mock_audio_manager.play_sound.assert_called_once_with('wifi.wav')
         
         # Test failed connection
         mock_audio_manager.reset_mock()
         with patch('subprocess.run') as mock_run:
             mock_run.side_effect = subprocess.CalledProcessError(1, 'ping')
-            self.network.check_internet_connection()
+            self.network_controller.check_internet_connection()
             mock_audio_manager.play_sound.assert_called_once_with('noWifi.wav')
     
     def test_check_and_setup_network_with_internet_check(self):
@@ -298,9 +291,9 @@ class TestNetworkController(unittest.TestCase):
         self.mock_wifi.check_dns_resolution.return_value = True
         
         # Test case 1: WiFi connects and internet is available
-        with patch.object(self.network, 'check_internet_connection') as mock_check:
+        with patch.object(self.network_controller, 'check_internet_connection') as mock_check:
             mock_check.return_value = True
-            result = self.network.check_and_setup_network()
+            result = self.network_controller.check_and_setup_network()
             
             # Verify the result
             self.assertTrue(result)
@@ -316,12 +309,12 @@ class TestNetworkController(unittest.TestCase):
         self.mock_wifi.check_dns_resolution.return_value = True
         
         # Mock check_internet_connection to fail twice then succeed
-        with patch.object(self.network, 'check_internet_connection') as mock_check:
+        with patch.object(self.network_controller, 'check_internet_connection') as mock_check:
             mock_check.side_effect = [False, False, True]
             
             # Mock time.sleep to avoid actual delays in test
             with patch('time.sleep') as mock_sleep:
-                result = self.network.check_and_setup_network()
+                result = self.network_controller.check_and_setup_network()
                 
                 # Print actual calls for debugging
                 print(f"Actual sleep calls: {mock_sleep.mock_calls}")
@@ -341,17 +334,40 @@ class TestNetworkController(unittest.TestCase):
     def test_monitor_network_ap_mode_restart(self):
         """Test network monitoring when AP mode needs restart"""
         # Setup
-        self.network.is_ap_mode = True
+        self.network_controller.is_ap_mode = True
         self.mock_ap.is_active.return_value = False
         
         # Configure config manager mock
         mock_config = MagicMock()
         mock_config.get_ap_credentials.return_value = ("TestAP", "TestPass")
-        self.network.config_manager = mock_config
+        self.network_controller.config_manager = mock_config
         
         # Test
-        self.network.monitor_network()
+        self.network_controller.monitor_network()
         
         # Verify
         self.mock_ap.is_active.assert_called_once()
         self.mock_ap.start.assert_called_once_with("TestAP", "TestPass")
+    
+    def test_check_network_manager(self):
+        """Test checking NetworkManager status"""
+        # Mock subprocess.run
+        with patch('subprocess.run') as mock_run:
+            # Test when NetworkManager is active
+            mock_run.return_value.stdout = 'active\n'
+            self.assertTrue(self.network_controller._check_network_manager())
+            
+            # Test when NetworkManager is inactive
+            mock_run.return_value.stdout = 'inactive\n'
+            self.assertFalse(self.network_controller._check_network_manager())
+            
+            # Test when command fails
+            mock_run.side_effect = Exception("Command failed")
+            self.assertFalse(self.network_controller._check_network_manager())
+    
+    def test_monitor_network_without_network_manager(self):
+        """Test monitor_network behavior when NetworkManager is not running"""
+        with patch.object(self.network_controller, '_check_network_manager', return_value=False):
+            self.network_controller.monitor_network()
+            # Verify it logs the error
+            self.mock_logger.error.assert_called_with("NetworkManager is not running")

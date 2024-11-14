@@ -74,8 +74,8 @@ class TestSystemMonitor(unittest.TestCase):
         service_path = '/etc/systemd/system/radiomonitor.service'
         expected_content = """[Unit]
 Description=Internet Radio System Monitor
-After=internetradio.service
-Wants=internetradio.service
+After=internetradio.service NetworkManager.service
+Wants=internetradio.service NetworkManager.service
 
 [Service]
 Type=simple

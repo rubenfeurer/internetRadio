@@ -29,22 +29,28 @@ class NetworkController:
 
     def get_connection_status(self) -> dict:
         """Get current connection status"""
-        status = {
-            'is_ap_mode': self.is_ap_mode,
-            'mode': 'AP' if self.is_ap_mode else 'WiFi',
-            'wifi_connected': False,
-            'current_ssid': None,
-            'ip_address': None
-        }
-        
-        if self.is_ap_mode:
-            status['ip_address'] = self.ap_manager.get_ip()
-        else:
-            status['wifi_connected'] = self.wifi_manager.is_connected()
-            status['ip_address'] = self.wifi_manager.get_ip()
-            status['current_ssid'] = self.wifi_manager.get_current_ssid()
-        
-        return status
+        try:
+            wifi_info = self.wifi_manager.get_connection_info()
+            mode = "client" if wifi_info.get('ssid') else "unknown"
+            if self.is_ap_mode:
+                mode = "ap"
+            
+            return {
+                'is_ap_mode': self.is_ap_mode,
+                'mode': mode,
+                'ssid': wifi_info.get('ssid', ''),
+                'ip': wifi_info.get('ip', ''),
+                'signal': wifi_info.get('signal', 0)
+            }
+        except Exception as e:
+            self.logger.error(f"Error getting connection status: {e}")
+            return {
+                'is_ap_mode': False,
+                'mode': 'unknown',
+                'ssid': '',
+                'ip': '',
+                'signal': 0
+            }
 
     def connect_wifi(self, ssid: str, password: Optional[str] = None) -> bool:
         """Connect to WiFi network"""
@@ -110,12 +116,19 @@ class NetworkController:
 
     def monitor_network(self) -> None:
         """Monitor network status"""
-        if self.is_ap_mode:
-            if not self.ap_manager.is_active():
-                ap_ssid, ap_password = self.config_manager.get_ap_credentials()
-                self.ap_manager.start(ap_ssid, ap_password)
-        else:
-            self.wifi_manager.is_connected()
+        try:
+            if not self._check_network_manager():
+                self.logger.error("NetworkManager is not running")
+                return
+
+            if self.is_ap_mode:
+                if not self.ap_manager.is_active():
+                    ap_ssid, ap_password = self.config_manager.get_ap_credentials()
+                    self.start_ap_mode(ap_ssid, ap_password)
+            else:
+                self.wifi_manager.is_connected()
+        except Exception as e:
+            self.logger.error(f"Error in monitor_network: {str(e)}")
 
     def log_network_status(self) -> None:
         """Log current network status"""
@@ -190,3 +203,13 @@ class NetworkController:
         
         self.logger.error("Failed to connect to any test hosts")
         return False
+
+    def _check_network_manager(self) -> bool:
+        """Check if NetworkManager is running"""
+        try:
+            result = subprocess.run(['systemctl', 'is-active', 'NetworkManager'], 
+                                  capture_output=True, text=True)
+            return result.stdout.strip() == 'active'
+        except Exception as e:
+            self.logger.error(f"Error checking NetworkManager status: {e}")
+            return False
