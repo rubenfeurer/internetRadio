@@ -125,3 +125,9 @@ if systemctl is-active --quiet internetradio; then
 else
     echo_error "Service failed to start. Check logs with: journalctl -u internetradio"
 fi
+
+echo_step "Setting up git hooks..."
+HOOK_DIR="$PROJECT_DIR/.git/hooks"
+mkdir -p "$HOOK_DIR"
+cp scripts/git-hooks/pre-commit "$HOOK_DIR/pre-commit"
+chmod +x "$HOOK_DIR/pre-commit"

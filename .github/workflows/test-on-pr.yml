@@ -1,0 +1,35 @@
+name: Test Suite
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  push:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-pip python3-venv alsa-utils vlc xterm
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Run tests
+      run: |
+        python -m pytest tests/ -v
+        
+    - name: Check test coverage
+      run: |
+        pip install pytest-cov
+        python -m pytest --cov=src tests/ --cov-report=term-missing --cov-fail-under=80 

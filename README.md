@@ -459,3 +459,37 @@ All service configurations are stored in the `services/` directory:
 - `radiomonitor.service`: System monitor service configuration
 - `logrotate.conf`: Log rotation settings
 - `network.conf`: Network interface configuration
+
+## Development Workflow
+
+### Branch Protection
+The repository is configured with branch protection rules:
+- Direct pushes to `main` and `develop` branches are prohibited
+- Pull requests require passing tests before merging
+- Branches must be up to date before merging
+
+### Git Hooks
+Local git hooks are installed to prevent commits with failing tests:
+```bash
+# The pre-commit hook runs all tests
+# Commits are blocked if tests fail
+git commit -m "your message"
+```
+
+### Continuous Integration
+GitHub Actions run the test suite on:
+- All pull requests to main/develop
+- All pushes to main/develop
+
+The CI pipeline:
+1. Runs all unit tests
+2. Checks test coverage (minimum 80% required)
+3. Blocks merging if any checks fail
+
+### Development Process
+1. Create a feature branch from `develop`
+2. Make changes and commit (tests run automatically)
+3. Push branch and create pull request
+4. Wait for CI checks to pass
+5. Request review
+6. Merge only after approval and passing tests
