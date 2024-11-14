@@ -24,6 +24,8 @@ wheels/
 # Logs
 logs/
 *.log
+wifi.log
+*@*.log
 
 # Unit test / coverage reports
 htmlcov/

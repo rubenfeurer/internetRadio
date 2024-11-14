@@ -485,8 +485,8 @@ class WiFiManager:
                 capture_output=True,
                 text=True
             )
-            # AP mode is active if hostapd service is active
-            return result.returncode == 0 and result.stdout.strip() == "active"
+            # AP mode is active only if hostapd service is active
+            return result.stdout.strip() == "active"
             
         except Exception as e:
             self.logger.error(f"Error checking AP mode: {e}")
