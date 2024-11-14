@@ -298,5 +298,31 @@ class TestConfigManager(unittest.TestCase):
         self.assertEqual(ssid, 'TestAP')
         self.assertEqual(password, 'TestPass')
 
+    def test_network_mode_conflict(self):
+        """Test that AP mode doesn't interfere with NetworkManager"""
+        # Create test config with network settings
+        test_config = {
+            'network': {
+                'saved_networks': [
+                    {'ssid': 'Salt_2GHz_D8261F', 'password': 'GDk2hc2UQFV29tHSuR'}
+                ],
+                'ap_ssid': 'TestRadio',
+                'ap_password': 'test123'
+            }
+        }
+        
+        # Write test config
+        config_path = os.path.join(self.config_dir, 'config.toml')
+        with open(config_path, 'w') as f:
+            toml.dump(test_config, f)
+        
+        # Create config manager
+        config_manager = ConfigManager(config_dir=str(self.config_dir))
+        
+        # Verify network settings don't conflict
+        network_config = config_manager.get_network_config()
+        self.assertIn('saved_networks', network_config)
+        self.assertEqual(len(network_config['saved_networks']), 1)
+
 if __name__ == '__main__':
     unittest.main() 

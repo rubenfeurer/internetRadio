@@ -15,6 +15,16 @@ class APManager:
     def setup_ap_mode(self) -> bool:
         """Set up Access Point mode"""
         try:
+            # Check if NetworkManager is managing the interface
+            nm_status = subprocess.run(
+                ["nmcli", "device", "status"], 
+                capture_output=True, 
+                text=True
+            )
+            if "wlan0" in nm_status.stdout and "managed" in nm_status.stdout:
+                self.logger.info("Interface is managed by NetworkManager, skipping AP setup")
+                return True
+            
             self.logger.info("Starting AP mode setup...")
             
             # Stop potentially interfering services
