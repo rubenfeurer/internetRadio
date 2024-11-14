@@ -197,3 +197,14 @@ class ConfigManager:
                 self.logger.error(f"Error updating config: {str(e)}")
             else:
                 print(f"Error updating config: {str(e)}")
+
+DEFAULT_CONFIG = {
+    'network': {
+        'ap_settings': {
+            'ssid': 'InternetRadio',
+            'password': 'raspberry',
+            'channel': 6
+        },
+        'saved_networks': []  # Add this to track saved networks
+    }
+}

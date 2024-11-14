@@ -3,6 +3,7 @@ from unittest.mock import patch, MagicMock
 from src.network.wifi_manager import WiFiManager
 import socket
 import os
+from src.utils.config_manager import ConfigManager
 
 class TestWiFiManager(unittest.TestCase):
     def setUp(self):
@@ -17,6 +18,18 @@ class TestWiFiManager(unittest.TestCase):
         mock_logger = patcher.start()
         mock_logger.return_value = self.logger_mock
         self.addCleanup(patcher.stop)
+        
+        # Patch ConfigManager
+        config_patcher = patch('src.network.wifi_manager.ConfigManager')
+        self.mock_config = config_patcher.start()
+        self.mock_config_instance = MagicMock()
+        self.mock_config.return_value = self.mock_config_instance
+        self.mock_config_instance.get_network_config.return_value = {
+            'ap_ssid': 'InternetRadio',
+            'ap_password': 'Radio123',
+            'ap_channel': 6
+        }
+        self.addCleanup(config_patcher.stop)
         
         # Create WiFiManager instance
         self.wifi_manager = WiFiManager()
@@ -165,6 +178,48 @@ Wired connection 1   d5ce7973-f25b-33c5-bc00-50dc57c4800d  ethernet  --     """
         self.assertTrue(any('wpa_supplicant' in str(call) for call in calls))
         self.assertTrue(any('wlan0' in str(call) for call in calls))
         self.logger_mock.info.assert_any_call("Cleaning up WiFi resources...")
+    
+    def test_ap_settings_from_config(self):
+        """Test that AP settings are loaded from config"""
+        with patch('src.utils.config_manager.ConfigManager') as mock_config:
+            # Mock the config manager
+            mock_config_instance = MagicMock()
+            mock_config.return_value = mock_config_instance
+            
+            # Set up the mock config values
+            mock_config_instance.get_network_config.return_value = {
+                'ap_ssid': 'InternetRadio',
+                'ap_password': 'Radio123',
+                'ap_channel': 6
+            }
+            
+            # Create new WiFiManager instance
+            wifi_manager = WiFiManager()
+            
+            # Verify settings were loaded from config
+            self.assertEqual(wifi_manager.ap_ssid, 'InternetRadio')
+            self.assertEqual(wifi_manager.ap_password, 'Radio123')
+            self.assertEqual(wifi_manager.ap_channel, 6)
+    
+    @patch('socket.gethostname')
+    def test_ap_settings_with_hostname(self, mock_gethostname):
+        """Test that AP SSID uses hostname and correct password"""
+        mock_gethostname.return_value = "radiopi"
+        
+        with patch('src.network.wifi_manager.ConfigManager') as mock_config:
+            mock_config_instance = MagicMock()
+            mock_config.return_value = mock_config_instance
+            mock_config_instance.get_network_config.return_value = {
+                'ap_ssid': socket.gethostname(),  # Should use hostname
+                'ap_password': 'Radio@1234',
+                'ap_channel': 6
+            }
+            
+            wifi_manager = WiFiManager()
+            
+            self.assertEqual(wifi_manager.ap_ssid, 'radiopi')
+            self.assertEqual(wifi_manager.ap_password, 'Radio@1234')
+            self.assertEqual(wifi_manager.ap_channel, 6)
 
 if __name__ == '__main__':
     unittest.main() 

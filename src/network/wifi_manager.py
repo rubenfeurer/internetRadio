@@ -1,19 +1,56 @@
 import subprocess
 import logging
 import time
-from typing import List, Dict, Optional
+from typing import List, Dict, Optional, Any
 import os
+from src.utils.config_manager import ConfigManager
+import socket
 
 class WiFiManager:
     def __init__(self):
         self.logger = logging.getLogger('network')
-        self.ap_ssid = "InternetRadio"
-        self.ap_password = "raspberry"
+        # Load from config
+        config = ConfigManager()
+        network_config = config.get_network_config()
         
-    def get_saved_networks(self) -> List[str]:
-        """Get list of saved WiFi networks"""
+        # Get AP settings from config with fallbacks
+        ap_ssid = network_config.get('ap_ssid', '${HOSTNAME}')
+        if ap_ssid == '${HOSTNAME}':
+            ap_ssid = socket.gethostname()
+        
+        self.ap_ssid = ap_ssid
+        self.ap_password = network_config.get('ap_password', 'Radio@1234')
+        self.ap_channel = network_config.get('ap_channel', 6)
+        
+    def get_saved_networks(self) -> List[Dict[str, Any]]:
+        """Get list of saved WiFi networks with details"""
         try:
-            self.logger.info("Checking for saved networks...")
+            # Get from both NetworkManager and our config
+            nm_networks = self._get_nm_saved_networks()
+            
+            # Get from our config
+            config = ConfigManager()
+            network_config = config.get_network_config()
+            saved_networks = network_config.get('saved_networks', [])
+            
+            # Merge and validate
+            result = []
+            for network in saved_networks:
+                if network['ssid'] in nm_networks:
+                    result.append(network)
+                else:
+                    # Network exists in our config but not in NetworkManager
+                    self.logger.warning(f"Network {network['ssid']} found in config but not in NetworkManager")
+                    
+            return result
+                
+        except Exception as e:
+            self.logger.error(f"Error getting saved networks: {str(e)}")
+            return []
+    
+    def _get_nm_saved_networks(self) -> List[str]:
+        """Get list of networks saved in NetworkManager"""
+        try:
             result = subprocess.run(
                 ["sudo", "nmcli", "connection", "show"],
                 capture_output=True,
@@ -22,15 +59,14 @@ class WiFiManager:
             
             if result.returncode == 0:
                 networks = []
-                for line in result.stdout.split('\n')[1:]:  # Skip header
+                for line in result.stdout.split('\n')[1:]:
                     if line.strip() and "wifi" in line:
                         networks.append(line.split()[0])
-                self.logger.info(f"Found saved networks: {networks}")
                 return networks
             return []
-            
+                
         except Exception as e:
-            self.logger.error(f"Error getting saved networks: {str(e)}")
+            self.logger.error(f"Error getting NetworkManager networks: {str(e)}")
             return []
     
     def scan_networks(self) -> List[Dict[str, str]]:
@@ -246,3 +282,97 @@ class WiFiManager:
         except Exception as e:
             self.logger.error(f"Error checking DNS: {e}")
             return False
+
+    def save_network(self, ssid: str, password: Optional[str] = None) -> bool:
+        """Save network to both NetworkManager and our config"""
+        try:
+            # Save to NetworkManager
+            if password:
+                cmd = ["sudo", "nmcli", "connection", "add",
+                      "type", "wifi",
+                      "con-name", ssid,
+                      "ifname", "wlan0",
+                      "ssid", ssid,
+                      "wifi-sec.key-mgmt", "wpa-psk",
+                      "wifi-sec.psk", password]
+            else:
+                cmd = ["sudo", "nmcli", "connection", "add",
+                      "type", "wifi",
+                      "con-name", ssid,
+                      "ifname", "wlan0",
+                      "ssid", ssid]
+            
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            if result.returncode != 0:
+                self.logger.error(f"Failed to save network {ssid}: {result.stderr}")
+                return False
+            
+            # Save to our config
+            config = ConfigManager()
+            network_config = config.get_network_config()
+            saved_networks = network_config.get('saved_networks', [])
+            
+            if ssid not in saved_networks:
+                saved_networks.append({
+                    'ssid': ssid,
+                    'password': password,
+                    'last_connected': time.strftime('%Y-%m-%d %H:%M:%S')
+                })
+                network_config['saved_networks'] = saved_networks
+                config.update_network_config(network_config)
+            
+            self.logger.info(f"Successfully saved network {ssid}")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Error saving network: {str(e)}")
+            return False
+
+    def remove_network(self, ssid: str) -> bool:
+        """Remove network from both NetworkManager and our config"""
+        try:
+            # Remove from NetworkManager
+            cmd = ["sudo", "nmcli", "connection", "delete", ssid]
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            if result.returncode != 0:
+                self.logger.error(f"Failed to remove network {ssid}: {result.stderr}")
+                return False
+            
+            # Remove from our config
+            config = ConfigManager()
+            network_config = config.get_network_config()
+            saved_networks = network_config.get('saved_networks', [])
+            saved_networks = [n for n in saved_networks if n['ssid'] != ssid]
+            network_config['saved_networks'] = saved_networks
+            config.update_network_config(network_config)
+            
+            self.logger.info(f"Successfully removed network {ssid}")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Error removing network: {str(e)}")
+            return False
+
+    def maintain_networks(self) -> None:
+        """Clean up saved networks based on connection history"""
+        try:
+            config = ConfigManager()
+            network_config = config.get_network_config()
+            saved_networks = network_config.get('saved_networks', [])
+            current_time = time.time()
+            
+            networks_to_remove = []
+            for network in saved_networks:
+                last_connected = time.strptime(network['last_connected'], '%Y-%m-%d %H:%M:%S')
+                days_since_connection = (current_time - time.mktime(last_connected)) / (24 * 3600)
+                
+                # Remove if not connected for 30 days
+                if days_since_connection > 30:
+                    networks_to_remove.append(network['ssid'])
+                    
+            # Remove old networks
+            for ssid in networks_to_remove:
+                self.remove_network(ssid)
+                
+        except Exception as e:
+            self.logger.error(f"Error maintaining networks: {str(e)}")
