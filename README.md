@@ -527,3 +527,49 @@ The system exclusively uses `nmcli` (NetworkManager Command Line Interface) for 
 - Saved networks: `nmcli connection show`
 
 This standardization ensures consistent behavior and reliable network management across different Raspberry Pi models and OS versions.
+
+## Development Notes
+
+### Important Setup Considerations
+1. **Config File Initialization**
+   - Config files must be initialized before running tests
+   - Default config location: `config/config.toml`
+   - Test config uses temporary directory
+   - Config migration handles version updates
+
+2. **Test Dependencies**
+   - Run tests in virtual environment
+   - Mock hardware in tests (GPIO, audio)
+   - Use `conftest.py` for shared fixtures
+   - Respect test isolation
+
+3. **Audio System Requirements**
+   - Verify bcm2835 card number (default: card 2)
+   - Check ALSA configuration before tests
+   - Mock VLC in tests
+   - Handle audio device permissions
+
+4. **Network Testing**
+   - Mock NetworkManager calls
+   - Use test WiFi configurations
+   - Handle DNS test timeouts
+   - Mock AP mode operations
+
+### Common Issues
+1. **Permission Problems**
+   - Run service as 'radio' user
+   - Add user to required groups (audio, gpio)
+   - Check log file permissions
+   - Verify config directory ownership
+
+2. **Audio Device Issues**
+   - Verify card number in /etc/asound.conf
+   - Check user audio group membership
+   - Test with aplay before running service
+   - Handle device busy errors
+
+3. **Network Configuration**
+   - NetworkManager must be installed and running
+   - DNS configuration needs immutable flag
+   - Handle multiple network interfaces
+   - Check AP mode dependencies
