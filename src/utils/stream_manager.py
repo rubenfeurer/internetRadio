@@ -7,12 +7,13 @@ from src.utils.logger import Logger
 import vlc
 import time
 import threading
+import logging
 
 class StreamManager:
     def __init__(self, config_dir: str = None):
         """Initialize StreamManager"""
         # Initialize logger first
-        self.logger = Logger('stream', log_dir='/home/radio/internetRadio/logs')
+        self.logger = logging.getLogger('stream')
         
         # Set up configuration
         self.config_dir = config_dir or os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config')
@@ -20,21 +21,10 @@ class StreamManager:
         self.streams: List[RadioStream] = []
         
         try:
-            # Initialize VLC instance
-            self.instance = vlc.Instance('--no-xlib')
-            self.player = self.instance.media_player_new()
-            self.media = None
-            self.current_url = None
-            self.is_playing = False
-            self.volume = 50  # Default volume
-            
-            # Initialize thread for monitoring playback
-            self.monitor_thread = None
-            self.should_monitor = False
-            
-            # Load streams
-            self._load_streams()
-            
+            if not os.environ.get('TESTING'):
+                self.instance = vlc.Instance()
+                self.player = self.instance.media_player_new()
+            self.initialized = True
             self.logger.info("StreamManager initialized successfully")
         except Exception as e:
             self.logger.error(f"Error initializing StreamManager: {e}")
@@ -224,3 +214,15 @@ class StreamManager:
             except Exception as e:
                 self.logger.error(f"Error in _monitor_playback: {e}")
                 break 
+
+    def cleanup(self):
+        """Clean up resources"""
+        try:
+            if self.player:
+                self.player.stop()
+                self.player.release()
+            if self.instance:
+                self.instance.release()
+            self.initialized = False
+        except Exception as e:
+            self.logger.error(f"Error during cleanup: {e}")
