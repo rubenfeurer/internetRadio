@@ -295,3 +295,25 @@ WantedBy=multi-user.target"""
             self.assertEqual(metrics['signal'], 70)
             self.assertTrue(metrics['internet_connected'])
             self.assertEqual(metrics['mode'], 'client')
+
+    def test_wifi_connection_detection(self):
+        """Test accurate WiFi connection detection"""
+        # Mock WiFiManager with real-world connection data
+        mock_wifi = MagicMock()
+        mock_wifi.get_connection_info.return_value = {
+            'ssid': 'Salt_2GHz_D8261F',  # Using actual SSID from your output
+            'ip': '192.168.1.100',
+            'signal': 50  # Using actual signal level from your output
+        }
+        mock_wifi.is_ap_mode.return_value = False
+        mock_wifi.check_internet_connection.return_value = True
+        
+        self.monitor.wifi_manager = mock_wifi
+        
+        # Test network info collection
+        network_info = self.monitor.collect_network_info()
+        
+        # Verify correct mode and connection detection
+        self.assertEqual(network_info['mode'], 'client')
+        self.assertEqual(network_info['wifi_ssid'], 'Salt_2GHz_D8261F')
+        self.assertTrue(network_info['internet_connected'])

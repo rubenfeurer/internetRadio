@@ -71,10 +71,10 @@ class WiFiManager:
             return []
     
     def scan_networks(self) -> List[Dict[str, Any]]:
-        """Scan for available networks using nmcli"""
+        """Scan for available WiFi networks"""
         try:
             result = subprocess.run(
-                ['nmcli', 'device', 'wifi', 'list', '--rescan', 'yes'],
+                ['nmcli', '-f', 'IN-USE,SSID,SIGNAL,SECURITY', 'device', 'wifi', 'list', '--rescan', 'yes'],
                 capture_output=True,
                 text=True,
                 check=True
@@ -83,71 +83,67 @@ class WiFiManager:
             networks = []
             lines = result.stdout.strip().split('\n')
             
-            # Skip header and process each line
+            # Skip header line
             for line in lines[1:]:
                 if not line.strip():
                     continue
                     
-                # Parse fixed-width format more carefully
-                line = line.strip()
-                
-                # Extract in_use status (first character)
-                in_use = line.startswith('*')
-                
-                # Extract SSID (between IN-USE and MODE)
-                ssid_end = line.find('Infra')
-                if ssid_end == -1:
-                    continue
-                ssid = line[1:ssid_end].strip() if in_use else line[:ssid_end].strip()
-                
-                # Find signal strength (look for number before BARS)
-                parts = line.split()
-                signal = None
-                for i, part in enumerate(parts):
-                    if part.isdigit() and i < len(parts) - 1 and '▂' in parts[i + 1]:
-                        signal = part
-                        break
-                
-                # Get security (last field) and preserve '--' for open networks
-                security = parts[-1]
-                
-                if signal and ssid:  # Only add if we have valid signal and ssid
+                # Parse fixed-width format
+                try:
+                    in_use = line[0:8].strip()
+                    ssid = line[8:24].strip()
+                    signal = line[24:32].strip()
+                    security = line[32:].strip()
+                    
                     networks.append({
                         'ssid': ssid,
-                        'signal': signal,
-                        'security': security,
-                        'in_use': in_use
+                        'signal': int(signal),  # Convert to integer
+                        'security': '' if security == '--' else security,
+                        'in_use': '*' in in_use
                     })
                     
+                except Exception as e:
+                    self.logger.warning(f"Failed to parse line '{line}': {e}")
+                    continue
+                    
+            self.logger.debug(f"Mock output:\n{result.stdout}")
+            self.logger.debug(f"Parsed networks: {networks}")
             return networks
+            
         except Exception as e:
-            self.logger.error(f"Network scan failed: {e}")
+            self.logger.error(f"Error scanning networks: {e}")
             return []
     
-    def connect_to_network(self, ssid: str, password: Optional[str] = None) -> bool:
-        """Connect to a WiFi network"""
+    def connect_to_network(self, ssid: str, password: str) -> bool:
+        """Connect to a WiFi network using nmcli"""
         try:
-            self.logger.info(f"Attempting to connect to {ssid}")
+            # First disconnect from current network
+            disconnect_result = subprocess.run(
+                ['nmcli', 'device', 'disconnect', 'wlan0'],
+                capture_output=True,
+                text=True
+            )
             
-            if password:
-                cmd = [
-                    "sudo", "nmcli", "device", "wifi", "connect", ssid,
-                    "password", password
-                ]
-            else:
-                cmd = ["sudo", "nmcli", "device", "wifi", "connect", ssid]
-                
-            result = subprocess.run(cmd, capture_output=True, text=True)
-            
-            if result.returncode == 0:
-                self.logger.info(f"Successfully connected to {ssid}")
-                return True
-            else:
-                self.logger.error(f"Failed to connect to {ssid}: {result.stderr}")
+            if disconnect_result.returncode != 0:
+                self.logger.error(f"Failed to disconnect: {disconnect_result.stderr}")
                 return False
-                
+            
+            # Connect to new network
+            connect_result = subprocess.run(
+                ['nmcli', 'device', 'wifi', 'connect', ssid,
+                 'password', password, 'ifname', 'wlan0'],
+                capture_output=True,
+                text=True
+            )
+            
+            if connect_result.returncode != 0:
+                self.logger.error(f"Failed to connect: {connect_result.stderr}")
+                return False
+            
+            return True
+            
         except Exception as e:
-            self.logger.error(f"Error connecting to network: {str(e)}")
+            self.logger.error(f"Error connecting to network: {e}")
             return False
     
     def initialize(self) -> bool:
@@ -176,40 +172,56 @@ class WiFiManager:
         """Check if connected to a WiFi network"""
         try:
             result = subprocess.run(
-                ["iwconfig", "wlan0"],
+                ['nmcli', 'device', 'status'],
                 capture_output=True,
                 text=True
             )
             
-            # More precise check for connection status
-            if "ESSID:" not in result.stdout:
+            if result.returncode != 0:
+                self.logger.error(f"Failed to check connection status: {result.stderr}")
                 return False
-                
-            if "Not-Associated" in result.stdout:
-                return False
-                
-            if "ESSID:off/any" in result.stdout:
-                return False
-                
-            essid = result.stdout.split('ESSID:"')[1].split('"')[0]
-            return bool(essid.strip())
+            
+            # Parse output looking for wifi device that's connected
+            lines = result.stdout.strip().split('\n')
+            for line in lines:
+                if 'wifi' in line.lower() and 'connected' in line.lower():
+                    # Make sure it's not "disconnected"
+                    if 'disconnected' not in line.lower():
+                        return True
+                    
+            return False
             
         except Exception as e:
             self.logger.error(f"Error checking connection status: {e}")
             return False
 
     def get_current_network(self) -> Optional[str]:
-        """Get current connected network SSID"""
+        """Get the name of the currently connected network"""
         try:
             result = subprocess.run(
-                ["iwconfig", "wlan0"],
+                ['nmcli', 'device', 'status'],
                 capture_output=True,
                 text=True
             )
-            if "ESSID:" in result.stdout:
-                essid = result.stdout.split('ESSID:"')[1].split('"')[0]
-                return essid if essid else None
+            
+            if result.returncode != 0:
+                self.logger.error(f"Failed to get current network: {result.stderr}")
+                return None
+            
+            # Parse output looking for connected wifi device
+            lines = result.stdout.strip().split('\n')
+            for line in lines:
+                if 'wifi' in line.lower() and 'connected' in line.lower():
+                    # Make sure it's not "disconnected"
+                    if 'disconnected' not in line.lower():
+                        # Get the last field which is the network name
+                        parts = line.strip().split()
+                        if len(parts) >= 4:
+                            network = parts[3]
+                            return None if network == '--' else network
+                    
             return None
+            
         except Exception as e:
             self.logger.error(f"Error getting current network: {e}")
             return None
@@ -242,45 +254,48 @@ class WiFiManager:
             self.logger.error(f"Error during WiFi cleanup: {str(e)}")
 
     def configure_dns(self) -> bool:
-        """Configure DNS servers with direct resolv.conf management"""
+        """Configure DNS servers using nmcli"""
         try:
             self.logger.info("Configuring DNS servers...")
-            dns_config = "nameserver 8.8.8.8\nnameserver 8.8.4.4\n"
             
-            # Check if resolv.conf exists and is a symlink
-            if os.path.islink('/etc/resolv.conf'):
-                self.logger.info("Removing resolv.conf symlink...")
-                result = subprocess.run(
-                    ['sudo', 'rm', '/etc/resolv.conf'],
-                    capture_output=True,
-                    text=True
-                )
-                if result.returncode != 0:
-                    self.logger.error(f"Failed to remove symlink: {result.stderr}")
-                    return False
-            
-            # Write new resolv.conf
+            # Get active connection name
             result = subprocess.run(
-                ['sudo', 'bash', '-c', f'echo "{dns_config}" > /etc/resolv.conf'],
+                ['nmcli', '-t', '-f', 'NAME,UUID,TYPE,DEVICE', 'connection', 'show', '--active'],
                 capture_output=True,
                 text=True
             )
+            
             if result.returncode != 0:
-                self.logger.error(f"Failed to write DNS config: {result.stderr}")
+                self.logger.error("Failed to get active connection")
                 return False
             
-            # Set proper permissions
-            result = subprocess.run(
-                ['sudo', 'chmod', '644', '/etc/resolv.conf'],
+            # Parse active wifi connection name
+            active_connection = None
+            for line in result.stdout.strip().split('\n'):
+                parts = line.split(':')
+                if len(parts) >= 3 and 'wifi' in parts[2].lower():
+                    active_connection = parts[0]  # NAME is the first field
+                    break
+                
+            if not active_connection:
+                self.logger.error("No active WiFi connection found")
+                return False
+            
+            # Set DNS servers
+            dns_result = subprocess.run(
+                ['sudo', 'nmcli', 'connection', 'modify', active_connection,
+                 'ipv4.dns', '8.8.8.8,8.8.4.4'],
                 capture_output=True,
                 text=True
             )
-            if result.returncode != 0:
-                self.logger.error(f"Failed to set permissions: {result.stderr}")
+            
+            if dns_result.returncode != 0:
+                self.logger.error(f"Failed to set DNS servers: {dns_result.stderr}")
                 return False
             
             self.logger.info("DNS servers configured successfully")
             return True
+            
         except Exception as e:
             self.logger.error(f"Error configuring DNS: {e}")
             return False
@@ -600,7 +615,7 @@ wifi.scan-rand-mac-address=no"""
     def connect_to_saved_network(self, ssid: str) -> bool:
         """Connect to a saved network by SSID with retry mechanism"""
         retry_count = 0
-        max_retries = 10
+        max_retries = 3
         
         while retry_count < max_retries:
             try:
@@ -631,7 +646,7 @@ wifi.scan-rand-mac-address=no"""
                 # Delete existing connection if exists
                 subprocess.run(['sudo', 'nmcli', 'connection', 'delete', ssid])
                 
-                # Add new connection
+                # Connect to network
                 connect_result = subprocess.run([
                     'sudo', 'nmcli', 'device', 'wifi', 'connect', ssid,
                     'password', network['password']
@@ -651,10 +666,55 @@ wifi.scan-rand-mac-address=no"""
                 self.logger.warning(f"Connection attempt {retry_count + 1} failed")
                 retry_count += 1
                 if retry_count < max_retries:
-                    delay = 60 if retry_count >= 5 else 5
-                    self.logger.info(f"Retrying in {delay} seconds...")
-                    time.sleep(delay)
+                    time.sleep(5)
                 
             except Exception as e:
                 self.logger.error(f"Error connecting to network: {e}")
-                return False
+                retry_count += 1
+                if retry_count < max_retries:
+                    time.sleep(5)
+        
+        return False
+
+    def get_signal_strength(self) -> int:
+        """Get current WiFi signal strength using nmcli"""
+        try:
+            result = subprocess.run(
+                ['nmcli', '-f', 'IN-USE,SSID,SIGNAL', 'device', 'wifi', 'list'],
+                capture_output=True,
+                text=True
+            )
+            
+            if result.returncode != 0:
+                return 0
+            
+            # Find the line with '*' (current connection)
+            for line in result.stdout.split('\n'):
+                if '*' in line:
+                    parts = line.split()
+                    if len(parts) >= 3:
+                        try:
+                            # Signal strength is the last field
+                            return int(parts[-1])
+                        except ValueError:
+                            return 0
+            
+            return 0
+            
+        except Exception as e:
+            self.logger.error(f"Error getting signal strength: {e}")
+            return 0
+
+    def disable_power_management(self) -> bool:
+        """Disable WiFi power management via NetworkManager"""
+        try:
+            result = subprocess.run(
+                ['sudo', 'nmcli', 'connection', 'modify', 'type', 'wifi', 
+                 'wifi.powersave', '2'],  # 2 = disabled
+                capture_output=True,
+                text=True
+            )
+            return result.returncode == 0
+        except Exception as e:
+            self.logger.error(f"Error disabling power management: {e}")
+            return False

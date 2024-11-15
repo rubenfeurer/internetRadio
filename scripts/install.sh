@@ -73,12 +73,16 @@ echo "nameserver 1.1.1.1" | tee -a /etc/resolv.conf
 chmod 644 /etc/resolv.conf
 chattr +i /etc/resolv.conf
 
-# Add DNS test after configuration
-echo_step "Testing DNS configuration..."
-if ping -c 1 -W 2 8.8.8.8 >/dev/null 2>&1; then
-    echo -e "${GREEN}DNS configuration successful${NC}"
+# Add DNS validation test
+echo_step "Validating DNS configuration..."
+if ! nmcli connection show --active | grep -q "wifi"; then
+    echo_warning "No active WiFi connection found. DNS validation skipped."
 else
-    echo_warning "DNS configuration might have issues. Check network connectivity."
+    if dig +short google.com >/dev/null; then
+        echo -e "${GREEN}DNS resolution working correctly${NC}"
+    else
+        echo_warning "DNS resolution might have issues. Check network connectivity."
+    fi
 fi
 
 # Configure systemd-networkd to not override DNS
@@ -239,4 +243,33 @@ sleep 5
 if ! systemctl is-active --quiet NetworkManager; then
     echo_error "NetworkManager failed to start"
     exit 1
+fi
+
+# Add after NetworkManager configuration
+echo_step "Validating NetworkManager configuration..."
+if nmcli device status | grep -q "wifi.*managed"; then
+    echo -e "${GREEN}NetworkManager WiFi management enabled${NC}"
+else
+    echo_warning "NetworkManager might not be managing WiFi devices correctly"
+fi
+
+# Test nmcli functionality
+if nmcli radio wifi >/dev/null 2>&1; then
+    echo -e "${GREEN}nmcli working correctly${NC}"
+else
+    echo_error "nmcli not functioning properly. Check NetworkManager installation"
+    exit 1
+fi
+
+echo_step "Installing test dependencies..."
+apt-get install -y python3-pytest python3-pytest-cov
+
+# Install development dependencies for testing
+su - radio -c "cd $PROJECT_DIR && source venv/bin/activate && pip install pytest pytest-cov pytest-mock"
+
+echo_step "Validating test environment..."
+if su - radio -c "cd $PROJECT_DIR && source venv/bin/activate && python3 -m pytest tests/ -v --collect-only"; then
+    echo -e "${GREEN}Test environment configured correctly${NC}"
+else
+    echo_warning "Test environment might have issues. Check test dependencies."
 fi

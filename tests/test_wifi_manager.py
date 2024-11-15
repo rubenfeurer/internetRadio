@@ -61,49 +61,53 @@ Wired connection 1   d5ce7973-f25b-33c5-bc00-50dc57c4800d  ethernet  --     """
         self.assertTrue(any(n['ssid'] == 'TestNetwork1' for n in networks))
         self.assertTrue(any(n['ssid'] == 'TestNetwork2' for n in networks))
     
-    def test_scan_networks(self):
+    @patch('subprocess.run')
+    def test_scan_networks(self, mock_run):
         """Test network scanning using nmcli"""
-        with patch('subprocess.run') as mock_run:
-            # Mock nmcli wifi list output
-            mock_run.return_value = MagicMock(
-                returncode=0,
-                stdout="""IN-USE  SSID             MODE   CHAN  RATE        SIGNAL  BARS  SECURITY
-*       MyNetwork        Infra  11    130 Mbit/s  90      ▂▄▆█  WPA2
-        OtherNetwork     Infra  6     65 Mbit/s   75      ▂▄▆_  WPA1
-        OpenNetwork      Infra  1     54 Mbit/s   60      ▂▄__  --""",
-                text=True
-            )
-
-            networks = self.wifi_manager.scan_networks()
-
-            # Verify nmcli command
-            mock_run.assert_called_once_with(
-                ['nmcli', 'device', 'wifi', 'list', '--rescan', 'yes'],
-                capture_output=True,
-                text=True,
-                check=True
-            )
-
-            # Verify parsed networks
-            self.assertEqual(len(networks), 3)
-            self.assertEqual(networks[0], {
-                'ssid': 'MyNetwork',
-                'signal': '90',
-                'security': 'WPA2',
-                'in_use': True
-            })
-            self.assertEqual(networks[1], {
-                'ssid': 'OtherNetwork',
-                'signal': '75',
-                'security': 'WPA1',
-                'in_use': False
-            })
-            self.assertEqual(networks[2], {
-                'ssid': 'OpenNetwork',
-                'signal': '60',
-                'security': '--',
-                'in_use': False
-            })
+        # Mock the nmcli command output with realistic formatting
+        mock_output = """IN-USE  SSID              SIGNAL  SECURITY
+*       MyNetwork         90      WPA2
+        OtherNetwork      75      WPA1
+        OpenNetwork       60      --"""
+        
+        mock_run.return_value = MagicMock(
+            returncode=0,
+            stdout=mock_output
+        )
+        
+        networks = self.wifi_manager.scan_networks()
+        
+        # Debug output
+        print(f"\nMock output:\n{mock_output}")
+        print(f"Parsed networks: {networks}")
+        
+        # Verify network list length
+        self.assertEqual(len(networks), 3, 
+                        f"Expected 3 networks, got {len(networks)}. Networks: {networks}")
+        
+        # Verify first network
+        self.assertEqual(networks[0], {
+            'ssid': 'MyNetwork',
+            'signal': 90,
+            'security': 'WPA2',
+            'in_use': True
+        }, "First network mismatch")
+        
+        # Verify second network
+        self.assertEqual(networks[1], {
+            'ssid': 'OtherNetwork',
+            'signal': 75,
+            'security': 'WPA1',
+            'in_use': False
+        }, "Second network mismatch")
+        
+        # Verify third network
+        self.assertEqual(networks[2], {
+            'ssid': 'OpenNetwork',
+            'signal': 60,
+            'security': '',
+            'in_use': False
+        }, "Third network mismatch")
     
     @patch('subprocess.run')
     def test_connect_to_network_success(self, mock_run):
@@ -124,31 +128,53 @@ Wired connection 1   d5ce7973-f25b-33c5-bc00-50dc57c4800d  ethernet  --     """
     
     @patch('subprocess.run')
     def test_is_connected(self, mock_run):
-        # Test connected state
-        mock_run.return_value = MagicMock(
-            stdout='wlan0     IEEE 802.11  ESSID:"TestNetwork"  Mode:Managed'
-        )
-        self.assertTrue(self.wifi_manager.is_connected())
-        
-        # Test disconnected state
-        mock_run.return_value = MagicMock(
-            stdout='wlan0     IEEE 802.11  ESSID:off/any  Mode:Managed'
-        )
-        self.assertFalse(self.wifi_manager.is_connected())
+        """Test connection status check"""
+        with patch('subprocess.run') as mock_run:
+            # Test when connected
+            mock_run.return_value = MagicMock(
+                returncode=0,
+                stdout="""DEVICE  TYPE      STATE        CONNECTION
+wlan0   wifi      connected   TestNetwork
+eth0    ethernet  disconnected --"""
+            )
+            self.assertTrue(self.wifi_manager.is_connected())
+
+            # Test when disconnected
+            mock_run.return_value = MagicMock(
+                returncode=0,
+                stdout="""DEVICE  TYPE      STATE        CONNECTION
+wlan0   wifi      disconnected --
+eth0    ethernet  disconnected --"""
+            )
+            self.assertFalse(self.wifi_manager.is_connected())
     
     @patch('subprocess.run')
     def test_get_current_network(self, mock_run):
-        # Test with connected network
+        """Test getting current network SSID"""
+        # Test when connected
         mock_run.return_value = MagicMock(
-            stdout='wlan0     IEEE 802.11  ESSID:"TestNetwork"  Mode:Managed'
+            returncode=0,
+            stdout="""DEVICE         TYPE      STATE         CONNECTION         
+wlan0          wifi      connected     TestNetwork
+lo             loopback  connected     --
+eth0           ethernet  disconnected  --"""
         )
         self.assertEqual(self.wifi_manager.get_current_network(), 'TestNetwork')
         
-        # Test with no network
+        # Test when disconnected
         mock_run.return_value = MagicMock(
-            stdout='wlan0     IEEE 802.11  ESSID:off/any  Mode:Managed'
+            returncode=0,
+            stdout="""DEVICE         TYPE      STATE         CONNECTION
+wlan0          wifi      disconnected  --"""
         )
         self.assertIsNone(self.wifi_manager.get_current_network())
+        
+        # Verify correct command was called
+        mock_run.assert_called_with(
+            ['nmcli', 'device', 'status'],
+            capture_output=True,
+            text=True
+        )
     
     @patch('subprocess.run')
     def test_disconnect(self, mock_run):
@@ -172,24 +198,31 @@ Wired connection 1   d5ce7973-f25b-33c5-bc00-50dc57c4800d  ethernet  --     """
     
     @patch('subprocess.run')
     @patch('os.path.islink')
-    def test_configure_dns(self, mock_islink, mock_run):
-        """Test DNS configuration"""
-        # Setup
-        mock_islink.return_value = True
-        mock_run.return_value = MagicMock(returncode=0)
+    def test_configure_dns(self, mock_config, mock_run):
+        """Test DNS configuration using nmcli"""
+        # Mock successful connection list
+        mock_run.side_effect = [
+            # First call - get active connection
+            MagicMock(
+                returncode=0,
+                stdout="TestNetwork:b752a910-9c71-4b5c-9434-24f7aa5d164d:wifi:wlan0\n"
+            ),
+            # Second call - set DNS
+            MagicMock(returncode=0)
+        ]
         
-        # Test
         self.assertTrue(self.wifi_manager.configure_dns())
         
-        # Verify
-        self.assertEqual(mock_run.call_count, 3)  # rm, echo, chmod
-        mock_run.assert_any_call(['sudo', 'rm', '/etc/resolv.conf'], 
-                                capture_output=True, text=True)
-        mock_run.assert_any_call(
-            ['sudo', 'bash', '-c', 'echo "nameserver 8.8.8.8\nnameserver 8.8.4.4\n" > /etc/resolv.conf'],
-            capture_output=True, text=True)
-        mock_run.assert_any_call(['sudo', 'chmod', '644', '/etc/resolv.conf'], 
-                                capture_output=True, text=True)
+        # Verify correct commands were called
+        mock_run.assert_has_calls([
+            # Get active connection
+            call(['nmcli', '-t', '-f', 'NAME,UUID,TYPE,DEVICE', 'connection', 'show', '--active'],
+                 capture_output=True, text=True),
+            # Set DNS servers
+            call(['sudo', 'nmcli', 'connection', 'modify', 'TestNetwork',
+                 'ipv4.dns', '8.8.8.8,8.8.4.4'],
+                capture_output=True, text=True)
+        ])
     
     @patch('socket.gethostbyname')
     def test_check_dns_resolution(self, mock_gethostbyname):
@@ -502,6 +535,107 @@ eth0    ethernet  unmanaged  --""",
                 capture_output=True,
                 text=True
             )
+    
+    @patch('subprocess.run')
+    def test_disable_power_management(self, mock_run):
+        """Test disabling power management via NetworkManager"""
+        # Setup
+        mock_run.return_value = MagicMock(returncode=0)
+        
+        # Execute
+        result = self.wifi_manager.disable_power_management()
+        
+        # Verify
+        self.assertTrue(result)
+        mock_run.assert_called_with(
+            ['sudo', 'nmcli', 'connection', 'modify', 'type', 'wifi', 
+             'wifi.powersave', '2'],  # 2 = disabled
+            capture_output=True,
+            text=True
+        )
+    
+    def test_is_connected_nmcli(self):
+        """Test connection status check using nmcli"""
+        with patch('subprocess.run') as mock_run:
+            # Test when connected
+            mock_run.return_value = MagicMock(
+                returncode=0,
+                stdout="wlan0  wifi      connected  Salt_2GHz_D8261F"
+            )
+            self.assertTrue(self.wifi_manager.is_connected())
+
+            # Test when disconnected
+            mock_run.return_value = MagicMock(
+                returncode=0,
+                stdout="wlan0  wifi      disconnected  --"
+            )
+            self.assertFalse(self.wifi_manager.is_connected())
+
+            # Verify correct command was called
+            mock_run.assert_called_with(
+                ['nmcli', 'device', 'status'],
+                capture_output=True,
+                text=True
+            )
+    
+    def test_get_signal_strength_nmcli(self):
+        """Test getting signal strength using nmcli"""
+        with patch('subprocess.run') as mock_run:
+            # Test when connected with good signal
+            mock_run.return_value = MagicMock(
+                returncode=0,
+                stdout="""IN-USE  SSID              SIGNAL  
+*       Salt_2GHz_D8261F  80      """
+            )
+            
+            strength = self.wifi_manager.get_signal_strength()
+            self.assertEqual(strength, 80)
+            
+            # Test when disconnected
+            mock_run.return_value = MagicMock(
+                returncode=0,
+                stdout="IN-USE  SSID  SIGNAL"
+            )
+            
+            strength = self.wifi_manager.get_signal_strength()
+            self.assertEqual(strength, 0)
+            
+            # Verify correct command was called
+            mock_run.assert_called_with(
+                ['nmcli', '-f', 'IN-USE,SSID,SIGNAL', 'device', 'wifi', 'list'],
+                capture_output=True,
+                text=True
+            )
+    
+    def test_connect_to_network_nmcli(self):
+        """Test connecting to a WiFi network using nmcli"""
+        with patch('subprocess.run') as mock_run:
+            # Test successful connection
+            mock_run.side_effect = [
+                # First call - disconnect
+                MagicMock(returncode=0),
+                # Second call - connect
+                MagicMock(returncode=0)
+            ]
+            
+            result = self.wifi_manager.connect_to_network("Test_Network", "password123")
+            self.assertTrue(result)
+            
+            # Verify correct commands were called
+            mock_run.assert_has_calls([
+                call(['nmcli', 'device', 'disconnect', 'wlan0'],
+                     capture_output=True, text=True),
+                call(['nmcli', 'device', 'wifi', 'connect', 'Test_Network',
+                     'password', 'password123', 'ifname', 'wlan0'],
+                    capture_output=True, text=True)
+            ])
+            
+            # Test failed connection
+            mock_run.reset_mock()
+            mock_run.return_value = MagicMock(returncode=1)
+            
+            result = self.wifi_manager.connect_to_network("Test_Network", "wrong_password")
+            self.assertFalse(result)
 
 if __name__ == '__main__':
     unittest.main() 

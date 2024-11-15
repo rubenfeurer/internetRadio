@@ -176,99 +176,111 @@ Tests follow these principles:
 
 ## Testing Best Practices
 
-### Lessons Learned
-- **Mock Side Effects**: When testing retry mechanisms, use `side_effect` instead of `return_value` for mocks that need to return different values on subsequent calls:
-```python
-mock_check.side_effect = [False, False, True]  # Returns False twice, then True
-```
+### Mocking Loggers and File Handlers
 
-- **Control Flow in Retry Logic**: 
-  - Avoid early returns in retry loops
-  - Use explicit retry counters
-  - Place retry logic at the end of the loop
-  - Ensure all conditions trigger the retry mechanism
+When testing components that use Python's logging system, follow these guidelines:
 
-- **Test Debugging**:
-  - Add debug prints in tests to show actual calls:
-```python
-print(f"Actual sleep calls: {mock_sleep.mock_calls}")
-print(f"Actual check calls: {mock_check.mock_calls}")
-```
+1. **Logger Cleanup**
+   - Clear existing loggers before each test
+   - Reset logger instances between tests
+   ```python
+   logging.getLogger().handlers = []
+   logging.Logger.manager.loggerDict.clear()
+   if hasattr(Logger, '_instances'):
+       Logger._instances = {}
+   ```
 
-- **Mock Verification**:
-  - Check both call count and call arguments
-  - Use `assert_has_calls` for verifying multiple calls in order
-  - Consider using `any_order=True` when order doesn't matter
+2. **Mocking StreamHandler**
+   - Use NullHandler instead of mocking StreamHandler directly
+   - Patch at the module level where StreamHandler is used
+   ```python
+   @patch('src.utils.logger.logging.StreamHandler', return_value=logging.NullHandler())
+   ```
 
-### Common Pitfalls
-1. **Incorrect Mock Setup**:
-   - Not patching the correct path
-   - Forgetting to mock dependencies
-   - Using return_value instead of side_effect for multiple returns
+3. **Mocking RotatingFileHandler**
+   - Patch at the module level, not logging.handlers
+   - Create mock instance with proper configuration
+   ```python
+   @patch('src.utils.logger.RotatingFileHandler')
+   def test_method(self, mock_handler):
+       mock_instance = MagicMock()
+       mock_handler.return_value = mock_instance
+   ```
 
-2. **Retry Logic Issues**:
-   - Returning too early from loops
-   - Not incrementing retry counters
-   - Missing delay between retries
-   - Not handling all failure cases
+4. **Testing Singletons**
+   - Reset singleton instances before each test
+   - Verify handler creation happens only once
+   - Test both logger reuse and handler creation
+   ```python
+   def test_singleton_behavior(self):
+       logger1 = Logger('test')
+       self.mock_rotating.reset_mock()
+       logger2 = Logger('test')
+       self.mock_rotating.assert_not_called()
+   ```
 
-3. **Test Isolation**:
-   - Not cleaning up resources
-   - Leaking state between tests
-   - Missing tearDown cleanup
+5. **Resource Cleanup**
+   - Close file handlers in tearDown
+   - Remove test log files
+   - Reset all mocks between tests
+   ```python
+   def tearDown(self):
+       logging.getLogger().handlers = []
+       for filename in os.listdir(self.test_log_dir):
+           try:
+               os.unlink(os.path.join(self.test_log_dir, filename))
+           except Exception:
+               pass
+   ```
 
-### Test Structure Guidelines
-1. **Setup Phase**:
-```python
-def setUp(self):
-    # Mock all dependencies first
-    self.patches = [
-        patch('path.to.dependency'),
-    ]
-    self.mocks = [patcher.start() for patcher in self.patches]
-    
-    # Configure mock behaviors
-    self.mock_wifi.get_saved_networks.return_value = ["Network1"]
-```
+### Common Mocking Issues
 
-2. **Test Cases**:
-```python
-def test_with_retries(self):
-    # Arrange
-    mock_check.side_effect = [False, False, True]
-    
-    # Act
-    with patch('time.sleep') as mock_sleep:
-        result = self.component.method()
-        
-    # Assert
-    self.assertTrue(result)
-    self.assertEqual(mock_check.call_count, expected_count)
-```
+1. **"not readable" Error**
+   - Cause: Trying to mock StreamHandler directly
+   - Solution: Use NullHandler or patch at correct module level
 
-3. **Cleanup**:
-```python
-def tearDown(self):
-    # Stop all patches
-    for patcher in self.patches:
-        patcher.stop()
-```
+2. **Unclosed File Handlers**
+   - Cause: Not properly cleaning up file handlers
+   - Solution: Clear handlers in setUp and tearDown
 
-### Test Development Process
-1. Write test first (TDD)
-2. Run test to see it fail
-3. Implement minimal code to pass
-4. Refactor while keeping tests green
-5. Add debug logging if needed
-6. Verify edge cases
-7. Clean up and document
+3. **Invalid Spec Error**
+   - Cause: Trying to spec a mock object
+   - Solution: Create mock instance first, then configure return value
 
-### Integration Test Considerations
-- Mock external services
-- Use test configurations
-- Reset state between tests
-- Handle timeouts
-- Log all important steps
+4. **Multiple Handler Creation**
+   - Cause: Not resetting singleton instances
+   - Solution: Clear _instances dict between tests
+
+5. **Resource Warnings**
+   - Cause: Unclosed file handlers
+   - Solution: Proper cleanup in tearDown
+
+### Test Isolation Best Practices
+
+1. **Use setUp/tearDown**
+   - Initialize test environment
+   - Clean up resources
+   - Reset mocks and instances
+
+2. **Mock Dependencies**
+   - Patch at module level
+   - Use proper return values
+   - Reset mocks between tests
+
+3. **Handle File Operations**
+   - Use temporary directories
+   - Clean up files after tests
+   - Close all handlers
+
+4. **Test Singleton Pattern**
+   - Reset instance cache
+   - Verify handler creation
+   - Test instance reuse
+
+5. **Resource Management**
+   - Track created resources
+   - Clean up in reverse order
+   - Handle exceptions in cleanup
 
 ## Service Management
 
@@ -736,3 +748,119 @@ Manages application configuration and settings.
 - `update_network_config()`: Updates network settings
 - `update_audio_config()`: Updates audio settings
 - `get_saved_networks()`: Returns saved network list
+
+## Logging System
+
+### Log Configuration
+
+1. **Application Logs**
+   - Location: `/home/radio/internetRadio/logs/`
+   - Main log files:
+     - `radio.log`: Main application log
+     - `wifi.log`: Network-related logs
+     - `app.log`: General application events
+   - Size limits:
+     - Individual files: 1MB max
+     - Backup count: 2 files per log
+     - Total per logger: 3MB max (1 current + 2 backups)
+
+2. **System Journal**
+   - Size limit: 100MB
+   - Retention: 7 days
+   - Location: `/var/log/journal/`
+
+3. **Log Management**
+   ```bash
+   # Clean application logs
+   sudo rm -f /home/radio/internetRadio/logs/*.gz
+
+   # Clean journal
+   sudo journalctl --vacuum-time=7d
+   sudo journalctl --vacuum-size=100M
+
+   # Monitor logs
+   tail -f /home/radio/internetRadio/logs/radio.log
+   journalctl -u internetradio -f
+   ```
+
+4. **Development Guidelines**
+   - Use appropriate log levels (ERROR, WARNING, INFO, DEBUG)
+   - Messages truncated to 200 characters
+   - Console output only in development mode
+   - Automatic rotation when size limits reached
+   - Regular cleanup of old logs
+
+## Testing Lessons Learned
+
+### Common Testing Pitfalls
+
+1. **Patch Order Matters**
+   - Patches are applied from bottom to top
+   - Method parameters must match patch order in reverse
+   ```python
+   @patch('subprocess.run')
+   @patch('src.network.wifi_manager.ConfigManager')
+   def test_method(self, mock_config, mock_run):  # Order matches patches in reverse
+   ```
+
+2. **Class-Level Patches**
+   - Be aware of patches applied in setUp/class level
+   - Account for all patches in test method signatures
+   - Document class-level patches in test class docstring
+
+3. **Mock Side Effects**
+   - Use side_effect for multiple return values
+   - Match mock returns with expected command sequence
+   ```python
+   mock_run.side_effect = [
+       MagicMock(returncode=0, stdout="success output"),
+       MagicMock(returncode=0)  # Next call
+   ]
+   ```
+
+4. **Command Verification**
+   - Use assert_has_calls to verify command sequence
+   - Match exact command format including all parameters
+   - Include capture_output and text parameters
+   ```python
+   mock_run.assert_has_calls([
+       call(['command', 'arg1'], capture_output=True, text=True),
+       call(['command', 'arg2'], capture_output=True, text=True)
+   ])
+   ```
+
+5. **Output Format Parsing**
+   - Match exact output format from real commands
+   - Consider all possible output variations
+   - Handle empty or malformed output gracefully
+   ```python
+   # Example nmcli output format
+   "NetworkName:uuid:wifi:wlan0\n"
+   ```
+
+### Best Practices
+
+1. **Test Setup**
+   - Document all patches in test method docstring
+   - Clear mock call history between tests
+   - Reset singleton instances if used
+
+2. **Error Handling**
+   - Test both success and failure scenarios
+   - Verify error logging
+   - Check return values for all paths
+
+3. **Resource Cleanup**
+   - Use tearDown for consistent cleanup
+   - Close file handlers
+   - Reset mocks and patches
+
+4. **Command Testing**
+   - Use exact command formats from documentation
+   - Include all required parameters
+   - Match real-world output formats
+
+5. **Documentation**
+   - Document expected mock formats
+   - Include example command outputs
+   - Note any special setup requirements

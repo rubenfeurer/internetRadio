@@ -1,5 +1,6 @@
 import logging
 import os
+from logging.handlers import RotatingFileHandler
 from typing import Optional, Dict
 
 class AlsaFilter(logging.Filter):
@@ -20,123 +21,72 @@ class AlsaFilter(logging.Filter):
         return True
 
 class Logger:
-    _instance = None
-    _initialized = False
-    _test_mode = False
-    _log_dir = None
-    _loggers: Dict[str, logging.Logger] = {}
-    _handlers: Dict[str, logging.Handler] = {}
+    _instances = {}
+    
+    def __init__(self, name):
+        """Initialize logger with specific settings for size control"""
+        if name not in Logger._instances:
+            self.logger = logging.getLogger(name)
+            self.logger.setLevel(logging.INFO)
+            self._configure_logger(name)
+            Logger._instances[name] = self.logger
+        else:
+            self.logger = Logger._instances[name]
 
-    def __new__(cls, name: str = None):
-        """Handle singleton pattern and logger creation"""
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-            
-        if name:
-            # Return existing logger if available
-            if name in cls._loggers:
-                return cls._loggers[name]
-            
-            # Create new logger if needed
-            if not cls._initialized:
-                cls.setup_logging(cls._log_dir or os.path.join(os.getcwd(), 'logs'))
-            logger = cls.get_logger(name)
-            cls._loggers[name] = logger
-            return logger
-            
-        return cls._instance
-
-    @classmethod
-    def reset(cls):
-        """Reset logger state for testing"""
-        # Remove all handlers from root logger
-        root = logging.getLogger()
-        for handler in root.handlers[:]:
-            root.removeHandler(handler)
-            handler.close()
-
-        # Remove handlers from individual loggers
-        for logger in cls._loggers.values():
-            for handler in logger.handlers[:]:
-                logger.removeHandler(handler)
-                handler.close()
-
-        # Clear class variables
-        cls._instance = None
-        cls._initialized = False
-        cls._test_mode = False
-        cls._log_dir = None
-        cls._loggers.clear()
-        cls._handlers.clear()
-
-        # Reset root logger
-        logging.getLogger().setLevel(logging.INFO)
-
-    @classmethod
-    def setup_logging(cls, log_dir: str = None, app_log_path: str = None, network_log_path: str = None, level: str = "DEBUG") -> None:
-        """Set up logging configuration"""
-        cls.reset()
+    def _configure_logger(self, name):
+        """Configure logger with strict size limits"""
+        # Set very conservative size limits
+        MAX_BYTES = 1024 * 1024  # 1MB
+        BACKUP_COUNT = 2  # Keep only 2 backup files
         
-        # Determine log directory
-        if app_log_path:
-            log_dir = os.path.dirname(app_log_path)
-        elif log_dir is None:
-            log_dir = os.path.join(os.getcwd(), 'logs')
-        
-        os.makedirs(log_dir, exist_ok=True)
-        cls._log_dir = log_dir
-        
-        formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-        )
-        
-        # Create handlers with proper log levels
-        handlers = {
-            'app': (app_log_path or os.path.join(log_dir, 'app.log'), logging.DEBUG),
-            'radio': (os.path.join(log_dir, 'radio.log'), logging.INFO),
-            'wifi': (network_log_path or os.path.join(log_dir, 'wifi.log'), logging.INFO)
+        # Map logger names to their log files
+        log_files = {
+            'radio': 'radio.log',
+            'network': 'wifi.log',
+            'app': 'app.log'
         }
         
-        for name, (path, log_level) in handlers.items():
-            handler = logging.FileHandler(path)
-            handler.setFormatter(formatter)
-            handler.setLevel(log_level)
-            cls._handlers[name] = handler
+        # Get log file name or use default
+        log_file = log_files.get(name, f'{name}.log')
+        log_path = os.path.join(os.getcwd(), 'logs', log_file)
         
-        cls._initialized = True
+        # Create logs directory if it doesn't exist
+        os.makedirs(os.path.dirname(log_path), exist_ok=True)
+        
+        # Configure rotating file handler with strict limits
+        file_handler = RotatingFileHandler(
+            log_path,
+            maxBytes=MAX_BYTES,
+            backupCount=BACKUP_COUNT,
+            encoding='utf-8'
+        )
+        
+        # Set format to include minimal necessary information
+        formatter = logging.Formatter(
+            '%(asctime)s - %(levelname)s - %(message).200s',  # Limit message length
+            datefmt='%Y-%m-%d %H:%M:%S'
+        )
+        file_handler.setFormatter(formatter)
+        
+        # Only log INFO and above to file
+        file_handler.setLevel(logging.INFO)
+        
+        # Configure console output only in development
+        if 'DEVELOPMENT' in os.environ:
+            console_handler = logging.StreamHandler()
+            console_handler.setFormatter(formatter)
+            self.logger.addHandler(console_handler)
+        
+        self.logger.addHandler(file_handler)
 
-    @classmethod
-    def get_logger(cls, name: str) -> logging.Logger:
-        """Get a logger instance"""
-        if not cls._initialized:
-            cls.setup_logging(cls._log_dir or os.path.join(os.getcwd(), 'logs'))
-        
-        if name not in cls._loggers:
-            logger = logging.getLogger(name)
-            logger.setLevel(logging.DEBUG)
-            
-            # Add handlers if not already added
-            for handler in cls._handlers.values():
-                if handler not in logger.handlers:
-                    logger.addHandler(handler)
-            
-            # Add ALSA filter
-            alsa_filter = AlsaFilter()
-            logger.addFilter(alsa_filter)
-            
-            cls._loggers[name] = logger
-        
-        return cls._loggers[name]
+    def info(self, msg: str):
+        self.logger.info(msg)
 
-    @classmethod
-    def set_level(cls, level: str) -> None:
-        """Set logging level"""
-        log_level = getattr(logging, level.upper())
-        
-        # Set root logger level
-        root_logger = logging.getLogger()
-        root_logger.setLevel(log_level)
-        
-        # Set level for all handlers
-        for handler in cls._handlers.values():
-            handler.setLevel(log_level)
+    def error(self, msg: str):
+        self.logger.error(msg)
+
+    def warning(self, msg: str):
+        self.logger.warning(msg)
+
+    def debug(self, msg: str):
+        self.logger.debug(msg)
