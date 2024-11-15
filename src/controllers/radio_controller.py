@@ -8,7 +8,8 @@ import os
 
 class RadioController:
     def __init__(self, audio_manager=None, gpio_manager=None, stream_manager=None):
-        self.logger = Logger.get_logger(__name__)
+        """Initialize RadioController with optional managers"""
+        self.logger = Logger(__name__, log_dir='/home/radio/internetRadio/logs')
         self.logger.debug("Initializing RadioController")
         self.audio_manager = audio_manager or AudioManager()
         self.gpio_manager = gpio_manager or GPIOManager()

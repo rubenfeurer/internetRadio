@@ -85,7 +85,6 @@ class InternetRadio:
             
             # Initialize controllers
             self.radio_controller = RadioController(
-                config_manager=self.config_manager,
                 gpio_manager=self.gpio_manager
             )
             

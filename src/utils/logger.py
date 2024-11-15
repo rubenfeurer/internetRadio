@@ -1,91 +1,96 @@
 import logging
-import os
 from logging.handlers import RotatingFileHandler
+import os
 
 class Logger:
     _instances = {}
-    _handlers = set()  # Track all handlers
-    
+
     def __new__(cls, name, log_dir=None):
-        key = f"{name}:{log_dir}"
-        if key not in cls._instances:
-            instance = super().__new__(cls)
-            instance.__init__(name, log_dir)
-            cls._instances[key] = instance
-        return cls._instances[key]
-    
+        if name not in cls._instances:
+            instance = super(Logger, cls).__new__(cls)
+            cls._instances[name] = instance
+            try:
+                instance.__init__(name, log_dir)
+            except Exception as e:
+                print(f"Warning: Failed to initialize file logger: {e}")
+                # Create a simple console logger as fallback
+                logger = logging.getLogger(name)
+                logger.setLevel(logging.INFO)
+                
+                # Add console handler if none exists
+                if not logger.handlers:
+                    console_handler = logging.StreamHandler()
+                    console_handler.setLevel(logging.INFO)
+                    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+                    console_handler.setFormatter(formatter)
+                    logger.addHandler(console_handler)
+                
+                cls._instances[name] = logger
+                return logger
+                
+        return cls._instances[name]
+
     def __init__(self, name, log_dir=None):
-        if not hasattr(self, '_initialized'):
-            self.logger = logging.getLogger(name)
-            self.logger.setLevel(logging.INFO)
+        """Initialize logger with file and console handlers"""
+        if not hasattr(self, '_logger'):  # Only initialize once
+            self._logger = logging.getLogger(name)
+            self._logger.setLevel(logging.INFO)
             
-            # Use provided log_dir or default to 'logs'
-            self.log_dir = log_dir or os.path.join(os.getcwd(), 'logs')
-            os.makedirs(self.log_dir, exist_ok=True)
+            formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
             
-            # Remove existing handlers if any
-            self._remove_existing_handlers()
-            
-            # File handler
-            log_file = os.path.join(self.log_dir, f'{name}.log')
-            file_handler = RotatingFileHandler(
-                log_file,
-                maxBytes=1024 * 1024,  # 1MB
-                backupCount=3
-            )
-            file_handler.setFormatter(logging.Formatter(
-                '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-            ))
-            self.logger.addHandler(file_handler)
-            self._handlers.add(file_handler)  # Track handler
-            
-            # Console handler
+            # Add console handler
             console_handler = logging.StreamHandler()
-            console_handler.setFormatter(logging.Formatter(
-                '%(levelname)s: %(message)s'
-            ))
-            self.logger.addHandler(console_handler)
-            self._handlers.add(console_handler)  # Track handler
+            console_handler.setLevel(logging.INFO)
+            console_handler.setFormatter(formatter)
+            self._logger.addHandler(console_handler)
             
-            self._initialized = True
-    
-    def _remove_existing_handlers(self):
-        """Remove and close existing handlers"""
-        if hasattr(self, 'logger'):
-            for handler in self.logger.handlers[:]:
-                handler.close()
-                self.logger.removeHandler(handler)
-                if handler in self._handlers:
-                    self._handlers.remove(handler)
-    
+            # Add file handler if log_dir is provided
+            if log_dir:
+                os.makedirs(log_dir, exist_ok=True)
+                log_file = os.path.join(log_dir, f'{name}.log')
+                file_handler = RotatingFileHandler(
+                    log_file,
+                    maxBytes=1024*1024,  # 1MB
+                    backupCount=5
+                )
+                file_handler.setLevel(logging.INFO)
+                file_handler.setFormatter(formatter)
+                self._logger.addHandler(file_handler)
+
+    def info(self, msg):
+        """Log info message"""
+        if hasattr(self, '_logger'):
+            self._logger.info(msg)
+        else:
+            self.info(msg)  # For fallback logger
+
+    def error(self, msg):
+        """Log error message"""
+        if hasattr(self, '_logger'):
+            self._logger.error(msg)
+        else:
+            self.error(msg)  # For fallback logger
+
+    def warning(self, msg):
+        """Log warning message"""
+        if hasattr(self, '_logger'):
+            self._logger.warning(msg)
+        else:
+            self.warning(msg)  # For fallback logger
+
+    def debug(self, msg):
+        """Log debug message"""
+        if hasattr(self, '_logger'):
+            self._logger.debug(msg)
+        else:
+            self.debug(msg)  # For fallback logger
+
     @classmethod
     def cleanup(cls):
-        """Clean up all resources"""
-        # Close all handlers
-        for handler in cls._handlers.copy():
-            try:
-                handler.close()
-            except:
-                pass  # Ignore errors during cleanup
-        cls._handlers.clear()
-        
-        # Clear instances and remove handlers
-        for instance in cls._instances.values():
-            if hasattr(instance, 'logger'):
-                instance._remove_existing_handlers()
+        """Clean up all handlers"""
+        for name, instance in cls._instances.items():
+            if hasattr(instance, '_logger'):
+                for handler in instance._logger.handlers[:]:
+                    handler.close()
+                    instance._logger.removeHandler(handler)
         cls._instances.clear()
-        
-        # Clear logging configuration
-        logging.Logger.manager.loggerDict.clear()
-    
-    def info(self, message):
-        self.logger.info(message)
-    
-    def error(self, message):
-        self.logger.error(message)
-    
-    def debug(self, message):
-        self.logger.debug(message)
-    
-    def warning(self, message):
-        self.logger.warning(message)

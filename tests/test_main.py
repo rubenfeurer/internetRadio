@@ -25,11 +25,13 @@ class TestMain(unittest.TestCase):
         self.network_mock.is_ap_mode_active.return_value = True
         self.network_mock.monitor = Mock()
         
+        # Create RadioController mock with proper gpio_manager attribute
         self.radio_controller_mock = Mock()
         self.radio_controller_mock.initialize.return_value = True
         self.radio_controller_mock.cleanup = Mock()
         self.radio_controller_mock.monitor = Mock()
         self.radio_controller_mock.set_led_state = Mock()
+        self.radio_controller_mock.gpio_manager = self.gpio_manager_mock  # Set the gpio_manager
         
         # Create InternetRadio instance mock with all components
         self.radio_instance = Mock()
@@ -155,15 +157,25 @@ class TestMain(unittest.TestCase):
     def test_internet_radio_initialization(self):
         """Test InternetRadio initialization"""
         import main
-        radio = main.InternetRadio()
         
-        # Verify all components are initialized
-        self.assertIsNotNone(radio.config_manager)
-        self.assertIsNotNone(radio.stream_manager)
-        self.assertIsNotNone(radio.audio_manager)
-        self.assertIsNotNone(radio.gpio_manager)
-        self.assertIsNotNone(radio.network_controller)
-        self.assertIsNotNone(radio.radio_controller)
+        # Create mocks for managers that should be passed
+        mock_gpio = self.gpio_manager_mock  # Use the existing mock from setUp
+        
+        # Update patches to include the correct initialization parameters
+        with patch('main.GPIOManager', return_value=mock_gpio):
+            radio = main.InternetRadio()
+            
+            # Verify all components are initialized
+            self.assertIsNotNone(radio.config_manager)
+            self.assertIsNotNone(radio.stream_manager)
+            self.assertIsNotNone(radio.audio_manager)
+            self.assertIsNotNone(radio.gpio_manager)
+            self.assertIsNotNone(radio.network_controller)
+            self.assertIsNotNone(radio.radio_controller)
+            
+            # Verify RadioController was initialized with correct gpio_manager
+            # Use assertIs to check if it's the same instance
+            self.assertIs(radio.radio_controller.gpio_manager, mock_gpio)
 
 if __name__ == '__main__':
     unittest.main()
