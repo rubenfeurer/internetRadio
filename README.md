@@ -864,3 +864,62 @@ Manages application configuration and settings.
    - Document expected mock formats
    - Include example command outputs
    - Note any special setup requirements
+
+### Network Management Updates
+
+#### NetworkController Improvements
+- Enhanced error handling for NetworkManager operations
+- Added retry mechanism for network operations
+- Improved AP mode state management
+- Added test environment detection
+- Implemented proper cleanup procedures
+
+#### Testing Framework Updates
+1. **Test Environment Detection**
+```python
+# Environment-aware network operations
+if not os.environ.get('TESTING'):
+    # Production code
+else:
+    # Test code
+```
+
+2. **Dependency Injection**
+```python
+class NetworkController:
+    def __init__(self, config_manager=None, wifi_manager=None, ap_manager=None):
+        self.config_manager = config_manager
+        self.wifi_manager = wifi_manager
+        self.ap_manager = ap_manager
+```
+
+3. **Mock Setup Best Practices**
+```python
+def setUp(self):
+    # Create and configure mocks
+    self.mock_wifi = MagicMock()
+    self.mock_ap = MagicMock()
+    self.mock_config = MagicMock()
+    
+    # Initialize controller with mocks
+    self.network_controller = NetworkController(
+        config_manager=self.mock_config,
+        wifi_manager=self.mock_wifi,
+        ap_manager=self.mock_ap
+    )
+```
+
+#### Network Controller Features
+- AP mode status monitoring
+- WiFi connection management
+- Network state transitions
+- Service management (NetworkManager)
+- Error recovery and logging
+- Resource cleanup
+
+#### Testing Improvements
+- Enhanced mock configurations
+- Better test isolation
+- Proper resource cleanup
+- Service management handling
+- Environment-aware testing
