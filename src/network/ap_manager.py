@@ -15,20 +15,14 @@ class APManager:
     def setup_ap_mode(self) -> bool:
         """Set up Access Point mode"""
         try:
-            # Check if NetworkManager is managing the interface
-            nm_status = subprocess.run(
-                ["nmcli", "device", "status"], 
-                capture_output=True, 
-                text=True
-            )
-            if "wlan0" in nm_status.stdout and "managed" in nm_status.stdout:
-                self.logger.info("Interface is managed by NetworkManager, skipping AP setup")
-                return True
+            # Check NetworkManager status first
+            nm_active = self._check_networkmanager_status()
+            if nm_active:
+                self.logger.info("Stopping NetworkManager...")
+                self._stop_network_services()
+                time.sleep(2)  # Give it time to stop
             
             self.logger.info("Starting AP mode setup...")
-            
-            # Stop potentially interfering services
-            self._stop_network_services()
             
             # Configure network interface
             if not self._configure_interface():
@@ -71,12 +65,27 @@ class APManager:
     
     def _stop_network_services(self) -> None:
         """Stop network services that might interfere with AP mode"""
-        self.logger.info("Stopping network services...")
-        services = ["NetworkManager", "wpa_supplicant"]
-        
-        for service in services:
-            subprocess.run(["sudo", "systemctl", "stop", service])
-            time.sleep(1)
+        try:
+            self.logger.info("Stopping network services...")
+            services = ["NetworkManager", "wpa_supplicant"]
+            
+            for service in services:
+                try:
+                    # Check if service is running first
+                    status = subprocess.run(
+                        ["systemctl", "is-active", service],
+                        capture_output=True,
+                        text=True
+                    )
+                    if status.stdout.strip() == "active":
+                        subprocess.run(["sudo", "systemctl", "stop", service], check=True)
+                        time.sleep(1)
+                except subprocess.CalledProcessError:
+                    self.logger.debug(f"{service} already stopped")
+                except Exception as e:
+                    self.logger.warning(f"Error handling {service}: {e}")
+        except Exception as e:
+            self.logger.error(f"Error stopping network services: {e}")
     
     def _configure_interface(self) -> bool:
         """Configure network interface for AP mode"""
@@ -152,7 +161,11 @@ class APManager:
     
     def cleanup(self) -> None:
         """Cleanup AP resources"""
-        self.stop()
+        try:
+            self.stop()
+            # Don't try to start NetworkManager here, let NetworkController handle it
+        except Exception as e:
+            self.logger.error(f"Error during AP cleanup: {e}")
     
     def initialize(self) -> bool:
         """Initialize AP Manager"""
@@ -181,4 +194,16 @@ class APManager:
             return False
         except Exception as e:
             self.logger.error(f"Error initializing AP Manager: {str(e)}")
+            return False
+    
+    def _check_networkmanager_status(self) -> bool:
+        """Check if NetworkManager is running"""
+        try:
+            result = subprocess.run(
+                ["systemctl", "is-active", "NetworkManager"],
+                capture_output=True,
+                text=True
+            )
+            return result.stdout.strip() == "active"
+        except Exception:
             return False

@@ -195,11 +195,8 @@ def main():
         # Main loop
         while True:
             try:
-                if not wifi_connected and not network.is_ap_mode_active():
-                    logger.warning("AP mode stopped unexpectedly, restarting...")
-                    network.start_ap_mode()
+                network.monitor()  # This will handle both WiFi and AP mode
                 radio.radio_controller.monitor()  # Handle radio state monitoring
-                network.monitor()  # Handle network monitoring
                 time.sleep(5)
             except Exception as e:
                 logger.error(f"Error in main loop: {e}")

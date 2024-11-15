@@ -14,8 +14,8 @@ class AudioConfig:
 
 @dataclass
 class NetworkConfig:
-    ap_ssid: str = "RadioAP"
-    ap_password: str = "Radio@1234"
+    ap_ssid: str = "InternetRadio"
+    ap_password: str = "raspberry"
     wifi_networks: Dict[str, str] = field(default_factory=dict)
     connection_timeout: int = 60
     saved_networks: Dict[str, str] = field(default_factory=dict)
@@ -50,54 +50,55 @@ class ConfigManager:
                 with open(config_path, 'r') as f:
                     config = toml.load(f)
                 
-                # Load audio configuration
-                if 'audio' in config:
-                    self.audio.default_volume = config['audio'].get('default_volume', self.audio.default_volume)
-                    self.audio.volume_step = config['audio'].get('volume_step', self.audio.volume_step)
-                    self.audio.sounds_enabled = config['audio'].get('sounds_enabled', self.audio.sounds_enabled)
-                
                 # Load network configuration
                 if 'network' in config:
+                    # Handle AP settings
                     self.network.ap_ssid = config['network'].get('ap_ssid', self.network.ap_ssid)
+                    if self.network.ap_ssid == '${HOSTNAME}':
+                        self.network.ap_ssid = "InternetRadio"
                     self.network.ap_password = config['network'].get('ap_password', self.network.ap_password)
-                    self.network.wifi_networks = config['network'].get('wifi_networks', self.network.wifi_networks)
-                    self.network.saved_networks = config['network'].get('saved_networks', self.network.saved_networks)
-                    self.network.connection_timeout = config['network'].get('connection_timeout', self.network.connection_timeout)
+                    
+                    # Handle saved networks
+                    saved_networks = config['network'].get('saved_networks', {})
+                    if isinstance(saved_networks, list):
+                        # Convert list format to dictionary
+                        networks_dict = {}
+                        for network in saved_networks:
+                            if isinstance(network, dict) and 'ssid' in network and 'password' in network:
+                                networks_dict[network['ssid']] = network['password']
+                        self.network.saved_networks = networks_dict
+                    else:
+                        self.network.saved_networks = saved_networks
+                        
+                    self.network.connection_timeout = config['network'].get('connection_timeout', 60)
             else:
                 self.logger.warning(f"Config file not found at {config_path}, using defaults")
                 
         except Exception as e:
             self.logger.error(f"Error loading config: {e}")
-            # Continue with default values
+            # Use defaults if loading fails
     
-    def save_config(self):
-        """Save current configuration to file"""
+    def save_config(self) -> bool:
+        """Save configuration to file"""
         try:
-            config = {
-                'audio': {
-                    'default_volume': self.audio.default_volume,
-                    'volume_step': self.audio.volume_step,
-                    'sounds_enabled': self.audio.sounds_enabled
-                },
-                'network': {
+            config_data = {}
+            
+            # Add network config if it exists
+            if hasattr(self, 'network'):
+                config_data['network'] = {
                     'ap_ssid': self.network.ap_ssid,
                     'ap_password': self.network.ap_password,
-                    'wifi_networks': self.network.wifi_networks,
-                    'connection_timeout': self.network.connection_timeout,
-                    'saved_networks': self.network.saved_networks
+                    'saved_networks': self.network.saved_networks,
+                    'connection_timeout': self.network.connection_timeout
                 }
-            }
             
             config_path = os.path.join(self.config_dir, 'config.toml')
-            os.makedirs(os.path.dirname(config_path), exist_ok=True)
-            
             with open(config_path, 'w') as f:
-                toml.dump(config, f)
-            
-            self.logger.info("Configuration saved successfully")
+                toml.dump(config_data, f)
             return True
+            
         except Exception as e:
-            self.logger.error(f"Error saving config: {e}")
+            self.logger.error(f"Error saving config: {str(e)}")
             return False
     
     def add_saved_network(self, ssid: str, password: str) -> bool:
@@ -264,13 +265,29 @@ class ConfigManager:
             self.network.ap_password
         )
 
+    def get_saved_networks(self) -> Dict[str, str]:
+        """Get saved networks from config
+        
+        Returns:
+            Dict[str, str]: Dictionary of saved networks (SSID: password)
+        """
+        return self.network.saved_networks
+
+    def get_ap_config(self) -> Dict[str, str]:
+        """Get AP configuration
+        
+        Returns:
+            Dict[str, str]: AP configuration with 'ssid' and 'password'
+        """
+        return {
+            'ssid': self.network.ap_ssid if hasattr(self, 'network') else "InternetRadio",
+            'password': self.network.ap_password if hasattr(self, 'network') else "raspberry"
+        }
+
 DEFAULT_CONFIG = {
     'network': {
-        'ap_settings': {
-            'ssid': 'InternetRadio',
-            'password': 'raspberry',
-            'channel': 6
-        },
-        'saved_networks': []  # Add this to track saved networks
+        'ap_ssid': 'InternetRadio',
+        'ap_password': 'raspberry',
+        'saved_networks': {}
     }
 }

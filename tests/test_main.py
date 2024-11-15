@@ -176,6 +176,22 @@ class TestMain(unittest.TestCase):
             # Verify RadioController was initialized with correct gpio_manager
             # Use assertIs to check if it's the same instance
             self.assertIs(radio.radio_controller.gpio_manager, mock_gpio)
+    
+    def test_ap_mode_recovery(self):
+        """Test AP mode recovery when it stops unexpectedly"""
+        # Setup
+        self.network_mock.check_and_setup_network.return_value = False
+        self.network_mock.is_ap_mode_active.return_value = False
+        
+        import main
+        try:
+            main.main()
+        except KeyboardInterrupt:
+            pass
+        
+        # Verify monitor was called to handle recovery
+        self.network_mock.monitor.assert_called()
+        # We only need to verify that monitor was called, as it handles the recovery internally
 
 if __name__ == '__main__':
     unittest.main()
