@@ -1,215 +1,185 @@
 from src.utils.logger import Logger
-from src.utils.config_manager import ConfigManager
-from src.network.wifi_manager import WiFiManager
-from src.network.ap_manager import APManager
-from src.audio.audio_manager import AudioManager
 import subprocess
 import time
-from typing import Optional
+import threading
+from typing import Optional, Dict, List, Tuple
 
 class NetworkController:
-    def __init__(self, wifi_manager=None, ap_manager=None, config_manager=None, audio_manager=None):
-        self.logger = Logger.get_logger(__name__)
-        self.wifi_manager = wifi_manager or WiFiManager()
-        self.ap_manager = ap_manager or APManager()
-        self.config_manager = config_manager or ConfigManager()
-        self.audio_manager = audio_manager or AudioManager()
-        self.is_ap_mode = False
-        self.logger.debug("Initializing NetworkController")
-
-    def initialize(self) -> bool:
-        """Initialize network controller"""
+    def __init__(self, config_manager=None):
+        """Initialize NetworkController"""
+        # Initialize logger
+        self.logger = Logger('network', log_dir='/home/radio/internetRadio/logs')
+        
+        self.config_manager = config_manager
+        self.current_network = None
+        self.ap_mode = False
+        self.scan_thread = None
+        self.should_scan = False
+        
         try:
-            self.wifi_manager.initialize()
-            self.ap_manager.initialize()
-            return True
+            # Initialize network state
+            self._init_network_state()
+            self.logger.info("NetworkController initialized successfully")
         except Exception as e:
-            self.logger.error(f"Failed to initialize network: {e}")
+            self.logger.error(f"Error initializing NetworkController: {e}")
+            raise
+
+    def _init_network_state(self) -> None:
+        """Initialize network state"""
+        try:
+            # Check if NetworkManager is running
+            result = subprocess.run(['systemctl', 'is-active', 'NetworkManager'], 
+                                 capture_output=True, text=True)
+            if result.stdout.strip() != 'active':
+                self.logger.warning("NetworkManager is not running")
+                
+            # Get current connection state
+            self._update_connection_state()
+        except Exception as e:
+            self.logger.error(f"Error initializing network state: {e}")
+            raise
+
+    def _update_connection_state(self) -> None:
+        """Update current connection state"""
+        try:
+            result = subprocess.run(['nmcli', '-t', '-f', 'NAME,TYPE,STATE', 'connection', 'show', '--active'],
+                                  capture_output=True, text=True)
+            
+            if result.returncode == 0:
+                connections = result.stdout.strip().split('\n')
+                for conn in connections:
+                    if conn:
+                        name, type_, state = conn.split(':')
+                        if type_ == 'wifi' and state == 'activated':
+                            self.current_network = name
+                            return
+                
+            self.current_network = None
+        except Exception as e:
+            self.logger.error(f"Error updating connection state: {e}")
+            self.current_network = None
+
+    def scan_networks(self) -> List[Dict[str, str]]:
+        """Scan for available WiFi networks"""
+        try:
+            result = subprocess.run(['nmcli', '-t', '-f', 'SSID,SIGNAL,SECURITY', 'device', 'wifi', 'list'],
+                                  capture_output=True, text=True)
+            
+            if result.returncode == 0:
+                networks = []
+                for line in result.stdout.strip().split('\n'):
+                    if line:
+                        ssid, signal, security = line.split(':')
+                        if ssid:  # Skip empty SSIDs
+                            networks.append({
+                                'ssid': ssid,
+                                'signal': signal,
+                                'security': security
+                            })
+                return networks
+            return []
+        except Exception as e:
+            self.logger.error(f"Error scanning networks: {e}")
+            return []
+
+    def connect_to_network(self, ssid: str, password: Optional[str] = None) -> bool:
+        """Connect to a WiFi network"""
+        try:
+            if self.ap_mode:
+                self.stop_ap_mode()
+            
+            cmd = ['nmcli', 'device', 'wifi', 'connect', ssid]
+            if password:
+                cmd.extend(['password', password])
+            
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            
+            if result.returncode == 0:
+                self.current_network = ssid
+                self.logger.info(f"Connected to network: {ssid}")
+                return True
+            else:
+                self.logger.error(f"Failed to connect to network: {result.stderr}")
+                return False
+        except Exception as e:
+            self.logger.error(f"Error connecting to network: {e}")
             return False
 
-    def get_connection_status(self) -> dict:
-        """Get current connection status"""
+    def disconnect(self) -> bool:
+        """Disconnect from current network"""
         try:
-            wifi_info = self.wifi_manager.get_connection_info()
-            mode = "client" if wifi_info.get('ssid') else "unknown"
-            if self.is_ap_mode:
-                mode = "ap"
-            
-            return {
-                'is_ap_mode': self.is_ap_mode,
-                'mode': mode,
-                'ssid': wifi_info.get('ssid', ''),
-                'ip': wifi_info.get('ip', ''),
-                'signal': wifi_info.get('signal', 0)
-            }
+            if self.current_network:
+                result = subprocess.run(['nmcli', 'connection', 'down', self.current_network],
+                                     capture_output=True, text=True)
+                
+                if result.returncode == 0:
+                    self.current_network = None
+                    self.logger.info("Disconnected from network")
+                    return True
+                else:
+                    self.logger.error(f"Failed to disconnect: {result.stderr}")
+            return False
         except Exception as e:
-            self.logger.error(f"Error getting connection status: {e}")
-            return {
-                'is_ap_mode': False,
-                'mode': 'unknown',
-                'ssid': '',
-                'ip': '',
-                'signal': 0
-            }
+            self.logger.error(f"Error disconnecting: {e}")
+            return False
 
-    def connect_wifi(self, ssid: str, password: Optional[str] = None) -> bool:
-        """Connect to WiFi network"""
-        return self.wifi_manager.connect_to_network(ssid, password)
-
-    def check_and_setup_network(self) -> bool:
-        """Check and setup network connection with retry mechanism"""
-        retry_count = 0
-        max_retries = 10
-        delay = 5
-        
-        while True:
-            if retry_count >= max_retries:
-                self.logger.error("Max retries reached")
+    def start_ap_mode(self) -> bool:
+        """Start Access Point mode"""
+        try:
+            if self.current_network:
+                self.disconnect()
+            
+            if not self.config_manager:
+                self.logger.error("No config manager available")
                 return False
             
-            saved_networks = self.wifi_manager.get_saved_networks()
-            if not saved_networks:
-                self.logger.warning("No saved networks found, starting AP mode")
-                # Start AP mode as fallback
-                if self.start_ap_mode("DefaultAP", "password"):
-                    return True
-                return False
+            ssid = self.config_manager.network.ap_ssid
+            password = self.config_manager.network.ap_password
             
-            # Extract SSID from network object
-            network = saved_networks[0]
-            ssid = network['ssid'] if isinstance(network, dict) else network
-            
-            # Try network setup
-            if (self.wifi_manager.connect_to_network(ssid, None) and 
-                self.wifi_manager.configure_dns() and 
-                self.wifi_manager.check_dns_resolution()):
-                
-                self.logger.info("Network setup complete with DNS")
-                
-                # Check internet connection
-                if self.check_internet_connection():
-                    self.logger.info("Internet connection verified")
-                    return True
-                    
-                self.logger.warning("Internet check failed, will retry")
-            else:
-                self.logger.warning("Network setup failed, will retry")
-            
-            delay = 60 if retry_count >= 5 else 5
-            self.logger.warning(f"Retrying in {delay} seconds (attempt {retry_count + 1}/{max_retries})")
-            time.sleep(delay)
-            retry_count += 1
-
-    def start_ap_mode(self, ssid: str, password: str) -> bool:
-        """Start access point mode"""
-        if self.ap_manager.start(ssid, password):
-            self.is_ap_mode = True
-            return True
-        return False
-
-    def stop_ap_mode(self) -> bool:
-        """Stop access point mode"""
-        if self.ap_manager.stop():
-            self.is_ap_mode = False
-            return True
-        return False
-
-    def monitor_network(self) -> None:
-        """Monitor network status"""
-        try:
-            if not self._check_network_manager():
-                self.logger.error("NetworkManager is not running")
-                return
-
-            if self.is_ap_mode:
-                if not self.ap_manager.is_active():
-                    ap_ssid, ap_password = self.config_manager.get_ap_credentials()
-                    self.start_ap_mode(ap_ssid, ap_password)
-            else:
-                self.wifi_manager.is_connected()
-        except Exception as e:
-            self.logger.error(f"Error in monitor_network: {str(e)}")
-
-    def log_network_status(self) -> None:
-        """Log current network status"""
-        try:
-            # Get and log network status
-            status = self.get_connection_status()
-            self.logger.info(f"Network Status: {status}")
-            
-            # Define commands to run
-            commands = [
-                "iwconfig",
-                "ifconfig",
-                "route -n",
-                "systemctl status hostapd",
-                "systemctl status dnsmasq",
-                "ps aux | grep wpa_supplicant"
+            cmd = [
+                'nmcli', 'device', 'wifi', 'hotspot',
+                'ssid', ssid,
+                'password', password
             ]
             
-            # Run each command and log output
-            for cmd in commands:
-                try:
-                    output = subprocess.run(cmd.split(), capture_output=True, text=True)
-                    if output.returncode == 0:
-                        self.logger.info(f"{cmd} output: {output.stdout}")
-                    else:
-                        self.logger.info(f"{cmd} failed with return code {output.returncode}")
-                except Exception as e:
-                    self.logger.error(f"Error running command {cmd}: {e}")
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            
+            if result.returncode == 0:
+                self.ap_mode = True
+                self.logger.info(f"Started AP mode with SSID: {ssid}")
+                return True
+            else:
+                self.logger.error(f"Failed to start AP mode: {result.stderr}")
+                return False
         except Exception as e:
-            self.logger.error(f"Error in log_network_status: {e}")
+            self.logger.error(f"Error starting AP mode: {e}")
+            return False
+
+    def stop_ap_mode(self) -> bool:
+        """Stop Access Point mode"""
+        try:
+            if self.ap_mode:
+                result = subprocess.run(['nmcli', 'connection', 'down', 'Hotspot'],
+                                     capture_output=True, text=True)
+                
+                if result.returncode == 0:
+                    self.ap_mode = False
+                    self.logger.info("Stopped AP mode")
+                    return True
+                else:
+                    self.logger.error(f"Failed to stop AP mode: {result.stderr}")
+            return False
+        except Exception as e:
+            self.logger.error(f"Error stopping AP mode: {e}")
+            return False
 
     def cleanup(self) -> None:
-        """Cleanup network resources"""
-        if self.is_ap_mode:
-            self.ap_manager.stop()
-        self.wifi_manager.cleanup()
-        self.ap_manager.cleanup()
-
-    def is_ap_mode_active(self) -> bool:
-        """Check if AP mode is active"""
-        return self.is_ap_mode
-
-    def monitor(self) -> None:
-        """Monitor network status"""
-        if not self.wifi_manager.is_connected() and not self.is_ap_mode:
-            self.check_and_setup_network()
-
-    def check_internet_connection(self) -> bool:
-        """Check internet connectivity with multiple fallback hosts"""
-        test_hosts = [
-            "8.8.8.8",      # Google DNS
-            "1.1.1.1",      # Cloudflare DNS
-            "208.67.222.222" # OpenDNS
-        ]
-        
-        for host in test_hosts:
-            try:
-                subprocess.run(
-                    ["ping", "-c", "1", "-W", "2", host],
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL,
-                    check=True
-                )
-                if self.audio_manager:
-                    self.audio_manager.play_sound('wifi.wav')
-                return True
-            except subprocess.CalledProcessError:
-                continue
-        
-        if self.audio_manager:
-            self.audio_manager.play_sound('noWifi.wav')
-        
-        self.logger.error("Failed to connect to any test hosts")
-        return False
-
-    def _check_network_manager(self) -> bool:
-        """Check if NetworkManager is running"""
+        """Clean up resources"""
         try:
-            result = subprocess.run(['systemctl', 'is-active', 'NetworkManager'], 
-                                  capture_output=True, text=True)
-            return result.stdout.strip() == 'active'
+            if self.ap_mode:
+                self.stop_ap_mode()
+            if self.current_network:
+                self.disconnect()
+            self.logger.info("NetworkController cleaned up")
         except Exception as e:
-            self.logger.error(f"Error checking NetworkManager status: {e}")
-            return False
+            self.logger.error(f"Error during cleanup: {e}")

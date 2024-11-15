@@ -13,10 +13,7 @@ class TestStreamManager:
         self.temp_dir = tempfile.mkdtemp()
         self.config_dir = Path(self.temp_dir)
         self.log_dir = os.path.join(self.temp_dir, 'logs')
-
-        # Set logger to test mode
-        Logger.reset()
-        Logger.set_test_mode(self.log_dir)
+        os.makedirs(self.log_dir, exist_ok=True)
 
         # Create test streams
         self.test_streams = {

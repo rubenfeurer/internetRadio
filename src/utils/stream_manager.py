@@ -4,15 +4,41 @@ from dataclasses import asdict
 from typing import List, Optional, Dict, Any
 from src.models.radio_stream import RadioStream
 from src.utils.logger import Logger
+import vlc
+import time
+import threading
 
 class StreamManager:
     def __init__(self, config_dir: str = None):
         """Initialize StreamManager"""
-        self.logger = Logger.get_logger(__name__)
+        # Initialize logger first
+        self.logger = Logger('stream', log_dir='/home/radio/internetRadio/logs')
+        
+        # Set up configuration
         self.config_dir = config_dir or os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config')
         self.streams_file = os.path.join(self.config_dir, 'streams.toml')
         self.streams: List[RadioStream] = []
-        self._load_streams()
+        
+        try:
+            # Initialize VLC instance
+            self.instance = vlc.Instance('--no-xlib')
+            self.player = self.instance.media_player_new()
+            self.media = None
+            self.current_url = None
+            self.is_playing = False
+            self.volume = 50  # Default volume
+            
+            # Initialize thread for monitoring playback
+            self.monitor_thread = None
+            self.should_monitor = False
+            
+            # Load streams
+            self._load_streams()
+            
+            self.logger.info("StreamManager initialized successfully")
+        except Exception as e:
+            self.logger.error(f"Error initializing StreamManager: {e}")
+            raise
 
     def _convert_dict_to_stream(self, data: Dict[str, Any]) -> RadioStream:
         """Convert dictionary to RadioStream object"""
@@ -118,4 +144,83 @@ class StreamManager:
             return True
         except Exception as e:
             self.logger.error(f"Error loading streams: {e}")
-            return False 
+            return False
+
+    def play(self, url: str) -> bool:
+        """Start playing a stream from the given URL"""
+        try:
+            if url != self.current_url:
+                self.stop()
+                self.media = self.instance.media_new(url)
+                self.player.set_media(self.media)
+                self.current_url = url
+            
+            result = self.player.play()
+            if result == 0:
+                self.is_playing = True
+                self.start_monitoring()
+                self.logger.info(f"Started playing stream: {url}")
+                return True
+            else:
+                self.logger.error(f"Failed to start playback: {result}")
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"Error in play: {e}")
+            return False
+    
+    def stop(self) -> None:
+        """Stop the current stream"""
+        try:
+            self.should_monitor = False
+            if self.monitor_thread:
+                self.monitor_thread.join()
+            
+            self.player.stop()
+            self.is_playing = False
+            self.current_url = None
+            self.logger.info("Stopped playback")
+            
+        except Exception as e:
+            self.logger.error(f"Error in stop: {e}")
+    
+    def set_volume(self, volume: int) -> None:
+        """Set the volume level (0-100)"""
+        try:
+            volume = max(0, min(100, volume))
+            self.player.audio_set_volume(volume)
+            self.volume = volume
+            self.logger.info(f"Volume set to {volume}")
+            
+        except Exception as e:
+            self.logger.error(f"Error setting volume: {e}")
+    
+    def get_volume(self) -> int:
+        """Get the current volume level"""
+        return self.volume
+    
+    def start_monitoring(self) -> None:
+        """Start monitoring playback status"""
+        if not self.monitor_thread or not self.monitor_thread.is_alive():
+            self.should_monitor = True
+            self.monitor_thread = threading.Thread(target=self._monitor_playback)
+            self.monitor_thread.daemon = True
+            self.monitor_thread.start()
+    
+    def _monitor_playback(self) -> None:
+        """Monitor playback status and handle errors"""
+        while self.should_monitor:
+            try:
+                state = self.player.get_state()
+                if state == vlc.State.Playing:
+                    self.logger.info("Playing")
+                elif state == vlc.State.Paused:
+                    self.logger.info("Paused")
+                elif state == vlc.State.Stopped:
+                    self.logger.info("Stopped")
+                elif state == vlc.State.Error:
+                    self.logger.error("Error")
+                time.sleep(1)
+            except Exception as e:
+                self.logger.error(f"Error in _monitor_playback: {e}")
+                break 

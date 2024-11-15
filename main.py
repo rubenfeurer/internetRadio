@@ -20,23 +20,24 @@ from src.controllers.network_controller import NetworkController
 from src.controllers.radio_controller import RadioController
 from src.web.web_controller import WebController
 from src.utils.config_migration import ConfigMigration
+import os
 
 # At the top of the file, after imports
 def setup_logging():
     """Initialize logging configuration"""
     try:
         print("Setting up logging...")  # Debug print
-        Logger.setup_logging(
-            app_log_path='/home/radio/internetRadio/logs/app.log',
-            network_log_path='/home/radio/internetRadio/logs/network_debug.log'
-        )
-        logger = Logger('main')
+        log_dir = os.path.join('/home/radio/internetRadio/logs')
+        os.makedirs(log_dir, exist_ok=True)
+        
+        # Use the new Logger implementation
+        logger = Logger('main', log_dir=log_dir)
         print(f"Logger created: {logger}")  # Debug print
         return logger
     except Exception as e:
         print(f"Failed to setup logging: {e}")
         import traceback
-        print(traceback.format_exc())  # Print full traceback
+        print(traceback.format_exc())
         return None
 
 # Global logger instance
@@ -46,7 +47,8 @@ print(f"Global logger initialized: {logger}")  # Debug print
 def cleanup(radio=None, network=None, web=None):
     """Clean up resources"""
     try:
-        logger.info("Cleaning up resources...")
+        if logger:
+            logger.info("Cleaning up resources...")
         if web:
             web.stop()
         if radio:
@@ -54,7 +56,11 @@ def cleanup(radio=None, network=None, web=None):
         if network:
             network.cleanup()
     except Exception as e:
-        logger.error(f"Error during cleanup: {e}")
+        if logger:
+            logger.error(f"Error during cleanup: {e}")
+    finally:
+        # Clean up logger resources
+        Logger.cleanup()
 
 def signal_handler(signum, frame):
     """Handle shutdown signals"""
@@ -64,72 +70,82 @@ def signal_handler(signum, frame):
 
 class InternetRadio:
     def __init__(self):
-        self.logger = logger
-        
+        """Initialize InternetRadio"""
         try:
-            # Initialize configuration migration
-            config_dir = Path(__file__).parent / 'config'
-            migration = ConfigMigration(config_dir)
-            migration.migrate()
-        except Exception as e:
-            self.logger.warning(f"Config migration failed: {e}, using default config")
-
-        # Initialize managers
-        self.config_manager = ConfigManager()
-        self.stream_manager = StreamManager()
-
-        # Initialize hardware components with config
-        self.audio = AudioManager(
-            default_volume=self.config_manager.audio.default_volume,
-            volume_step=self.config_manager.audio.volume_step
-        )
-        self.gpio = GPIOManager()
-
-        # Initialize network components
-        self.wifi = WiFiManager()
-        self.ap = APManager(
-            ssid=self.config_manager.network.ap_ssid,
-            password=self.config_manager.network.ap_password
-        )
-
-        # Initialize controllers
-        self.network_controller = NetworkController(
-            wifi_manager=self.wifi,
-            ap_manager=self.ap,
-            config_manager=self.config_manager
-        )
-        self.radio_controller = RadioController(
-            audio_manager=self.audio,
-            gpio_manager=self.gpio,
-            stream_manager=self.stream_manager
-        )
-        self.web_controller = WebController(
-            radio_controller=self.radio_controller,
-            network_controller=self.network_controller
-        )
-
-    def start(self):
-        try:
-            self.logger.info("Starting Internet Radio...")
+            # Initialize logger
+            self.logger = Logger('radio', log_dir='/home/radio/internetRadio/logs')
             
-            # Initialize components
-            self.gpio.initialize()
-            self.audio.initialize()
-            self.network_controller.initialize()
+            # Initialize configuration
+            self.config_manager = ConfigManager()
             
-            # Start web interface
-            self.web_controller.start()
+            # Initialize managers
+            self.stream_manager = StreamManager()
+            self.audio_manager = AudioManager()
+            self.gpio_manager = GPIOManager()
+            
+            # Initialize controllers
+            self.radio_controller = RadioController(
+                config_manager=self.config_manager,
+                gpio_manager=self.gpio_manager
+            )
+            
+            self.network_controller = NetworkController(
+                config_manager=self.config_manager
+            )
+            
+            # Initialize state
+            self.current_stream = None
+            self.volume = self.config_manager.audio.default_volume
+            
+            self.logger.info("InternetRadio initialized successfully")
             
         except Exception as e:
-            self.logger.error(f"Error starting application: {e}")
-            self.cleanup()
+            self.logger.error(f"Error initializing InternetRadio: {e}")
+            raise
 
-    def cleanup(self):
+    def play_stream(self, stream_name: str) -> bool:
+        """Play a stream by name"""
         try:
-            self.logger.info("Cleaning up...")
-            self.gpio.cleanup()
-            self.audio.cleanup()
+            stream = self.stream_manager.get_stream_by_name(stream_name)
+            if stream:
+                if self.stream_manager.play(stream.url):
+                    self.current_stream = stream
+                    self.logger.info(f"Playing stream: {stream_name}")
+                    return True
+            self.logger.error(f"Stream not found: {stream_name}")
+            return False
+        except Exception as e:
+            self.logger.error(f"Error playing stream: {e}")
+            return False
+
+    def stop_stream(self) -> None:
+        """Stop the current stream"""
+        try:
+            self.stream_manager.stop()
+            self.current_stream = None
+            self.logger.info("Stream stopped")
+        except Exception as e:
+            self.logger.error(f"Error stopping stream: {e}")
+
+    def set_volume(self, volume: int) -> None:
+        """Set the volume"""
+        try:
+            self.stream_manager.set_volume(volume)
+            self.volume = volume
+            self.logger.info(f"Volume set to {volume}")
+        except Exception as e:
+            self.logger.error(f"Error setting volume: {e}")
+
+    def get_volume(self) -> int:
+        """Get the current volume"""
+        return self.volume
+
+    def cleanup(self) -> None:
+        """Clean up resources"""
+        try:
+            self.stream_manager.stop()
             self.network_controller.cleanup()
+            self.logger.info("InternetRadio cleaned up")
         except Exception as e:
             self.logger.error(f"Error during cleanup: {e}")
 

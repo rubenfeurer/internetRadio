@@ -1,7 +1,7 @@
 import toml
 from pathlib import Path
 from typing import Dict, Any, Optional
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from .logger import Logger
 import os
 import logging
@@ -14,10 +14,11 @@ class AudioConfig:
 
 @dataclass
 class NetworkConfig:
-    saved_networks: list = None
-    ap_ssid: str = "InternetRadio"
-    ap_password: str = "radio123"
-    connection_timeout: int = 30
+    ap_ssid: str = "RadioAP"
+    ap_password: str = "Radio@1234"
+    wifi_networks: Dict[str, str] = field(default_factory=dict)
+    connection_timeout: int = 60
+    saved_networks: Dict[str, str] = field(default_factory=dict)
 
 @dataclass
 class LoggingConfig:
@@ -25,97 +26,99 @@ class LoggingConfig:
     file: str = "logs/radio.log"
 
 class ConfigManager:
-    def __init__(self, config_dir: str = None):
-        """Initialize ConfigManager"""
-        self.logger = Logger.get_logger(__name__)
-        self.config_dir = config_dir or os.path.join(os.path.dirname(os.path.dirname(__file__)), 'config')
+    def __init__(self, config_dir=None):
+        # Set config directory
+        self.config_dir = config_dir or os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'config')
+        
+        # Initialize logger with proper directory
+        log_dir = os.path.join(os.path.dirname(self.config_dir), 'logs')
+        self.logger = Logger('config', log_dir=log_dir)
+        
+        # Set default configurations
+        self.audio = AudioConfig()
+        self.network = NetworkConfig()
+        
+        # Load configuration
         self._load_config()
-
-    def _load_config(self) -> None:
-        """Load configuration from TOML file"""
+    
+    def _load_config(self):
+        """Load configuration from file"""
         try:
-            config_data = {}
+            config_path = os.path.join(self.config_dir, 'config.toml')
             
-            # Try both config.toml and radio.toml
-            config_files = ['config.toml', 'radio.toml']
-            
-            for filename in config_files:
-                config_path = os.path.join(self.config_dir, filename)
-                if os.path.exists(config_path):
-                    with open(config_path, 'r') as f:
-                        config_data = toml.load(f)
-                        self.logger.debug(f"Loaded config from {config_path}: {config_data}")
-                    break
-            
-            # Initialize audio config with defaults
-            self.audio = AudioConfig()
-            
-            # Update from loaded config
-            if 'audio' in config_data:
-                audio_config = config_data['audio']
-                self.audio.default_volume = audio_config.get('default_volume', self.audio.default_volume)
-                self.audio.volume_step = audio_config.get('volume_step', self.audio.volume_step)
-                self.audio.sounds_enabled = audio_config.get('sounds_enabled', self.audio.sounds_enabled)
-            
-            # Initialize network config with defaults
-            self.network = NetworkConfig()
-            
-            # Update from loaded config
-            if 'network' in config_data:
-                network_config = config_data['network']
-                self.network.saved_networks = network_config.get('saved_networks', [])
-                self.network.ap_ssid = network_config.get('ap_ssid', self.network.ap_ssid)
-                self.network.ap_password = network_config.get('ap_password', self.network.ap_password)
-            
-            # Initialize logging config with defaults
-            self.logging = LoggingConfig()
-            
-            # Update from loaded config
-            if 'logging' in config_data:
-                logging_config = config_data['logging']
-                self.logging.level = logging_config.get('level', self.logging.level)
-            
-            # Apply logging level
-            logging.getLogger().setLevel(self.logging.level)
-            
-        except Exception as e:
-            self.logger.error(f"Error loading config: {str(e)}")
-
-    def _merge_config_data(self, base: dict, override: dict) -> None:
-        """Deep merge configuration dictionaries"""
-        for key, value in override.items():
-            if key in base and isinstance(base[key], dict) and isinstance(value, dict):
-                self._merge_config_data(base[key], value)
+            if os.path.exists(config_path):
+                with open(config_path, 'r') as f:
+                    config = toml.load(f)
+                
+                # Load audio configuration
+                if 'audio' in config:
+                    self.audio.default_volume = config['audio'].get('default_volume', self.audio.default_volume)
+                    self.audio.volume_step = config['audio'].get('volume_step', self.audio.volume_step)
+                    self.audio.sounds_enabled = config['audio'].get('sounds_enabled', self.audio.sounds_enabled)
+                
+                # Load network configuration
+                if 'network' in config:
+                    self.network.ap_ssid = config['network'].get('ap_ssid', self.network.ap_ssid)
+                    self.network.ap_password = config['network'].get('ap_password', self.network.ap_password)
+                    self.network.wifi_networks = config['network'].get('wifi_networks', self.network.wifi_networks)
+                    self.network.saved_networks = config['network'].get('saved_networks', self.network.saved_networks)
+                    self.network.connection_timeout = config['network'].get('connection_timeout', self.network.connection_timeout)
             else:
-                base[key] = value
-
-    def save_config(self) -> bool:
-        """Save configuration to file"""
+                self.logger.warning(f"Config file not found at {config_path}, using defaults")
+                
+        except Exception as e:
+            self.logger.error(f"Error loading config: {e}")
+            # Continue with default values
+    
+    def save_config(self):
+        """Save current configuration to file"""
         try:
-            config_data = {
+            config = {
                 'audio': {
                     'default_volume': self.audio.default_volume,
                     'volume_step': self.audio.volume_step,
                     'sounds_enabled': self.audio.sounds_enabled
                 },
                 'network': {
-                    'saved_networks': self.network.saved_networks,
                     'ap_ssid': self.network.ap_ssid,
                     'ap_password': self.network.ap_password,
-                    'connection_timeout': self.network.connection_timeout
-                },
-                'logging': {
-                    'level': self.logging.level
+                    'wifi_networks': self.network.wifi_networks,
+                    'connection_timeout': self.network.connection_timeout,
+                    'saved_networks': self.network.saved_networks
                 }
             }
             
-            config_path = os.path.join(self.config_dir, 'radio.toml')
-            with open(config_path, 'w') as f:
-                toml.dump(config_data, f)
-            return True
+            config_path = os.path.join(self.config_dir, 'config.toml')
+            os.makedirs(os.path.dirname(config_path), exist_ok=True)
             
+            with open(config_path, 'w') as f:
+                toml.dump(config, f)
+            
+            self.logger.info("Configuration saved successfully")
+            return True
         except Exception as e:
-            self.logger.error(f"Error saving config: {str(e)}")
+            self.logger.error(f"Error saving config: {e}")
+            return False
+    
+    def add_saved_network(self, ssid: str, password: str) -> bool:
+        """Add a network to saved networks"""
+        try:
+            self.network.saved_networks[ssid] = password
+            return self.save_config()
+        except Exception as e:
+            self.logger.error(f"Error in add_saved_network: {e}")
+            return False
+    
+    def remove_saved_network(self, ssid: str) -> bool:
+        """Remove a network from saved networks"""
+        try:
+            self.logger.info(f"Networks before removal: {self.network.saved_networks}")
+            if ssid in self.network.saved_networks:
+                del self.network.saved_networks[ssid]
+                return self.save_config()
+            return False
+        except Exception as e:
+            self.logger.error(f"Error in remove_saved_network: {e}")
             return False
 
     def update_audio_config(self, **kwargs) -> bool:
@@ -153,69 +156,6 @@ class ConfigManager:
             self.logger.error(f"Error updating network config: {str(e)}")
             return False
 
-    def add_saved_network(self, network: Dict[str, Any]) -> bool:
-        """Add a network to saved networks"""
-        try:
-            self.logger.debug(f"Adding network: {network}")
-            
-            if not hasattr(self, 'network'):
-                self.logger.error("Network configuration not initialized")
-                return False
-            
-            if self.network.saved_networks is None:
-                self.network.saved_networks = []
-            
-            # Check if network already exists
-            if network not in self.network.saved_networks:
-                self.network.saved_networks.append(network)
-                self.logger.debug(f"Network added, saving config")
-                return self._save_config()
-            
-            self.logger.debug("Network already exists")
-            return False
-            
-        except Exception as e:
-            self.logger.error(f"Error adding saved network: {e}")
-            return False
-
-    def remove_saved_network(self, ssid: str) -> bool:
-        """Remove saved network by SSID"""
-        try:
-            self.logger.debug(f"Starting remove_saved_network for SSID: {ssid}")
-            
-            if not hasattr(self, 'network'):
-                self.logger.error("No network attribute")
-                return False
-            
-            if not hasattr(self.network, 'saved_networks'):
-                self.logger.error("No saved_networks attribute")
-                return False
-            
-            networks = self.network.saved_networks
-            initial_length = len(networks)
-            self.logger.debug(f"Initial networks: {networks}")
-            
-            # Remove network
-            new_networks = [n for n in networks if n.get('ssid') != ssid]
-            self.logger.debug(f"Networks after filtering: {new_networks}")
-            
-            if len(new_networks) < initial_length:
-                self.network.saved_networks = new_networks
-                try:
-                    self._save_config()
-                    self.logger.info(f"Successfully removed network {ssid} and saved config")
-                    return True
-                except Exception as save_error:
-                    self.logger.error(f"Error saving config: {save_error}")
-                    return False
-            
-            self.logger.warning(f"Network {ssid} not found in saved networks")
-            return False
-            
-        except Exception as e:
-            self.logger.error(f"Error in remove_saved_network: {str(e)}")
-            return False
-
     def _update_from_dict(self, config_data: dict) -> None:
         """Update configuration from dictionary"""
         try:
@@ -233,10 +173,11 @@ class ConfigManager:
                 self.network = type('NetworkConfig', (), {})()
     
             network_config = config_data.get('network', {})
-            self.network.saved_networks = network_config.get('saved_networks', [])
-            self.network.ap_ssid = network_config.get('ap_ssid', 'InternetRadio')
-            self.network.ap_password = network_config.get('ap_password', 'radio123')
-            self.network.connection_timeout = network_config.get('connection_timeout', 30)
+            self.network.ap_ssid = network_config.get('ap_ssid', 'RadioAP')
+            self.network.ap_password = network_config.get('ap_password', 'Radio@1234')
+            self.network.wifi_networks = network_config.get('wifi_networks', {})
+            self.network.connection_timeout = network_config.get('connection_timeout', 60)
+            self.network.saved_networks = network_config.get('saved_networks', {})
     
             # Initialize logging config
             if not hasattr(self, 'logging'):
@@ -265,9 +206,11 @@ class ConfigManager:
             
             if hasattr(self, 'network'):
                 return {
-                    'saved_networks': self.network.saved_networks,
                     'ap_ssid': self.network.ap_ssid,
-                    'ap_password': self.network.ap_password
+                    'ap_password': self.network.ap_password,
+                    'wifi_networks': self.network.wifi_networks,
+                    'connection_timeout': self.network.connection_timeout,
+                    'saved_networks': self.network.saved_networks
                 }
             return {}
         except Exception as e:
@@ -291,9 +234,11 @@ class ConfigManager:
             # Add network config if it exists
             if hasattr(self, 'network'):
                 config_data['network'] = {
-                    'saved_networks': self.network.saved_networks,
                     'ap_ssid': self.network.ap_ssid,
-                    'ap_password': self.network.ap_password
+                    'ap_password': self.network.ap_password,
+                    'wifi_networks': self.network.wifi_networks,
+                    'connection_timeout': self.network.connection_timeout,
+                    'saved_networks': self.network.saved_networks
                 }
             
             config_path = os.path.join(self.config_dir, 'config.toml')

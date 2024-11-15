@@ -10,56 +10,47 @@ import shutil
 class TestConfigManager(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures"""
-        # Create test config
+        # Create temporary directory for test configs
+        self.test_dir = tempfile.mkdtemp()
+        self.config_dir = Path(self.test_dir) / 'config'
+        self.config_dir.mkdir(exist_ok=True)
+        
+        # Create test config file
         self.test_config = {
-            'network': {
-                'ap_ssid': 'TestRadio',
-                'ap_password': 'TestPass',
-                'saved_networks': []
-            },
             'audio': {
                 'default_volume': 50,
                 'volume_step': 5,
                 'sounds_enabled': True
             },
-            'logging': {
-                'level': 'DEBUG'
+            'network': {
+                'ap_ssid': 'TestRadio',
+                'ap_password': 'TestPass123',
+                'wifi_networks': {},
+                'saved_networks': {'TestNetwork': 'TestPassword'},
+                'connection_timeout': 60
             }
         }
         
-        # Create config directory
-        self.temp_dir = tempfile.mkdtemp()
-        self.config_dir = Path(self.temp_dir)
-        
-        # Ensure config directory exists
-        os.makedirs(self.config_dir, exist_ok=True)
-        
-        # Write test config to radio.toml
-        with open(self.config_dir / 'radio.toml', 'w') as f:
+        # Write test config to file
+        config_file = self.config_dir / 'config.toml'
+        with open(config_file, 'w') as f:
             toml.dump(self.test_config, f)
         
         # Initialize config manager with test directory
         self.config_manager = ConfigManager(config_dir=str(self.config_dir))
-        
+    
     def tearDown(self):
-        try:
-            shutil.rmtree(self.temp_dir)
-        except Exception as e:
-            print(f"Error during cleanup: {e}")
-        finally:
-            Logger.reset()
+        """Tear down test fixtures"""
+        # Clean up temporary directory
+        shutil.rmtree(self.test_dir)
         
     def test_load_config(self):
         """Test loading configuration from file"""
-        # Verify audio config
         self.assertEqual(self.config_manager.audio.default_volume, 50)
-        
-        # Verify network config
+        self.assertEqual(self.config_manager.audio.volume_step, 5)
         self.assertEqual(self.config_manager.network.ap_ssid, 'TestRadio')
-        self.assertEqual(self.config_manager.network.ap_password, 'TestPass')
-        
-        # Verify logging config
-        self.assertEqual(self.config_manager.logging.level, 'DEBUG')
+        self.assertEqual(self.config_manager.network.ap_password, 'TestPass123')
+        self.assertEqual(self.config_manager.network.wifi_networks, {})
         
     def test_update_audio_config(self):
         """Test updating audio configuration"""
@@ -85,69 +76,57 @@ class TestConfigManager(unittest.TestCase):
         
     def test_add_saved_network(self):
         """Test adding saved network"""
-        new_network = {
-            'ssid': 'NewNetwork',
-            'password': 'new123'
-        }
-        self.assertTrue(self.config_manager.add_saved_network(new_network))
-        self.assertIn(new_network, self.config_manager.network.saved_networks)
-        
-        # Test adding duplicate network
-        self.assertFalse(self.config_manager.add_saved_network(new_network))
+        ssid = "TestNetwork2"
+        password = "TestPassword2"
+        result = self.config_manager.add_saved_network(ssid, password)
+        self.assertTrue(result)
+        self.assertIn(ssid, self.config_manager.network.saved_networks)
+        self.assertEqual(self.config_manager.network.saved_networks[ssid], password)
         
     def test_remove_saved_network(self):
         """Test removing saved network"""
-        # Create test config with a network to remove
-        test_config = {
-            'network': {
-                'saved_networks': [
-                    {'ssid': 'TestNetwork', 'password': 'test123'}
-                ],
-                'ap_ssid': 'TestRadio',
-                'ap_password': 'test456'
-            }
-        }
-        
-        # Write test config
-        config_path = os.path.join(self.config_dir, 'config.toml')
-        with open(config_path, 'w') as f:
-            toml.dump(test_config, f)
-        
-        # Create new config manager with this config
-        self.config_manager = ConfigManager(config_dir=str(self.config_dir))
-        
-        # Verify network exists before removal
-        networks = self.config_manager.get_network_config().get('saved_networks', [])
-        print(f"Networks before removal: {networks}")  # Debug print
-        
-        # Try to remove the network
-        result = self.config_manager.remove_saved_network('TestNetwork')
-        print(f"Remove result: {result}")  # Debug print
-        
-        # Verify removal
+        ssid = "TestNetwork"
+        self.config_manager.network.saved_networks[ssid] = "TestPassword"
+        result = self.config_manager.remove_saved_network(ssid)
         self.assertTrue(result)
-        self.assertEqual(len(self.config_manager.network.saved_networks), 0)
+        self.assertNotIn(ssid, self.config_manager.network.saved_networks)
         
     def test_save_config(self):
         """Test saving configuration to file"""
-        self.config_manager.update_audio_config(default_volume=80)
+        # Update some values
+        self.config_manager.audio.default_volume = 75
+        self.config_manager.network.ap_ssid = "NewRadio"
         
-        # Load config again to verify save
-        new_manager = ConfigManager(config_dir=self.temp_dir)
-        self.assertEqual(new_manager.audio.default_volume, 80)
+        # Save configuration
+        result = self.config_manager.save_config()
+        self.assertTrue(result)
+        
+        # Create new config manager to read saved config
+        new_manager = ConfigManager(config_dir=str(self.config_dir))
+        
+        # Verify values were saved
+        self.assertEqual(new_manager.audio.default_volume, 75)
+        self.assertEqual(new_manager.network.ap_ssid, "NewRadio")
         
     def test_default_config(self):
         """Test default configuration when file doesn't exist"""
-        # Remove existing config file
-        os.remove(self.config_dir / 'radio.toml')
+        # Create a new empty directory for this test
+        empty_dir = tempfile.mkdtemp()
+        empty_config_dir = os.path.join(empty_dir, 'config')
+        os.makedirs(empty_config_dir, exist_ok=True)
         
-        # Create new manager
-        new_manager = ConfigManager(config_dir=self.temp_dir)
+        # Create config manager with empty directory
+        config_manager = ConfigManager(config_dir=empty_config_dir)
         
-        # Check default values
-        self.assertEqual(new_manager.audio.default_volume, 50)
-        self.assertEqual(new_manager.network.ap_ssid, 'InternetRadio')
-        self.assertEqual(new_manager.logging.level, 'INFO')
+        # Test default values
+        self.assertEqual(config_manager.audio.default_volume, 50)
+        self.assertEqual(config_manager.audio.volume_step, 5)
+        self.assertEqual(config_manager.network.ap_ssid, "RadioAP")
+        self.assertEqual(config_manager.network.ap_password, "Radio@1234")
+        self.assertEqual(config_manager.network.wifi_networks, {})
+        
+        # Clean up
+        shutil.rmtree(empty_dir)
         
     def test_saved_networks_config(self):
         """Test that saved networks are loaded correctly from config.toml"""
@@ -234,30 +213,12 @@ class TestConfigManager(unittest.TestCase):
 
     def test_add_saved_network_single(self):
         """Test adding a single network to saved networks"""
-        # Create test config
-        test_config = {
-            'network': {
-                'saved_networks': [],
-                'ap_ssid': 'TestRadio',
-                'ap_password': 'test123'
-            }
-        }
-        
-        # Write test config
-        config_path = os.path.join(self.config_dir, 'config.toml')
-        with open(config_path, 'w') as f:
-            toml.dump(test_config, f)
-        
-        # Create config manager
-        config_manager = ConfigManager(config_dir=str(self.config_dir))
-        
-        # Add new network
-        new_network = {'ssid': 'NewNetwork', 'password': 'new123'}
-        result = config_manager.add_saved_network(new_network)
-        
-        # Verify
+        new_network = "TestNetwork2"
+        password = "TestPassword2"
+        result = self.config_manager.add_saved_network(new_network, password)
         self.assertTrue(result)
-        self.assertIn(new_network, config_manager.network.saved_networks)
+        self.assertIn(new_network, self.config_manager.network.saved_networks)
+        self.assertEqual(self.config_manager.network.saved_networks[new_network], password)
 
     def test_load_config_with_audio(self):
         """Test loading audio configuration from file"""

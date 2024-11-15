@@ -1,92 +1,91 @@
 import logging
 import os
 from logging.handlers import RotatingFileHandler
-from typing import Optional, Dict
-
-class AlsaFilter(logging.Filter):
-    """Filter out ALSA-related messages"""
-    def filter(self, record):
-        if hasattr(record, 'msg'):
-            patterns = [
-                "snd_use_case_mgr_open",
-                "failed to import hw:",
-                "Could not unmute Master",
-                "Unable to find simple control",
-                "Could not set Master volume",
-                "Warning: Could not",
-                "amixer: Unable to find",
-                "alsa-lib"
-            ]
-            return not any(pattern in str(record.msg) for pattern in patterns)
-        return True
 
 class Logger:
     _instances = {}
+    _handlers = set()  # Track all handlers
     
-    def __init__(self, name):
-        """Initialize logger with specific settings for size control"""
-        if name not in Logger._instances:
+    def __new__(cls, name, log_dir=None):
+        key = f"{name}:{log_dir}"
+        if key not in cls._instances:
+            instance = super().__new__(cls)
+            instance.__init__(name, log_dir)
+            cls._instances[key] = instance
+        return cls._instances[key]
+    
+    def __init__(self, name, log_dir=None):
+        if not hasattr(self, '_initialized'):
             self.logger = logging.getLogger(name)
             self.logger.setLevel(logging.INFO)
-            self._configure_logger(name)
-            Logger._instances[name] = self.logger
-        else:
-            self.logger = Logger._instances[name]
-
-    def _configure_logger(self, name):
-        """Configure logger with strict size limits"""
-        # Set very conservative size limits
-        MAX_BYTES = 1024 * 1024  # 1MB
-        BACKUP_COUNT = 2  # Keep only 2 backup files
-        
-        # Map logger names to their log files
-        log_files = {
-            'radio': 'radio.log',
-            'network': 'wifi.log',
-            'app': 'app.log'
-        }
-        
-        # Get log file name or use default
-        log_file = log_files.get(name, f'{name}.log')
-        log_path = os.path.join(os.getcwd(), 'logs', log_file)
-        
-        # Create logs directory if it doesn't exist
-        os.makedirs(os.path.dirname(log_path), exist_ok=True)
-        
-        # Configure rotating file handler with strict limits
-        file_handler = RotatingFileHandler(
-            log_path,
-            maxBytes=MAX_BYTES,
-            backupCount=BACKUP_COUNT,
-            encoding='utf-8'
-        )
-        
-        # Set format to include minimal necessary information
-        formatter = logging.Formatter(
-            '%(asctime)s - %(levelname)s - %(message).200s',  # Limit message length
-            datefmt='%Y-%m-%d %H:%M:%S'
-        )
-        file_handler.setFormatter(formatter)
-        
-        # Only log INFO and above to file
-        file_handler.setLevel(logging.INFO)
-        
-        # Configure console output only in development
-        if 'DEVELOPMENT' in os.environ:
+            
+            # Use provided log_dir or default to 'logs'
+            self.log_dir = log_dir or os.path.join(os.getcwd(), 'logs')
+            os.makedirs(self.log_dir, exist_ok=True)
+            
+            # Remove existing handlers if any
+            self._remove_existing_handlers()
+            
+            # File handler
+            log_file = os.path.join(self.log_dir, f'{name}.log')
+            file_handler = RotatingFileHandler(
+                log_file,
+                maxBytes=1024 * 1024,  # 1MB
+                backupCount=3
+            )
+            file_handler.setFormatter(logging.Formatter(
+                '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+            ))
+            self.logger.addHandler(file_handler)
+            self._handlers.add(file_handler)  # Track handler
+            
+            # Console handler
             console_handler = logging.StreamHandler()
-            console_handler.setFormatter(formatter)
+            console_handler.setFormatter(logging.Formatter(
+                '%(levelname)s: %(message)s'
+            ))
             self.logger.addHandler(console_handler)
+            self._handlers.add(console_handler)  # Track handler
+            
+            self._initialized = True
+    
+    def _remove_existing_handlers(self):
+        """Remove and close existing handlers"""
+        if hasattr(self, 'logger'):
+            for handler in self.logger.handlers[:]:
+                handler.close()
+                self.logger.removeHandler(handler)
+                if handler in self._handlers:
+                    self._handlers.remove(handler)
+    
+    @classmethod
+    def cleanup(cls):
+        """Clean up all resources"""
+        # Close all handlers
+        for handler in cls._handlers.copy():
+            try:
+                handler.close()
+            except:
+                pass  # Ignore errors during cleanup
+        cls._handlers.clear()
         
-        self.logger.addHandler(file_handler)
-
-    def info(self, msg: str):
-        self.logger.info(msg)
-
-    def error(self, msg: str):
-        self.logger.error(msg)
-
-    def warning(self, msg: str):
-        self.logger.warning(msg)
-
-    def debug(self, msg: str):
-        self.logger.debug(msg)
+        # Clear instances and remove handlers
+        for instance in cls._instances.values():
+            if hasattr(instance, 'logger'):
+                instance._remove_existing_handlers()
+        cls._instances.clear()
+        
+        # Clear logging configuration
+        logging.Logger.manager.loggerDict.clear()
+    
+    def info(self, message):
+        self.logger.info(message)
+    
+    def error(self, message):
+        self.logger.error(message)
+    
+    def debug(self, message):
+        self.logger.debug(message)
+    
+    def warning(self, message):
+        self.logger.warning(message)
