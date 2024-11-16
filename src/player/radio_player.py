@@ -51,10 +51,14 @@ class RadioPlayer:
     
     def initialize(self):
         try:
-            # Load config
-            with open('config.toml', 'r') as f:
-                config = toml.load(f)
-                default_volume = config.get('default_volume', 80)  # fallback to 80 if not set
+            # Load config with error handling
+            try:
+                with open('config/config.toml', 'r') as f:
+                    config = toml.load(f)
+                    default_volume = config.get('default_volume', 80)
+            except Exception as e:
+                logger.error(f"Error loading config: {e}")
+                default_volume = 80  # fallback value
             
             # VLC configuration
             vlc_args = [

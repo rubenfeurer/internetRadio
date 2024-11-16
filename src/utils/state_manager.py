@@ -2,7 +2,7 @@ import json
 import os
 
 class StateManager:
-    def __init__(self, state_file='radio_state.json'):
+    def __init__(self, state_file='config/radio_state.json'):
         self.state_file = state_file
         self.default_state = {
             'selected_stations': [],

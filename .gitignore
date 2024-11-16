@@ -19,3 +19,6 @@ debug.log
 # Temp files
 *.tmp
 *~
+# Logs
+logs/
+*.log

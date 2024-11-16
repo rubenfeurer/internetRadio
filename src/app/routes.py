@@ -1,20 +1,34 @@
 import os
 import signal
 import logging
+from logging.handlers import RotatingFileHandler
 from flask import Flask, request, jsonify, send_from_directory, render_template
-from player import RadioPlayer
+from src.player.radio_player import RadioPlayer
+from src.utils.stream_manager import StreamManager
+from src.utils.state_manager import StateManager
 import toml
 import json
 
-# Set up logging with more detail
+# Set up logging with more detail and rotation
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        RotatingFileHandler(
+            'logs/radio.log',
+            maxBytes=1024 * 1024,  # 1MB per file
+            backupCount=5,         # Keep 5 backup files
+            encoding='utf-8'
+        ),
+        logging.StreamHandler()
+    ]
 )
 logger = logging.getLogger(__name__)
 
 # Create Flask app
-app = Flask(__name__)
+app = Flask(__name__, 
+           template_folder='../../templates',
+           static_folder='../../static')
 
 class RadioService:
     def __init__(self):
@@ -65,7 +79,7 @@ signal.signal(signal.SIGTERM, signal_handler)
 
 def load_streams():
     try:
-        with open('streams.toml', 'r') as f:
+        with open('config/streams.toml', 'r') as f:
             config = toml.load(f)
             return config.get('links', [])
     except Exception as e:
@@ -75,7 +89,7 @@ def load_streams():
 def load_selected_stations():
     try:
         # First try to load from radio_state.json
-        with open('radio_state.json', 'r') as f:
+        with open('config/radio_state.json', 'r') as f:
             state = json.load(f)
             selected_stations = state.get('selected_stations', [])
             
@@ -221,7 +235,7 @@ def select_station():
         
         # Load current state
         try:
-            with open('radio_state.json', 'r') as f:
+            with open('config/radio_state.json', 'r') as f:
                 state = json.load(f)
         except:
             state = {"selected_stations": []}
@@ -240,7 +254,7 @@ def select_station():
         state['selected_stations'][data['slot']] = selected_stream
         
         # Save the state
-        with open('radio_state.json', 'w') as f:
+        with open('config/radio_state.json', 'w') as f:
             json.dump(state, f, indent=4)
         
         return jsonify({"success": True})

@@ -1,7 +1,7 @@
 import tomli
 
 class StreamManager:
-    def __init__(self, toml_file='streams.toml'):
+    def __init__(self, toml_file='config/streams.toml'):
         self.toml_file = toml_file
         self.streams = self.load_streams()
         
