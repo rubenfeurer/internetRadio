@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Pi Radio</h1>
+    
+    <div class="selected-stations">
+        {% for station in stations %}
+            <div class="station-item">
+                <div class="station-info">
+                    <h2>{{ station.name }}</h2>
+                    <p>{{ station.country }} - {{ station.location }}</p>
+                </div>
+                <div class="station-controls">
+                    <button 
+                        class="play-button"
+                        data-url="{{ station.url }}"
+                        onclick="this.textContent === 'Play' ? playStream('{{ station.url }}', this) : stopStream(this)">
+                        Play
+                    </button>
+                    <a href="{{ url_for('stations', slot_index=loop.index0) }}" class="change-station-button">Change</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

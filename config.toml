@@ -1,0 +1,6 @@
+# Default radio stations configuration
+default_stations = [
+    "GDS.FM",
+    "Ambi Nature Radio",
+    "SRF 3"
+] 

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Select Station for Slot {{ slot_index + 1 }}</h1>
+    
+    <div class="stations-list">
+        {% for stream in streams %}
+            <div class="station-item">
+                <div class="station-info">
+                    <h2>{{ stream.name }}</h2>
+                    <p>{{ stream.country }} - {{ stream.location }}</p>
+                </div>
+                <button onclick="selectStation('{{ stream.name }}', {{ slot_index }})" class="select-button">Select</button>
+            </div>
+        {% endfor %}
+    </div>
+
+    <a href="{{ url_for('index') }}" class="back-button">Back to Player</a>
+</div>
+
+<script>
+async function selectStation(name, slotIndex) {
+    try {
+        const response = await fetch('/api/select_station', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                name: name,
+                slot: slotIndex
+            })
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+            window.location.href = '/';  // Redirect back to main page
+        } else {
+            alert('Could not set station.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+</script>
+{% endblock %}
