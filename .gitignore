@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Project specific
+*.log
+radio_state.json
+.DS_Store
+
+# System
+.directory
+.Trash-*
+
+# Debug files
+debug.log
+*.debug
+
+# Temp files
+*.tmp
+*~

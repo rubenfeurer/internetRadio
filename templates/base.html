@@ -18,11 +18,16 @@
                     body: JSON.stringify({ url: url })
                 });
                 
+                if (!response.ok) {
+                    console.error('Play failed:', await response.text());
+                    return;
+                }
+                
                 // Update all buttons to show correct state
                 document.querySelectorAll('.play-button').forEach(button => {
                     button.textContent = 'Play';
                 });
-                buttonElement.textContent = 'Pause';
+                buttonElement.textContent = 'Stop';
                 
             } catch (error) {
                 console.error('Error:', error);
@@ -31,7 +36,11 @@
 
         async function stopStream(buttonElement) {
             try {
-                await fetch('/api/stop', { method: 'POST' });
+                const response = await fetch('/api/stop', { method: 'POST' });
+                if (!response.ok) {
+                    console.error('Stop failed:', await response.text());
+                    return;
+                }
                 buttonElement.textContent = 'Play';
             } catch (error) {
                 console.error('Error:', error);
@@ -46,8 +55,8 @@
                 
                 document.querySelectorAll('.play-button').forEach(button => {
                     const streamUrl = button.getAttribute('data-url');
-                    if (data.playing && streamUrl === data.current_stream) {
-                        button.textContent = 'Pause';
+                    if (data.state === 'playing' && streamUrl === data.current_station) {
+                        button.textContent = 'Stop';
                     } else {
                         button.textContent = 'Play';
                     }

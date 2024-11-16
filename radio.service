@@ -1,0 +1,29 @@
+[Unit]
+Description=Internet Radio Web Application
+After=network-online.target sound.target
+Wants=network-online.target sound.target
+
+[Service]
+Type=simple
+User=radio
+Group=audio
+WorkingDirectory=/home/radio/internetRadio
+Environment=PYTHONUNBUFFERED=1
+Environment=FLASK_APP=app.py
+Environment=FLASK_DEBUG=0
+Environment=ALSA_CARD=2
+Environment=ALSA_PCM_CARD=2
+Environment=ALSA_DEVICE=hw:2,0
+ExecStartPre=/usr/bin/amixer -c 2 set PCM unmute
+ExecStartPre=/usr/bin/amixer -c 2 set PCM 50%
+ExecStart=/usr/bin/python3 /home/radio/internetRadio/app.py
+ExecStop=/bin/kill -SIGTERM $MAINPID
+KillMode=control-group
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
